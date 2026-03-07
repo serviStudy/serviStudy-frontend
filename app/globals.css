@@ -2,6 +2,20 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+:root {
+  --grisFondo: #eaeaea;
+  --azulOscuro: #1e40af;
+  --azulClaro: #C2DDFF;
+  --verdeClaro: #009232;
+  --verdeClaroFondo: #C9FFC8;
+  --grisTexto: #656565;
+  --naranjaFondo: #FFD9B2;
+  --naranjaTexto: #BE6105;
+  --naranjaBorde: #FF8000;
+  --amarrilloReseñas: #FFDC6A;
+}
+
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
