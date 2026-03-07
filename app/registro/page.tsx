@@ -4,7 +4,7 @@ const page = () => {
     return (
         <div className='bg-gray-200 min-h-screen min-w-screen flex items-center justify-center '>
 
-            <div className='w-73.75 h-111.75 rounded-md bg-white text-center py-3 px-12'>
+            <div className='w-73.75 h-111.75 rounded-md bg-white text-center'>
                 <h2 className='text-[#1e40af] text-[24px] font-bold'>Registrarse</h2>
                 <p className='text-[#656565] text-[12px]'>Ingresa tus credenciales para crear tu cuenta.</p>
                 
