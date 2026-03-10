@@ -6,11 +6,13 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { RoleSwitch } from '@/components/shared/RoleSwitch'
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import RegisterModal from "@/components/auth/RegisterModal"
+import { studentTerms } from "@/lib/terms/studentTerms"
 
 type TipoUsuario = "estudiante" | "empresa"
 
 const Page = () => {
+
     const [tipoUsuario, setTipoUsuario] = useState<TipoUsuario>("estudiante")
 
     const [formData, setFormData] = useState({
@@ -32,14 +34,6 @@ const Page = () => {
         password: '',
         tyc: ''
     })
-    
-    {/*
-    const [isOpen, setIsOpen] = useState(false)
-
-    function handleModal() {
-        let 
-    }
-    */}
 
     function validateForm(e: React.FormEvent<HTMLFormElement>){
         e.preventDefault()
@@ -141,56 +135,22 @@ const Page = () => {
                                 onCheckedChange={(checked) => setFormData (prev => ({...prev, tyc: Boolean(checked)}))}
                                 />
                                 {tipoUsuario === "estudiante" 
-                                    ? <a className=" hover:underline"> 
-                                        <Dialog>
-                                            <DialogTrigger asChild>
-                                                <button type="button" className="hover:underline">
-                                                    Aceptar términos y condiciones
-                                                </button>
-                                            </DialogTrigger>
-                                            <DialogContent>
-                                                <DialogHeader>
-                                                    <DialogTitle className="text-primary font-bold text-2xl">Términos y condiciones</DialogTitle>
-                                                    <DialogDescription>Este modal contendrá los términos y condiciones del usuario al utilizar la plataforma</DialogDescription>
-                                                </DialogHeader>
-                                                <div className="-mx-4 no-scrollbar max-h-[50vh] overflow-y-auto px-4">
-                                                    <p className="mb-4 leading-normal" >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                                                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                                                        enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                                                        nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                                                        reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                                                        nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                                                        sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                                    </p>
-                                                </div>
-                                            </DialogContent>
-                                        </Dialog>
-                                    </a>
-                                    : <a className=" hover:underline">
-                                        <Dialog>
-                                            <DialogTrigger asChild>
-                                                <button type="button" className="hover:underline">
-                                                    Declaración de representantes
-                                                </button>
-                                            </DialogTrigger>
-                                            <DialogContent>
-                                                <DialogHeader>
-                                                    <DialogTitle className="text-green-700 font-bold text-2xl">Términos y condiciones</DialogTitle>
-                                                    <DialogDescription>Este modal contendrá los términos y condiciones del usuario al utilizar la plataforma</DialogDescription>
-                                                </DialogHeader>
-                                                <div className="-mx-4 no-scrollbar max-h-[50vh] overflow-y-auto px-4">
-                                                    <p className="mb-4 leading-normal" >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                                                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                                                        enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                                                        nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                                                        reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                                                        nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                                                        sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                                    </p>
-                                                </div>
-                                            </DialogContent>
-                                        </Dialog>
-                                        </a>
+                                    ?  
+                                    <RegisterModal
+                                        tittle={"Términos y condiciones"} 
+                                        button={"Términos y condiciones"} 
+                                        description={"Términos y condiciones de la plataforma para el usuario estudiante"} 
+                                        paragraph={studentTerms} 
+                                        tittleColor="text-primary"
+                                    />
+                                : 
+                                    <RegisterModal
+                                        button={"Declaración de representante"} 
+                                        tittle={"Declaración de representante"}
+                                        paragraph={studentTerms}
+                                        description={"Términos y condiciones de la plataforma para el usuario empleador"} 
+                                        tittleColor="text-green-700"
+                                    />
                                 }
                             </div>
                             <p className="text-[10px] px-6 font-medium text-red-700">{errors.tyc}</p>
