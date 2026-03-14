@@ -2,6 +2,20 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+:root {
+  --grisFondo: #eaeaea;
+  --azulOscuro: #1e40af;
+  --azulClaro: #C2DDFF;
+  --verdeClaro: #009232;
+  --verdeClaroFondo: #C9FFC8;
+  --grisTexto: #656565;
+  --naranjaFondo: #FFD9B2;
+  --naranjaTexto: #BE6105;
+  --naranjaBorde: #FF8000;
+  --amarrilloReseñas: #FFDC6A;
+}
+
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -55,7 +69,7 @@
   --card-foreground: oklch(0.129 0.042 264.695);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
+  --primary: #4F46E5;
   --primary-foreground: oklch(0.984 0.003 247.858);
   --secondary: oklch(0.968 0.007 247.896);
   --secondary-foreground: oklch(0.208 0.042 265.755);
