@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { RoleSwitch } from '@/components/shared/RoleSwitch'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { HeaderLR } from "@/components/shared/HeaderLR"
 
 type TipoUsuario = "estudiante" | "empresa"
 
@@ -74,8 +75,9 @@ const Page = () => {
     }
 
     return (
-        <div className="flex min-h-screen items-center justify-center bg-gray-100">
-            <Card className="w-73.75 md:w-96 xl:w-100 p-4">
+        <div className="flex min-h-screen items-center justify-center bg-gray-100 ">
+            <HeaderLR/>
+            <Card className="w-73.75 md:w-96 xl:w-100 p-4 mt-25">
                 <CardHeader>
                     <CardTitle className="text-center text-[24px] lg:text-2xl font-bold text-primary">
                         Registrarse
