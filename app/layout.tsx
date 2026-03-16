@@ -27,10 +27,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        
         {children}
         <footer>
-          <div className="w-full bg-white text-[#1e40af] p-5 text-center flex-col">
+          <div className="w-full bg-white text-[#6f6f6f] p-5 text-center flex-col">
             <p className="text-sm">
               &copy; {new Date().getFullYear()} ServiStudy. Todos los derechos reservados.
             </p>

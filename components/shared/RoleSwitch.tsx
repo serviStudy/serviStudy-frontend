@@ -1,6 +1,7 @@
 "use client"
 import React from 'react'
 import { Button } from "@/components/ui/button"
+import { Building2, User } from 'lucide-react'
 
 type TipoUsuario = "estudiante" | "empresa"
 
@@ -13,7 +14,6 @@ export const RoleSwitch = ({tipoUsuario, setTipoUsuario} : RoleSwitchProps) => {
     return (
         <>
         <div className="flex justify-center gap-2 bg-gray-200 p-2 rounded-lg h-11 md:h-13 w-fit mx-auto">
-
             <Button
             className={
                 tipoUsuario === "estudiante"
@@ -21,7 +21,8 @@ export const RoleSwitch = ({tipoUsuario, setTipoUsuario} : RoleSwitchProps) => {
                 : "bg-white text-black h-7 md:h-9 text-[12px] md:text-[14px] lg:text-[15px] border hover:bg-gray-100"
             }
             onClick={() => setTipoUsuario("estudiante")}>
-            Estudiante
+                <User></User>
+                Estudiante
             </Button>
 
             <Button
@@ -31,7 +32,8 @@ export const RoleSwitch = ({tipoUsuario, setTipoUsuario} : RoleSwitchProps) => {
                 : "bg-white text-black border hover:bg-gray-100 h-7 md:h-9 text-[12px] md:text-[14px] lg:text-[15px]"
             }
             onClick={() => setTipoUsuario("empresa")}>
-            Empresa
+                <Building2></Building2>
+                Empresa
             </Button>
 
         </div>

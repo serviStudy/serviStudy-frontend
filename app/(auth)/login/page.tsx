@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { HeaderLR } from "@/components/shared/HeaderLR"
+import Link from "next/link"
 
 export default function LoginPage() {
 
@@ -14,7 +15,7 @@ export default function LoginPage() {
 
     <div className="flex min-h-screen items-center justify-center bg-gray-100">
       <HeaderLR/>
-      <Card className="w-100 p-4 mt-25">
+      <Card className="w-100 p-4">
 
         <CardHeader>
           <CardTitle className="text-center text-2xl font-bold text-primary">
@@ -118,19 +119,15 @@ export default function LoginPage() {
 
 
           {/* REGISTRO */}
-
           <p className="text-center text-sm text-gray-500">
             ¿Aún no tienes cuenta?
-            <a href="/login" className="ml-1 cursor-pointer hover:underline text-primary">
-              Registrate Gratis
-            </a>
+            <Link href="/registro" className="ml-1 cursor-pointer hover:underline text-primary">
+              Registrate gratis
+            </Link>
           </p>
 
         </CardContent>
-
       </Card>
-
     </div>
-
   )
 }

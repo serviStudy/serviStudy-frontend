@@ -6,8 +6,10 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { RoleSwitch } from '@/components/shared/RoleSwitch'
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import RegisterModal from "@/components/auth/RegisterModal"
+import { studentTerms } from "@/lib/terms/studentTerms"
 import { HeaderLR } from "@/components/shared/HeaderLR"
+
 
 type TipoUsuario = "estudiante" | "empresa"
 
@@ -17,7 +19,15 @@ const Page = () => {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
+        confirmPassword: '',
         tyc: false
+    });
+
+    const [errors, setErrors] = useState({
+        email: '',
+        password: '',
+        confirmPassword: '',
+        tyc: ''
     });
 
     function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -28,26 +38,17 @@ const Page = () => {
         }))
     }
 
-    const [errors, setErrors] = useState({
-        email: '',
-        password: '',
-        tyc: ''
-    })
-    
-    {/*
-    const [isOpen, setIsOpen] = useState(false)
-
-    function handleModal() {
-        let 
-    }
-    */}
-
-    function validateForm(e: React.FormEvent<HTMLFormElement>){
+    async function validateForm(e: React.FormEvent<HTMLFormElement>){
         e.preventDefault()
         const newErrors = {
             email: '',
             password: '',
+            confirmPassword: '',
             tyc: ''
+        }
+
+        if(formData.confirmPassword !== formData.password){
+            newErrors.confirmPassword = "Las contraseñas deben concidir"
         }
 
         if(tipoUsuario === "estudiante"){
@@ -69,9 +70,27 @@ const Page = () => {
             }
         }
         setErrors(newErrors)
-        if(newErrors.email || newErrors.password || newErrors.tyc){
+        if(newErrors.email || newErrors.password || newErrors.confirmPassword || newErrors.tyc){
             return
         }
+    }
+
+    function handleTipoUsuarioChange(tipo: TipoUsuario){
+        setTipoUsuario(tipo)
+
+        setFormData({
+            email: '',
+            password: '',
+            confirmPassword: '',
+            tyc: false
+        })
+
+        setErrors({
+            email: '',
+            password: '',
+            confirmPassword: '',
+            tyc: ''
+        })
     }
 
     return (
@@ -92,7 +111,7 @@ const Page = () => {
                     {/* BOTONES ESTUDIANTE / EMPRESA */}
                     <RoleSwitch
                         tipoUsuario={tipoUsuario}
-                        setTipoUsuario={setTipoUsuario}
+                        setTipoUsuario={handleTipoUsuarioChange}
                     />
 
                     {tipoUsuario === "empresa" && (
@@ -104,35 +123,52 @@ const Page = () => {
 
                     {/* SEPARADOR */}
                     <div className="text-[12px] md:text-[14px] lg:text-sm text-gray-500 flex justify-center items-center gap-2">
-                        <hr className=" border-primary w-10 border lg:w-16" />
+                        <hr className= { tipoUsuario === "estudiante"
+                            ? "border-primary w-10 border lg:w-16"
+                            : "border-green-600 w-10 border lg:w-16"}/>
                         o continuar con email
-                        <hr className=" border-primary w-10 border lg:w-16"/>
+                        <hr className= { tipoUsuario === "estudiante"
+                            ? "border-primary w-10 border lg:w-16"
+                            : "border-green-600 w-10 border lg:w-16"}/>
                     </div>
 
                     {/* FORM */}
-                    <form onSubmit={validateForm} className="space-y-1">
-                        <label className="text-[12px] md:text-[14px] lg:text-sm font-medium text-gray-500 py-"> 
-                            Correo eletrónico
-                            <Input className="text-[12px] md:text-[14px] lg:text-sm font-normal" 
-                                placeholder={tipoUsuario === "estudiante" ? "ejemplo@.edu.co" : "ejemplo@gmail.com"}
-                                type="text" 
-                                name="email"
-                                value={formData.email}
-                                onChange={handleInputChange}
-                            />
-                            <p className="text-[10px] text-red-700">{errors.email}</p>
-                        </label>
+                    <form onSubmit={validateForm} className="space-y-2">
+                        <div className="flex flex-col gap-2">
+                            <label className="text-[12px] md:text-[14px] lg:text-sm font-medium text-gray-500"> 
+                                Correo eletrónico
+                                <Input className="text-[12px] md:text-[14px] lg:text-sm font-normal" 
+                                    placeholder={tipoUsuario === "estudiante" ? "ejemplo@.edu.co" : "ejemplo@gmail.com"}
+                                    type="text" 
+                                    name="email"
+                                    value={formData.email}
+                                    onChange={handleInputChange}
+                                />
+                                <p className="text-[10px] text-red-700">{errors.email}</p>
+                            </label>
 
-                        <label className="text-[12px] md:text-[14px] lg:text-sm font-medium text-gray-500 pt-5">
-                            Contraseña
-                            <Input className="text-[12px] md:text-[14px] lg:text-sm font-normal" placeholder="contraseña"
-                                type="password" 
-                                name="password"
-                                value={formData.password}
-                                onChange={handleInputChange}
-                            />
-                            <p className="text-[10px] text-red-700">{errors.password}</p>
-                        </label>
+                            <label className="text-[12px] md:text-[14px] lg:text-sm font-medium text-gray-500">
+                                Contraseña
+                                <Input className="text-[12px] md:text-[14px] lg:text-sm font-normal" placeholder="contraseña"
+                                    type="password" 
+                                    name="password"
+                                    value={formData.password}
+                                    onChange={handleInputChange}
+                                />
+                                <p className="text-[10px] text-red-700">{errors.password}</p>
+                            </label>
+
+                            <label className="text-[12px] md:text-[14px] lg:text-sm font-medium text-gray-500">
+                                Confirmar contraseña
+                                <Input className="text-[12px] md:text-[14px] lg:text-sm font-normal" placeholder="confirma tu contraseña"
+                                    type="password" 
+                                    name="confirmPassword"
+                                    value={formData.confirmPassword}
+                                    onChange={handleInputChange}
+                                />
+                                <p className="text-[10px] text-red-700">{errors.confirmPassword}</p>
+                            </label>
+                        </div>
 
                         {/* RECORDAR */}
                         <div className=" justify-between items-center text-[12px] md:text-[14px] lg:text-sm pt-1.5">
@@ -143,56 +179,22 @@ const Page = () => {
                                 onCheckedChange={(checked) => setFormData (prev => ({...prev, tyc: Boolean(checked)}))}
                                 />
                                 {tipoUsuario === "estudiante" 
-                                    ? <a className=" hover:underline"> 
-                                        <Dialog>
-                                            <DialogTrigger asChild>
-                                                <button type="button" className="hover:underline">
-                                                    Aceptar términos y condiciones
-                                                </button>
-                                            </DialogTrigger>
-                                            <DialogContent>
-                                                <DialogHeader>
-                                                    <DialogTitle className="text-primary font-bold text-2xl">Términos y condiciones</DialogTitle>
-                                                    <DialogDescription>Este modal contendrá los términos y condiciones del usuario al utilizar la plataforma</DialogDescription>
-                                                </DialogHeader>
-                                                <div className="-mx-4 no-scrollbar max-h-[50vh] overflow-y-auto px-4">
-                                                    <p className="mb-4 leading-normal" >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                                                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                                                        enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                                                        nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                                                        reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                                                        nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                                                        sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                                    </p>
-                                                </div>
-                                            </DialogContent>
-                                        </Dialog>
-                                    </a>
-                                    : <a className=" hover:underline">
-                                        <Dialog>
-                                            <DialogTrigger asChild>
-                                                <button type="button" className="hover:underline">
-                                                    Declaración de representantes
-                                                </button>
-                                            </DialogTrigger>
-                                            <DialogContent>
-                                                <DialogHeader>
-                                                    <DialogTitle className="text-green-700 font-bold text-2xl">Términos y condiciones</DialogTitle>
-                                                    <DialogDescription>Este modal contendrá los términos y condiciones del usuario al utilizar la plataforma</DialogDescription>
-                                                </DialogHeader>
-                                                <div className="-mx-4 no-scrollbar max-h-[50vh] overflow-y-auto px-4">
-                                                    <p className="mb-4 leading-normal" >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                                                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                                                        enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                                                        nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                                                        reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                                                        nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                                                        sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                                    </p>
-                                                </div>
-                                            </DialogContent>
-                                        </Dialog>
-                                        </a>
+                                    ?  
+                                    <RegisterModal
+                                        tittle={"Términos y condiciones"} 
+                                        button={"Términos y condiciones"} 
+                                        description={"Términos y condiciones de la plataforma para el usuario estudiante"} 
+                                        paragraph={studentTerms} 
+                                        tittleColor="text-primary"
+                                    />
+                                : 
+                                    <RegisterModal
+                                        button={"Declaración de representante"} 
+                                        tittle={"Declaración de representante"}
+                                        paragraph={studentTerms}
+                                        description={"Términos y condiciones de la plataforma para el usuario empleador"} 
+                                        tittleColor="text-green-700"
+                                    />
                                 }
                             </div>
                             <p className="text-[10px] px-6 font-medium text-red-700">{errors.tyc}</p>
@@ -209,19 +211,17 @@ const Page = () => {
                             >
                         Registrarse
                         </Button>
-                    </form>
+                </form>
 
-                    {/* REGISTRO */}
-                    <p className="text-center text-[12px] md:text-[14px] lg:text-sm text-gray-500">
-                        ¿Ya tienes cuenta?
-                        <Link href="/login" className="ml-1 cursor-pointer hover:underline text-primary">
-                        Inicia sesión
-                        </Link>
-                    </p>
-                </CardContent>
-            </Card>
-
-            
+                {/* REGISTRO */}
+                <p className="text-center text-[12px] md:text-[14px] lg:text-sm text-gray-500">
+                    ¿Ya tienes cuenta?
+                    <Link href="/login" className="ml-1 cursor-pointer hover:underline text-primary">
+                    Inicia sesión
+                    </Link>
+                </p>
+            </CardContent>
+        </Card>
     </div>
     )
 }
