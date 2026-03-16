@@ -8,17 +8,25 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { RoleSwitch } from '@/components/shared/RoleSwitch'
 import RegisterModal from "@/components/auth/RegisterModal"
 import { studentTerms } from "@/lib/terms/studentTerms"
+import { HeaderLR } from "@/components/shared/HeaderLR"
 
 type TipoUsuario = "estudiante" | "empresa"
 
 const Page = () => {
-
     const [tipoUsuario, setTipoUsuario] = useState<TipoUsuario>("estudiante")
 
     const [formData, setFormData] = useState({
         email: '',
         password: '',
+        confirmPassword: '',
         tyc: false
+    });
+
+    const [errors, setErrors] = useState({
+        email: '',
+        password: '',
+        confirmPassword: '',
+        tyc: ''
     });
 
     function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -29,18 +37,17 @@ const Page = () => {
         }))
     }
 
-    const [errors, setErrors] = useState({
-        email: '',
-        password: '',
-        tyc: ''
-    })
-
-    function validateForm(e: React.FormEvent<HTMLFormElement>){
+    async function validateForm(e: React.FormEvent<HTMLFormElement>){
         e.preventDefault()
         const newErrors = {
             email: '',
             password: '',
+            confirmPassword: '',
             tyc: ''
+        }
+
+        if(formData.confirmPassword !== formData.password){
+            newErrors.confirmPassword = "Las contraseñas deben concidir"
         }
 
         if(tipoUsuario === "estudiante"){
@@ -62,13 +69,32 @@ const Page = () => {
             }
         }
         setErrors(newErrors)
-        if(newErrors.email || newErrors.password || newErrors.tyc){
+        if(newErrors.email || newErrors.password || newErrors.confirmPassword || newErrors.tyc){
             return
         }
     }
 
+    function handleTipoUsuarioChange(tipo: TipoUsuario){
+        setTipoUsuario(tipo)
+
+        setFormData({
+            email: '',
+            password: '',
+            confirmPassword: '',
+            tyc: false
+        })
+
+        setErrors({
+            email: '',
+            password: '',
+            confirmPassword: '',
+            tyc: ''
+        })
+    }
+
     return (
         <div className="flex min-h-screen items-center justify-center bg-gray-100">
+            <HeaderLR/>
             <Card className="w-73.75 md:w-96 xl:w-100 p-4">
                 <CardHeader>
                     <CardTitle className="text-center text-[24px] lg:text-2xl font-bold text-primary">
@@ -84,7 +110,7 @@ const Page = () => {
                     {/* BOTONES ESTUDIANTE / EMPRESA */}
                     <RoleSwitch
                         tipoUsuario={tipoUsuario}
-                        setTipoUsuario={setTipoUsuario}
+                        setTipoUsuario={handleTipoUsuarioChange}
                     />
 
                     {tipoUsuario === "empresa" && (
@@ -96,35 +122,52 @@ const Page = () => {
 
                     {/* SEPARADOR */}
                     <div className="text-[12px] md:text-[14px] lg:text-sm text-gray-500 flex justify-center items-center gap-2">
-                        <hr className=" border-primary w-10 border lg:w-16" />
+                        <hr className= { tipoUsuario === "estudiante"
+                            ? "border-primary w-10 border lg:w-16"
+                            : "border-green-600 w-10 border lg:w-16"}/>
                         o continuar con email
-                        <hr className=" border-primary w-10 border lg:w-16"/>
+                        <hr className= { tipoUsuario === "estudiante"
+                            ? "border-primary w-10 border lg:w-16"
+                            : "border-green-600 w-10 border lg:w-16"}/>
                     </div>
 
                     {/* FORM */}
-                    <form onSubmit={validateForm} className="space-y-1">
-                        <label className="text-[12px] md:text-[14px] lg:text-sm font-medium text-gray-500 py-"> 
-                            Correo eletrónico
-                            <Input className="text-[12px] md:text-[14px] lg:text-sm font-normal" 
-                                placeholder={tipoUsuario === "estudiante" ? "ejemplo@.edu.co" : "ejemplo@gmail.com"}
-                                type="text" 
-                                name="email"
-                                value={formData.email}
-                                onChange={handleInputChange}
-                            />
-                            <p className="text-[10px] text-red-700">{errors.email}</p>
-                        </label>
+                    <form onSubmit={validateForm} className="space-y-2">
+                        <div className="flex flex-col gap-2">
+                            <label className="text-[12px] md:text-[14px] lg:text-sm font-medium text-gray-500"> 
+                                Correo eletrónico
+                                <Input className="text-[12px] md:text-[14px] lg:text-sm font-normal" 
+                                    placeholder={tipoUsuario === "estudiante" ? "ejemplo@.edu.co" : "ejemplo@gmail.com"}
+                                    type="text" 
+                                    name="email"
+                                    value={formData.email}
+                                    onChange={handleInputChange}
+                                />
+                                <p className="text-[10px] text-red-700">{errors.email}</p>
+                            </label>
 
-                        <label className="text-[12px] md:text-[14px] lg:text-sm font-medium text-gray-500 pt-5">
-                            Contraseña
-                            <Input className="text-[12px] md:text-[14px] lg:text-sm font-normal" placeholder="contraseña"
-                                type="password" 
-                                name="password"
-                                value={formData.password}
-                                onChange={handleInputChange}
-                            />
-                            <p className="text-[10px] text-red-700">{errors.password}</p>
-                        </label>
+                            <label className="text-[12px] md:text-[14px] lg:text-sm font-medium text-gray-500">
+                                Contraseña
+                                <Input className="text-[12px] md:text-[14px] lg:text-sm font-normal" placeholder="contraseña"
+                                    type="password" 
+                                    name="password"
+                                    value={formData.password}
+                                    onChange={handleInputChange}
+                                />
+                                <p className="text-[10px] text-red-700">{errors.password}</p>
+                            </label>
+
+                            <label className="text-[12px] md:text-[14px] lg:text-sm font-medium text-gray-500">
+                                Confirmar contraseña
+                                <Input className="text-[12px] md:text-[14px] lg:text-sm font-normal" placeholder="confirma tu contraseña"
+                                    type="password" 
+                                    name="confirmPassword"
+                                    value={formData.confirmPassword}
+                                    onChange={handleInputChange}
+                                />
+                                <p className="text-[10px] text-red-700">{errors.confirmPassword}</p>
+                            </label>
+                        </div>
 
                         {/* RECORDAR */}
                         <div className=" justify-between items-center text-[12px] md:text-[14px] lg:text-sm pt-1.5">
@@ -167,19 +210,17 @@ const Page = () => {
                             >
                         Registrarse
                         </Button>
-                    </form>
+                </form>
 
-                    {/* REGISTRO */}
-                    <p className="text-center text-[12px] md:text-[14px] lg:text-sm text-gray-500">
-                        ¿Ya tienes cuenta?
-                        <Link href="/login" className="ml-1 cursor-pointer hover:underline text-primary">
-                        Inicia sesión
-                        </Link>
-                    </p>
-                </CardContent>
-            </Card>
-
-            
+                {/* REGISTRO */}
+                <p className="text-center text-[12px] md:text-[14px] lg:text-sm text-gray-500">
+                    ¿Ya tienes cuenta?
+                    <Link href="/login" className="ml-1 cursor-pointer hover:underline text-primary">
+                    Inicia sesión
+                    </Link>
+                </p>
+            </CardContent>
+        </Card>
     </div>
     )
 }

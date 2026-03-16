@@ -27,9 +27,17 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        
         {children}
-
+        <footer>
+          <div className="w-full bg-white text-[#6f6f6f] p-5 text-center flex-col">
+            <p className="text-sm">
+              &copy; {new Date().getFullYear()} ServiStudy. Todos los derechos reservados.
+            </p>
+            <p className="text-xs">
+              Conectando talento estudiantil con oportuninades.
+            </p>
+          </div>
+        </footer>
       </body>
     </html>
   );
