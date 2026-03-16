@@ -1,3 +1,4 @@
+import { HeaderLR } from '@/components/shared/HeaderLR'
 import { ProfileVerification } from '@/components/shared/ProfileVerification'
 import { StudentTags } from '@/components/shared/StudentTags'
 import { VerifiedUser } from '@/components/shared/VerifiedUser'
@@ -6,7 +7,8 @@ import React from 'react'
 
 const page = () => {
     return (
-        <div className="flex flex-col gap-9 min-h-screen items-center justify-center bg-gray-200 py-14">
+        <div className="flex flex-col gap-9 min-h-screen items-center justify-center bg-gray-200 pt-24 pb-12">
+            <HeaderLR/>
             <ProfileVerification></ProfileVerification>
 
             <div className="bg-white w-77.5 h-154.25 rounded-[9px] lg:w-228 lg:h-234.5 lg:rounded-[14px]">
@@ -16,7 +18,7 @@ const page = () => {
                         <SquarePen className="text-primary h-5 w-5 lg:h-9 lg:w-9 lg:text-popover"strokeWidth={1.5}/>
                     </button>
 
-                    <div className="flex flex-col items-center lg:flex-row lg:items-start lg:gap-14">
+                    <div className="flex flex-col items-center lg:flex-row lg:items-start lg:gap-6">
                         <div className="bg-primary flex items-center justify-center rounded-full h-15 w-15 lg:w-28 lg:h-28" />
                         
                         <div className="flex flex-col items-center lg:items-start">
@@ -51,7 +53,7 @@ const page = () => {
                             para aplicar mis habilidades de comunicación y trabajo en equipo. Rápido aprendizaje y actitud positiva.</p>
                     </div>
 
-                    <div className='flex flex-col gap-3'>
+                    <div className='flex flex-col gap-1'>
                         <div className='flex gap-1 items-center text-[14px] lg:gap-2 lg:text-[24px]'>
                             <Zap className='text-primary h-4.5 w-4.5 lg:h-8 lg:w-8'/>
                             <h4 className='font-bold text-primary'>Cualidades</h4>
@@ -59,7 +61,7 @@ const page = () => {
                         <StudentTags></StudentTags>
                     </div>
 
-                    <div className='flex flex-col lg:gap-44 lg:flex-row'>
+                    <div className='flex flex-col gap-7 lg:gap-44 lg:flex-row'>
                         <div className='flex gap-1 items-center text-[14px] lg:gap-2 lg:text-[24px]'>
                             <Clock className='text-primary h-4.5 w-4.5 lg:h-8 lg:w-8'/>
                             <h4 className='font-bold text-primary'>Disponibilidad Horaria</h4>
