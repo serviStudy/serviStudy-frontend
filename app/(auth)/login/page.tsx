@@ -10,6 +10,20 @@ import Link from "next/link"
 export default function LoginPage() {
 
   const [tipoUsuario, setTipoUsuario] = useState("estudiante")
+  const [correo, setCorreo] = useState("")
+  const [errorCorreo, setErrorCorreo] = useState("")
+
+  const validarLogin = () => {
+
+    if (tipoUsuario === "estudiante" && !correo.endsWith(".edu")) {
+      setErrorCorreo("El correo debe terminar en .edu para estudiantes")
+      return
+    }
+
+    setErrorCorreo("")
+    alert("Login válido")
+
+  }
 
   return (
 
@@ -27,36 +41,44 @@ export default function LoginPage() {
           </p>
 
         </CardHeader>
-          
 
         <CardContent className="space-y-4">
       
-        <div className="flex justify-center gap-2 bg-gray-200 p-2 rounded-lg w-fit mx-auto">
+          <div className="flex justify-center gap-2 bg-gray-200 p-2 rounded-lg w-fit mx-auto">
 
-          <Button
-            className={
-              tipoUsuario === "estudiante"
-                ? "bg-primary text-white"
-                : "bg-white text-black border hover:bg-gray-100"
-            }
-            onClick={() => setTipoUsuario("estudiante")}
-          >
-            Estudiante
-          </Button>
+            <Button
+              className={
+                tipoUsuario === "estudiante"
+                  ? "bg-primary text-white"
+                  : "bg-white text-black border hover:bg-gray-100"
+              }
+              onClick={() => {
+                setTipoUsuario("estudiante")
+                setErrorCorreo("")
+              }}
+            >
+              Estudiante
+            </Button>
+
+            <Button
+              className={
+                tipoUsuario === "empresa"
+                  ? "bg-green-600 hover:bg-green-700 text-white"
+                  : "bg-white text-black border hover:bg-gray-100"
+              }
+              onClick={() => {
+                setTipoUsuario("empresa")
+                setErrorCorreo("")
+              }}
+            >
+              Empresa
+            </Button>
+
+          </div>
 
 
-          <Button
-            className={
-              tipoUsuario === "empresa"
-                ? "bg-green-600 hover:bg-green-700 text-white hover:bg-green" 
-                : "bg-white text-black border hover:bg-gray-100"
-            }
-            onClick={() => setTipoUsuario("empresa")}
-          >
-            Empresa
-          </Button>
+          {/* GOOGLE SOLO PARA EMPRESA */}
 
-        </div>
           {tipoUsuario === "empresa" && (
 
             <Button variant="outline" className="w-full">
@@ -65,27 +87,46 @@ export default function LoginPage() {
 
           )}
 
+
           {/* SEPARADOR */}
+
           <div className="text-center text-sm text-gray-500">
             o continuar con email
           </div>
 
-          {/* INPUT EMAIL */}
-            <div className="space-y-1">
-                <label className="text-sm font-medium text-gray-500">
-                  Correo electrónico
-                </label>
 
-                <Input placeholder="ejemplo@gmail.com" />
-            </div>
+          {/* INPUT EMAIL */}
+
+          <div className="space-y-1">
+            <label className="text-sm font-medium text-gray-500">
+              Correo electrónico
+            </label>
+
+            <Input
+              placeholder="ejemplo@universidad.edu"
+              value={correo}
+              onChange={(e) => setCorreo(e.target.value)}
+            />
+
+            {errorCorreo && (
+              <p className="text-red-500 text-sm">
+                {errorCorreo}
+              </p>
+            )}
+
+          </div>
+
+
           {/* INPUT PASSWORD */}
 
           <div className="space-y-1">
             <label className="text-sm font-medium text-gray-500">
               Contraseña
             </label>
+
             <Input type="password" placeholder="contraseña" />
           </div>
+
 
           {/* RECORDAR */}
 
@@ -105,13 +146,14 @@ export default function LoginPage() {
 
           {/* BOTÓN LOGIN */}
           <Button
+            onClick={validarLogin}
             className={`w-full ${
               tipoUsuario === "empresa"
                 ? "bg-green-600 hover:bg-green-700 text-white"
                 : ""
             }`}
-            >
-          Iniciar sesión
+          >
+            Iniciar sesión
           </Button>
 
           {/* REGISTRO */}
