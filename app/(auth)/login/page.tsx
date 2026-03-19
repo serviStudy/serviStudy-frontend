@@ -4,6 +4,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
+import { HeaderLR } from "@/components/shared/HeaderLR"
+import Link from "next/link"
 
 export default function LoginPage() {
 
@@ -26,8 +28,8 @@ export default function LoginPage() {
   return (
 
     <div className="flex min-h-screen items-center justify-center bg-gray-100">
-
-      <Card className="w-[400px] p-4">
+      <HeaderLR/>
+      <Card className="w-100 p-4">
 
         <CardHeader>
           <CardTitle className="text-center text-2xl font-bold text-primary">
@@ -41,9 +43,7 @@ export default function LoginPage() {
         </CardHeader>
 
         <CardContent className="space-y-4">
-
-          {/* BOTONES ESTUDIANTE / EMPRESA */}
-
+      
           <div className="flex justify-center gap-2 bg-gray-200 p-2 rounded-lg w-fit mx-auto">
 
             <Button
@@ -145,7 +145,6 @@ export default function LoginPage() {
 
 
           {/* BOTÓN LOGIN */}
-
           <Button
             onClick={validarLogin}
             className={`w-full ${
@@ -157,21 +156,15 @@ export default function LoginPage() {
             Iniciar sesión
           </Button>
 
-
           {/* REGISTRO */}
-
           <p className="text-center text-sm text-gray-500">
             ¿Aún no tienes cuenta?
-            <span className="text-primary ml-1 cursor-pointer">
-              Regístrate gratis
-            </span>
+            <Link href="/registro" className="ml-1 cursor-pointer hover:underline text-primary">
+              Registrate gratis
+            </Link>
           </p>
-
         </CardContent>
-
       </Card>
-
     </div>
-
   )
 }
