@@ -9,6 +9,8 @@ import { RoleSwitch } from '@/components/shared/RoleSwitch'
 import RegisterModal from "@/components/auth/RegisterModal"
 import { studentTerms } from "@/lib/terms/studentTerms"
 import { HeaderLR } from "@/components/shared/HeaderLR"
+import { toast } from "sonner"
+
 
 type TipoUsuario = "estudiante" | "empresa"
 
@@ -72,7 +74,35 @@ const Page = () => {
         if(newErrors.email || newErrors.password || newErrors.confirmPassword || newErrors.tyc){
             return
         }
+        try {
+            const response = await fetch("", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    email: formData.email,
+                    password: formData.password,
+                    tipoUsuario
+                })
+            })
+
+            const data = await response.json()
+            console.log("Respuesta backend:", data)
+
+            if (!response.ok) {
+                toast.error(data.message || "Error en el registro")
+                return
+            }
+
+            window.location.href = `/verificar?email=${formData.email}`
+
+        } catch (error) {
+            console.error("Error:", error)
+            toast.error("Error de conexión con el servidor")
+        }
     }
+
 
     function handleTipoUsuarioChange(tipo: TipoUsuario){
         setTipoUsuario(tipo)
@@ -93,9 +123,9 @@ const Page = () => {
     }
 
     return (
-        <div className="flex min-h-screen items-center justify-center bg-gray-100">
+        <div className="flex min-h-screen items-center justify-center bg-gray-200 ">
             <HeaderLR/>
-            <Card className="w-73.75 md:w-96 xl:w-100 p-4">
+            <Card className="w-73.75 md:w-96 xl:w-100 p-4 mt-25">
                 <CardHeader>
                     <CardTitle className="text-center text-[24px] lg:text-2xl font-bold text-primary">
                         Registrarse

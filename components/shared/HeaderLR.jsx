@@ -1,5 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
+import { ChevronLeft } from "lucide-react"
 
 export const HeaderLR = () => {
 return (
@@ -27,17 +28,7 @@ return (
                     
                     </div>
                     <Link href="/" className="inline-block">
-                    <svg 
-                        width="25px" 
-                        height="25px" 
-                        viewBox="0 0 48 48" 
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path d="M0 0h48v48H0z" fill="none"/>
-                        <g id="Shopicon">
-                        <polygon points="40,22 14.828,22 28.828,8 26,5.172 7.172,24 26,42.828 28.828,40 14.828,26 40,26" fill="currentColor"/>
-                        </g>
-                    </svg>
+                        <ChevronLeft className="text-blue-700 size-8 hover:text-blue-100 hover:bg-blue-700 transition-colors rounded-2xl" ></ChevronLeft>
                     </Link>
                 </div>
                 </header>
