@@ -12,7 +12,6 @@ export const SkillsList = ({skill}: Props) => {
             {skill.map((skill) => (
                 <StudentSkill
                 key={skill.id}
-                skill={skill}
                 />
             ))}
         </div>
