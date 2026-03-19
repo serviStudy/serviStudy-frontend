@@ -104,7 +104,6 @@ export default function LoginPage() {
 
 
           {/* BOTÓN LOGIN */}
-
           <Button
             className={`w-full ${
               tipoUsuario === "empresa"
@@ -115,7 +114,6 @@ export default function LoginPage() {
           Iniciar sesión
           </Button>
 
-
           {/* REGISTRO */}
           <p className="text-center text-sm text-gray-500">
             ¿Aún no tienes cuenta?
@@ -123,7 +121,6 @@ export default function LoginPage() {
               Registrate gratis
             </Link>
           </p>
-
         </CardContent>
       </Card>
     </div>
