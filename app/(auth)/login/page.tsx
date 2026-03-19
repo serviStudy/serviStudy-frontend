@@ -27,12 +27,10 @@ export default function LoginPage() {
           </p>
 
         </CardHeader>
-
+          
 
         <CardContent className="space-y-4">
-
-          {/* BOTONES ESTUDIANTE / EMPRESA */}
-
+      
         <div className="flex justify-center gap-2 bg-gray-200 p-2 rounded-lg w-fit mx-auto">
 
           <Button

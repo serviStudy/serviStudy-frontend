@@ -4,9 +4,13 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { HeaderLR } from "@/components/shared/HeaderLR"
+import { useSearchParams } from "next/navigation"
+import { toast } from "sonner"
 
 export default function Verificar() {
 
+  const searchParams = useSearchParams()
+  const email = searchParams.get("email")
   const [code, setCode] = useState(["", "", "", "", "", ""])
 
   const handleChange = (value: string, index: number) => {
@@ -15,11 +19,35 @@ export default function Verificar() {
     setCode(newCode)
   }
 
-  const handleVerify = () => {
-    const finalCode = code.join("")
-    console.log("Código enviado:", finalCode)
+  const handleVerify = async () => {
+    const finalCode = code.join("") 
 
-    // aquí enviarías el código al backend
+    const response = await fetch(" ", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email,
+        code: finalCode
+      })
+    })
+
+    const data = await response.json()
+
+    if (!response.ok) {
+      toast.error(data.message || "Error en la verificación")
+      return
+    }
+
+    toast.success("Cuenta verificada")
+    
+    if (response.ok) {
+      toast.success("Cuenta verificada")
+      window.location.href = "/login"
+    } else {
+      toast.error("Código incorrecto")
+    }
   }
 
   return (
