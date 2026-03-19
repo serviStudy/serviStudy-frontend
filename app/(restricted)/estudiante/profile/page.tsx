@@ -58,7 +58,7 @@ const page = () => {
                             <Zap className='text-primary h-4.5 w-4.5 lg:h-8 lg:w-8'/>
                             <h4 className='font-bold text-primary'>Cualidades</h4>
                         </div>
-                        <StudentSkill></StudentSkill>
+                        <StudentSkill skill={{id: 1, skill_name: 'Trabajo en equipo'}}/>
                     </div>
 
                     <div className='flex flex-col gap-7 lg:gap-44 lg:flex-row'>

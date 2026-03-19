@@ -1,16 +1,16 @@
 "use client"
 
-import { useState } from "react"
+import { Suspense, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { HeaderLR } from "@/components/shared/HeaderLR"
 import { useSearchParams } from "next/navigation"
 import { toast } from "sonner"
 
-export default function Verificar() {
-
+function VerificarContent() {
   const searchParams = useSearchParams()
   const email = searchParams.get("email")
+
   const [code, setCode] = useState(["", "", "", "", "", ""])
 
   const handleChange = (value: string, index: number) => {
@@ -20,7 +20,7 @@ export default function Verificar() {
   }
 
   const handleVerify = async () => {
-    const finalCode = code.join("") 
+    const finalCode = code.join("")
 
     const response = await fetch(" ", {
       method: "POST",
@@ -41,17 +41,10 @@ export default function Verificar() {
     }
 
     toast.success("Cuenta verificada")
-    
-    if (response.ok) {
-      toast.success("Cuenta verificada")
-      window.location.href = "/login"
-    } else {
-      toast.error("Código incorrecto")
-    }
+    window.location.href = "/login"
   }
 
   return (
-
     <div className="min-h-screen flex items-center justify-center bg-gray-200 px-4">
       <HeaderLR/>
 
@@ -62,7 +55,7 @@ export default function Verificar() {
         </h1>
 
         <p className="text-gray-500 text-sm">
-          Hemos enviado un código de 6 dígitos a ejemplo@gmail.com
+          Hemos enviado un código de 6 dígitos a {email}
         </p>
 
         <div className="flex justify-center gap-2">
@@ -93,7 +86,14 @@ export default function Verificar() {
         </a>
 
       </div>
-
     </div>
+  )
+}
+
+export default function Page() {
+  return (
+    <Suspense fallback={<p>Cargando...</p>}>
+      <VerificarContent />
+    </Suspense>
   )
 }
