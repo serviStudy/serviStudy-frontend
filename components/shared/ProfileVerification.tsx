@@ -17,7 +17,7 @@ export const ProfileVerification = () => {
                             <ItemDescription className='lg:text-[20px] md:text-[14px] text-white text-[11px]'>Adjunta tu documento para obtener la etiqueta de verificación</ItemDescription>
                         </div>
                     </div>
-                    <Button className='lg:w-[197] lg:h-14.5 lg:text-[20px] md:h-7.25 h-6.25 rounded-[19px] bg-white text-[15px] text-primary font-bold lg:hover:border-2 hover:border-white hover:text-white'>Verificar</Button>
+                    <Button variant={'verification'} className='lg:w-[197] lg:h-14.5 lg:text-[20px] md:h-7.25 h-6.25 rounded-[19px] bg-white text-[15px] text-primary font-bold lg:hover:border-2 hover:border-white hover:text-white'>Verificar</Button>
                 </ItemContent>
             </Item>
         </div>

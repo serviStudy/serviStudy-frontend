@@ -13,16 +13,17 @@ export function AIFeatures() {
     return () => clearTimeout(timer);
   }, []);
 
+
   return (
     <section className="w-full py-12 px-4">
       <div className="container mx-auto max-w-6xl">
-        <div className="relative overflow-hidden rounded-[40px] bg-linear-to-br from-blue-600 to-indigo-800 p-8 md:p-12 shadow-2xl">
+        <div className="relative overflow-hidden rounded-[40px] bg-linear-to-br from-blue-600 to-indigo-800 p-6 lg:p-8 md:p-12 shadow-2xl">
           {/* Adorno visual de fondo */}
           <div className="absolute top-0 right-0 -mt-20 -mr-20 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
           
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-center">
             {/* Columna Izquierda: Texto e Info */}
-            <div className="space-y-8 z-10">
+            <div className="lg:space-y-8 space-y-5 z-10">
               <div className="flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-yellow-400 text-blue-900 shadow-lg">
                   <Sparkles className="h-6 w-6" />
@@ -32,9 +33,9 @@ export function AIFeatures() {
                 </h2>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
                 {/* Notificaciones */}
-                <div className="space-y-3">
+                <div className="lg:space-y-3 space-y-1.5">
                   <div className="flex items-center gap-2 text-white font-bold">
                     <Mail className="h-5 w-5" />
                     <h3 className="text-lg">Notificaciones</h3>
@@ -45,7 +46,7 @@ export function AIFeatures() {
                 </div>
 
                 {/* Búsqueda Semántica */}
-                <div className="space-y-3">
+                <div className="lg:space-y-3 space-y-1.5">
                   <div className="flex items-center gap-2 text-white font-bold">
                     <Zap className="h-5 w-5" />
                     <h3 className="text-lg">Búsqueda Semántica</h3>
@@ -59,7 +60,7 @@ export function AIFeatures() {
 
             {/* Columna Derecha: Tarjeta de IA (Glassmorphism) */}
             <div className="relative z-10 flex justify-center lg:justify-end">
-              <div className="w-full max-w-md rounded-3xl border border-white/20 bg-white/10 p-6 backdrop-blur-md shadow-2xl">
+              <div className="w-full max-w-md rounded-3xl border border-white/20 bg-white/10 p-4 md:p-6 backdrop-blur-md shadow-2xl">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="flex h-14 w-14 items-center justify-center rounded-full bg-yellow-400 text-yellow-900 font-black text-xl shadow-inner">
                     AI
@@ -69,7 +70,7 @@ export function AIFeatures() {
                   </p>
                 </div>
 
-                <div className="space-y-4">
+                <div className="md:space-y-4 space-y-2.5">
                   <Progress 
                     value={progress} 
                     className="h-3 bg-[#1e40af]" 

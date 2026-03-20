@@ -126,7 +126,7 @@ const Page = () => {
     return (
         <div className="flex min-h-screen items-center justify-center bg-gray-200 ">
             <HeaderLR/>
-            <Card className="w-73.75 md:w-96 xl:w-100 p-4 mt-25">
+            <Card className="w-100 p-4">
                 <CardHeader>
                     <CardTitle className="text-center text-[24px] lg:text-2xl font-bold text-primary">
                         Registrarse
