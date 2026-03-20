@@ -74,6 +74,7 @@ const Page = () => {
         if(newErrors.email || newErrors.password || newErrors.confirmPassword || newErrors.tyc){
             return
         }
+
         try {
             const response = await fetch("", {
                 method: "POST",
