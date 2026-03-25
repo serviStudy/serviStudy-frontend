@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button"
 import { Building2, User } from 'lucide-react'
 
 type TipoUsuario = "estudiante" | "empresa"
-
     type RoleSwitchProps = {
     tipoUsuario: TipoUsuario
     setTipoUsuario: (tipo: TipoUsuario) => void
