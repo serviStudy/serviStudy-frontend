@@ -3,6 +3,7 @@ import { ProfileVerification } from '@/components/shared/ProfileVerification'
 import { StudentSkill } from '@/components/shared/StudentSkill'
 import { VerifiedUser } from '@/components/shared/VerifiedUser'
 import { AtSign, Calendar, Clock, Phone, SquarePen, Star, User, Users, Zap } from 'lucide-react'
+import Link from 'next/dist/client/link'
 import React from 'react'
 
 const page = () => {
@@ -12,11 +13,13 @@ const page = () => {
             <ProfileVerification/>
 
             <div className="bg-white w-77.5 h-154.25 rounded-[9px] md:w-124 lg:w-228 lg:h-234.5 lg:rounded-[14px]">
-                <div className="relative flex items-center justify-center bg-popover w-77.5 h-49 rounded-t-[9px] p-24 md:w-124 md:h-60 lg:justify-start lg:w-228 lg:h-62.25 lg:rounded-t-[14px] ">
+                <div className="relative flex items-center justify-center bg-popover w-77.5 h-49 rounded-t-[9px] p-24 md:w-124 md:h-60 lg:justify-start lg:w-228 lg:h-62.25 lg:rounded-t-[14px]">
 
-                    <button className="absolute top-3 right-3 lg:right-20 bg-none rounded-[13px] p-2 lg:bg-primary lg:w-13.5 lg:h-13.5 lg:top-10 flex items-center justify-center">
+                    <Link href={'/estudiante/editProfile'}>
+                        <button className="absolute top-3 right-3 lg:right-20 bg-none rounded-[13px] p-2 lg:bg-primary lg:w-13.5 lg:h-13.5 lg:top-10 flex items-center justify-center">
                         <SquarePen className="text-primary h-5 w-5 md:w-6 md:h-6 lg:h-9 lg:w-9 lg:text-popover"strokeWidth={1.5}/>
-                    </button>
+                        </button>
+                    </Link>
 
                     <div className="flex flex-col items-center lg:flex-row lg:items-start lg:gap-6">
                         <div className="bg-primary flex items-center justify-center rounded-full h-15 w-15 md:w-21 md:h-21 lg:w-28 lg:h-28" />
