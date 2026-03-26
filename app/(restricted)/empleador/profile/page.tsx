@@ -5,8 +5,8 @@ import { HeaderLR } from '@/components/shared/HeaderLR'
 // Manteniendo las importaciones originales si estaban
 import { ProfileVerification } from '@/components/shared/ProfileVerification'
 import { VerifiedUser } from '@/components/shared/VerifiedUser'
-import EditProfileModal from "@/components/shared/EditProfile"
 import { VerifyProfileModal } from "@/components/shared/VerifyProfileModal"
+import Link from 'next/link'
 
 import {
   AtSign,
@@ -58,9 +58,8 @@ const MOCK_REVIEWS = [
 ]
 
 const page = () => {
-  const [isEditOpen, setIsEditOpen] = useState(false)
   const [isVerifyOpen, setIsVerifyOpen] = useState(false)
-  
+
   const [nombre, setNombre] = useState('Carlos Guerra Morales')
   const [telefono, setTelefono] = useState('315-887-9086')
   const [empresa, setEmpresa] = useState('Tech Solutions')
@@ -72,7 +71,7 @@ const page = () => {
       <HeaderLR />
 
       <div className="flex w-full flex-col gap-6 items-center">
-        
+
         <div className="w-full max-w-[912px] flex flex-col lg:flex-row items-center justify-between rounded-[14px] bg-[#1a4b9e] p-5 shadow-sm lg:p-6 lg:px-8 gap-4">
           <div className="flex items-center gap-4 text-center lg:text-left">
             <ShieldCheck className="h-8 w-8 text-white lg:h-12 lg:w-12 shrink-0" strokeWidth={1} />
@@ -83,7 +82,7 @@ const page = () => {
               </p>
             </div>
           </div>
-          <button 
+          <button
             onClick={() => setIsVerifyOpen(true)}
             className="rounded-full bg-white text-[#1a4b9e] font-bold hover:bg-gray-100 px-8 py-2 w-full lg:w-auto"
           >
@@ -91,30 +90,30 @@ const page = () => {
           </button>
         </div>
 
-        
+
         <div className="w-full max-w-[912px] rounded-[24px] bg-white shadow-sm overflow-hidden border border-gray-100">
-          
+
           <div className="h-[120px] w-full bg-[#f4fbf3] lg:h-[160px] relative">
-            <button 
-              onClick={() => setIsEditOpen(true)}
+            <Link
+              href="/empleador/profile/edit"
               className="absolute top-6 right-6 lg:top-8 lg:right-8 bg-[#2552d0] p-3 rounded-xl hover:bg-blue-800 transition-colors shadow-sm"
             >
               <Pencil className="h-5 w-5 text-white" />
-            </button>
+            </Link>
           </div>
 
-          
+
           <div className="px-6 lg:px-12 -mt-16 relative pb-10">
             <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 lg:items-end">
-              
+
               <div className="h-28 w-28 shrink-0 rounded-full bg-[#34c759] border-4 border-white flex items-center justify-center text-white text-[56px] font-bold shadow-sm lg:h-[136px] lg:w-[136px]">
                 {empresa.charAt(0).toUpperCase()}
               </div>
-              
+
               <div className="flex flex-col -mt-4 lg:mt-0 lg:pb-2">
                 <h1 className="text-2xl font-extrabold text-[#1a4b9e] lg:text-[32px]">Empleador</h1>
                 <h2 className="text-lg font-bold text-[#1a4b9e]">{empresa}</h2>
-                
+
                 <div className="mt-3 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-gray-500 font-medium">
                   <div className="flex items-center gap-1.5 min-w-fit">
                     <MapPin className="h-4 w-4 text-[#1a4b9e]" />
@@ -133,7 +132,7 @@ const page = () => {
                 <div className="mt-4 flex">
                   <span className="flex items-center gap-1.5 rounded-full border border-gray-300 px-3 py-1 text-xs text-gray-500 font-medium">
                     <CheckCircle2 className="h-3.5 w-3.5" />
-                    Estudiante no verificado
+                    Empleador no verificado
                   </span>
                 </div>
               </div>
@@ -142,10 +141,10 @@ const page = () => {
 
           <hr className="border-gray-100" />
 
-          
+
           <div className="px-6 py-8 lg:px-12 lg:py-10 flex flex-col gap-10">
-            
-            
+
+
             <section className="flex flex-col gap-4">
               <div className="flex items-center gap-2">
                 <Building2 className="h-6 w-6 text-[#1a4b9e]" strokeWidth={2.5} />
@@ -156,7 +155,7 @@ const page = () => {
               </p>
             </section>
 
-            
+
             <section className="flex flex-col gap-4">
               <div className="flex items-center gap-2">
                 <BriefcaseBusiness className="h-6 w-6 text-[#1a4b9e]" strokeWidth={2.5} />
@@ -231,21 +230,6 @@ const page = () => {
           </div>
         </div>
       </div>
-
-      <EditProfileModal
-        open={isEditOpen}
-        setOpen={setIsEditOpen}
-        nombre={nombre}
-        setNombre={setNombre}
-        telefono={telefono}
-        setTelefono={setTelefono}
-        empresa={empresa}
-        setEmpresa={setEmpresa}
-        direccion={direccion}
-        setDireccion={setDireccion}
-        descripcion={descripcion}
-        setDescripcion={setDescripcion}
-      />
 
       <VerifyProfileModal
         isOpen={isVerifyOpen}
