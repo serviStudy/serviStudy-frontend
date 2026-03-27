@@ -1,6 +1,5 @@
 import { DialogContent, DialogTitle } from "@/components/ui/dialog"
 import { ShieldCheck, CloudUpload } from "lucide-react"
-import { ItemTitle } from "../ui/item"
 
 const VerifyProfileModal = () => {
     return (
