@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { HeaderLR } from '@/components/shared/HeaderLR'
 // Manteniendo las importaciones originales si estaban
 import { ProfileVerification } from '@/components/shared/ProfileVerification'
@@ -65,6 +65,23 @@ const page = () => {
   const [empresa, setEmpresa] = useState('Tech Solutions')
   const [direccion, setDireccion] = useState('Plaza de bolívar')
   const [descripcion, setDescripcion] = useState('Tech Solutions es una empresa dedicada al desarrollo e implementación de soluciones tecnológicas innovadoras, orientadas a optimizar procesos y mejorar la eficiencia de organizaciones de diferentes sectores. Se caracteriza por su enfoque en la calidad, el uso de tecnologías modernas y el trabajo colaborativo, ofreciendo un entorno dinámico que promueve el crecimiento profesional y el aprendizaje continuo.')
+
+  useEffect(() => {
+    // Load from localStorage if available
+    const savedData = localStorage.getItem('employer_profile')
+    if (savedData) {
+      try {
+        const parsedData = JSON.parse(savedData)
+        if (parsedData.nombre) setNombre(parsedData.nombre)
+        if (parsedData.telefono) setTelefono(parsedData.telefono)
+        if (parsedData.empresa) setEmpresa(parsedData.empresa)
+        if (parsedData.direccion) setDireccion(parsedData.direccion)
+        if (parsedData.descripcion) setDescripcion(parsedData.descripcion)
+      } catch (error) {
+        console.error('Error parsing employer profile data:', error)
+      }
+    }
+  }, [])
 
   return (
     <div className="flex min-h-screen flex-col items-center gap-9 bg-gray-200 pt-24 pb-12 w-full px-4 lg:px-0">

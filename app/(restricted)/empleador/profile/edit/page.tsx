@@ -3,6 +3,7 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { HeaderLR } from '@/components/shared/HeaderLR'
+import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
@@ -53,8 +54,18 @@ export default function EditProfilePage() {
   const [descripcion, setDescripcion] = useState('Tech Solutions es una empresa dedicada al desarrollo e implementación de soluciones tecnológicas innovadoras, orientadas a optimizar procesos y mejorar la eficiencia de organizaciones de diferentes sectores.')
 
   const handleSave = () => {
-    // Logic to save changes would go here
-    router.push('/(restricted)/empleador/profile')
+    // Save to localStorage so it can be picked up by the profile page
+    const profileData = {
+      nombre,
+      telefono,
+      empresa,
+      direccion,
+      descripcion
+    }
+    localStorage.setItem('employer_profile', JSON.stringify(profileData))
+    
+    toast.success('Perfil actualizado correctamente')
+    router.push('/empleador/profile')
   }
 
   const handleCancel = () => {
