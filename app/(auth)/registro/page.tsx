@@ -15,6 +15,9 @@ import { toast } from "sonner"
 type TipoUsuario = "estudiante" | "empresa"
 
 const Page = () => {
+
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
     const [tipoUsuario, setTipoUsuario] = useState<TipoUsuario>("estudiante")
 
     const [formData, setFormData] = useState({
@@ -76,15 +79,14 @@ const Page = () => {
         }
 
         try {
-            const response = await fetch("", {
+            const response = await fetch(`${API_URL}/users/register/${tipoUsuario === "estudiante" ? "student" : "employer"}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
                     email: formData.email,
-                    password: formData.password,
-                    tipoUsuario
+                    password: formData.password
                 })
             })
 

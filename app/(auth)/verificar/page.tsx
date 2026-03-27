@@ -8,6 +8,7 @@ import { useSearchParams } from "next/navigation"
 import { toast } from "sonner"
 
 function VerificarContent() {
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const searchParams = useSearchParams()
   const email = searchParams.get("email")
 
@@ -22,7 +23,7 @@ function VerificarContent() {
   const handleVerify = async () => {
     const finalCode = code.join("")
 
-    const response = await fetch(" ", {
+    const response = await fetch(`${API_URL}/code/validate`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -64,7 +65,7 @@ function VerificarContent() {
               key={index}
               value={digit}
               onChange={(e) => handleChange(e.target.value, index)}
-              className="w-12 h-12 text-center text-lg border border-gray-400"
+              className="w-12 h-12 text-center text-lg border text-black border-gray-400"
               maxLength={1}
             />
           ))}
