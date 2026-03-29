@@ -1,5 +1,5 @@
 import React from 'react'
-import { MiniOffer } from '../../components/ui/MiniOffer'
+import { MiniOffer } from '../../../components/ui/MiniOffer'
 
 export const DOffers = () => {
   return (

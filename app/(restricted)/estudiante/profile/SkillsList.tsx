@@ -11,12 +11,8 @@ export const SkillsList = ({ skill }: Props) => {
         <div className='flex gap-2'>
             {skill.map((skill) => (
                 <StudentSkill
-<<<<<<< HEAD
                     key={skill.id}
                     skill={skill}
-=======
-                key={skill.id}
->>>>>>> feature/isabella
                 />
             ))}
         </div>

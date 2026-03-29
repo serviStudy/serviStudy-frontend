@@ -1,6 +1,6 @@
 import Audience from "@/features/landing/components/Audience"
 import Benefits from "@/features/landing/components/Benefits"
-import { DOffers } from "@/features/auth/DOffers"
+import { DOffers } from "@/features/landing/components/DOffers"
 import { PricingSection } from "@/features/landing/components/PricingSection"
 import { Button } from "@/components/ui/button"
 import { AIFeatures } from "@/features/landing/components/IAFeatures"
