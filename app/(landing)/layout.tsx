@@ -41,7 +41,7 @@ export default function LandingLayout({
               variant="ghost"
               asChild
               size="sm"
-              className="text-sm font-bold text-[#1e40af] hover:bg-[#1e40af]/10 focus:ring-[#1e40af]/50"
+              className="text-sm font-bold text-[#1e40af] active:hover:bg-[#1e40af]/10 active:focus:ring-[#1e40af]/50 lg:hover:bg-[#1e40af]/10 lg:focus:ring-[#1e40af]/50"
             >
               <Link href="/login">Iniciar sesión</Link>
             </Button>

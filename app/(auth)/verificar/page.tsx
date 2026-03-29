@@ -1,99 +1,30 @@
-"use client"
+"use client";
 
-import { Suspense, useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { HeaderLR } from "@/components/shared/HeaderLR"
-import { useSearchParams } from "next/navigation"
-import { toast } from "sonner"
+import { Suspense } from "react";
+import { useSearchParams } from "next/navigation";
+import { useVerification } from "@/features/auth/verification/hooks/useVerification";
+import { VerificationCard } from "@/features/auth/verification/components/VerificationCard";
 
-function VerificarContent() {
-  const searchParams = useSearchParams()
-  const email = searchParams.get("email")
+function Content() {
+  const searchParams = useSearchParams();
+  const email = searchParams.get("email");
 
-  const [code, setCode] = useState(["", "", "", "", "", ""])
-
-  const handleChange = (value: string, index: number) => {
-    const newCode = [...code]
-    newCode[index] = value.slice(-1)
-    setCode(newCode)
-  }
-
-  const handleVerify = async () => {
-    const finalCode = code.join("")
-
-    const response = await fetch(" ", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        email,
-        code: finalCode
-      })
-    })
-
-    const data = await response.json()
-
-    if (!response.ok) {
-      toast.error(data.message || "Error en la verificación")
-      return
-    }
-
-    toast.success("Cuenta verificada")
-    window.location.href = "/login"
-  }
+  const { code, handleChange, handleVerify } = useVerification(email);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-200 px-4">
-      <HeaderLR/>
-
-      <div className="bg-white w-full max-w-md rounded-xl p-8 text-center flex flex-col gap-6">
-
-        <h1 className="text-2xl font-bold text-blue-700">
-          Verifica tu identidad
-        </h1>
-
-        <p className="text-gray-500 text-sm">
-          Hemos enviado un código de 6 dígitos a {email}
-        </p>
-
-        <div className="flex justify-center gap-2">
-          {code.map((digit, index) => (
-            <Input
-              key={index}
-              value={digit}
-              onChange={(e) => handleChange(e.target.value, index)}
-              className="w-12 h-12 text-center text-lg border border-gray-400"
-              maxLength={1}
-            />
-          ))}
-        </div>
-
-        <Button onClick={handleVerify}>
-          Verificar código
-        </Button>
-
-        <p className="text-sm text-blue-600 cursor-pointer">
-          ¿No recibiste el código? Reintentar
-        </p>
-
-        <a
-          href="/login"
-          className="text-blue-700 text-sm font-medium"
-        >
-          Volver al inicio de sesión
-        </a>
-
-      </div>
-    </div>
-  )
+    <VerificationCard
+      email={email}
+      code={code}
+      onChange={handleChange}
+      onVerify={handleVerify}
+    />
+  );
 }
 
 export default function Page() {
   return (
     <Suspense fallback={<p>Cargando...</p>}>
-      <VerificarContent />
+      <Content />
     </Suspense>
-  )
+  );
 }
