@@ -1,4 +1,4 @@
-import { HeaderLR } from '@/components/shared/HeaderLR'
+import { HeaderStudent } from '@/components/shared/HeaderStudent'
 import { ProfileVerification } from '@/components/shared/ProfileVerification'
 import { StudentSkill } from '@/components/shared/StudentSkill'
 import { VerifiedUser } from '@/components/shared/VerifiedUser'
@@ -9,7 +9,7 @@ import React from 'react'
 const page = () => {
     return (
         <div className="flex flex-col gap-9 min-h-screen items-center justify-center bg-gray-200 pt-24 pb-12">
-            <HeaderLR/>
+            <HeaderStudent/>
             <ProfileVerification/>
 
             <div className="bg-white w-77.5 h-154.25 rounded-[9px] md:w-124 lg:w-228 lg:h-234.5 lg:rounded-[14px]">

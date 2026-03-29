@@ -16,7 +16,7 @@ export default function LandingLayout({
           <div className="flex items-center gap-2 md:gap-3">
             <Link href="/" className="flex items-center shrink-0">
               <Image
-                src="/logoo.jpg"
+                src="/logo.jpg"
                 alt="Logo ServiStudy"
                 width={300}          
                 height={300}
