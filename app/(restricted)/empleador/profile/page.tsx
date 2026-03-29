@@ -5,7 +5,7 @@ import { HeaderLR } from '@/components/shared/HeaderLR'
 // Manteniendo las importaciones originales si estaban
 import { ProfileVerification } from '@/components/shared/ProfileVerification'
 import { VerifiedUser } from '@/components/shared/VerifiedUser'
-import { VerifyProfileModal } from "@/components/shared/VerifyProfileModal"
+import VerifyProfileModal from "@/components/shared/VerifyProfileModal"
 import Link from 'next/link'
 
 import {
