@@ -6,12 +6,13 @@ interface Props {
     skill: Skill[]
 }
 
-export const SkillsList = ({skill}: Props) => {
+export const SkillsList = ({ skill }: Props) => {
     return (
         <div className='flex gap-2'>
             {skill.map((skill) => (
                 <StudentSkill
-                key={skill.id}
+                    key={skill.id}
+                    skill={skill}
                 />
             ))}
         </div>
