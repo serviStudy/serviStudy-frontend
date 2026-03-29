@@ -92,7 +92,7 @@ export default function EditProfilePage() {
 
         <Card className="overflow-hidden border-none shadow-md rounded-[24px]">
           {/* Área del Banner */}
-          <div className="h-[120px] w-full bg-[#e8fbe5] lg:h-[160px] relative" />
+          <div className="h-30 w-full bg-[#e8fbe5] lg:h-40 relative" />
 
           <CardContent className="px-6 pb-10 lg:px-10">
             {/* Avatar overlapping banner */}
@@ -118,7 +118,7 @@ export default function EditProfilePage() {
                   value={nombre}
                   onChange={(e) => setNombre(e.target.value)}
                   placeholder="Ej: Carlos Guerra Morales"
-                  className="rounded-[12px] border-gray-300 focus-visible:ring-[#1a4b9e]"
+                  className="rounded-2xl border-gray-300 focus-visible:ring-[#1a4b9e]"
                 />
               </div>
               <div className="space-y-2">
@@ -128,7 +128,7 @@ export default function EditProfilePage() {
                   value={telefono}
                   onChange={(e) => setTelefono(e.target.value)}
                   placeholder="Ej: 315-887-9086"
-                  className="rounded-[12px] border-gray-300 focus-visible:ring-[#1a4b9e]"
+                  className="rounded-2xl border-gray-300 focus-visible:ring-[#1a4b9e]"
                 />
               </div>
               <div className="space-y-2">
@@ -138,7 +138,7 @@ export default function EditProfilePage() {
                   value={empresa}
                   onChange={(e) => setEmpresa(e.target.value)}
                   placeholder="Ej: Tech Solutions"
-                  className="rounded-[12px] border-gray-300 focus-visible:ring-[#1a4b9e]"
+                  className="rounded-2xl border-gray-300 focus-visible:ring-[#1a4b9e]"
                 />
               </div>
               <div className="space-y-2">
@@ -148,7 +148,7 @@ export default function EditProfilePage() {
                   value={direccion}
                   onChange={(e) => setDireccion(e.target.value)}
                   placeholder="Ej: Plaza de bolívar"
-                  className="rounded-[12px] border-gray-300 focus-visible:ring-[#1a4b9e]"
+                  className="rounded-2xl border-gray-300 focus-visible:ring-[#1a4b9e]"
                 />
               </div>
             </div>
@@ -160,7 +160,7 @@ export default function EditProfilePage() {
                 value={descripcion}
                 onChange={(e) => setDescripcion(e.target.value)}
                 placeholder="Describe brevemente tu empresa o establecimiento..."
-                className="min-h-[120px] rounded-[12px] border-gray-300 focus-visible:ring-[#1a4b9e]"
+                className="min-h-30 rounded-2xl border-gray-300 focus-visible:ring-[#1a4b9e]"
               />
             </div>
 
@@ -169,7 +169,7 @@ export default function EditProfilePage() {
               <h3 className="mb-4 text-lg font-bold text-[#1a4b9e]">Ofertas de trabajo disponibles</h3>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 {MOCK_JOBS.map((job) => (
-                  <Card key={job.id} className="border border-gray-200 bg-white p-4 shadow-none rounded-[16px] hover:border-gray-300 transition-colors">
+                  <Card key={job.id} className="border border-gray-200 bg-white p-4 shadow-none rounded-3xl hover:border-gray-300 transition-colors">
                     <div className="flex gap-3">
                       <div className="h-12 w-12 shrink-0 rounded bg-gray-200 flex items-center justify-center">
                         <CircleDollarSign className="h-6 w-6 text-gray-400" />
@@ -187,7 +187,7 @@ export default function EditProfilePage() {
                           </div>
                         </div>
                         <div className="mt-2 flex justify-end">
-                          <div className={`flex items-center justify-between h-[18px] rounded-full px-2 ${job.isActive ? 'bg-[#34c759]' : 'bg-[#ff9500]'}`}>
+                          <div className={`flex items-center justify-between h-4.5 rounded-full px-2 ${job.isActive ? 'bg-[#34c759]' : 'bg-[#ff9500]'}`}>
                             <span className="text-[9px] font-bold text-white pr-2">{job.isActive ? 'Activa' : 'Desactivada'}</span>
                             <div className="h-3 w-3 rounded-full bg-white"></div>
                           </div>
@@ -213,13 +213,13 @@ export default function EditProfilePage() {
             <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
               <Button
                 variant="outline"
-                className="w-full sm:w-[160px] rounded-[12px] border-none bg-gray-200 text-gray-600 font-bold hover:bg-gray-300"
+                className="w-full sm:w-40 rounded-2xl border-none bg-gray-200 text-gray-600 font-bold hover:bg-gray-300"
                 onClick={handleCancel}
               >
                 Cancelar
               </Button>
               <Button
-                className="w-full sm:w-[200px] rounded-[12px] bg-[#1a4b9e] text-white font-bold hover:bg-blue-800"
+                className="w-full sm:w-50 rounded-2xl bg-[#1a4b9e] text-white font-bold hover:bg-blue-800"
                 onClick={handleSave}
               >
                 Guardar Cambios

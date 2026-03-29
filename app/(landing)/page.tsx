@@ -1,9 +1,9 @@
-import Audience from "@/components/landing/Audience"
-import Benefits from "@/components/landing/Benefits"
-import { DOffers } from "@/components/landing/DOffers"
-import { PricingSection } from "@/components/landing/PricingSection"
+import Audience from "@/features/landing/components/Audience"
+import Benefits from "@/features/landing/components/Benefits"
+import { DOffers } from "@/features/auth/DOffers"
+import { PricingSection } from "@/features/landing/components/PricingSection"
 import { Button } from "@/components/ui/button"
-import { AIFeatures } from "@/components/landing/IAFeatures"
+import { AIFeatures } from "@/features/landing/components/IAFeatures"
 
 export default function Home() {
 
