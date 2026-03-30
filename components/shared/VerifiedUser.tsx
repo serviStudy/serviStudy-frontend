@@ -9,5 +9,6 @@ export const VerifiedUser = () => {
                 <p className='text-[#818181] text-[11px] md:text-[14px] lg:text-[15px]'>Estudiante no verificado</p>
             </div>
         </>
+        
     )
 }
