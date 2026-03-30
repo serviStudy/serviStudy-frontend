@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { HeaderLR } from '@/components/shared/HeaderLR'
 import { toast } from 'sonner'
@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
-import { Camera, MapPin, Pencil, Trash2, CircleDollarSign, ChevronLeft } from "lucide-react"
+import { Camera, MapPin, Pencil, Trash2, CircleDollarSign, ChevronLeft, User } from "lucide-react"
 
 // Datos de ejemplo para ilustración
 const MOCK_JOBS = [
@@ -46,12 +46,53 @@ const MOCK_JOBS = [
 export default function EditProfilePage() {
   const router = useRouter()
 
-  // Initial state (could be fetched from an API in a real app)
+  // Initial state
   const [nombre, setNombre] = useState('Carlos Guerra Morales')
   const [telefono, setTelefono] = useState('315-887-9086')
   const [empresa, setEmpresa] = useState('Tech Solutions')
   const [direccion, setDireccion] = useState('Plaza de bolívar')
   const [descripcion, setDescripcion] = useState('Tech Solutions es una empresa dedicada al desarrollo e implementación de soluciones tecnológicas innovadoras, orientadas a optimizar procesos y mejorar la eficiencia de organizaciones de diferentes sectores.')
+  const [imagenPerfil, setImagenPerfil] = useState<string | null>(null)
+  
+  const fileInputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    // Load from localStorage if available
+    const savedData = localStorage.getItem('employer_profile')
+    if (savedData) {
+      try {
+        const parsedData = JSON.parse(savedData)
+        if (parsedData.nombre) setNombre(parsedData.nombre)
+        if (parsedData.telefono) setTelefono(parsedData.telefono)
+        if (parsedData.empresa) setEmpresa(parsedData.empresa)
+        if (parsedData.direccion) setDireccion(parsedData.direccion)
+        if (parsedData.descripcion) setDescripcion(parsedData.descripcion)
+        if (parsedData.imagenPerfil) setImagenPerfil(parsedData.imagenPerfil)
+      } catch (error) {
+        console.error('Error parsing employer profile data:', error)
+      }
+    }
+  }, [])
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      if (file.size > 2 * 1024 * 1024) { // 2MB limit for localStorage
+        toast.error('La imagen es demasiado grande. Máximo 2MB.')
+        return
+      }
+
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        setImagenPerfil(reader.result as string)
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+
+  const handleCameraClick = () => {
+    fileInputRef.current?.click()
+  }
 
   const handleSave = () => {
     // Save to localStorage so it can be picked up by the profile page
@@ -60,7 +101,8 @@ export default function EditProfilePage() {
       telefono,
       empresa,
       direccion,
-      descripcion
+      descripcion,
+      imagenPerfil
     }
     localStorage.setItem('employer_profile', JSON.stringify(profileData))
     
@@ -97,16 +139,28 @@ export default function EditProfilePage() {
           <CardContent className="px-6 pb-10 lg:px-10">
             {/* Avatar overlapping banner */}
             <div className="relative -mt-12 mb-8 inline-block">
-              <div className="flex h-24 w-24 items-center justify-center rounded-full border-4 border-white bg-[#34c759] text-[40px] font-bold text-white shadow-sm">
-                {empresa.charAt(0).toUpperCase()}
+              <div className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-full border-4 border-white bg-[#34c759] text-[40px] font-bold text-white shadow-sm">
+                {imagenPerfil ? (
+                  <img src={imagenPerfil} alt="Profile" className="h-full w-full object-cover" />
+                ) : (
+                  empresa.charAt(0).toUpperCase()
+                )}
               </div>
               <Button
                 size="icon"
                 variant="secondary"
                 className="absolute bottom-0 right-0 h-8 w-8 rounded-full bg-white shadow-sm hover:bg-gray-50 border border-gray-100"
+                onClick={handleCameraClick}
               >
                 <Camera className="h-4 w-4 text-[#34c759]" strokeWidth={2.5} />
               </Button>
+              <input
+                type="file"
+                ref={fileInputRef}
+                onChange={handleImageChange}
+                accept="image/*"
+                className="hidden"
+              />
             </div>
 
             {/* Campos del Formulario */}

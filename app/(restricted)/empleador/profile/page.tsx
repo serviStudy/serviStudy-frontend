@@ -65,6 +65,7 @@ const page = () => {
   const [empresa, setEmpresa] = useState('Tech Solutions')
   const [direccion, setDireccion] = useState('Plaza de bolívar')
   const [descripcion, setDescripcion] = useState('Tech Solutions es una empresa dedicada al desarrollo e implementación de soluciones tecnológicas innovadoras, orientadas a optimizar procesos y mejorar la eficiencia de organizaciones de diferentes sectores. Se caracteriza por su enfoque en la calidad, el uso de tecnologías modernas y el trabajo colaborativo, ofreciendo un entorno dinámico que promueve el crecimiento profesional y el aprendizaje continuo.')
+  const [imagenPerfil, setImagenPerfil] = useState<string | null>(null)
 
   useEffect(() => {
     // Load from localStorage if available
@@ -77,6 +78,7 @@ const page = () => {
         if (parsedData.empresa) setEmpresa(parsedData.empresa)
         if (parsedData.direccion) setDireccion(parsedData.direccion)
         if (parsedData.descripcion) setDescripcion(parsedData.descripcion)
+        if (parsedData.imagenPerfil) setImagenPerfil(parsedData.imagenPerfil)
       } catch (error) {
         console.error('Error parsing employer profile data:', error)
       }
@@ -123,8 +125,12 @@ const page = () => {
           <div className="px-6 lg:px-12 -mt-16 relative pb-10">
             <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 lg:items-end">
 
-              <div className="h-28 w-28 shrink-0 rounded-full bg-[#34c759] border-4 border-white flex items-center justify-center text-white text-[56px] font-bold shadow-sm lg:h-[136px] lg:w-[136px]">
-                {empresa.charAt(0).toUpperCase()}
+              <div className="h-28 w-28 shrink-0 overflow-hidden rounded-full bg-[#34c759] border-4 border-white flex items-center justify-center text-white text-[56px] font-bold shadow-sm lg:h-[136px] lg:w-[136px]">
+                {imagenPerfil ? (
+                  <img src={imagenPerfil} alt="Profile" className="h-full w-full object-cover" />
+                ) : (
+                  empresa.charAt(0).toUpperCase()
+                )}
               </div>
 
               <div className="flex flex-col -mt-4 lg:mt-0 lg:pb-2">
