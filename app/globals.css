@@ -72,7 +72,7 @@
   --primary: #1E40AF;
   --primary-foreground: oklch(0.984 0.003 247.858);
   --secondary: oklch(88.88% 0.055 254.30);
-  --secondary-foreground: oklch(27.198% 0.02295 144.974); /*verde claro del navbar*/
+  --secondary-foreground: oklch(73.054% 0.19408 147.391 / 0.501); /*verde claro del navbar*/
   --muted: oklch(94.246% 0.08217 143.4); /*verde oscuro del navbar*/
   --muted-foreground: oklch(73.03% 0.194 147.44);
   --accent: oklch(0.968 0.007 247.896);

@@ -16,7 +16,7 @@ const page = () => {
                     <div className='absolute top-12 md:top-18 lg:top-36'>
                         <div className='relative'>
                             <div className='absolute'>
-                                <div className='bg-primary flex items-center justify-center border-3 border-white rounded-full h-15 w-15 md:w-21 md:h-21 lg:w-28 lg:h-28'/>
+                                <div className='bg-primary flex items-center justify-center border-4 border-white rounded-full h-15 w-15 md:w-21 md:h-21 lg:w-28 lg:h-28'/>
                             </div>                        
                             <div className='absolute left-10 top-8 md:left-16 md:top-12 lg:left-20 lg:top-18'>
                                 <button className='bg-white rounded-full border p-1 lg:p-2 border-gray-300'>

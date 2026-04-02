@@ -1,45 +1,88 @@
 "use client";
 
-import { BookOpen, CirclePlus, MapPin, Search, User } from "lucide-react"
-import Image from "next/image"
-import NavLink from "../ui/NavLink"
+import { BookOpen, CirclePlus, Info, MapPin, Menu, Search, Settings, User, X } from "lucide-react";
+import Image from "next/image";
+import NavLink from "../ui/NavLink";
+import { useSidebar } from "../../hooks/useSidebar";
+import { Sidebar } from "./Sidebar";
+import Link from "next/link";
+import { PricingSection } from "@/features/landing/components/PricingSection";
+import { PriceCard } from "@/features/landing/components/PriceCard";
+import { SuscriptionCard } from "./SuscriptionCard";
 
 export const HeaderEmployer = () => {
+    const { open, openSidebar, closeSidebar } = useSidebar()
+
     return (
-        <div className="bg-white w-full top-0 fixed z-1 backdrop-blur-2xl" >
-            <header className="border-b bg-background/95 backdrop-blur sticky top-0 z-50">
-                <div className="flex mx-auto h-16 px-4 md:px-6 w-full">
-                    <div className="flex items-center">
+        <>
+        <div className="bg-white w-full fixed top-0 z-50 shadow-sm">
+            <header className="border-b">
+                <div className="flex h-16 px-4 md:px-6 w-full items-center justify-between lg:px-16 lg:justify-stretch">
 
-                        {/* logo */}
-                        <div className="flex px-9 items-center shrink-0 gap-1.5 md:gap-3">
-                            <Image
-                                src="/logo.jpg"
-                                alt="Logo ServiStudy"
-                                width={300}          
-                                height={300}
-                                priority
-                                className="h-12.5 w-auto object-contain" 
-                            />
-                            <div className="flex">
-                                <h1 className="text-[#1e40af] font-extrabold text-xl md:text-2xl">Servi
-                                <span className="text-blue-500 font-bold text-xl md:text-2xl">Study</span></h1>
-                            </div>
-                        </div>
-
-                        {/* botones de barra de navegación */}
-                        <div className="absolute left-1/2 transform items-center -translate-x-1/2">
-                            <div className="flex gap-5">
-                                <NavLink icon={MapPin} name="Ofertas" link="/estudiante/editProfile"/>
-                                <NavLink icon={User} name="Perfil Empleador" link="/estudiante/profile"/>
-                                <NavLink icon={Search} name="Buscar Talento" link="/"/>
-                                <NavLink icon={CirclePlus} name="Publicar Oferta" link="/"/>
-                                <NavLink icon={BookOpen} name="Suscripción" link="/"/>
-                            </div>
-                        </div>
+                    {/* logo */}
+                    <div className="flex items-center gap-2">
+                        <Image
+                            src="/logo.jpg"
+                            alt="Logo ServiStudy"
+                            width={300}
+                            height={300}
+                            className="w-auto h-12 md:h-14 lg:h-14"
+                        />
+                        <h1 className="text-blue-900 font-extrabold text-[19px] md:text-[24px] lg:text-[24px]">
+                            Servi<span className="text-blue-500">Study</span>
+                        </h1>
                     </div>
+
+                    {/* navbar desktop */}
+                    <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 gap-6">
+                        <NavLink icon={MapPin} name="Ofertas" link="/estudiante/editProfile"/>
+                        <NavLink icon={User} name="Perfil Empleador" link="/estudiante/profile"/>
+                        <NavLink icon={Search} name="Buscar Talento" link="/"/>
+                        <NavLink icon={CirclePlus} name="Publicar Oferta" link="/"/>
+                        <NavLink icon={BookOpen} name="Suscripción" link="/"/>
+                    </div>
+
+                    {/* boton de menu */}
+                    <button onClick={openSidebar} className="lg:hidden">
+                        <Menu className="h-7 w-7 text-blue-600" />
+                    </button>
                 </div>
             </header>
         </div>
-    )
-}
+
+        {/* sidebard de nabvar */}
+        <Sidebar open={open} onClose={closeSidebar}>
+            <div className="flex flex-col justify-between h-[90vh]">
+                <div>
+                    <div className="pt-10 px-6 flex items-center gap-4 md:pt-20 md:px-10">
+                        <div className="rounded-full bg-blue-300 h-14 w-14 md:h-17 md:w-17"/>
+                        <div className="flex flex-col gap-0">
+                            <p className="font-semibold text-gray-700 md:text-[20px]">Nombre</p>
+                            <Link href='/estudiante/profile' className="text-gray-600 text-[13px] md:text-[15px]">Ver perfil</Link>
+                        </div>
+                    </div> 
+                    <div className="flex flex-col pt-6 gap-2 md:gap-6 lg:hidden">
+                        <NavLink icon={MapPin} name="Ofertas" link="/student/editprofile"/>
+                        <NavLink icon={Search} name="Buscar Talento" link="/student/profile"/>
+                        <NavLink icon={CirclePlus} name="Publicar Oferta" link="/"/>
+                        <NavLink icon={BookOpen} name="Suscripción" link="/"/>
+                    </div>
+
+                    <SuscriptionCard/>
+                </div>
+
+                <div className="flex flex-col gap-2 md:gap-4">
+                    <div className="flex pl-6 md:px-10 gap-3 items-center">
+                        <Settings className="text-gray-500 w-4.5 md:h-7"/>
+                        <p className="text-[14px] md:text-[18px] font-semibold text-gray-600">Ajustes</p>
+                    </div>
+                    <div className="flex px-6 md:px-10 gap-3 items-center">
+                        <Info className="text-gray-500 w-4.5 md:h-7"/>
+                        <p className="text-[14px] md:text-[18px] font-semibold text-gray-600">Más informacion</p>
+                    </div>
+                </div>
+            </div>
+        </Sidebar>
+        </>
+    );
+};

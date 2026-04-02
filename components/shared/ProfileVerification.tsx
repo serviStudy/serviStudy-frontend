@@ -20,7 +20,7 @@ export const ProfileVerification = () => {
                         </div>
 
                         <DialogTrigger asChild>
-                            <Button variant={'verification'} className='lg:w-[197] lg:h-14.5 lg:text-[19px] md:h-7.25 h-6.25 rounded-[19px] cursor-pointer bg-white text-[15px] text-primary font-bold lg:hover:border-2 hover:border-white hover:text-white'>
+                            <Button variant={'verification'} className='lg:w-[197] lg:h-14.5 lg:text-[19px] md:h-7.25 h-6.25 rounded-[19px] cursor-pointer bg-white text-[15px] text-primary font-bold lg:hover:border-2 lg:hover:border-white lg:hover:text-white'>
                                 Verificar
                             </Button>
                         </DialogTrigger>

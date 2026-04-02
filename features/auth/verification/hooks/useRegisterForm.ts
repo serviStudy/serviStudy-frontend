@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { validateRegisterForm } from "./registerValidator";
+import { validateRegisterForm } from "../../../../app/(auth)/registro/registerValidator";
 import { registerUser } from "@/lib/api/register";
 import { TipoUsuario } from "@/type/auth";
 import { toast } from "sonner";

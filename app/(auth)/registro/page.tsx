@@ -9,7 +9,7 @@ import { RoleSwitch } from '@/components/shared/RoleSwitch'
 import RegisterModal from "@/components/auth/RegisterModal"
 import { studentTerms } from "@/lib/terms/studentTerms"
 import { HeaderLR } from "@/components/shared/HeaderLR"
-import { useRegisterForm } from "./useRegisterForm"
+import { useRegisterForm } from "../../../features/auth/verification/hooks/useRegisterForm"
 
 const Page = () => {
     const {

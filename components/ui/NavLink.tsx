@@ -18,11 +18,12 @@ export default function NavLink({icon: Icon, name, link}: ButtonNavProps) {
     const active = isActive(link)
     
     return (
-        <Button asChild className={`flex align-middle h-10 rounded-full py-0.5 px-3 
-            ${active ? "bg-muted-foreground text-white" : "bg-muted text-green-800"}`}>
-            <Link href={link} className="flex gap-2 items-center">
-                <Icon className="w-5 h-6"/>
-                <span className="font-semibold">{name}</span>
+        <Button asChild className={` 
+            ${active ? "text-green-600 lg:text-white align-middle lg:bg-muted-foreground" : "text-green-500 bg-[#d6fdde9d] lg:bg-muted lg:text-green-700"}`}
+            variant="none">
+            <Link href={link} className="flex w-full justify-start text-left gap-4 lg:gap-2 lg:items-center">
+                <Icon className="w-6! md:h-5.5!"/>
+                <span className="font-semibold md:text-[18px] lg:text-[15px]">{name}</span>
             </Link>
         </Button>
     )

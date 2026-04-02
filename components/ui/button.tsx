@@ -10,7 +10,8 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: "bg-primary text-primary-foreground",
-        verification: "bg-primary text-primary-foreground lg:hover:bg-chart-1 hover:border-0 hover:border-white",
+        none: "bg-none !pl-6 flex align-middle rounded-none md:!pl-10 lg:!px-6 lg:w-auto h-10 lg:rounded-full lg:!py-0.5 ",
+        verification: "bg-primary text-primary-foreground rounded-[12px] lg:hover:bg-chart-1 hover:border-0 hover:border-white",
         destructive:
           "bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:bg-destructive/60 dark:focus-visible:ring-destructive/40",
         outline:

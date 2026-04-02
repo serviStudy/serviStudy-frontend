@@ -9,7 +9,6 @@ import VerifyProfileModal from "@/components/shared/VerifyProfileModal"
 import Link from 'next/link'
 
 import {
-  AtSign,
   BriefcaseBusiness,
   Building2,
   MapPin,
@@ -25,6 +24,7 @@ import {
   Mail,
   CircleDollarSign
 } from 'lucide-react'
+import { HeaderEmployer } from '@/components/shared/HeaderEmployer'
 
 // Mock Data local o estados originales que el usuario necesite
 const MOCK_JOBS = [
@@ -85,11 +85,11 @@ const page = () => {
 
   return (
     <div className="flex min-h-screen flex-col items-center gap-9 bg-gray-200 pt-24 pb-12 w-full px-4 lg:px-0">
-      <HeaderLR />
+      <HeaderEmployer/>
 
       <div className="flex w-full flex-col gap-6 items-center">
 
-        <div className="w-full max-w-[912px] flex flex-col lg:flex-row items-center justify-between rounded-[14px] bg-[#1a4b9e] p-5 shadow-sm lg:p-6 lg:px-8 gap-4">
+        <div className="w-full max-w-228 flex flex-col lg:flex-row items-center justify-between rounded-[14px] bg-[#1a4b9e] p-5 shadow-sm lg:p-6 lg:px-8 gap-4">
           <div className="flex items-center gap-4 text-center lg:text-left">
             <ShieldCheck className="h-8 w-8 text-white lg:h-12 lg:w-12 shrink-0" strokeWidth={1} />
             <div className="flex flex-col">
@@ -108,9 +108,9 @@ const page = () => {
         </div>
 
 
-        <div className="w-full max-w-[912px] rounded-[24px] bg-white shadow-sm overflow-hidden border border-gray-100">
+        <div className="w-full max-w-228 rounded-[24px] bg-white shadow-sm overflow-hidden border border-gray-100">
 
-          <div className="h-[120px] w-full bg-[#f4fbf3] lg:h-[160px] relative">
+          <div className="h-30 w-full bg-[#f4fbf3] lg:h-40 relative">
             <Link
               href="/empleador/profile/edit"
               className="absolute top-6 right-6 lg:top-8 lg:right-8 bg-[#2552d0] p-3 rounded-xl hover:bg-blue-800 transition-colors shadow-sm"
@@ -123,7 +123,7 @@ const page = () => {
           <div className="px-6 lg:px-12 -mt-16 relative pb-10">
             <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 lg:items-end">
 
-              <div className="h-28 w-28 shrink-0 rounded-full bg-[#34c759] border-4 border-white flex items-center justify-center text-white text-[56px] font-bold shadow-sm lg:h-[136px] lg:w-[136px]">
+              <div className="h-28 w-28 shrink-0 rounded-full bg-[#34c759] border-4 border-white flex items-center justify-center text-white text-[56px] font-bold shadow-sm lg:h-34 lg:w-34">
                 {empresa.charAt(0).toUpperCase()}
               </div>
 
@@ -167,7 +167,7 @@ const page = () => {
                 <Building2 className="h-6 w-6 text-[#1a4b9e]" strokeWidth={2.5} />
                 <h3 className="text-xl font-bold text-[#1a4b9e]">Resumen profesional</h3>
               </div>
-              <p className="text-sm leading-relaxed text-gray-500 font-medium lg:max-w-[800px]">
+              <p className="text-sm leading-relaxed text-gray-500 font-medium lg:max-w-200">
                 {descripcion}
               </p>
             </section>
@@ -178,9 +178,9 @@ const page = () => {
                 <BriefcaseBusiness className="h-6 w-6 text-[#1a4b9e]" strokeWidth={2.5} />
                 <h3 className="text-xl font-bold text-[#1a4b9e]">Ofertas Publicadas</h3>
               </div>
-              <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-6 lg:max-w-[700px]">
+              <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-6 lg:max-w-175">
                 {MOCK_JOBS.map((job, idx) => (
-                  <div key={idx} className="flex w-full min-w-[270px] flex-col gap-4 rounded-xl border border-gray-300 bg-white p-4 shadow-sm transition-shadow hover:shadow-md">
+                  <div key={idx} className="flex w-full min-w-67.5 flex-col gap-4 rounded-xl border border-gray-300 bg-white p-4 shadow-sm transition-shadow hover:shadow-md">
                     <div className="flex gap-3">
                       <div className="h-12 w-12 shrink-0 rounded-md bg-gray-400" />
                       <div className="flex flex-1 flex-col">
@@ -220,9 +220,9 @@ const page = () => {
                 <MessageCircleMore className="h-6 w-6 text-[#1a4b9e]" strokeWidth={2.5} />
                 <h3 className="text-xl font-bold text-[#1a4b9e]">Reseñas</h3>
               </div>
-              <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-6 lg:max-w-[700px]">
+              <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-6 lg:max-w-175">
                 {MOCK_REVIEWS.map((review, idx) => (
-                  <div key={idx} className="flex w-full min-w-[300px] flex-col gap-3 rounded-xl border border-gray-300 bg-white p-4 shadow-sm transition-shadow hover:shadow-md">
+                  <div key={idx} className="flex w-full min-w-75 flex-col gap-3 rounded-xl border border-gray-300 bg-white p-4 shadow-sm transition-shadow hover:shadow-md">
                     <div className="flex items-start gap-3">
                       <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600 p-2">
                         <UserRound className="h-5 w-5" />
