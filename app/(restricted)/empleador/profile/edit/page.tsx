@@ -7,111 +7,99 @@ import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
-import { Camera, MapPin, Pencil, Trash2, CircleDollarSign, ChevronLeft, User } from "lucide-react"
-
-// Datos de ejemplo para ilustración
-const MOCK_JOBS = [
-  {
-    id: 1,
-    title: "Recepcionista nocturno",
-    isActive: true,
-    location: "portal del quindio",
-    salary: "1.600.000"
-  },
-  {
-    id: 2,
-    title: "Programador Front",
-    isActive: false,
-    location: "portal del quindio",
-    salary: "1.600.000"
-  },
-  {
-    id: 3,
-    title: "Recepcionista nocturno",
-    isActive: true,
-    location: "portal del quindio",
-    salary: "1.600.000"
-  },
-  {
-    id: 4,
-    title: "Programador Front",
-    isActive: false,
-    location: "portal del quindio",
-    salary: "1.600.000"
-  }
-]
+import { Camera, ChevronLeft, Loader2 } from "lucide-react"
+import {
+  getEmployerProfile,
+  updateEmployerProfile
+} from '@/features/profile/services/profileService'
 
 export default function EditProfilePage() {
   const router = useRouter()
 
-  // Initial state
-  const [nombre, setNombre] = useState('Carlos Guerra Morales')
-  const [telefono, setTelefono] = useState('315-887-9086')
-  const [empresa, setEmpresa] = useState('Tech Solutions')
-  const [direccion, setDireccion] = useState('Plaza de bolívar')
-  const [descripcion, setDescripcion] = useState('Tech Solutions es una empresa dedicada al desarrollo e implementación de soluciones tecnológicas innovadoras, orientadas a optimizar procesos y mejorar la eficiencia de organizaciones de diferentes sectores.')
-  const [imagenPerfil, setImagenPerfil] = useState<string | null>(null)
-  
+  const [loading, setLoading]           = useState(true)
+  const [saving, setSaving]             = useState(false)
+  const [employerName, setEmployerName] = useState("")
+  const [businessName, setBusinessName] = useState("")
+  const [businessAddress, setBusinessAddress] = useState("")
+  const [contactNumber, setContactNumber]     = useState("")
+  const [businessSummary, setBusinessSummary] = useState("")
+  const [imageUrl, setImageUrl]         = useState<string | null>(null)   // URL actual del backend
+  const [imageFile, setImageFile]       = useState<File | null>(null)     // Archivo nuevo a subir
+  const [email, setEmail]               = useState("")
+
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
-    // Load from localStorage if available
-    const savedData = localStorage.getItem('employer_profile')
-    if (savedData) {
+    setEmail(localStorage.getItem("user_email") ?? "")
+
+    const loadProfile = async () => {
       try {
-        const parsedData = JSON.parse(savedData)
-        if (parsedData.nombre) setNombre(parsedData.nombre)
-        if (parsedData.telefono) setTelefono(parsedData.telefono)
-        if (parsedData.empresa) setEmpresa(parsedData.empresa)
-        if (parsedData.direccion) setDireccion(parsedData.direccion)
-        if (parsedData.descripcion) setDescripcion(parsedData.descripcion)
-        if (parsedData.imagenPerfil) setImagenPerfil(parsedData.imagenPerfil)
+        const data = await getEmployerProfile()
+        if (data) {
+          setEmployerName(data.employerName    ?? "")
+          setBusinessName(data.businessName    ?? "")
+          setBusinessAddress(data.businessAddress ?? "")
+          setContactNumber(data.contactNumber  ?? "")
+          setBusinessSummary(data.businessSummary ?? "")
+          setImageUrl(data.imageUrl            ?? null)
+        }
       } catch (error) {
-        console.error('Error parsing employer profile data:', error)
+        console.error("Error al cargar perfil:", error)
+        toast.error("No se pudo cargar el perfil")
+      } finally {
+        setLoading(false)
       }
     }
+
+    loadProfile()
   }, [])
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
-    if (file) {
-      if (file.size > 2 * 1024 * 1024) { // 2MB limit for localStorage
-        toast.error('La imagen es demasiado grande. Máximo 2MB.')
-        return
-      }
+    if (!file) return
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error("La imagen es demasiado grande. Máximo 5MB.")
+      return
+    }
+    setImageFile(file)
+    // Vista previa local
+    const reader = new FileReader()
+    reader.onloadend = () => setImageUrl(reader.result as string)
+    reader.readAsDataURL(file)
+  }
 
-      const reader = new FileReader()
-      reader.onloadend = () => {
-        setImagenPerfil(reader.result as string)
-      }
-      reader.readAsDataURL(file)
+  const handleSave = async () => {
+    setSaving(true)
+    try {
+      await updateEmployerProfile({
+        employerName,
+        businessName,
+        businessAddress,
+        contactNumber,
+        businessSummary,
+        imageFile: imageFile ?? undefined
+      })
+      toast.success("Perfil actualizado correctamente")
+      router.push("/empleador/profile")
+    } catch (error: any) {
+      console.error("Error al guardar:", error)
+      toast.error(error.message || "Error al guardar los cambios")
+    } finally {
+      setSaving(false)
     }
   }
 
-  const handleCameraClick = () => {
-    fileInputRef.current?.click()
-  }
+  const inicial = (businessName || employerName || email).charAt(0).toUpperCase() || "E"
 
-  const handleSave = () => {
-    // Save to localStorage so it can be picked up by the profile page
-    const profileData = {
-      nombre,
-      telefono,
-      empresa,
-      direccion,
-      descripcion,
-      imagenPerfil
-    }
-    localStorage.setItem('employer_profile', JSON.stringify(profileData))
-    
-    toast.success('Perfil actualizado correctamente')
-    router.push('/empleador/profile')
-  }
-
-  const handleCancel = () => {
-    router.back()
+  if (loading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-gray-50">
+        <HeaderLR />
+        <Loader2 className="h-10 w-10 animate-spin text-[#1a4b9e]" />
+      </div>
+    )
   }
 
   return (
@@ -124,7 +112,7 @@ export default function EditProfilePage() {
             variant="ghost"
             size="sm"
             className="text-gray-500 hover:text-[#1a4b9e]"
-            onClick={handleCancel}
+            onClick={() => router.back()}
           >
             <ChevronLeft className="h-4 w-4 mr-1" />
             Volver al perfil
@@ -133,24 +121,23 @@ export default function EditProfilePage() {
         </div>
 
         <Card className="overflow-hidden border-none shadow-md rounded-[24px]">
-          {/* Área del Banner */}
           <div className="h-30 w-full bg-[#e8fbe5] lg:h-40 relative" />
 
           <CardContent className="px-6 pb-10 lg:px-10">
-            {/* Avatar overlapping banner */}
+            {/* Avatar con cámara */}
             <div className="relative -mt-12 mb-8 inline-block">
               <div className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-full border-4 border-white bg-[#34c759] text-[40px] font-bold text-white shadow-sm">
-                {imagenPerfil ? (
-                  <img src={imagenPerfil} alt="Profile" className="h-full w-full object-cover" />
+                {imageUrl ? (
+                  <img src={imageUrl} alt="Perfil" className="h-full w-full object-cover" />
                 ) : (
-                  empresa.charAt(0).toUpperCase()
+                  inicial
                 )}
               </div>
               <Button
                 size="icon"
                 variant="secondary"
                 className="absolute bottom-0 right-0 h-8 w-8 rounded-full bg-white shadow-sm hover:bg-gray-50 border border-gray-100"
-                onClick={handleCameraClick}
+                onClick={() => fileInputRef.current?.click()}
               >
                 <Camera className="h-4 w-4 text-[#34c759]" strokeWidth={2.5} />
               </Button>
@@ -163,44 +150,58 @@ export default function EditProfilePage() {
               />
             </div>
 
-            {/* Campos del Formulario */}
+            {/* Correo (solo lectura) */}
+            <div className="mb-6 p-3 bg-gray-100 rounded-2xl">
+              <p className="text-xs text-gray-400 font-semibold mb-0.5">Correo electrónico</p>
+              <p className="text-sm text-gray-600 font-medium">{email || "—"}</p>
+            </div>
+
+            {/* Formulario */}
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="nombre" className="text-[14px] font-bold text-gray-500">Nombre Empleador</Label>
+                <Label htmlFor="employerName" className="text-[14px] font-bold text-gray-500">
+                  Nombre del responsable
+                </Label>
                 <Input
-                  id="nombre"
-                  value={nombre}
-                  onChange={(e) => setNombre(e.target.value)}
+                  id="employerName"
+                  value={employerName}
+                  onChange={(e) => setEmployerName(e.target.value)}
                   placeholder="Ej: Carlos Guerra Morales"
                   className="rounded-2xl border-gray-300 focus-visible:ring-[#1a4b9e]"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="telefono" className="text-[14px] font-bold text-gray-500">Número de contacto</Label>
+                <Label htmlFor="contactNumber" className="text-[14px] font-bold text-gray-500">
+                  Número de contacto
+                </Label>
                 <Input
-                  id="telefono"
-                  value={telefono}
-                  onChange={(e) => setTelefono(e.target.value)}
+                  id="contactNumber"
+                  value={contactNumber}
+                  onChange={(e) => setContactNumber(e.target.value)}
                   placeholder="Ej: 315-887-9086"
                   className="rounded-2xl border-gray-300 focus-visible:ring-[#1a4b9e]"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="empresa" className="text-[14px] font-bold text-gray-500">Nombre del establecimiento</Label>
+                <Label htmlFor="businessName" className="text-[14px] font-bold text-gray-500">
+                  Nombre del establecimiento
+                </Label>
                 <Input
-                  id="empresa"
-                  value={empresa}
-                  onChange={(e) => setEmpresa(e.target.value)}
+                  id="businessName"
+                  value={businessName}
+                  onChange={(e) => setBusinessName(e.target.value)}
                   placeholder="Ej: Tech Solutions"
                   className="rounded-2xl border-gray-300 focus-visible:ring-[#1a4b9e]"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="direccion" className="text-[14px] font-bold text-gray-500">Dirección del establecimiento</Label>
+                <Label htmlFor="businessAddress" className="text-[14px] font-bold text-gray-500">
+                  Dirección del establecimiento
+                </Label>
                 <Input
-                  id="direccion"
-                  value={direccion}
-                  onChange={(e) => setDireccion(e.target.value)}
+                  id="businessAddress"
+                  value={businessAddress}
+                  onChange={(e) => setBusinessAddress(e.target.value)}
                   placeholder="Ej: Plaza de bolívar"
                   className="rounded-2xl border-gray-300 focus-visible:ring-[#1a4b9e]"
                 />
@@ -208,75 +209,39 @@ export default function EditProfilePage() {
             </div>
 
             <div className="mt-6 space-y-2">
-              <Label htmlFor="descripcion" className="text-[14px] font-bold text-gray-500">Resumen profesional</Label>
+              <Label htmlFor="businessSummary" className="text-[14px] font-bold text-gray-500">
+                Resumen profesional
+              </Label>
               <Textarea
-                id="descripcion"
-                value={descripcion}
-                onChange={(e) => setDescripcion(e.target.value)}
+                id="businessSummary"
+                value={businessSummary}
+                onChange={(e) => setBusinessSummary(e.target.value)}
                 placeholder="Describe brevemente tu empresa o establecimiento..."
                 className="min-h-30 rounded-2xl border-gray-300 focus-visible:ring-[#1a4b9e]"
               />
             </div>
 
-            {/* Sección de Ofertas de Trabajo */}
-            <div className="mt-10">
-              <h3 className="mb-4 text-lg font-bold text-[#1a4b9e]">Ofertas de trabajo disponibles</h3>
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                {MOCK_JOBS.map((job) => (
-                  <Card key={job.id} className="border border-gray-200 bg-white p-4 shadow-none rounded-3xl hover:border-gray-300 transition-colors">
-                    <div className="flex gap-3">
-                      <div className="h-12 w-12 shrink-0 rounded bg-gray-200 flex items-center justify-center">
-                        <CircleDollarSign className="h-6 w-6 text-gray-400" />
-                      </div>
-                      <div className="flex flex-1 flex-col">
-                        <div className="flex items-start justify-between">
-                          <h5 className="text-[14px] font-bold leading-tight text-[#1a4b9e] line-clamp-2">{job.title}</h5>
-                          <div className="flex items-center gap-1.5 ml-2">
-                            <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-500 hover:text-blue-600">
-                              <Pencil className="h-4 w-4" />
-                            </Button>
-                            <Button variant="ghost" size="icon" className="h-8 w-8 text-red-400 hover:text-red-600">
-                              <Trash2 className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        </div>
-                        <div className="mt-2 flex justify-end">
-                          <div className={`flex items-center justify-between h-4.5 rounded-full px-2 ${job.isActive ? 'bg-[#34c759]' : 'bg-[#ff9500]'}`}>
-                            <span className="text-[9px] font-bold text-white pr-2">{job.isActive ? 'Activa' : 'Desactivada'}</span>
-                            <div className="h-3 w-3 rounded-full bg-white"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="mt-3 flex items-center justify-between text-[11px] font-bold text-[#1a4b9e]">
-                      <div className="flex items-center gap-1">
-                        <MapPin className="h-3.5 w-3.5 text-gray-500" strokeWidth={2.5} />
-                        <span>{job.location}</span>
-                      </div>
-                      <div className="flex items-center gap-0.5">
-                        <CircleDollarSign className="h-3.5 w-3.5 text-gray-500" strokeWidth={2.5} />
-                        <span className="text-gray-500">{job.salary}</span>
-                      </div>
-                    </div>
-                  </Card>
-                ))}
-              </div>
-            </div>
-
-            {/* Botones de Acción */}
+            {/* Botones */}
             <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
               <Button
                 variant="outline"
                 className="w-full sm:w-40 rounded-2xl border-none bg-gray-200 text-gray-600 font-bold hover:bg-gray-300"
-                onClick={handleCancel}
+                onClick={() => router.back()}
+                disabled={saving}
               >
                 Cancelar
               </Button>
               <Button
                 className="w-full sm:w-50 rounded-2xl bg-[#1a4b9e] text-white font-bold hover:bg-blue-800"
                 onClick={handleSave}
+                disabled={saving}
               >
-                Guardar Cambios
+                {saving ? (
+                  <span className="flex items-center gap-2">
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    Guardando...
+                  </span>
+                ) : "Guardar Cambios"}
               </Button>
             </div>
           </CardContent>

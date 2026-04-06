@@ -1,8 +1,13 @@
-import { DialogContent, DialogTitle } from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
 import { ShieldCheck, CloudUpload } from "lucide-react"
 
-const VerifyProfileModal = () => {
-    return (
+interface VerifyProfileModalProps {
+    isOpen?: boolean
+    onClose?: () => void
+}
+
+const VerifyProfileModal = ({ isOpen, onClose }: VerifyProfileModalProps) => {
+    const content = (
         <DialogContent className="lg:w-110 lg:h-85 md:w-120 md:h-80 w-68 overflow-hidden rounded-4xl bg-white text-center">
             <div className="flex flex-col items-center  relative">
                 <div className="flex items-center gap-3 w-full">
@@ -22,6 +27,16 @@ const VerifyProfileModal = () => {
             </div>
         </DialogContent>
     )
+
+    if (isOpen !== undefined) {
+        return (
+            <Dialog open={isOpen} onOpenChange={onClose}>
+                {content}
+            </Dialog>
+        )
+    }
+
+    return content
 }
 
 export default VerifyProfileModal
