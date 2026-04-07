@@ -1,14 +1,8 @@
-import { TipoUsuario } from "@/type/auth";
-
-function getEndpoint(tipoUsuario: TipoUsuario){
-    return tipoUsuario === "estudiante" ? "student" : "employer";
-}
-
-export async function registerUser(data: { email: string; password: string }, tipoUsuario: TipoUsuario) {
+export async function registerUser(data: { email: string; password: string },) {
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-    const response = await fetch(`${API_URL}/users/register/${getEndpoint(tipoUsuario)}`, {
-        method: "POST",
+    const response = await fetch(`${API_URL}/users/register/`, {
+        method: "PATCH",
         headers: {
             "Content-Type": "application/json"
         },
@@ -25,7 +19,7 @@ export async function registerUser(data: { email: string; password: string }, ti
     
     if (!response.ok) {
         throw{
-            message: result.message || "Error en el registro",
+            message: result.message || "Error en editar usuario",
             status: response.status
         };
     }

@@ -10,6 +10,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Camera, MapPin, Pencil, Trash2, CircleDollarSign, ChevronLeft } from "lucide-react"
+import { HeaderEmployer } from '@/components/shared/HeaderEmployer'
 
 // Datos de ejemplo para ilustración
 const MOCK_JOBS = [
@@ -74,7 +75,7 @@ export default function EditProfilePage() {
 
   return (
     <div className="min-h-screen bg-gray-50 pb-12 pt-20">
-      <HeaderLR />
+      <HeaderEmployer/>
 
       <div className="mx-auto max-w-4xl px-4 lg:px-0">
         <div className="mb-6 flex items-center gap-2">

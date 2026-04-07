@@ -34,7 +34,7 @@ export const HeaderStudent = () => {
                     </div>
 
                     {/* navbar desktop */}
-                    <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 gap-6">
+                    <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 gap-6 md:right-32">
                         <NavLink icon={MapPin} name="Ofertas" link="/" />
                         <NavLink icon={User} name="Mi Perfil" link="/estudiante/profile"/>
                         <NavLink icon={Search} name="Empleadores" link="/" />
@@ -62,7 +62,7 @@ export const HeaderStudent = () => {
                     </div> 
                     <div className="flex flex-col pt-6 gap-2 md:gap-6 lg:hidden">
                         <NavLink icon={MapPin} name="Ofertas" link="/estudiante/profile" />
-                        <NavLink icon={Search} name="Empleadores" link="/empleador/profile" />
+                        <NavLink icon={Search} name="Empleadores" link="/" />
                         <NavLink icon={BookOpen} name="Suscripción" link="/" />
                     </div>
 
