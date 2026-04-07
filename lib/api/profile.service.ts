@@ -1,13 +1,16 @@
-export async function registerUser(data: { email: string; password: string },) {
+export async function StudentProfileService(data: { email: string; password: string },) {
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-    const response = await fetch(`${API_URL}/users/register/`, {
+    const response = await fetch(`${API_URL}/profiles/student`, {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify(data)
     })
+
+    if (!response.ok) throw new Error("Error actualizando perfil");
+
 
     let result;
     try {

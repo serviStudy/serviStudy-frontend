@@ -3,7 +3,7 @@ import { RegisterErrors, RegisterFormData, TipoUsuario } from "@/type/auth";
 export function validateRegisterForm(
     formData: RegisterFormData,
     tipoUsuario: TipoUsuario
-): RegisterErrors{
+    ): RegisterErrors{
     const errors: RegisterErrors = {
         email: '',
         password: '',

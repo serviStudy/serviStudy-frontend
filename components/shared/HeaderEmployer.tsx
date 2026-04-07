@@ -6,10 +6,8 @@ import NavLink from "../ui/NavLink";
 import { useSidebar } from "../../hooks/useSidebar";
 import { Sidebar } from "./Sidebar";
 import Link from "next/link";
-import { PricingSection } from "@/features/landing/components/PricingSection";
-import { PriceCard } from "@/features/landing/components/PriceCard";
 import { SuscriptionCard } from "./SuscriptionCard";
-import { routes } from "@/hooks/routes";
+import { routes } from "@/type/routes";
 
 export const HeaderEmployer = () => {
     const { open, openSidebar, closeSidebar } = useSidebar()

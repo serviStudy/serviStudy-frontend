@@ -36,7 +36,6 @@ export const useEditProfileForm = (selectedTags: any) => {
             days: selectedTags.day || [],
             jornada: selectedTags.jornada || []
         })
-
         setErrors(formErrors)
 
         if (Object.keys(formErrors).length > 0) return
@@ -47,7 +46,6 @@ export const useEditProfileForm = (selectedTags: any) => {
             selectedTags
         })
 
-        toast.success("Perfil actualizado")
     }
 
     return {
