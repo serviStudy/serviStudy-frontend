@@ -3,14 +3,12 @@ import { HeaderStudent } from '@/components/shared/HeaderStudent'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { StudentSkill } from '@/features/restricted/estudiante/components/StudentSkill'
 import { TagGroup } from '@/features/restricted/estudiante/components/TagGroup'
 import { tagDays } from '@/features/restricted/estudiante/data/tagDays'
 import { tagJornada } from '@/features/restricted/estudiante/data/tagJornada'
 import { useTagSelection } from '@/features/restricted/estudiante/hooks/useTagSelection'
-import { Camera, PlusCircle } from 'lucide-react'
+import { Camera } from 'lucide-react'
 import { TagManager } from '@/features/restricted/estudiante/components/TagManager'
-import React from 'react'
 import { useEditProfileForm } from '@/features/restricted/estudiante/hooks/useEditProfileForm'
 
 
@@ -24,11 +22,14 @@ const page = () => {
         handleSubmit,
         skills,
         setSkills,
-        errors
+        skillError,
+        setSkillError,
+        errors,
+        loading
     } = useEditProfileForm(selection)
 
     return (
-        <div className="flex flex-col gap-9 min-h-[90vh] items-center bg-destructive top-60 pt-14 md:pt-18 lg:pt-18 lg:pb-12">
+        <div className="flex flex-col gap-9 min-h-[90vh] items-center bg-destructive top-60 pt-14 md:min-w-300 md:pt-18 lg:pt-18 lg:pb-12">
             <HeaderStudent/>
             
             <div className="bg-white rounded-[9px] min-w-20 mx-0 md:min-w-160 md:max-w-300 md:h-auto lg:w-228 lg:h-auto lg:rounded-[14px]">
@@ -112,14 +113,24 @@ const page = () => {
 
                     {/* input de skillsStudent */}
                     <div className='flex flex-col w-220 justify-between'>
-                        <TagManager skills={skills} setSkills={setSkills} />
-                        {errors.skills && <span className="text-red-700 font-semibold text-[11px] md:text-[12px]">{errors.skills}</span>}
+                        <TagManager 
+                            skills={skills} 
+                            setSkills={setSkills} 
+                            setExternalError={setSkillError}
+                        />
+                        {skillError && (
+                        <span className="text-red-700 font-semibold text-[11px] md:text-[12px]">
+                            {skillError}
+                        </span>
+                        )}
                     </div>
 
                     {/* botones del form */}
                     <div className='flex gap-3 md:gap-4 left-48'>
                         <Button variant={'cancelEditProfile'} size={'buttonEditProfile'} onClick={handleCancel}>Cancelar</Button>
-                        <Button variant={'keepChangesEditProfile'} size={'buttonEditProfile'} onClick={handleSubmit}>Guardar Cambios</Button>
+                        <Button variant={'keepChangesEditProfile'} size={'buttonEditProfile'} onClick={handleSubmit} disabled={loading}>
+                            {loading ? "Guardando..." : "Guardar cambios"}
+                        </Button>
                     </div>
                 </div>
 

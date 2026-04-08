@@ -1,4 +1,4 @@
-export async function StudentProfileService(data: { email: string; password: string },) {
+export async function studentProfileService(data: { name: string; phone: string, description: string },) {
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
     const response = await fetch(`${API_URL}/profiles/student`, {
@@ -8,9 +8,6 @@ export async function StudentProfileService(data: { email: string; password: str
         },
         body: JSON.stringify(data)
     })
-
-    if (!response.ok) throw new Error("Error actualizando perfil");
-
 
     let result;
     try {
@@ -22,7 +19,7 @@ export async function StudentProfileService(data: { email: string; password: str
     
     if (!response.ok) {
         throw{
-            message: result.message || "Error en editar usuario",
+            message: result.message || "Error actualizando perfil",
             status: response.status
         };
     }

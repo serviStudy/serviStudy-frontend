@@ -1,13 +1,10 @@
 "use client";
-
 import { BookOpen, Info, MapPin, Menu, Search, Settings, User, X } from "lucide-react";
 import Image from "next/image";
 import NavLink from "../ui/NavLink";
 import { useSidebar } from "../../hooks/useSidebar";
 import { Sidebar } from "./Sidebar";
 import Link from "next/link";
-import { PricingSection } from "@/features/landing/components/PricingSection";
-import { PriceCard } from "@/features/landing/components/PriceCard";
 import { SuscriptionCard } from "./SuscriptionCard";
 
 export const HeaderStudent = () => {

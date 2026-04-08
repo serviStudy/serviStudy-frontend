@@ -1,8 +1,17 @@
 import { useState } from "react"
 import { validateEditProfile } from "../utils/validator"
 import { toast } from "sonner"
+import { studentProfileService } from "@/lib/api/profile.service"
 
-export const useEditProfileForm = (selectedTags: any) => {
+type Selection = {
+    day: string | null;
+    jornada: string | null;
+}
+
+export const useEditProfileForm = (selection: Selection) => {
+    const [loading , setLoading] = useState(false)
+    const [skillError, setSkillError] = useState<string | null>(null) 
+
     const [formData, setFormData] = useState({
         name: "",
         phone: "",
@@ -27,25 +36,45 @@ export const useEditProfileForm = (selectedTags: any) => {
         setErrors({})
     }
 
-    function handleSubmit() {
+    async function handleSubmit() {
         const formErrors = validateEditProfile({
             name: formData.name,
             phone: formData.phone,
             description: formData.description,
             skills,
-            days: selectedTags.day || [],
-            jornada: selectedTags.jornada || []
+            days: selection.day,
+            jornada: selection.jornada
         })
         setErrors(formErrors)
+        setSkillError(formErrors.skills || null)
 
         if (Object.keys(formErrors).length > 0) return
 
-        console.log("ENVIAR AL BACKEND", {
-            ...formData,
-            skills,
-            selectedTags
-        })
+        setLoading(true)
 
+        try{
+            await studentProfileService({
+                name: formData.name,
+                phone: formData.phone,
+                description: formData.description
+            }
+        )
+        
+        toast.success("Perfil actualizado")
+
+        }catch (error: any){
+            let message = error.message || "Error desconocido"
+
+            if (error.status === 409) {
+                message = "El perfil ya ha sido actualizado"
+            } else if (error.status === 500) {
+                message = "Error interno del servidor"
+            } 
+
+            toast.error(message);
+        } finally{
+            setLoading(false)
+        }
     }
 
     return {
@@ -55,6 +84,10 @@ export const useEditProfileForm = (selectedTags: any) => {
         handleSubmit,
         skills,
         setSkills,
-        errors
+        errors,
+        skillError,
+        setSkillError,
+        loading,
+        selection
     }
 }

@@ -8,9 +8,10 @@ import { validateSkill } from "../utils/validator"
 interface Props {
     skills: string[]
     setSkills: React.Dispatch<React.SetStateAction<string[]>>
+    setExternalError?: (error: string | null) => void
 }
 
-export const TagManager = ({ skills, setSkills }: Props) => {
+export const TagManager = ({ skills, setSkills, setExternalError }: Props) => {
     const [inputValue, setInputValue] = React.useState("")
     const [error, setError] = React.useState<string | null>(null)
 
@@ -19,12 +20,14 @@ export const TagManager = ({ skills, setSkills }: Props) => {
 
         if (validationError) {
             setError(validationError)
+            setExternalError?.(validationError)
             return
         }
 
         setSkills(prev => [...prev, inputValue.trim()])
         setInputValue("")
         setError(null)
+        setExternalError?.(null)
     }
 
     function handleRemove(skill: string) {
@@ -39,7 +42,11 @@ export const TagManager = ({ skills, setSkills }: Props) => {
                 <Input
                     className="text-[12px] text-gray-500 md:text-[11px] lg:text-[14px] font-medium rounded-[15px] h-5 lg:h-9 border border-gray-400"
                     value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
+                    onChange={(e) => {
+                        setInputValue(e.target.value)
+                        setError(null)
+                        setExternalError?.(null)
+                    }}
                     onKeyDown={(e) => {
                         if (e.key === "Enter") {
                             e.preventDefault()
@@ -47,11 +54,14 @@ export const TagManager = ({ skills, setSkills }: Props) => {
                     placeholder="Añadir habilidades"
                 />
 
-                <Button className="h-5 lg:h-9"
-                    onClick={handleAdd}>
+                <Button className={`h-5 lg:h-9 ${!inputValue.trim() ? "opacity-50" : ""}`}
+                    onClick={handleAdd}
+                    >
                     <PlusCircle className="h-2! w-2! md:h-2! md:w-2! lg:w-4! lg:h-8!"/>
                 </Button>
             </div>
+            
+            {(error) && (<span className="text-[10px] text-red-700 font-semibold md:text-[12px]">{error}</span>)}
             <SkillsList skills={skills} onRemove={handleRemove} />
         </div>
     )
