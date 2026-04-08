@@ -16,7 +16,7 @@ export const OfferList = () => {
       : offers.filter((o) => o.status === filter);
 
   return (
-    <div className="lg:max-w-5xl md:max-w-2xl max-w-full mx-auto px-4 py-6  md:px-0">
+    <div className="lg:max-w-5xl md:max-w-2xl max-w-full mx-auto py-8 md:px-0">
       <OfferHeader onFilterChange={setFilter} />
 
       {loading && <p className="text-gray-500 text-center" >Cargando...</p>}
