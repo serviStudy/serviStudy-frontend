@@ -15,11 +15,18 @@ export const useEditProfileForm = (selection: Selection) => {
     const [formData, setFormData] = useState({
         name: "",
         phone: "",
-        description: ""
+        description: "",
     })
 
     const [skills, setSkills] = useState<string[]>([])
     const [errors, setErrors] = useState<Record<string, string>>({})
+    const [image, setImage] = useState<File | null>(null)
+
+    function handleImageChange(e: React.ChangeEvent<HTMLInputElement>){
+        if (e.target.files && e.target.files[0]){
+            setImage(e.target.files[0])
+        }
+    }
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
         const { name, value } = e.target
@@ -53,14 +60,30 @@ export const useEditProfileForm = (selection: Selection) => {
         setLoading(true)
 
         try{
-            await studentProfileService({
+            const profileJson = {
                 name: formData.name,
                 phone: formData.phone,
-                description: formData.description
+                description: formData.description,
+                skills,
+                days: selection.day,
+                jornada: selection.jornada
             }
-        )
-        
-        toast.success("Perfil actualizado")
+
+            const data = new FormData()
+
+            data.append(
+                "data",
+                new Blob([JSON.stringify(profileJson)],{
+                    type: "application/json"
+                })
+            )
+
+            if (image){
+                data.append("image", image)
+            }
+
+            await studentProfileService(data)        
+            toast.success("Perfil actualizado")
 
         }catch (error: any){
             let message = error.message || "Error desconocido"
@@ -82,7 +105,9 @@ export const useEditProfileForm = (selection: Selection) => {
         handleChange,
         handleCancel,
         handleSubmit,
+        handleImageChange,
         skills,
+        image,
         setSkills,
         errors,
         skillError,

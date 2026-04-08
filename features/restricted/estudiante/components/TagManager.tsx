@@ -5,6 +5,8 @@ import { PlusCircle } from "lucide-react"
 import { SkillsList } from "./SkillsList"
 import { validateSkill } from "../utils/validator"
 
+/* {(error) && (<span className="text-[10px] text-red-700 font-semibold md:text-[12px]">{error}</span>)}  */
+
 interface Props {
     skills: string[]
     setSkills: React.Dispatch<React.SetStateAction<string[]>>
@@ -35,10 +37,10 @@ export const TagManager = ({ skills, setSkills, setExternalError }: Props) => {
     }
 
     return (
-        <div className='flex flex-col gap-2 w-full'>
+        <div className='flex flex-col gap-2 w-220'>
             <p className="font-bold text-gray-500 text-[12px] md:text-[14px] lg:text-[17px]">Habilidades</p>
 
-            <div className='flex w-full gap-6'>
+            <div className='flex gap-2'>
                 <Input
                     className="text-[12px] text-gray-500 md:text-[11px] lg:text-[14px] font-medium rounded-[15px] h-5 lg:h-9 border border-gray-400"
                     value={inputValue}
@@ -59,10 +61,9 @@ export const TagManager = ({ skills, setSkills, setExternalError }: Props) => {
                     >
                     <PlusCircle className="h-2! w-2! md:h-2! md:w-2! lg:w-4! lg:h-8!"/>
                 </Button>
+
             </div>
-            
-            {(error) && (<span className="text-[10px] text-red-700 font-semibold md:text-[12px]">{error}</span>)}
-            <SkillsList skills={skills} onRemove={handleRemove} />
+                        <SkillsList skills={skills} onRemove={handleRemove} />
         </div>
     )
 }
