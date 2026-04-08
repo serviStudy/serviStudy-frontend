@@ -33,17 +33,7 @@ export const useLogin = () => {
       localStorage.setItem("user_email", correo)
       localStorage.setItem("user_role", tipoUsuario)
       
-      // Capturamos el ID de cualquier campo posible
-      const anyId = data.data.userId || data.data.id || data.data.employerId || data.data.employer_id || ""
-      
-      if (!anyId) {
-        console.warn("⚠️ ALERTA: No se encontró ningún ID (userId/id/employerId) en la respuesta del login.")
-      }
-
-      localStorage.setItem("user_id", anyId)
-      localStorage.setItem("employer_id", anyId)
-
-      console.log("Sesión guardada con IDs:", { anyId })
+      console.log("Sesión guardada (Token + Info Básica)")
 
       // REDIRECCIÓN AL PERFIL SEGÚN TIPO DE USUARIO
       if (tipoUsuario === "estudiante") {
