@@ -1,6 +1,7 @@
 "use client";
 
 import { BookOpen, Info, MapPin, Menu, Search, Settings, User} from "lucide-react";
+
 import Image from "next/image";
 import NavLink from "../ui/NavLink";
 import { useSidebar } from "../../hooks/useSidebar";

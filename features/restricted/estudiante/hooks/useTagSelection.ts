@@ -1,5 +1,10 @@
 import { useState } from "react"
 
+type Selection = {
+    day: string | null;
+    jornada: string | null;
+}
+
 export const useTagSelection = () => {
     const [selection, setSelection] = useState({
         day: null,
