@@ -5,6 +5,7 @@ import { HeaderLR } from '@/components/shared/HeaderLR'
 import { Loader2 } from "lucide-react"
 import { useEditEmployerProfile } from '@/features/profile/employer/hooks/useEditEmployerProfile'
 import { EditProfileForm } from '@/features/profile/employer/components/EditProfileForm'
+import { HeaderEmployer } from '@/components/shared/HeaderEmployer'
 
 export default function EditProfilePage() {
   const { 
@@ -28,7 +29,7 @@ export default function EditProfilePage() {
 
   return (
     <div className="min-h-screen bg-gray-50 pb-12 pt-20">
-      <HeaderLR />
+      <HeaderEmployer name={''} />
 
       <EditProfileForm 
         formData={formData}

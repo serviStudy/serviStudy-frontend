@@ -32,6 +32,7 @@ export interface EmployerProfileUpdateData {
   imageFile?: File
 }
 
+
 // =========================
 // GET PROFILE
 // =========================
@@ -57,7 +58,11 @@ export const updateEmployerProfile = async (
 
   const formData = new FormData()
 
+<<<<<<< HEAD
   //  Construimos el JSON que el backend espera en @RequestPart("data")
+=======
+  // Construimos el JSON que el backend espera en @RequestPart("data")
+>>>>>>> develop
   const profileJson = {
     employerName: profileData.employerName,
     businessName: profileData.businessName,
@@ -66,7 +71,7 @@ export const updateEmployerProfile = async (
     businessSummary: profileData.businessSummary
   }
 
-  // 🔥 ESTA ES LA CLAVE (RequestPart "data")
+  //  ESTA ES LA CLAVE (RequestPart "data")
   formData.append(
     "data",
     new Blob([JSON.stringify(profileJson)], { type: "application/json" })
@@ -86,7 +91,7 @@ export const updateEmployerProfile = async (
     method: "PATCH",
     headers: {
       ...getServiceHeaders()
-      // ❗ NO poner Content-Type
+      //  NO poner Content-Type
     },
     body: formData
   })

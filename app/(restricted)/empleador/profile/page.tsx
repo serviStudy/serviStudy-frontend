@@ -4,6 +4,7 @@ import { HeaderLR } from '@/components/shared/HeaderLR'
 import { Loader2 } from 'lucide-react'
 import { useEmployerProfile } from '@/features/profile/employer/hooks/useEmployerProfile'
 import { ProfileInfo } from '@/features/profile/employer/components/ProfileInfo'
+import { HeaderEmployer } from '@/components/shared/HeaderEmployer'
 
 const ProfilePage = () => {
   const { loading, profile, email, inicial } = useEmployerProfile()
@@ -19,7 +20,7 @@ const ProfilePage = () => {
 
   return (
     <div className="flex min-h-screen flex-col items-center gap-9 bg-gray-200 pt-24 pb-12 w-full px-4 lg:px-0">
-      <HeaderLR />
+      <HeaderEmployer name={''}/>
 
       <ProfileInfo 
         profile={profile}
