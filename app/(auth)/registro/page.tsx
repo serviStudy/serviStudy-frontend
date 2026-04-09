@@ -1,6 +1,6 @@
 "use client"
-import { useState } from "react"
 import Link from "next/link"
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -9,121 +9,18 @@ import { RoleSwitch } from '@/components/shared/RoleSwitch'
 import RegisterModal from "@/components/auth/RegisterModal"
 import { studentTerms } from "@/lib/terms/studentTerms"
 import { HeaderLR } from "@/components/shared/HeaderLR"
-import { toast } from "sonner"
-
-
-type TipoUsuario = "estudiante" | "empresa"
+import { useRegisterForm } from "../../../features/auth/verification/hooks/useRegisterForm"
 
 const Page = () => {
-
-    const API_URL = process.env.NEXT_PUBLIC_API_URL;
-
-    const [tipoUsuario, setTipoUsuario] = useState<TipoUsuario>("estudiante")
-
-    const [formData, setFormData] = useState({
-        email: '',
-        password: '',
-        confirmPassword: '',
-        tyc: false
-    });
-
-    const [errors, setErrors] = useState({
-        email: '',
-        password: '',
-        confirmPassword: '',
-        tyc: ''
-    });
-
-    function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-        const{name, value, type, checked} = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [name]: type === "checkbox" ? checked : value
-        }))
-    }
-
-    async function validateForm(e: React.FormEvent<HTMLFormElement>){
-        e.preventDefault()
-        const newErrors = {
-            email: '',
-            password: '',
-            confirmPassword: '',
-            tyc: ''
-        }
-
-        if(formData.confirmPassword !== formData.password){
-            newErrors.confirmPassword = "Las contraseñas deben concidir"
-        }
-
-        if(tipoUsuario === "estudiante"){
-            if(!formData.email.endsWith('.edu.co')){
-                newErrors.email = "El correo debe ser institucional (.edu)"
-            }
-            if(formData.password.length < 8){
-                newErrors.password = "La contraseña debe tener mínimo 8 caracteres"
-            }
-            if(!formData.tyc){
-                newErrors.tyc = "Debe aceptar términos y condiciones"
-            }
-        }else{
-            if(formData.password.length < 8){
-                newErrors.password = "La contraseña debe tener mínimo 8 caracteres"
-            }
-            if(!formData.tyc){
-                newErrors.tyc = "Debe aceptar declaración de representante"
-            }
-        }
-        setErrors(newErrors)
-        if(newErrors.email || newErrors.password || newErrors.confirmPassword || newErrors.tyc){
-            return
-        }
-
-        try {
-            const response = await fetch(`${API_URL}/users/register/${tipoUsuario === "estudiante" ? "student" : "employer"}`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    email: formData.email,
-                    password: formData.password
-                })
-            })
-
-            const data = await response.json()
-            console.log("Respuesta backend:", data)
-
-            if (!response.ok) {
-                toast.error(data.message || "Error en el registro")
-                return
-            }
-
-            window.location.href = `/verificar?email=${formData.email}`
-
-        } catch (error) {
-            console.error("Error:", error)
-            toast.error("Error de conexión con el servidor")
-        }
-    }
-
-
-    function handleTipoUsuarioChange(tipo: TipoUsuario){
-        setTipoUsuario(tipo)
-
-        setFormData({
-            email: '',
-            password: '',
-            confirmPassword: '',
-            tyc: false
-        })
-
-        setErrors({
-            email: '',
-            password: '',
-            confirmPassword: '',
-            tyc: ''
-        })
-    }
+    const {
+        formData,
+        errors,
+        tipoUsuario,
+        handleInputChange,
+        handleTipoUsuarioChange,
+        handleCheckboxChange,
+        handleSubmit
+    }= useRegisterForm();
 
     return (
         <div className="flex min-h-screen items-center justify-center bg-gray-200 ">
@@ -165,7 +62,7 @@ const Page = () => {
                     </div>
 
                     {/* FORM */}
-                    <form onSubmit={validateForm} className="space-y-2">
+                    <form onSubmit={handleSubmit} className="space-y-2">
                         <div className="flex flex-col gap-2">
                             <label className="text-[12px] md:text-[14px] lg:text-sm font-medium text-gray-500"> 
                                 Correo eletrónico
@@ -192,7 +89,7 @@ const Page = () => {
 
                             <label className="text-[12px] md:text-[14px] lg:text-sm font-medium text-gray-500">
                                 Confirmar contraseña
-                                <Input className="text-[12px] md:text-[14px] lg:text-sm font-normal" placeholder="confirma tu contraseña"
+                                <Input className="text-[12px]  md:text-[14px] lg:text-sm font-normal" placeholder="confirma tu contraseña"
                                     type="password" 
                                     name="confirmPassword"
                                     value={formData.confirmPassword}
@@ -208,7 +105,7 @@ const Page = () => {
                                 <Checkbox 
                                 name="tyc"
                                 checked={formData.tyc}
-                                onCheckedChange={(checked) => setFormData (prev => ({...prev, tyc: Boolean(checked)}))}
+                                onCheckedChange={handleCheckboxChange}
                                 />
                                 {tipoUsuario === "estudiante" 
                                     ?  

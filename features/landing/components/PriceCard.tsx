@@ -96,7 +96,6 @@ export function PriceCard({
           ))}
         </ul>
       </CardContent>
-
     </Card>
   );
 }

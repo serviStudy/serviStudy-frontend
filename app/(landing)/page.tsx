@@ -20,7 +20,6 @@ export default function Home() {
         </p>
 
         <a href="/registro">
-
           <Button variant="azul" className="md:py-5 md:px-11 md:text-[17px] py-3 px-8">Registrate Ya</Button>
 
         </a>
