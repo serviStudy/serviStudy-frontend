@@ -2,8 +2,8 @@ import { OfferList } from "@/features/restricted/employer/jobOffer/components/Of
 
 export default function Page() {
   return(
-    <div className="min-h-screen bg-gray-300">
+    <div className="min-h-screen ">
       <OfferList/>
     </div>
-  ) ;
+  );
 }

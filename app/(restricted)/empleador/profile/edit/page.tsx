@@ -29,7 +29,7 @@ export default function EditProfilePage() {
 
   return (
     <div className="min-h-screen bg-gray-50 pb-12 pt-20">
-      <HeaderEmployer />
+      <HeaderEmployer name={''} />
 
       <EditProfileForm 
         formData={formData}

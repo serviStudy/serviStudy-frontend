@@ -22,7 +22,6 @@ const page = () => {
         handleSubmit,
         handleImageChange,
         skills,
-        image,
         setSkills,
         skillError,
         setSkillError,
@@ -32,7 +31,7 @@ const page = () => {
 
     return (
         <div className="flex flex-col gap-9 min-h-[90vh] items-center bg-gray-100 top-60 pt-14 md:min-w-300 md:pt-18 lg:pt-18 lg:pb-12">
-            <HeaderStudent/>
+            <HeaderStudent name={''}/>
             
             <div className="bg-white rounded-[9px] min-w-20 mx-0 md:min-w-160 md:max-w-300 md:h-auto lg:w-228 lg:h-auto lg:rounded-[14px]">
                 <div className="relative bg-popover w-auto h-20 rounded-t-[9px] p-8 md:w-max-w-300 md:h-28 lg:justify-start lg:w-228 lg:h-44 lg:rounded-t-[9px]">

@@ -1,6 +1,7 @@
 import { jobOffersMock } from "../mocks/jobOffer.mock";
 
 const USE_MOCK = true;
+const API = process.env.REACT_APP_API_URL || "http://localhost:3000";
 
 export const getEmployerOffers = async () => {
   if (USE_MOCK) {

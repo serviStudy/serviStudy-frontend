@@ -1,17 +1,16 @@
 import { HeaderStudent } from '@/components/shared/HeaderStudent'
 import { ProfileVerification } from '@/components/shared/ProfileVerification'
 import { Reviews } from '@/components/shared/Reviews'
-import { StudentSkill } from '@/features/restricted/estudiante/components/StudentSkill'
 import { VerifiedUser } from '@/components/shared/VerifiedUser'
 import { routes } from '@/type/routes'
-import { AtSign, Calendar, Clock, LetterTextIcon, Mail, Phone, SquarePen, Star, User, Users, Zap } from 'lucide-react'
+import { Calendar, Clock, Mail, Phone, SquarePen, User, Users, Zap } from 'lucide-react'
 import Link from 'next/dist/client/link'
 import React from 'react'
 
 const page = () => {
     return (
         <div className="flex flex-col gap-9 min-h-screen items-center justify-center bg-gray-200 pt-16 md:pt-10 lg:pt-18 pb-12">
-            <HeaderStudent/>
+            <HeaderStudent name={''}/>
             <ProfileVerification/>
 
             <div className="bg-white w-77.5 h-full rounded-[9px] md:w-125 lg:w-228 lg:h-234.5 lg:rounded-[14px]">
