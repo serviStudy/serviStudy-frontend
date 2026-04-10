@@ -1,46 +1,48 @@
-import React, { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { Card, CardContent } from '@/components/ui/card'
-import { Label } from '@/components/ui/label'
-import { Camera, ChevronLeft, Loader2, X, PlusCircle } from "lucide-react"
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
-import { StudentSkill } from '../services/studentProfileService'
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Card, CardContent } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { Camera, Loader2, PlusCircle } from 'lucide-react';
+import { StudentSkill } from '../types/studentProfile.types';
+import { isSpecificDays, isWeekDays, isWeekend, normalizeDays, translateDay } from '../utils/workDays.utils';
+import { Tag } from './ui/Tag';
+import { WorkDaysModal } from './modals/WorkDaysModal';
 
 interface EditProfileFormProps {
   formData: {
-    name: string
-    contactNumber: string
-    description: string
-    jornada: string | null
-    days: string[]
-    skills: StudentSkill[]
-    imageUrl: string | null
-    email: string
-  }
+    name: string;
+    contactNumber: string;
+    description: string;
+    jornada: string | null;
+    days: string[];
+    skills: StudentSkill[];
+    imageUrl: string | null;
+    email: string;
+  };
   setters: {
-    setName: (val: string) => void
-    setContactNumber: (val: string) => void
-    setDescription: (val: string) => void
-    setJornada: (val: string) => void
-    setDays: React.Dispatch<React.SetStateAction<string[]>>
-  }
+    setName: (val: string) => void;
+    setContactNumber: (val: string) => void;
+    setDescription: (val: string) => void;
+    setJornada: (val: string) => void;
+    setDays: React.Dispatch<React.SetStateAction<string[]>>;
+  };
   actions: {
-    handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-    handleAddSkill: (skill: string) => void
-    handleRemoveSkill: (id: number) => void
-    handleToggleDay: (day: string) => void
-    handleSave: () => void
-    triggerFileInput: () => void
-  }
+    handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    handleAddSkill: (skill: string) => void;
+    handleRemoveSkill: (id: number) => void;
+    handleToggleDay: (day: string) => void;
+    handleSave: () => void;
+    triggerFileInput: () => void;
+  };
   refs: {
-    fileInputRef: React.RefObject<HTMLInputElement | null>
-  }
-  errors: Record<string, string>
-  saving: boolean
-  inicial: string
+    fileInputRef: React.RefObject<HTMLInputElement | null>;
+  };
+  errors: Record<string, string>;
+  saving: boolean;
+  inicial: string;
 }
 
 export const EditProfileForm: React.FC<EditProfileFormProps> = ({
@@ -52,48 +54,38 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
   saving,
   inicial
 }) => {
-  const router = useRouter()
-  const [newSkill, setNewSkill] = useState("")
-  const [isDaysModalOpen, setIsDaysModalOpen] = useState(false)
+  const router = useRouter();
+  const [newSkill, setNewSkill] = useState("");
+  const [isDaysModalOpen, setIsDaysModalOpen] = useState(false);
 
-  const DAYS_OPTIONS = ["Entre semana", "Fines de semana", "Específicos"]
+  const DAYS_OPTIONS = ["Entre semana", "Fines de semana", "Específicos"];
   const SCHEDULE_OPTIONS = [
     { id: 'FULL_TIME', label: 'Jornada completa' },
     { id: 'PART_TIME', label: 'Media jornada' },
     { id: 'FLEXIBLE', label: 'Flexible' }
-  ]
-
-  const SPECIFIC_DAYS = [
-    { id: 'MONDAY', label: 'Lunes' },
-    { id: 'TUESDAY', label: 'Martes' },
-    { id: 'WEDNESDAY', label: 'Miércoles' },
-    { id: 'THURSDAY', label: 'Jueves' },
-    { id: 'FRIDAY', label: 'Viernes' },
-    { id: 'SATURDAY', label: 'Sábado' },
-    { id: 'SUNDAY', label: 'Domingo' }
-  ]
+  ];
 
   const handlePresetDays = (preset: string) => {
     if (preset === "Entre semana") {
-      setters.setDays(["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"])
+      setters.setDays(["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"]);
     } else if (preset === "Fines de semana") {
-      setters.setDays(["SATURDAY", "SUNDAY"])
+      setters.setDays(["SATURDAY", "SUNDAY"]);
     } else if (preset === "Específicos") {
-      setIsDaysModalOpen(true)
+      setIsDaysModalOpen(true);
     }
-  }
+  };
 
-  const normalizedDays = formData.days.map(d => d.trim().toUpperCase());
-  const isEntreSemanaSelected = ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"].every(d => normalizedDays.includes(d)) && normalizedDays.length === 5;
-  const isFinesDeSemanaSelected = ["SATURDAY", "SUNDAY"].every(d => normalizedDays.includes(d)) && normalizedDays.length === 2;
-  const isEspecificosSelected = normalizedDays.length > 0 && !isEntreSemanaSelected && !isFinesDeSemanaSelected;
+  const normalizedDays = normalizeDays(formData.days);
+  const isEntreSemanaSelected = isWeekDays(normalizedDays);
+  const isFinesDeSemanaSelected = isWeekend(normalizedDays);
+  const isEspecificosSelected = isSpecificDays(normalizedDays);
 
   const handleAddSkillClick = () => {
     if (newSkill.trim()) {
-      actions.handleAddSkill(newSkill.trim())
-      setNewSkill("")
+      actions.handleAddSkill(newSkill.trim());
+      setNewSkill("");
     }
-  }
+  };
 
   return (
     <div className="mx-auto max-w-4xl px-4 lg:px-0">
@@ -184,25 +176,11 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
                   </button>
                 ))}
               </div>
-              {isEspecificosSelected && formData.days.length > 0 && (
+              {isEspecificosSelected && normalizedDays.length > 0 && (
                 <div className="mt-3 flex flex-wrap gap-2">
-                  {formData.days.map(d => {
-                    const key = d.trim().toUpperCase();
-                    const translatedDay = {
-                       MONDAY: 'Lunes',
-                       TUESDAY: 'Martes',
-                       WEDNESDAY: 'Miércoles',
-                       THURSDAY: 'Jueves',
-                       FRIDAY: 'Viernes',
-                       SATURDAY: 'Sábado',
-                       SUNDAY: 'Domingo'
-                    }[key] || d;
-                    return (
-                      <span key={d} className="bg-[#e0eaff] text-[#1a4b9e] rounded-full px-3 py-1 text-xs font-semibold">
-                        {translatedDay}
-                      </span>
-                    )
-                  })}
+                  {normalizedDays.map(d => (
+                    <Tag key={d} variant="specific_day" label={translateDay(d)} />
+                  ))}
                 </div>
               )}
               {errors.days && <p className="text-red-500 text-xs">{errors.days}</p>}
@@ -234,18 +212,12 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
             <Label className="text-[14px] font-bold text-gray-700">Cualidades</Label>
             <div className="flex flex-wrap gap-2">
               {formData.skills.map((skill) => (
-                <span
-                  key={skill.id}
-                  className="inline-flex items-center gap-1 px-4 py-2 text-sm rounded-full bg-[#d2e3ff] text-[#1a4b9e]"
-                >
-                  {skill.skillName}
-                  <button
-                    onClick={() => skill.id && actions.handleRemoveSkill(skill.id)}
-                    className="hover:text-blue-900 focus:outline-none"
-                  >
-                    <X className="h-4 w-4" />
-                  </button>
-                </span>
+                <Tag 
+                  key={skill.id} 
+                  variant="skill" 
+                  label={skill.skillName} 
+                  onRemove={() => skill.id && actions.handleRemoveSkill(skill.id)} 
+                />
               ))}
             </div>
             
@@ -299,37 +271,12 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
         </CardContent>
       </Card>
 
-      <Dialog open={isDaysModalOpen} onOpenChange={setIsDaysModalOpen}>
-        <DialogContent className="sm:max-w-[425px]">
-          <DialogHeader>
-            <DialogTitle className="text-xl font-bold text-[#1a4b9e]">Selecciona tus días laborales</DialogTitle>
-          </DialogHeader>
-          <div className="grid grid-cols-2 gap-3 mt-4">
-            {SPECIFIC_DAYS.map((sd) => (
-              <button
-                key={sd.id}
-                type="button"
-                onClick={() => actions.handleToggleDay(sd.id)}
-                className={`px-4 py-2 text-sm font-medium rounded-lg border transition-colors ${
-                  normalizedDays.includes(sd.id)
-                    ? "bg-[#2552d0] text-white border-[#2552d0]"
-                    : "bg-white text-gray-600 border-gray-300 hover:bg-gray-50"
-                }`}
-              >
-                {sd.label}
-              </button>
-            ))}
-          </div>
-          <div className="mt-6 flex justify-end">
-            <Button
-              className="bg-[#2552d0] text-white font-bold hover:bg-blue-800"
-              onClick={() => setIsDaysModalOpen(false)}
-            >
-              Aceptar
-            </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
+      <WorkDaysModal 
+        open={isDaysModalOpen} 
+        onOpenChange={setIsDaysModalOpen}
+        selectedDays={normalizedDays}
+        onToggleDay={actions.handleToggleDay}
+      />
     </div>
-  )
-}
+  );
+};

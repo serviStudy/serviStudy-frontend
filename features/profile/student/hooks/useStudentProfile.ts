@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import { getStudentProfile, type StudentProfileResponse } from '../services/studentProfileService'
+import { getStudentProfile } from '../services/studentProfileService'
+import type { StudentProfileResponse } from '../types/studentProfile.types'
 
 export const useStudentProfile = () => {
   const [loading, setLoading] = useState(true)

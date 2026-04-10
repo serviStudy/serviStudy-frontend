@@ -1,193 +1,128 @@
-import { useState, useRef, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-import { toast } from 'sonner'
-import { validateEditProfile } from '@/features/restricted/estudiante/utils/validator'
-import {
-  getStudentProfile,
-  updateStudentProfile,
-  addStudentSkill,
-  deleteStudentSkill,
-  addStudentWorkDay,
-  deleteStudentWorkDay,
-  StudentSkill
-} from '../services/studentProfileService'
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
+import { validateEditProfile } from '@/features/restricted/estudiante/utils/validator';
+import { getStudentProfile, updateStudentProfile } from '../services/studentProfileService';
+import { normalizeDays } from '../utils/workDays.utils';
+
+import { useProfileForm } from './useProfileForm';
+import { useSkills } from './useSkills';
+import { useWorkDays } from './useWorkDays';
+import { useImageUpload } from './useImageUpload';
 
 export const useEditStudentProfile = () => {
-  const router = useRouter()
+  const router = useRouter();
 
-  const [loading, setLoading] = useState(true)
-  const [saving, setSaving] = useState(false)
-  
-  // Text fields
-  const [name, setName] = useState("")
-  const [contactNumber, setContactNumber] = useState("")
-  const [description, setDescription] = useState("")
-  const [userId, setUserId] = useState<string>("")
-  
-  // Selection fields (mapped to workSchedule/jornada)
-  const [jornada, setJornada] = useState<string | null>(null)
-  const [initialDays, setInitialDays] = useState<string[]>([])
-  const [days, setDays] = useState<string[]>([])
-  
-  // Skills list (from server)
-  const [skills, setSkills] = useState<StudentSkill[]>([])
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [userId, setUserId] = useState<string>("");
+  const [email, setEmail] = useState("");
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
-  // Image
-  const [imageUrl, setImageUrl] = useState<string | null>(null)
-  const [imageFile, setImageFile] = useState<File | null>(null)
-  const [email, setEmail] = useState("")
-
-  const [errors, setErrors] = useState<Record<string, string>>({})
-
-  const fileInputRef = useRef<HTMLInputElement>(null)
+  const formHook = useProfileForm();
+  const workDaysHook = useWorkDays();
+  const imageHook = useImageUpload();
 
   const loadProfile = async (silent = false) => {
     try {
-      if (!silent) setLoading(true)
-      const data = await getStudentProfile()
+      if (!silent) setLoading(true);
+      const data = await getStudentProfile();
       if (data) {
-        setUserId(data.userId || data.id || "")
-        setName(data.name ?? "")
-        setContactNumber(data.contactNumber ?? "")
-        setDescription(data.description ?? "")
-        setJornada(data.workSchedule ?? null)
-        setDays(data.workDays ?? [])
-        setInitialDays(data.workDays ?? [])
-        setSkills(data.studentSkills ?? [])
-        setImageUrl(data.imgUrl ?? null)
+        setUserId(data.userId || data.id || "");
+        formHook.setName(data.name ?? "");
+        formHook.setContactNumber(data.contactNumber ?? "");
+        formHook.setDescription(data.description ?? "");
+        
+        workDaysHook.setJornada(data.workSchedule ?? null);
+        const uniqueNormalizedDays = normalizeDays(data.workDays || []);
+        workDaysHook.setDays(uniqueNormalizedDays);
+        workDaysHook.setInitialDays(uniqueNormalizedDays);
+        
+        skillsHook.setSkills(data.studentSkills ?? []);
+        imageHook.setImageUrl(data.imgUrl ?? null);
       }
     } catch (error) {
-      console.error("Error al cargar perfil:", error)
-      toast.error("No se pudo cargar el perfil")
+      console.error("Error al cargar perfil:", error);
+      toast.error("No se pudo cargar el perfil");
     } finally {
-      if (!silent) setLoading(false)
+      if (!silent) setLoading(false);
     }
-  }
+  };
+
+  const skillsHook = useSkills(loadProfile);
 
   useEffect(() => {
-    setEmail(localStorage.getItem("user_email") ?? "")
-    loadProfile()
-  }, [])
-
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (!file) return
-    if (file.size > 5 * 1024 * 1024) {
-      toast.error("La imagen es demasiado grande. Máximo 5MB.")
-      return
-    }
-    setImageFile(file)
-    const reader = new FileReader()
-    reader.onloadend = () => setImageUrl(reader.result as string)
-    reader.readAsDataURL(file)
-  }
-
-  const handleAddSkill = async (skillName: string) => {
-    if (!skillName.trim()) return
-    try {
-      await addStudentSkill(skillName.trim())
-      await loadProfile(true)
-      toast.success("Habilidad agregada")
-    } catch (error: any) {
-      toast.error("Error al agregar habilidad")
-    }
-  }
-
-  const handleRemoveSkill = async (id: number) => {
-    try {
-      await deleteStudentSkill(id)
-      await loadProfile(true)
-      toast.success("Habilidad eliminada")
-    } catch (error: any) {
-      toast.error("Error al eliminar habilidad")
-    }
-  }
-
-  const handleToggleDay = (day: string) => {
-    setDays((prev) => 
-      prev.includes(day) ? prev.filter(d => d !== day) : [...prev, day]
-    )
-  }
+    setEmail(localStorage.getItem("user_email") ?? "");
+    loadProfile();
+  }, []);
 
   const handleSave = async () => {
-    // Basic validation
     const formErrors = validateEditProfile({
-        name,
-        phone: contactNumber,
-        description,
-        skills: skills.map(s => s.skillName),
-        days: days.length > 0 ? days[0] : null, // Mapped for legacy validator constraint if any
-        jornada
-    })
-    setErrors(formErrors)
+      name: formHook.name,
+      phone: formHook.contactNumber,
+      description: formHook.description,
+      skills: skillsHook.skills.map(s => s.skillName),
+      days: workDaysHook.days.length > 0 ? workDaysHook.days[0] : null,
+      jornada: workDaysHook.jornada
+    });
+    setErrors(formErrors);
 
-    // Optionally bypass strict errors if the legacy validator is too rigid on skills length etc.
-    // Assuming we want to save text details:
-    setSaving(true)
+    setSaving(true);
     try {
       await updateStudentProfile({
-        name,
-        contactNumber,
-        description,
-        jornada,
-        imageFile: imageFile ?? undefined
-      })
+        name: formHook.name,
+        contactNumber: formHook.contactNumber,
+        description: formHook.description,
+        jornada: workDaysHook.jornada,
+        imageFile: imageHook.imageFile ?? undefined
+      });
 
-      // Sync days
-      const daysToAdd = days.filter(d => !initialDays.includes(d))
-      const daysToRemove = initialDays.filter(d => !days.includes(d))
+      await workDaysHook.syncDays(userId);
 
-      if (daysToAdd.length > 0) {
-        try { await addStudentWorkDay(userId, daysToAdd) } catch (e: any) { console.error("Error adding days", e) }
-      }
-      if (daysToRemove.length > 0) {
-        try { await deleteStudentWorkDay(userId, daysToRemove) } catch (e: any) { console.error("Error removing days", e) }
-      }
-
-      toast.success("Perfil actualizado correctamente")
-      router.push("/estudiante/profile")
+      toast.success("Perfil actualizado correctamente");
+      router.push("/estudiante/profile");
     } catch (error: any) {
-      console.error("Error al guardar:", error)
-      toast.error(error.message || "Error al guardar los cambios")
+      console.error("Error al guardar:", error);
+      toast.error(error.message || "Error al guardar los cambios");
     } finally {
-      setSaving(false)
+      setSaving(false);
     }
-  }
+  };
 
-  const inicial = (name || email).charAt(0).toUpperCase() || "E"
+  const inicial = (formHook.name || email).charAt(0).toUpperCase() || "E";
 
   return {
     loading,
     saving,
     formData: {
-      name,
-      contactNumber,
-      description,
-      jornada,
-      days,
-      skills,
-      imageUrl,
+      name: formHook.name,
+      contactNumber: formHook.contactNumber,
+      description: formHook.description,
+      jornada: workDaysHook.jornada,
+      days: workDaysHook.days,
+      skills: skillsHook.skills,
+      imageUrl: imageHook.imageUrl,
       email
     },
     setters: {
-      setName,
-      setContactNumber,
-      setDescription,
-      setJornada, // Using select or buttons for the schedule enum
-      setDays,
+      setName: formHook.setName,
+      setContactNumber: formHook.setContactNumber,
+      setDescription: formHook.setDescription,
+      setJornada: workDaysHook.setJornada,
+      setDays: workDaysHook.setDays,
     },
     actions: {
-      handleImageChange,
-      handleAddSkill,
-      handleRemoveSkill,
-      handleToggleDay,
+      handleImageChange: imageHook.handleImageChange,
+      handleAddSkill: skillsHook.handleAddSkill,
+      handleRemoveSkill: skillsHook.handleRemoveSkill,
+      handleToggleDay: workDaysHook.handleToggleDay,
       handleSave,
-      triggerFileInput: () => fileInputRef.current?.click()
+      triggerFileInput: imageHook.triggerFileInput
     },
     refs: {
-      fileInputRef
+      fileInputRef: imageHook.fileInputRef
     },
     errors,
     inicial
-  }
-}
+  };
+};

@@ -3,32 +3,7 @@ import { getAuthHeaders } from "@/lib/api/authHeaders";
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const STUDENT_PROFILE_URL = `${API_URL}/profiles/student`;
 
-export interface StudentSkill {
-  id?: number;
-  skillName: string;
-}
-
-export interface StudentProfileResponse {
-  id?: string;
-  userId?: string;
-  name?: string;
-  email?: string;
-  contactNumber?: string;
-  description?: string;
-  verifyStatus?: boolean;
-  imgUrl?: string;
-  workDays?: string[];
-  workSchedule?: string;
-  studentSkills?: StudentSkill[];
-}
-
-export interface StudentProfileUpdateData {
-  name?: string;
-  contactNumber?: string; // Mapped from phone
-  description?: string;
-  jornada?: string | null;  // Or workSchedule
-  imageFile?: File;
-}
+import { StudentProfileResponse, StudentProfileUpdateData } from '../types/studentProfile.types';
 
 // GET PROFILE
 export const getStudentProfile = async (): Promise<StudentProfileResponse | null> => {
@@ -121,22 +96,26 @@ export const deleteStudentSkill = async (id: number): Promise<void> => {
 };
 
 // ADD WORK DAY
-export const addStudentWorkDay = async (userId: string, days: string[]): Promise<void> => {
-  if (!days || days.length === 0) return;
-  const qs = days.map(d => `day=${d}`).join('&');
-  const res = await fetch(`${STUDENT_PROFILE_URL}/days?${qs}`, {
+export const addStudentWorkDay = async (
+  userId: string,
+  days: string[]
+): Promise<void> => {
+
+  const res = await fetch(`${STUDENT_PROFILE_URL}/days`, {
     method: "POST",
     headers: {
-      ...getAuthHeaders(),
-      "X-User-Id": userId
-    }
+      "Content-Type": "application/json",
+      ...getAuthHeaders()    
+    },
+    body: JSON.stringify({ days }) // 👈 CLAVE
   });
 
   if (!res.ok) {
     const errorText = await res.text();
-    throw new Error(`Error al agregar días laborables: ${errorText}`);
+    throw new Error(`Error: ${errorText}`);
   }
 };
+
 
 // DELETE WORK DAY
 export const deleteStudentWorkDay = async (userId: string, days: string[]): Promise<void> => {
