@@ -27,7 +27,7 @@ export const ProfileWorkDays: React.FC<ProfileWorkDaysProps> = ({ normalizedDays
             <button
               type="button"
               onClick={onOpenModal}
-              className="bg-[#d2e3ff] border border-[#2552d0] text-[#1a4b9e] rounded-full px-4 py-1 text-sm font-bold hover:bg-[#c1d6fb] transition-colors"
+              className="bg-[#d2ffe1] border border-green-700 text-green-700 rounded-full px-4 py-1 text-sm font-bold hover:bg-[#c1d6fb] transition-colors"
             >
               Flexible (ver días)
             </button>

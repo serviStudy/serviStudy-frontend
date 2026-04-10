@@ -15,7 +15,7 @@ export const ProfileSkills: React.FC<ProfileSkillsProps> = ({ skills }) => {
         <h3 className="text-xl font-bold text-[#1a4b9e]">Cualidades</h3>
       </div>
       {skills && skills.length > 0 ? (
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap font-semibold gap-2">
           {skills.map((s, idx) => (
             <Tag key={idx} variant="skill" label={s.skillName} />
           ))}

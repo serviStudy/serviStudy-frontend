@@ -90,7 +90,7 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
   return (
     <div className="mx-auto max-w-4xl px-4 lg:px-0">
       <Card className="overflow-hidden border-none shadow-md rounded-[24px]">
-        <div className="h-30 w-full bg-[#d2e3ff] lg:h-40 relative" />
+        <div className=" w-full bg-popover lg:h-40 " />
 
         <CardContent className="px-6 pb-10 lg:px-10">
           <div className="relative -mt-12 mb-8 inline-block">
@@ -168,7 +168,7 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
                       (day === "Entre semana" && isEntreSemanaSelected) ||
                       (day === "Fines de semana" && isFinesDeSemanaSelected) ||
                       (day === "Específicos" && isEspecificosSelected)
-                        ? "bg-[#2552d0] text-white border-[#2552d0]"
+                        ? "bg-[#d2ffe1] border-2 font-semibold border-green-700 text-green-700"
                         : "bg-white text-gray-600 border-gray-300 hover:bg-gray-50"
                     }`}
                   >
@@ -196,7 +196,7 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
                     onClick={() => setters.setJornada(schedule.id)}
                     className={`px-4 py-2 text-sm rounded-full border transition-colors ${
                       formData.jornada === schedule.id
-                        ? "bg-[#2552d0] text-white border-[#2552d0]"
+                        ? "border-2 border-orange-600 font-semibold text-orange-700 bg-orange-100"
                         : "bg-white text-gray-600 border-gray-300 hover:bg-gray-50"
                     }`}
                   >
@@ -237,10 +237,10 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
               <Button
                 type="button"
                 onClick={handleAddSkillClick}
-                className="rounded-full bg-[#16a34a] hover:bg-[#15803d]"
+                className="px-7 rounded-[12px] bg-primary"
                 size="icon"
               >
-                <PlusCircle className="h-5 w-5 text-white" />
+                <PlusCircle className="h-9 w-9 text-white" />
               </Button>
             </div>
             {errors.skills && <p className="text-red-500 text-xs">{errors.skills}</p>}

@@ -11,7 +11,7 @@ export const Tag: React.FC<TagProps> = ({ label, variant = 'skill', onRemove }) 
   const getStyles = () => {
     switch (variant) {
       case 'skill':
-        return 'border-[2px] border-blue-800 bg-blue-100 text-blue-800 px-4 py-2 text-sm';
+        return 'border-[2px] font-semibold border-blue-800 bg-blue-100 text-blue-800 px-4 py-2 text-sm';
       case 'day':
         return 'border border-red-300 text-green-600 px-4 py-1 text-sm font-medium';
       case 'specific_day':

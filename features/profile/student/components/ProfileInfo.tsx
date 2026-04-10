@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Pencil } from 'lucide-react';
+import { Pencil, SquarePen } from 'lucide-react';
 import { ProfileVerification } from '@/components/shared/ProfileVerification';
 import { StudentProfileResponse } from '../types/studentProfile.types';
 import { normalizeDays } from '../utils/workDays.utils';
@@ -30,13 +30,13 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
     <div className="flex w-full flex-col gap-6 items-center">
       <ProfileVerification />
 
-      <div className="w-full max-w-[912px] rounded-[24px] bg-white shadow-sm overflow-hidden border border-gray-100">
-        <div className="h-[120px] w-full bg-[#f4fbf3] lg:h-[160px] relative">
+      <div className="w-full max-w-228 rounded-[24px] bg-white shadow-sm overflow-hidden border border-gray-100">
+        <div className="h-30 w-full bg-popover lg:h-40 relative">
           <Link
             href="/estudiante/profile/editProfile"
             className="absolute top-6 right-6 lg:top-8 lg:right-8 bg-[#2552d0] p-3 rounded-xl hover:bg-blue-800 transition-colors shadow-sm"
           >
-            <Pencil className="h-5 w-5 text-white" />
+            <SquarePen className="h-5 w-5 text-white" />
           </Link>
         </div>
 
