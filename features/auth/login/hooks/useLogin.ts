@@ -10,7 +10,7 @@ export const useLogin = () => {
 
   const handleLogin = async () => {
     // VALIDACIÓN DE CORREO PARA ESTUDIANTE
-    if (tipoUsuario === "estudiante" && !correo.endsWith(".edu")) {
+    if (tipoUsuario === "estudiante" && !correo.endsWith(".edu.co")) {
       setErrorCorreo("El correo debe terminar en .edu para estudiantes")
       return
     }
