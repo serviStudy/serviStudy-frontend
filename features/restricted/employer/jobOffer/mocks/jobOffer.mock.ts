@@ -10,11 +10,15 @@ export const jobOffersMock: JobOfferDTO[] = [
     work_schedule: "FULL_TIME",
     salary: 1300000,
     salary_description: "Pago mensual con prestaciones",
-    contract_description: "Contrato a término fijo",
+    contract_description: "Honorarios con posibilidad de contrato fijo según desempeño",
+    duties_description: "Buscamos un mesero entusiasta para atención a comensales en terraza.\n\nLabores principales:\n- Montaje y desmontaje de mesas.\n- Toma de pedidos y servicio de bebidas/alimentos.\n- Atención personalizada al cliente.\n- Apoyo en limpieza general del área.",
     status: "ACTIVE",
     requirements: [
-      { id_requirement: "r1", requirement_name: "Buena presentación" },
-      { id_requirement: "r2", requirement_name: "Experiencia mínima 6 meses" },
+      { id_requirement: "r1", requirement_name: "Servicio al cliente" },
+      { id_requirement: "r2", requirement_name: "Comunicación Interpersonal" },
+      { id_requirement: "r3", requirement_name: "Resolución de problemas" },
+      { id_requirement: "r4", requirement_name: "Inglés Intermedio" },
+      { id_requirement: "r5", requirement_name: "Puntualidad" },
     ],
     created_at: "",
     updated_at: "",
@@ -29,6 +33,7 @@ export const jobOffersMock: JobOfferDTO[] = [
     salary: 900000,
     salary_description: "Pago quincenal",
     contract_description: "Contrato por prestación de servicios",
+    duties_description: "Apoyo en las labores básicas de cocina y preparación de alimentos.",
     status: "DISABLED",
     requirements: [
       { id_requirement: "r3", requirement_name: "Manipulación de alimentos" },
@@ -46,6 +51,7 @@ export const jobOffersMock: JobOfferDTO[] = [
     salary: 900000,
     salary_description: "Pago quincenal",
     contract_description: "Contrato por prestación de servicios",
+    duties_description: "Apoyo en las labores básicas de cocina y preparación de alimentos.",
     status: "DISABLED",
     requirements: [
       { id_requirement: "r3", requirement_name: "Manipulación de alimentos" },
@@ -63,6 +69,7 @@ export const jobOffersMock: JobOfferDTO[] = [
     salary: 900000,
     salary_description: "Pago quincenal",
     contract_description: "Contrato por prestación de servicios",
+    duties_description: "Apoyo en las labores básicas de cocina y preparación de alimentos.",
     status: "DISABLED",
     requirements: [
       { id_requirement: "r3", requirement_name: "Manipulación de alimentos" },

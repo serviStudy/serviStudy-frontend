@@ -44,8 +44,8 @@ export const OfferCard = ({ offer }: Props) => {
         {/* Botón */}
         <div className="mt-4 md:mt-auto flex justify-end">
           <Link
-            href={`/empleador/(offers)/offer-detail/${offer.id_job_offers}`}
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm w-full md:w-auto text-center"
+            href={`/empleador/offers/${offer.id_job_offers}`}
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm w-full md:w-auto text-center font-medium"
           >
             Ver oferta
           </Link>

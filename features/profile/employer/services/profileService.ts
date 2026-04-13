@@ -58,11 +58,7 @@ export const updateEmployerProfile = async (
 
   const formData = new FormData()
 
-<<<<<<< HEAD
   //  Construimos el JSON que el backend espera en @RequestPart("data")
-=======
-  // Construimos el JSON que el backend espera en @RequestPart("data")
->>>>>>> develop
   const profileJson = {
     employerName: profileData.employerName,
     businessName: profileData.businessName,

@@ -26,6 +26,7 @@ export interface JobOfferDTO {
   salary: number;
   salary_description: string;
   contract_description: string;
+  duties_description: string;
   status: JobOfferStatus;
   requirements: RequirementDTO[];
   created_at: string;
