@@ -42,13 +42,13 @@ export function PriceCard({
   return (
     <Card
       className={cn(
-        "relative flex flex-col h-full rounded-3xl p-6 shadow-xl border overflow-hidden",
+        "relative flex flex-col h-full rounded-3xl p-6 shadow-xl border",
         cardColors,
         className
       )}
-     >
+    >
       {isRecommended && (
-        <div className="absolute top-0 right-1/2 translate-x-1/2 -translate-y-1/2 rounded-full bg-yellow-400 px-4 py-1 text-xs font-bold uppercase tracking-wider text-slate-900 shadow-md">
+        <div className="absolute top-0 right-1/2 translate-x-1/2 -translate-y-3 rounded-full bg-yellow-400 px-4 py-1 text-xs font-bold uppercase tracking-wider text-slate-900 shadow-md">
           RECOMENDADO
         </div>
       )}
@@ -96,7 +96,6 @@ export function PriceCard({
           ))}
         </ul>
       </CardContent>
-
     </Card>
   );
 }

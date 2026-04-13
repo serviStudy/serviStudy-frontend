@@ -16,6 +16,7 @@ const RegisterModal = ({button, tittle, description, paragraph, tittleColor}: Ca
                 <DialogTrigger asChild>
                     <button type="button" className="hover:underline">{button}</button>
                 </DialogTrigger>
+
                 <DialogContent>
                     <DialogHeader>
                         <DialogTitle className={`font-bold text-2xl ${tittleColor}`}>{tittle}</DialogTitle>
