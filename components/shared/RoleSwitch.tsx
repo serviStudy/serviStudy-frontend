@@ -4,38 +4,39 @@ import { Button } from "@/components/ui/button"
 import { Building2, User } from 'lucide-react'
 
 type TipoUsuario = "estudiante" | "empresa"
-    type RoleSwitchProps = {
+type RoleSwitchProps = {
     tipoUsuario: TipoUsuario
     setTipoUsuario: (tipo: TipoUsuario) => void
-    }
+}
 
-export const RoleSwitch = ({tipoUsuario, setTipoUsuario} : RoleSwitchProps) => {
+export const RoleSwitch = ({ tipoUsuario, setTipoUsuario }: RoleSwitchProps) => {
     return (
-        <>
-        <div className="flex justify-center gap-2 bg-gray-200 p-2 rounded-lg h-11 md:h-13 w-fit mx-auto">
+        <div className="flex justify-center gap-2 bg-muted/30 p-1.5 rounded-xl border border-border w-fit mx-auto shadow-sm">
             <Button
-            className={
-                tipoUsuario === "estudiante"
-                ? "bg-primary text-white h-7 md:h-9 text-[12px] md:text-[14px] lg:text-[15px]"
-                : "bg-white text-black h-7 md:h-9 text-[12px] md:text-[14px] lg:text-[15px] border hover:bg-gray-100"
-            }
-            onClick={() => setTipoUsuario("estudiante")}>
-                <User></User>
-                Estudiante
+                variant={tipoUsuario === "estudiante" ? "default" : "ghost"}
+                className={`rounded-lg transition-all duration-500 flex items-center gap-2 px-3 md:px-4 h-9 md:h-10 ${
+                    tipoUsuario === "estudiante"
+                        ? "shadow-md bg-primary text-white"
+                        : "hover:bg-muted/50 text-gray-500"
+                }`}
+                onClick={() => setTipoUsuario("estudiante")}
+            >
+                <User className="h-3.5 w-3.5 md:h-4 md:w-4" />
+                <span className="font-semibold text-xs md:text-[14px]">Estudiante</span>
             </Button>
 
             <Button
-            className={
-                tipoUsuario === "empresa"
-                ? "bg-green-600 hover:bg-green-700 text-white h-7 md:h-9 text-[12px] md:text-[14px] lg:text-[15px]"
-                : "bg-white text-black border hover:bg-gray-100 h-7 md:h-9 text-[12px] md:text-[14px] lg:text-[15px]"
-            }
-            onClick={() => setTipoUsuario("empresa")}>
-                <Building2></Building2>
-                Empresa
+                variant={tipoUsuario === "empresa" ? "default" : "ghost"}
+                className={`rounded-lg transition-all duration-500 flex items-center gap-2 px-3 md:px-4 h-9 md:h-10 ${
+                    tipoUsuario === "empresa"
+                        ? "shadow-md bg-green-600 text-white"
+                        : "hover:bg-muted/50 text-gray-500"
+                }`}
+                onClick={() => setTipoUsuario("empresa")}
+            >
+                <Building2 className="h-3.5 w-3.5 md:h-4 md:w-4" />
+                <span className="font-semibold text-xs md:text-[14px]">Empresa</span>
             </Button>
-
         </div>
-    </>
     )
 }

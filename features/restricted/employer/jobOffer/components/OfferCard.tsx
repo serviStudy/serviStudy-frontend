@@ -12,9 +12,11 @@ interface Props {
 
 export const OfferCard = ({ offer }: Props) => {
   return (
-    <div className="bg-white rounded-xl shadow p-4 md:p-5 flex flex-col md:flex-row gap-4">
+    <div className="bg-white rounded-xl shadow-xl border border-primary/5 p-4 md:p-5 flex flex-col md:flex-row gap-4">
 
-      <div className="w-full md:w-28 h-28 bg-gray-200 rounded-lg" />
+      <div className="w-full md:w-28 h-28 bg-gray-50 border border-gray-100 rounded-lg flex items-center justify-center" >
+        <div className="bg-primary/10 w-full h-full rounded-lg animate-pulse" />
+      </div>
 
       <div className="flex-1 flex flex-col">
   

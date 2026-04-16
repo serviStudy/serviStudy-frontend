@@ -5,68 +5,48 @@ import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import Link from "next/link"
 import { useLogin } from "../hooks/useLogin"
+import { RoleSwitch } from "@/components/shared/RoleSwitch"
 
-export const LoginForm = () => {
-    const {
-        tipoUsuario,
-        setTipoUsuario,
-        correo,
-        setCorreo,
-        password,
-        setPassword,
-        errorCorreo,
-        setErrorCorreo,
-        loading,
-        handleLogin
-    } = useLogin()
-
+export const LoginForm = ({
+    tipoUsuario,
+    setTipoUsuario,
+    correo,
+    setCorreo,
+    password,
+    setPassword,
+    errorCorreo,
+    setErrorCorreo,
+    loading,
+    handleLogin
+}: any) => {
     return (
-        <Card className="w-100 p-4 shadow-lg border-primary/10">
-            <CardHeader className="space-y-1">
-                <CardTitle className="text-center text-3xl font-extrabold text-primary tracking-tight">
+        <Card className={`w-full max-w-md mx-auto p-5 md:p-6 shadow-2xl transition-all duration-500 ${
+            tipoUsuario === "estudiante" ? "border-primary/10" : "border-green-600/20"
+        }`}>
+            <CardHeader className="space-y-1 p-0 pb-6">
+                <CardTitle className={`text-center text-2xl md:text-3xl font-bold transition-colors duration-500 ${
+                    tipoUsuario === "estudiante" ? "text-primary" : "text-green-600"
+                }`}>
                     Bienvenido de nuevo
                 </CardTitle>
-                <p className="text-center text-sm text-muted-foreground font-medium">
+                <p className="text-center text-sm text-gray-500 font-medium">
                     Ingresa tus credenciales para acceder a tu cuenta.
                 </p>
             </CardHeader>
 
-            <CardContent className="space-y-6 pt-2">
+            <CardContent className="space-y-5 p-0">
                 {/* TIPO DE USUARIO */}
-                <div className="flex justify-center gap-2 bg-muted/30 p-1.5 rounded-xl border border-border w-fit mx-auto">
-                    <Button
-                        variant={tipoUsuario === "estudiante" ? "default" : "ghost"}
-                        className={`rounded-lg transition-all duration-200 ${
-                            tipoUsuario === "estudiante" 
-                            ? "shadow-sm" 
-                            : "hover:bg-muted/50"
-                        }`}
-                        onClick={() => {
-                            setTipoUsuario("estudiante")
-                            setErrorCorreo("")
-                        }}
-                    >
-                        Estudiante
-                    </Button>
-                    <Button
-                        variant={tipoUsuario === "empresa" ? "default" : "ghost"}
-                        className={`rounded-lg transition-all duration-300 ${
-                            tipoUsuario === "empresa" 
-                            ? "bg-green-600 hover:bg-green-700 text-white shadow-sm" 
-                            : "hover:bg-muted/50 text-muted-foreground"
-                        }`}
-                        onClick={() => {
-                            setTipoUsuario("empresa")
-                            setErrorCorreo("")
-                        }}
-                    >
-                        Empresa
-                    </Button>
-                </div>
+                <RoleSwitch 
+                    tipoUsuario={tipoUsuario as "estudiante" | "empresa"} 
+                    setTipoUsuario={(tipo) => {
+                        setTipoUsuario(tipo)
+                        setErrorCorreo("")
+                    }} 
+                />
 
                 {/* GOOGLE SOLO EMPRESA */}
                 {tipoUsuario === "empresa" && (
-                    <Button variant="outline" className="w-full flex items-center justify-center gap-2 h-11 font-semibold hover:bg-muted/50 border-input transition-colors rounded-xl">
+                    <Button variant="outline" className="w-full flex items-center justify-center gap-2 h-12 font-semibold hover:bg-green-50 border-input transition-colors rounded-xl shadow-sm text-sm">
                         <svg className="w-5 h-5" viewBox="0 0 24 24">
                             <path
                                 d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -90,12 +70,14 @@ export const LoginForm = () => {
                 )}
 
                 {/* SEPARADOR */}
-                <div className="relative">
+                <div className="relative py-2">
                     <div className="absolute inset-0 flex items-center">
-                        <span className="w-full border-t border-muted-foreground/20"></span>
+                        <span className={`w-full border-t transition-colors duration-500 ${
+                            tipoUsuario === "estudiante" ? "border-muted-foreground/20" : "border-green-600/20"
+                        }`}></span>
                     </div>
-                    <div className="relative flex justify-center text-xs uppercase">
-                        <span className="bg-background px-3 text-muted-foreground font-semibold">o continuar con email</span>
+                    <div className="relative flex justify-center text-[11px] uppercase tracking-widest">
+                        <span className="bg-background px-4 text-gray-500 font-bold">o continuar con email</span>
                     </div>
                 </div>
 
@@ -109,12 +91,16 @@ export const LoginForm = () => {
                             placeholder="nombre@universidad.edu"
                             value={correo}
                             onChange={(e) => setCorreo(e.target.value)}
-                            className={`h-12 px-4 rounded-xl transition-all focus:ring-2 bg-muted/10 ${
-                                errorCorreo ? "border-destructive ring-destructive/20" : "border-input focus:ring-primary/20"
+                            className={`h-12 px-4 rounded-xl transition-all duration-500 focus-visible:ring-2 bg-muted/5 font-normal text-base ${
+                                errorCorreo 
+                                    ? "border-destructive ring-destructive/20" 
+                                    : tipoUsuario === "estudiante" 
+                                        ? "border-input focus-visible:ring-primary/20" 
+                                        : "border-input focus-visible:ring-green-600/20"
                             }`}
                         />
                         {errorCorreo && (
-                            <p className="text-destructive text-[13px] font-semibold mt-1.5 ml-1 animate-in fade-in slide-in-from-top-1">
+                            <p className="text-red-500 text-[12px] font-semibold mt-1.5 ml-1 animate-in fade-in slide-in-from-top-1">
                                 {errorCorreo}
                             </p>
                         )}
@@ -126,7 +112,9 @@ export const LoginForm = () => {
                             <label className="text-sm font-bold text-gray-700">
                                 Contraseña
                             </label>
-                            <Link href="#" className="text-[13px] text-primary hover:underline font-semibold transition-colors">
+                            <Link href="#" className={`text-[12px] hover:underline font-bold transition-colors duration-500 ${
+                                tipoUsuario === "estudiante" ? "text-primary" : "text-green-600"
+                            }`}>
                                 ¿Olvidaste tu contraseña?
                             </Link>
                         </div>
@@ -135,14 +123,18 @@ export const LoginForm = () => {
                             placeholder="••••••••"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="h-12 px-4 rounded-xl focus:ring-2 focus:ring-primary/20 bg-muted/10 border-input transition-all"
+                            className={`h-12 px-4 rounded-xl focus-visible:ring-2 transition-all duration-500 bg-muted/5 border-input font-normal text-base ${
+                                tipoUsuario === "estudiante" ? "focus-visible:ring-primary/20" : "focus-visible:ring-green-600/20"
+                            }`}
                         />
                     </div>
                 </div>
 
                 {/* RECORDAR */}
-                <div className="flex items-center space-x-2 ml-1">
-                    <Checkbox id="remember" className="rounded-md h-5 w-5" />
+                <div className="flex items-center space-x-2.5 ml-1 pt-1">
+                    <Checkbox id="remember" className={`rounded-md h-5 w-5 transition-colors duration-500 ${
+                        tipoUsuario === "estudiante" ? "data-[state=checked]:bg-primary" : "data-[state=checked]:bg-green-600"
+                    }`} />
                     <label htmlFor="remember" className="text-sm font-semibold text-gray-600 cursor-pointer select-none">
                         Recordarme en este dispositivo
                     </label>
@@ -152,10 +144,10 @@ export const LoginForm = () => {
                 <Button
                     onClick={handleLogin}
                     disabled={loading}
-                    className={`w-full h-12 text-[16px] font-bold rounded-xl transition-all duration-200 active:scale-[0.98] mt-2 shadow-md ${
-                        tipoUsuario === "empresa"
-                            ? "bg-green-600 hover:bg-green-700 text-white"
-                            : "bg-primary hover:bg-primary/90 text-white"
+                    className={`w-full h-12 text-lg font-bold rounded-xl transition-all duration-500 active:scale-[0.98] mt-2 shadow-lg text-white ${
+                        tipoUsuario === "estudiante"
+                            ? "bg-primary hover:bg-primary/90 shadow-primary/20"
+                            : "bg-green-600 hover:bg-green-700 shadow-green-600/20"
                     }`}
                 >
                     {loading ? (
@@ -170,13 +162,15 @@ export const LoginForm = () => {
                 </Button>
 
                 {/* REGISTRO */}
-                <div className="pt-2 text-center text-sm font-medium text-muted-foreground border-t border-muted/20">
+                <div className="pt-4 text-center text-sm font-medium text-gray-500 border-t border-muted/20">
                     ¿Aún no tienes cuenta?
                     <Link
                         href="/registro"
-                        className="ml-1.5 font-bold hover:underline text-primary transition-all underline-offset-4"
+                        className={`ml-2 font-extrabold hover:underline transition-all duration-500 underline-offset-4 ${
+                            tipoUsuario === "estudiante" ? "text-primary" : "text-green-600"
+                        }`}
                     >
-                        Registrate gratis
+                        Registrate ahora
                     </Link>
                 </div>
             </CardContent>

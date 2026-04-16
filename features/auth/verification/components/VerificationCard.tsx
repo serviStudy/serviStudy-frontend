@@ -16,10 +16,10 @@ export const VerificationCard = ({
   onVerify,
 }: Props) => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-200 px-4">
+    <div className="min-h-screen flex flex-col items-center bg-gray-50 px-4 pt-24">
       <HeaderLR />
 
-      <div className="bg-white w-full max-w-sm rounded-xl p-8 text-center flex flex-col gap-6">
+      <div className="bg-white w-full max-w-sm rounded-[14px] p-8 text-center flex flex-col gap-6 shadow-2xl border border-primary/10">
         <h1 className="text-2xl font-bold text-blue-700">
           Verifica tu identidad
         </h1>

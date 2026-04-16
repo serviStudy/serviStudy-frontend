@@ -84,7 +84,7 @@ export function PricingSection() {
   const plans = activeType === "employer" ? employerPlans : studentPlans;
 
   return (
-    <section id="precios" className="w-full py-16 md:py-24 bg-gray-200">
+    <section id="precios" className="w-full py-16 md:py-24 bg-gray-50">
       <div className="container mx-auto px-4 md:px-6">
         {/* Encabezado */}
         <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
