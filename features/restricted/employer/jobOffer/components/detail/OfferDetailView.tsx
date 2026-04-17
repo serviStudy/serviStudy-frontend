@@ -5,7 +5,7 @@ import { OfferDetailHeader } from "./OfferDetailHeader";
 import { OfferDetailInfoCards } from "./OfferDetailInfoCards";
 import { OfferDetailSection } from "./OfferDetailSection";
 import { OfferDetailRequirements } from "./OfferDetailRequirements";
-import { FileText } from "lucide-react";
+import { FileText, ClipboardList } from "lucide-react";
 import Link from "next/link";
 
 interface Props {
@@ -27,7 +27,7 @@ export const OfferDetailView = ({ id }: Props) => {
     return (
       <div className="flex flex-col items-center justify-center h-64">
         <p className="text-red-500 mb-4">{error || "No se encontró la oferta"}</p>
-        <Link href="/empleador/offers" className="text-blue-600 underline">
+        <Link href="/empleador/ofertas" className="text-blue-600 underline">
           Volver a ofertas
         </Link>
       </div>
@@ -36,7 +36,7 @@ export const OfferDetailView = ({ id }: Props) => {
 
   return (
     <div className="w-full max-w-4xl mx-auto py-8 px-4">
-      <Link href="/empleador/offers" className="text-blue-600 hover:underline mb-4 inline-block font-medium">
+      <Link href="/empleador/ofertas" className="text-blue-600 hover:underline mb-4 inline-block font-medium">
         ← Volver
       </Link>
       
@@ -50,16 +50,17 @@ export const OfferDetailView = ({ id }: Props) => {
             title="Detalles de contratación" 
             icon={<FileText size={20} />}
           >
-            {offer.contract_description}
+            {offer.contract_description || (offer as any).contractDescription || <span className="text-gray-400 italic">No especificado</span>}
           </OfferDetailSection>
 
           {/* Fallback to summary if duties_description empty? Using the added field. */}
-          <div className="mt-8">
-            <h2 className="text-[#1a3683] font-bold text-lg mb-4">
+          <div className="mb-8">
+            <h2 className="text-xl font-bold text-[#1a3683] mb-4 flex items-center gap-2">
+              <ClipboardList size={22} className="text-orange-500" />
               Labores y descripción del puesto
             </h2>
             <div className="bg-[#eff4ff] border border-[#d6e4ff] rounded-xl p-5 text-[#3b528b] font-medium leading-relaxed whitespace-pre-line text-sm">
-              {offer.duties_description || "Sin descripción de labores adicionales."}
+              {offer.description || (offer as any).dutiesDescription || (offer as any).duties_description || "Sin descripción de labores adicionales."}
             </div>
           </div>
 

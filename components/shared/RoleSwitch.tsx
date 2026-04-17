@@ -12,29 +12,28 @@ type TipoUsuario = "estudiante" | "empresa"
 export const RoleSwitch = ({tipoUsuario, setTipoUsuario} : RoleSwitchProps) => {
     return (
         <>
-        <div className="flex justify-center gap-2 bg-gray-200 p-2 rounded-lg h-11 md:h-13 w-fit mx-auto">
+        <div className="flex justify-center gap-2 bg-gray-100 p-1.5 rounded-2xl h-11 md:h-12 w-fit mx-auto border border-gray-200">
             <Button
             className={
                 tipoUsuario === "estudiante"
-                ? "bg-primary text-white h-7 md:h-9 text-[12px] md:text-[14px] lg:text-[15px]"
-                : "bg-white text-black h-7 md:h-9 text-[12px] md:text-[14px] lg:text-[15px] border hover:bg-gray-100"
+                ? "bg-[#143285] hover:bg-[#0f2870] text-white h-full px-6 rounded-xl text-sm font-bold shadow-sm"
+                : "bg-transparent text-gray-500 h-full px-6 rounded-xl text-sm font-bold hover:bg-gray-200/50"
             }
             onClick={() => setTipoUsuario("estudiante")}>
-                <User></User>
+                <User size={18} className="mr-2" />
                 Estudiante
             </Button>
 
             <Button
             className={
                 tipoUsuario === "empresa"
-                ? "bg-green-600 hover:bg-green-700 text-white h-7 md:h-9 text-[12px] md:text-[14px] lg:text-[15px]"
-                : "bg-white text-black border hover:bg-gray-100 h-7 md:h-9 text-[12px] md:text-[14px] lg:text-[15px]"
+                ? "bg-[#143285] hover:bg-[#0f2870] text-white h-full px-6 rounded-xl text-sm font-bold shadow-sm"
+                : "bg-transparent text-gray-500 h-full px-6 rounded-xl text-sm font-bold hover:bg-gray-200/50"
             }
             onClick={() => setTipoUsuario("empresa")}>
-                <Building2></Building2>
+                <Building2 size={18} className="mr-2" />
                 Empresa
             </Button>
-
         </div>
     </>
     )

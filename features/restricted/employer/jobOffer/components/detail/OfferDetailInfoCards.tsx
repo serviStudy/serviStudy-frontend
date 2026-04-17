@@ -41,7 +41,7 @@ export const OfferDetailInfoCards = ({ offer }: Props) => {
           <span className="font-bold text-sm">Jornada</span>
         </div>
         <p className="text-gray-700 font-bold ml-1">
-          {scheduleMap[offer.work_schedule] || "Flexible"}
+          {scheduleMap[offer.work_schedule || (offer as any).workSchedule] || "Flexible"}
         </p>
       </div>
 
@@ -52,7 +52,7 @@ export const OfferDetailInfoCards = ({ offer }: Props) => {
           <span className="font-bold text-sm">Días laborales</span>
         </div>
         <p className="text-gray-700 font-bold ml-1">
-          {formatDays(offer.work_days)}
+          {formatDays(offer.work_days || (offer as any).workDays)}
         </p>
       </div>
     </div>

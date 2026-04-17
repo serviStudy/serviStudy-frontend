@@ -27,10 +27,12 @@ export const OfferList = () => {
         </p>
       )}
 
-      <div className="space-y-5">
-        {filteredOffers.map((offer) => (
-          <OfferCard key={offer.id_job_offers} offer={offer} />
-        ))}
+      <h2 className="text-3xl font-bold text-[#143285] mb-6">Mi historial</h2>
+      <div className="space-y-4">
+        {filteredOffers.map((offer) => {
+          const offerId = offer.jobOfferId || offer.id;
+          return <OfferCard key={offerId} offer={offer} />;
+        })}
       </div>
     </div>
   );

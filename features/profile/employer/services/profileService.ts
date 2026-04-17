@@ -13,14 +13,23 @@ const getServiceHeaders = (): Record<string, string> => {
 
 export interface EmployerProfileResponse {
   employerId?: string
+  employer_id?: string
   userId?: string
+  user_id?: string
   employerName?: string
+  employer_name?: string
   businessName?: string
+  business_name?: string
   businessAddress?: string
+  business_address?: string
   contactNumber?: string
+  contact_number?: string
   businessSummary?: string
+  business_summary?: string
   verificationStatus?: boolean
+  verification_status?: boolean
   imageUrl?: string
+  image_url?: string
 }
 
 export interface EmployerProfileUpdateData {
@@ -42,10 +51,16 @@ export const getEmployerProfile = async (): Promise<EmployerProfileResponse | nu
   })
 
   if (res.status === 404) return null
+  
+  if (!res.ok) {
+    if (res.status === 401) {
+      throw new Error("Sesión expirada. Por favor, vuelve a iniciar sesión.")
+    }
+    const errorText = await res.text().catch(() => "Error desconocido")
+    throw new Error(`Error ${res.status}: ${errorText}`)
+  }
 
   const data = await res.json()
-  if (!res.ok) throw new Error(data.message || "Error al obtener el perfil")
-
   return data.data ?? data
 }
 

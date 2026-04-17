@@ -1,8 +1,6 @@
 "use client"
 
-import React from 'react'
-import { HeaderLR } from '@/components/shared/HeaderLR'
-import { Loader2 } from "lucide-react"
+import { LoadingScreen } from '@/components/shared/LoadingScreen'
 import { useEditEmployerProfile } from '@/features/profile/employer/hooks/useEditEmployerProfile'
 import { EditProfileForm } from '@/features/profile/employer/components/EditProfileForm'
 import { HeaderEmployer } from '@/components/shared/HeaderEmployer'
@@ -19,12 +17,7 @@ export default function EditProfilePage() {
   } = useEditEmployerProfile()
 
   if (loading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-50">
-        <HeaderLR />
-        <Loader2 className="h-10 w-10 animate-spin text-[#1a4b9e]" />
-      </div>
-    )
+    return <LoadingScreen background="bg-gray-50" />
   }
 
   return (

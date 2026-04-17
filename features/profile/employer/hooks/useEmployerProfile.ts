@@ -23,7 +23,13 @@ export const useEmployerProfile = () => {
     loadProfile()
   }, [])
 
-  const inicial = (profile.businessName || profile.employerName || email).charAt(0).toUpperCase() || "E"
+  const inicial = (
+    profile.businessName || 
+    (profile as any).business_name || 
+    profile.employerName || 
+    (profile as any).employer_name || 
+    email
+  ).charAt(0).toUpperCase() || "E"
 
   return {
     loading,

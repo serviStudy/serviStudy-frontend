@@ -18,54 +18,51 @@ export const OfferHeader = ({ onFilterChange }: Props) => {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow p-5 mb-6">
-      {/* Botón superior */}
-      <div className="flex justify-end mb-4">
-        <Link
-          href="/empleador/(offers)/create-offer"
-          className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg text-sm"
-        >
-          <Plus size={16} />
-          Publicar nueva oferta
-        </Link>
-      </div>
-
+    <div className="bg-white rounded-[2rem] shadow-sm py-8 px-5 mb-8">
       {/* Título */}
-      <div className="text-center">
-        <h2 className="text-xl font-semibold text-blue-700">Mis ofertas</h2>
-        <p className="text-sm text-gray-500">
+      <div className="text-center mb-6">
+        <h2 className="text-4xl font-bold text-[#143285] mb-2">Mis ofertas</h2>
+        <p className="text-gray-500">
           Tienes 2 postulaciones activas
         </p>
       </div>
 
-      {/* Filtros */}
-      <div className="flex justify-center gap-3 mt-4 flex-wrap">
-        <button className="flex items-center gap-2 px-4 py-2 border rounded-lg text-sm text-gray-600">
-          <Filter size={14} />
+      {/* Filtros y acciones */}
+      <div className="flex justify-center items-center gap-3 flex-wrap">
+        <button className="flex items-center gap-2 px-6 py-2 border border-gray-200 rounded-full text-sm text-gray-400 hover:bg-gray-50 transition-colors">
+          <Filter size={16} />
           Filtros
         </button>
 
         <button
           onClick={() => handleFilter("ACTIVE")}
-          className={`px-4 py-2 rounded-lg text-sm ${
+          className={`px-6 py-2 rounded-full text-sm font-medium transition-colors ${
             active === "ACTIVE"
-              ? "bg-blue-600 text-white"
-              : "bg-gray-100 text-gray-600"
+              ? "bg-[#1f42ad] text-white shadow-sm"
+              : "bg-blue-100 text-blue-600 hover:bg-blue-200"
           }`}
         >
-          Activas
+          Activada
         </button>
 
         <button
           onClick={() => handleFilter("DISABLED")}
-          className={`px-4 py-2 rounded-lg text-sm ${
+          className={`px-6 py-2 rounded-full text-sm font-medium transition-colors ${
             active === "DISABLED"
-              ? "bg-blue-600 text-white"
-              : "bg-gray-100 text-gray-600"
+              ? "bg-[#1f42ad] text-white shadow-sm"
+              : "bg-blue-100 text-blue-600 hover:bg-blue-200"
           }`}
         >
-          Desactivadas
+          Desactivada
         </button>
+
+        <Link
+          href="/empleador/ofertas/crear"
+          className="flex items-center gap-2 bg-[#1f42ad] hover:bg-[#143285] text-white px-6 py-2 rounded-full text-sm font-medium transition-colors shadow-sm ml-2"
+        >
+          <Plus size={16} />
+          Publicar Nueva Oferta
+        </Link>
       </div>
     </div>
   );

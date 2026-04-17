@@ -13,12 +13,12 @@ export const OfferDetailRequirements = ({ requirements }: Props) => {
         Habilidades y Requisitos Clave
       </h2>
       <div className="flex flex-wrap gap-2">
-        {requirements.map((req) => (
+        {requirements.map((req, index) => (
           <span
-            key={req.id_requirement}
+            key={req.id_requirement || req.idRequirement || index}
             className="bg-[#DDEBFF] text-[#557ab5] text-xs font-semibold px-4 py-1.5 rounded-full"
           >
-            {req.requirement_name}
+            {req.requirementName || req.name || "Requisito"}
           </span>
         ))}
       </div>
