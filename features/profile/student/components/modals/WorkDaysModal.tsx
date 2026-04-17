@@ -30,7 +30,7 @@ export const WorkDaysModal: React.FC<WorkDaysModalProps> = ({
 }) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-106.25">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold text-[#1a4b9e]">
             {readOnly ? 'Días laborales' : 'Selecciona tus días laborales'}

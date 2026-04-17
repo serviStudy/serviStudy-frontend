@@ -32,15 +32,15 @@ const EditProfilePage = () => {
       <HeaderStudent/>
 
       <div className="w-full max-w-4xl">
-         <EditProfileForm 
-           formData={formData}
-           setters={setters}
-           actions={actions}
-           refs={refs}
-           errors={errors}
-           saving={saving}
-           inicial={inicial}
-         />
+          <EditProfileForm 
+            formData={formData}
+            setters={setters}
+            actions={actions}
+            refs={refs}
+            errors={errors}
+            saving={saving}
+            inicial={inicial}
+          />
       </div>
     </div>
   )

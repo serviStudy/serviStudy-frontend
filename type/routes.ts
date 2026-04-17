@@ -1,7 +1,8 @@
 export const routes = {
     estudiante: {
         profile: "estudiante/profile",
-        edit: "profile/editProfile"
+        edit: "profile/editProfile",
+        ofertas: "ofertasActivas"
     },
     empleador: {
         profile: "/empleador/profile",

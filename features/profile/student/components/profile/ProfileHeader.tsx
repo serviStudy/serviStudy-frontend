@@ -12,7 +12,7 @@ interface ProfileHeaderProps {
 export const ProfileHeader: React.FC<ProfileHeaderProps> = ({ profile, email, inicial }) => {
   return (
     <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 lg:items-end">
-      <div className="h-28 w-28 shrink-0 overflow-hidden rounded-full bg-[#2552d0] border-4 border-white flex items-center justify-center text-white text-[56px] font-bold shadow-sm lg:h-[136px] lg:w-[136px]">
+      <div className="h-28 w-28 shrink-0 overflow-hidden rounded-full bg-[#2552d0] border-4 border-white flex items-center justify-center text-white text-[56px] font-bold shadow-sm lg:h-34 lg:w-34">
         {profile.imgUrl ? (
           <img src={profile.imgUrl} alt="Perfil" className="h-full w-full object-cover" />
         ) : (

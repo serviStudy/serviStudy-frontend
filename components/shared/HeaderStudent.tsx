@@ -6,6 +6,7 @@ import { useSidebar } from "../../hooks/useSidebar";
 import { Sidebar } from "./Sidebar";
 import Link from "next/link";
 import { SuscriptionCard } from "./SuscriptionCard";
+import { routes } from "@/type/routes";
 
 export const HeaderStudent = () => {
     const { open, openSidebar, closeSidebar } = useSidebar()
@@ -32,7 +33,7 @@ export const HeaderStudent = () => {
 
                     {/* navbar desktop */}
                     <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 gap-6 md:right-32">
-                        <NavLink icon={MapPin} name="Ofertas" link="/" />
+                        <NavLink icon={MapPin} name="Ofertas" link={routes.estudiante.ofertas} />
                         <NavLink icon={User} name="Mi Perfil" link="/estudiante/profile"/>
                         <NavLink icon={Search} name="Empleadores" link="/" />
                         <NavLink icon={BookOpen} name="Suscripción" link="/" />
