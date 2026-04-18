@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { validateRegisterForm } from "../../../../app/(auth)/registro/registerValidator";
+import { validateRegisterForm } from "../utils/registerValidator";
 import { registerUser } from "@/lib/api/register";
 import { TipoUsuario } from "@/type/auth";
 import { toast } from "sonner";
@@ -78,7 +78,7 @@ export function useRegisterForm(){
 
         toast.success("Usuario registrado")
         
-        router.push(`/verificar?email=${formData.email}`);
+        router.push(`/verificar?email=${formData.email}&role=${tipoUsuario}`);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         }catch (error: any){
             toast.error(error.message);
