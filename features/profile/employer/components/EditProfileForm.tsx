@@ -166,7 +166,7 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
           <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button
               variant="outline"
-              className="w-full sm:w-40 rounded-2xl border-none bg-gray-200 text-gray-600 font-bold hover:bg-gray-300"
+              className="w-full sm:w-40 rounded-2xl border bg-gray-50 text-gray-600 font-bold hover:bg-gray-100 shadow-sm"
               onClick={() => router.back()}
               disabled={saving}
             >

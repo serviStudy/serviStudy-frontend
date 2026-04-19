@@ -1,157 +1,30 @@
 "use client"
-import Link from "next/link"
-
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
-import { RoleSwitch } from '@/components/shared/RoleSwitch'
-import RegisterModal from "@/components/auth/RegisterModal"
-import { studentTerms } from "@/lib/terms/studentTerms"
 import { HeaderLR } from "@/components/shared/HeaderLR"
-import { useRegisterForm } from "../../../features/auth/verification/hooks/useRegisterForm"
+import { RegisterForm } from "@/features/auth/register/components/RegisterForm"
+import { useRegisterForm } from "@/features/auth/register/hooks/useRegisterForm"
 
 const Page = () => {
-    const {
-        formData,
-        errors,
-        tipoUsuario,
-        handleInputChange,
-        handleTipoUsuarioChange,
-        handleCheckboxChange,
-        handleSubmit
-    }= useRegisterForm();
+    const registerState = useRegisterForm();
+    const { tipoUsuario } = registerState;
 
     return (
-        <div className="flex min-h-screen items-center justify-center bg-gray-200 ">
-            <HeaderLR/>
-            <Card className="w-100 p-4">
-                <CardHeader>
-                    <CardTitle className="text-center text-[24px] lg:text-2xl font-bold text-primary">
-                        Registrarse
-                    </CardTitle>
+        <div className="relative flex flex-col min-h-screen items-center pt-28 pb-12 px-4 md:pt-32 md:justify-center transition-all duration-1000 ease-in-out overflow-hidden">
+            {/* BACKGROUND LAYERS FOR CROSS-FADE */}
+            <div className={`absolute inset-0 transition-opacity duration-1000 ease-in-out bg-linear-to-br from-blue-300 via-blue-50 to-white ${
+                tipoUsuario === "estudiante" ? "opacity-100" : "opacity-0"
+            }`} />
+            <div className={`absolute inset-0 transition-opacity duration-1000 ease-in-out bg-linear-to-br from-green-300 via-green-50 to-white ${
+                tipoUsuario === "empresa" ? "opacity-100" : "opacity-0"
+            }`} />
 
-                    <p className="text-center text-[12px] md:text-[14px] lg:text-sm text-gray-500">
-                        Ingresa tus credenciales para acceder a tu cuenta.
-                    </p>
-                </CardHeader>
-
-                <CardContent className="space-y-4">
-                    {/* BOTONES ESTUDIANTE / EMPRESA */}
-                    <RoleSwitch
-                        tipoUsuario={tipoUsuario}
-                        setTipoUsuario={handleTipoUsuarioChange}
-                    />
-
-                    {tipoUsuario === "empresa" && (
-                        <Button variant="outline" className="w-full items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="icon icon-tabler icons-tabler-filled icon-tabler-brand-google"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 2a9.96 9.96 0 0 1 6.29 2.226a1 1 0 0 1 .04 1.52l-1.51 1.362a1 1 0 0 1 -1.265 .06a6 6 0 1 0 2.103 6.836l.001 -.004h-3.66a1 1 0 0 1 -.992 -.883l-.007 -.117v-2a1 1 0 0 1 1 -1h6.945a1 1 0 0 1 .994 .89c.04 .367 .061 .737 .061 1.11c0 5.523 -4.477 10 -10 10s-10 -4.477 -10 -10s4.477 -10 10 -10z" /></svg>
-                            Iniciar con Google
-                        </Button>
-                    )}
-
-                    {/* SEPARADOR */}
-                    <div className="text-[12px] md:text-[14px] lg:text-sm text-gray-500 flex justify-center items-center gap-2">
-                        <hr className= { tipoUsuario === "estudiante"
-                            ? "border-primary w-10 border lg:w-16"
-                            : "border-green-600 w-10 border lg:w-16"}/>
-                        o continuar con email
-                        <hr className= { tipoUsuario === "estudiante"
-                            ? "border-primary w-10 border lg:w-16"
-                            : "border-green-600 w-10 border lg:w-16"}/>
-                    </div>
-
-                    {/* FORM */}
-                    <form onSubmit={handleSubmit} className="space-y-2">
-                        <div className="flex flex-col gap-2">
-                            <label className="text-[12px] md:text-[14px] lg:text-sm font-medium text-gray-500"> 
-                                Correo eletrónico
-                                <Input className="text-[12px] md:text-[14px] lg:text-sm font-normal" 
-                                    placeholder={tipoUsuario === "estudiante" ? "ejemplo@.edu.co" : "ejemplo@gmail.com"}
-                                    type="text" 
-                                    name="email"
-                                    value={formData.email}
-                                    onChange={handleInputChange}
-                                />
-                                <p className="text-[10px] text-red-700">{errors.email}</p>
-                            </label>
-
-                            <label className="text-[12px] md:text-[14px] lg:text-sm font-medium text-gray-500">
-                                Contraseña
-                                <Input className="text-[12px] md:text-[14px] lg:text-sm font-normal" placeholder="contraseña"
-                                    type="password" 
-                                    name="password"
-                                    value={formData.password}
-                                    onChange={handleInputChange}
-                                />
-                                <p className="text-[10px] text-red-700">{errors.password}</p>
-                            </label>
-
-                            <label className="text-[12px] md:text-[14px] lg:text-sm font-medium text-gray-500">
-                                Confirmar contraseña
-                                <Input className="text-[12px]  md:text-[14px] lg:text-sm font-normal" placeholder="confirma tu contraseña"
-                                    type="password" 
-                                    name="confirmPassword"
-                                    value={formData.confirmPassword}
-                                    onChange={handleInputChange}
-                                />
-                                <p className="text-[10px] text-red-700">{errors.confirmPassword}</p>
-                            </label>
-                        </div>
-
-                        {/* RECORDAR */}
-                        <div className=" justify-between items-center text-[12px] md:text-[14px] lg:text-sm pt-1.5">
-                            <div className="flex items-center gap-2">
-                                <Checkbox 
-                                name="tyc"
-                                checked={formData.tyc}
-                                onCheckedChange={handleCheckboxChange}
-                                />
-                                {tipoUsuario === "estudiante" 
-                                    ?  
-                                    <RegisterModal
-                                        tittle={"Términos y condiciones"} 
-                                        button={"Términos y condiciones"} 
-                                        description={"Términos y condiciones de la plataforma para el usuario estudiante"} 
-                                        paragraph={studentTerms} 
-                                        tittleColor="text-primary"
-                                    />
-                                : 
-                                    <RegisterModal
-                                        button={"Declaración de representante"} 
-                                        tittle={"Declaración de representante"}
-                                        paragraph={studentTerms}
-                                        description={"Términos y condiciones de la plataforma para el usuario empleador"} 
-                                        tittleColor="text-green-700"
-                                    />
-                                }
-                            </div>
-                            <p className="text-[10px] px-6 font-medium text-red-700">{errors.tyc}</p>
-                        </div>
-
-                        {/* BOTÓN LOGIN */}
-                        <Button
-                            type="submit"
-                            className={`w-full  ${
-                            tipoUsuario === "empresa"
-                                ? "bg-green-600 hover:bg-green-700 text-white text-[16px] md:text-[14px] lg:text-[19px] mt-2"
-                                : "text-[16px] md:text-[14px] lg:text-[19px] mt-2"
-                            }`}
-                            >
-                        Registrarse
-                        </Button>
-                </form>
-
-                {/* REGISTRO */}
-                <p className="text-center text-[12px] md:text-[14px] lg:text-sm text-gray-500">
-                    ¿Ya tienes cuenta?
-                    <Link href="/login" className="ml-1 cursor-pointer hover:underline text-primary">
-                    Inicia sesión
-                    </Link>
-                </p>
-            </CardContent>
-        </Card>
-    </div>
+            <HeaderLR />
+            <div className={`relative z-10 w-full max-w-md mx-auto animate-in fade-in zoom-in duration-500 transition-all duration-500 mb-8 ${
+                tipoUsuario === "estudiante" ? "" : "dark:filter-none"
+            }`}>
+                <RegisterForm {...registerState} />
+            </div>
+        </div>
     )
 }
+
 export default Page

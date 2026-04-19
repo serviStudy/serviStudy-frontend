@@ -11,7 +11,7 @@ const buttonVariants = cva(
       variant: {
         default: "bg-primary text-primary-foreground",
         keepChangesEditProfile: "bg-primary text-[11px] text-white md:font-bold lg:text-[16px]",
-        cancelEditProfile: "bg-gray-200 text-[11px] font-bold text-gray-500 lg:text-[16px]",
+        cancelEditProfile: "bg-gray-50 text-[11px] font-bold text-gray-500 lg:text-[16px] border shadow-sm",
         tag: "bg-white px-3 py-1 font-semibold border-2 border-gray-400 rounded-[12px] text-gray-500 text-[11px] lg:text-[14px] lg:rounded-[17px]",
         none: "bg-none !pl-6 flex align-middle rounded-none md:!pl-10 lg:!px-6 lg:w-auto h-10 lg:rounded-full lg:!py-0.5 ",
         verification: "bg-primary text-primary-foreground rounded-[12px] lg:hover:bg-chart-1 hover:border-0 hover:border-white",

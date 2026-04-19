@@ -1,3 +1,5 @@
+"use client";
+
 import { ShieldCheck } from 'lucide-react'
 import React from 'react'
 import { Item, ItemContent, ItemDescription, ItemTitle } from '../ui/item'

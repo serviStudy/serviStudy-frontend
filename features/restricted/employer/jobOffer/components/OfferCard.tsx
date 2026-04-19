@@ -12,9 +12,11 @@ interface Props {
 
 export const OfferCard = ({ offer }: Props) => {
   return (
-    <div className="bg-white rounded-xl shadow p-4 md:p-5 flex flex-col md:flex-row gap-4">
+    <div className="bg-white rounded-xl shadow-xl border border-primary/5 p-4 md:p-5 flex flex-col md:flex-row gap-4">
 
-      <div className="w-full md:w-28 h-28 bg-gray-200 rounded-lg" />
+      <div className="w-full md:w-28 h-28 bg-gray-50 border border-gray-100 rounded-lg flex items-center justify-center" >
+        <div className="bg-primary/10 w-full h-full rounded-lg animate-pulse" />
+      </div>
 
       <div className="flex-1 flex flex-col">
   
@@ -44,8 +46,8 @@ export const OfferCard = ({ offer }: Props) => {
         {/* Botón */}
         <div className="mt-4 md:mt-auto flex justify-end">
           <Link
-            href={`/empleador/(offers)/offer-detail/${offer.id_job_offers}`}
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm w-full md:w-auto text-center"
+            href={`/empleador/offers/${offer.id_job_offers}`}
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm w-full md:w-auto text-center font-medium"
           >
             Ver oferta
           </Link>
