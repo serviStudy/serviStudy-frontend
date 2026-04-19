@@ -9,7 +9,7 @@ import React from 'react'
 
 const page = () => {
     return (
-        <div className="flex flex-col gap-9 min-h-screen items-center justify-center bg-gray-200 pt-16 md:pt-10 lg:pt-18 pb-12">
+        <div className="flex flex-col gap-9 min-h-screen items-center justify-center bg-gray-50 pt-16 md:pt-10 lg:pt-18 pb-12">
             <HeaderStudent name={''}/>
             <ProfileVerification/>
 
