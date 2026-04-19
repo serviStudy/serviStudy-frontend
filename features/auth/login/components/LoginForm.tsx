@@ -112,7 +112,7 @@ export const LoginForm = ({
                             <label className="text-sm font-bold text-gray-700">
                                 Contraseña
                             </label>
-                            <Link href="#" className={`text-[12px] hover:underline font-bold transition-colors duration-500 ${
+                            <Link href="/recuperacion-contrasena" className={`text-[12px] hover:underline font-bold transition-colors duration-500 ${
                                 tipoUsuario === "estudiante" ? "text-primary" : "text-green-600"
                             }`}>
                                 ¿Olvidaste tu contraseña?
