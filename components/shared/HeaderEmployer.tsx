@@ -1,6 +1,6 @@
 "use client";
 
-import { BookOpen, CirclePlus, Info, MapPin, Menu, Search, Settings, User, X } from "lucide-react";
+import { BookOpen, CirclePlus, Info, MapPin, Menu, Search, Settings, User} from "lucide-react";
 import Image from "next/image";
 import NavLink from "../ui/NavLink";
 import { useSidebar } from "../../hooks/useSidebar";
@@ -9,7 +9,11 @@ import Link from "next/link";
 import { SuscriptionCard } from "./SuscriptionCard";
 import { routes } from "@/type/routes";
 
-export const HeaderEmployer = () => {
+interface props {
+    name: string;
+}
+
+export const HeaderEmployer = ( { name }: props ) => {
     const { open, openSidebar, closeSidebar } = useSidebar()
 
     return (
@@ -34,11 +38,11 @@ export const HeaderEmployer = () => {
 
                     {/* navbar desktop */}
                     <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 gap-6">
-                        <NavLink icon={MapPin} name="Ofertas" link="/"/>
-                        <NavLink icon={User} name="Perfil Empleador" link="/"/>
-                        <NavLink icon={Search} name="Buscar Talento" link="/"/>
-                        <NavLink icon={CirclePlus} name="Publicar Oferta" link="/"/>
-                        <NavLink icon={BookOpen} name="Suscripción" link="/"/>
+                        <NavLink icon={MapPin} name="Ofertas" link={routes.empleador.ofertas}/>
+                        <NavLink icon={User} name="Perfil Empleador" link={routes.empleador.profile}/>
+                        <NavLink icon={Search} name="Buscar Talento" link={routes.empleador.search}/>
+                        <NavLink icon={CirclePlus} name="Publicar Oferta" link={routes.empleador.ofertas}/>
+                        <NavLink icon={BookOpen} name="Suscripción" link={routes.empleador.suscripcion}/>
                     </div>
 
                     {/* boton de menu */}
@@ -56,14 +60,14 @@ export const HeaderEmployer = () => {
                     <div className="pt-10 px-6 flex items-center gap-4 md:pt-20 md:px-10">
                         <div className="rounded-full bg-blue-300 h-14 w-14 md:h-17 md:w-17"/>
                         <div className="flex flex-col gap-0">
-                            <p className="font-semibold text-gray-700 md:text-[20px]">Nombre</p>
-                            <Link href='/estudiante/profile' className="text-gray-600 text-[13px] md:text-[15px]">Ver perfil</Link>
+                            <p className="font-semibold text-gray-700 md:text-[20px]">{name}</p>
+                            <Link href='/estudiante/perfil' className="text-gray-600 text-[13px] md:text-[15px]">Ver perfil</Link>
                         </div>
                     </div> 
                     <div className="flex flex-col pt-6 gap-2 md:gap-6 lg:hidden">
                         <NavLink icon={MapPin} name="perfil" link={routes.empleador.profile}/>
                         <NavLink icon={Search} name="Buscar Talento" link={routes.empleador.search}/>
-                        <NavLink icon={CirclePlus} name="Publicar Oferta" link={routes.empleador.oferta}/>
+                        <NavLink icon={CirclePlus} name="Publicar Oferta" link={routes.empleador.ofertas}/>
                         <NavLink icon={BookOpen} name="Suscripción" link={routes.empleador.suscripcion}/>
                     </div>
 

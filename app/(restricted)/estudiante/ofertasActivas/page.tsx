@@ -81,14 +81,20 @@ const page = () => {
                 <div className="absolute w-50 h-50 bg-green-100/60 rounded-full blur-[90px] top-[10%] left-[50%]" />
             </div>
 
-            <HeaderStudent/>
+            <HeaderStudent name={''}/>
 
             <div className="flex-col gap-7 min-h-[80vh] py-14">
                 <SearchCard inputValue={inputValue} onInputChange={handleInputChange} onSearch={handleSearch}/>
 
                 <div className='flex w-full items-center pt-8 flex-col-reverse lg:flex-row gap-9 lg:items-start lg:pt-12'>
                     <MenuDays onToggleDay={toggleDay} onToggleJornada={toggleJornada}/>
-                    <OfferList offers={filteredOffers} onSelectOffer={setSelectedOffer} selectedOffer={selectedOffer}/>
+                    
+                    <div className='flex flex-col w-auto gap-3'>
+                        <p className='text-[22px] text-primary font-bold pl-1'>
+                            {filteredOffers.length} Resultados
+                        </p>
+                        <OfferList offers={filteredOffers} onSelectOffer={setSelectedOffer} selectedOffer={selectedOffer}/>
+                    </div>
                     
                     {filteredOffers.length > 0 && selectedOffer ? (
                         <InfoCard offer={selectedOffer}/>

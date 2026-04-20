@@ -3,7 +3,7 @@ import React from 'react'
 import { Item, ItemContent, ItemDescription, ItemTitle } from '../ui/item'
 import { Button } from '../ui/button'
 import VerifyProfileModal from "./VerifyProfileModal"
-import { Dialog, DialogContent, DialogTrigger } from '../ui/dialog'
+import { Dialog, DialogTrigger } from '../ui/dialog'
 
 export const ProfileVerification = () => {
     return (
@@ -28,7 +28,9 @@ export const ProfileVerification = () => {
                 </Item>
             </div>
 
-            <VerifyProfileModal/>
+            <VerifyProfileModal isOpen={false} onClose={function (): void {
+                throw new Error('Function not implemented.')
+            } }/>
         </Dialog>
     )
 }

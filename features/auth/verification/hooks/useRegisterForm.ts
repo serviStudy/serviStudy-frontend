@@ -76,6 +76,7 @@ export function useRegisterForm(){
         toast.success("Usuario registrado")
         
         router.push(`/verificar?email=${formData.email}`);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         }catch (error: any){
             toast.error(error.message);
 

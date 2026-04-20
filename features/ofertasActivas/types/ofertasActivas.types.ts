@@ -4,7 +4,7 @@ export interface OfferRequeriment {
 
 export interface ActiveOffer {
     jobOfferId: string;
-    bussinesName: string;
+    businessName: string;
     imageUrl: string;
     title: string;
     establishmentAddress: string;

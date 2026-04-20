@@ -21,11 +21,13 @@ const ResultCrad = ({ offer }: Props) => {
             <div className='flex h-full gap-8 pl-10 items-center'>
                 {/* foto de la oferta */}
                 <div className='w-21.25 h-21.25 bg-gray-200 rounded-[10px]'>
+                    {/*
                     <Image
                         src={offer.imageUrl}
                         alt={offer.title}
                         className='object-cover'                 
                     />
+                    */}
                 </div>
 
                 <div className='flex flex-col gap-4'>

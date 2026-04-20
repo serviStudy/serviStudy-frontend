@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import Link from "next/link"
 import { useLogin } from "../hooks/useLogin"
+import { RoleSwitch } from "@/components/shared/RoleSwitch"
 
 export const LoginForm = () => {
     const {
@@ -23,47 +24,23 @@ export const LoginForm = () => {
     return (
         <Card className="w-100 p-4 shadow-lg border-primary/10">
             <CardHeader className="space-y-1">
-                <CardTitle className="text-center text-3xl font-extrabold text-primary tracking-tight">
+                <CardTitle className="text-center text-3xl font-extrabold text-[#143285] tracking-tight">
                     Bienvenido de nuevo
                 </CardTitle>
-                <p className="text-center text-sm text-muted-foreground font-medium">
+                <p className="text-center text-sm text-gray-500 font-medium mt-1">
                     Ingresa tus credenciales para acceder a tu cuenta.
                 </p>
             </CardHeader>
 
             <CardContent className="space-y-6 pt-2">
                 {/* TIPO DE USUARIO */}
-                <div className="flex justify-center gap-2 bg-muted/30 p-1.5 rounded-xl border border-border w-fit mx-auto">
-                    <Button
-                        variant={tipoUsuario === "estudiante" ? "default" : "ghost"}
-                        className={`rounded-lg transition-all duration-200 ${
-                            tipoUsuario === "estudiante" 
-                            ? "shadow-sm" 
-                            : "hover:bg-muted/50"
-                        }`}
-                        onClick={() => {
-                            setTipoUsuario("estudiante")
-                            setErrorCorreo("")
-                        }}
-                    >
-                        Estudiante
-                    </Button>
-                    <Button
-                        variant={tipoUsuario === "empresa" ? "default" : "ghost"}
-                        className={`rounded-lg transition-all duration-300 ${
-                            tipoUsuario === "empresa" 
-                            ? "bg-green-600 hover:bg-green-700 text-white shadow-sm" 
-                            : "hover:bg-muted/50 text-muted-foreground"
-                        }`}
-                        onClick={() => {
-                            setTipoUsuario("empresa")
-                            setErrorCorreo("")
-                        }}
-                    >
-                        Empresa
-                    </Button>
-                </div>
-
+                <RoleSwitch 
+                    tipoUsuario={tipoUsuario as any} 
+                    setTipoUsuario={(tipo) => {
+                        setTipoUsuario(tipo);
+                        setErrorCorreo("");
+                    }} 
+                />
                 {/* GOOGLE SOLO EMPRESA */}
                 {tipoUsuario === "empresa" && (
                     <Button variant="outline" className="w-full flex items-center justify-center gap-2 h-11 font-semibold hover:bg-muted/50 border-input transition-colors rounded-xl">
@@ -92,10 +69,10 @@ export const LoginForm = () => {
                 {/* SEPARADOR */}
                 <div className="relative">
                     <div className="absolute inset-0 flex items-center">
-                        <span className="w-full border-t border-muted-foreground/20"></span>
+                        <span className="w-full border-t border-gray-200"></span>
                     </div>
                     <div className="relative flex justify-center text-xs uppercase">
-                        <span className="bg-background px-3 text-muted-foreground font-semibold">o continuar con email</span>
+                        <span className="bg-white px-3 text-gray-400 font-semibold tracking-wider">o continuar con email</span>
                     </div>
                 </div>
 
@@ -155,7 +132,7 @@ export const LoginForm = () => {
                     className={`w-full h-12 text-[16px] font-bold rounded-xl transition-all duration-200 active:scale-[0.98] mt-2 shadow-md ${
                         tipoUsuario === "empresa"
                             ? "bg-green-600 hover:bg-green-700 text-white"
-                            : "bg-primary hover:bg-primary/90 text-white"
+                            : "bg-[#143285] hover:bg-[#0f2870] text-white"
                     }`}
                 >
                     {loading ? (
@@ -170,11 +147,11 @@ export const LoginForm = () => {
                 </Button>
 
                 {/* REGISTRO */}
-                <div className="pt-2 text-center text-sm font-medium text-muted-foreground border-t border-muted/20">
+                <div className="pt-2 text-center text-sm font-medium text-gray-500 border-t border-gray-100">
                     ¿Aún no tienes cuenta?
                     <Link
                         href="/registro"
-                        className="ml-1.5 font-bold hover:underline text-primary transition-all underline-offset-4"
+                        className="ml-1.5 font-bold hover:underline text-[#143285] transition-all underline-offset-4"
                     >
                         Registrate gratis
                     </Link>

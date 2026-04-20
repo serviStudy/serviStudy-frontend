@@ -1,5 +1,7 @@
 import { Button } from '@/components/ui/button'
+import { routes } from '@/type/routes';
 import { BriefcaseBusiness, Search } from 'lucide-react'
+import Link from 'next/link';
 import React from 'react'
 
 interface Props {
@@ -10,7 +12,7 @@ interface Props {
 
 const SearchCard = ({ inputValue, onInputChange, onSearch }: Props) => {
     return (
-        <div className='flex flex-col gap-4 pt-14'>
+        <div className='flex flex-col gap-4'>
             <div className='py-1 h-auto w-[85vw] lg:w-full lg:h-44 rounded-[21px] bg-white'>
                 <div className='flex flex-col py-3 gap-4 items-center w-full lg:gap-6'>
                     <div className='space-x-0'>
@@ -34,9 +36,9 @@ const SearchCard = ({ inputValue, onInputChange, onSearch }: Props) => {
                             </button>
                         </div>
 
-                        <button className='lg:bg-primary lg:w-full lg:px-6 lg:rounded-full lg:font-semibold lg:h-9 lg:block hidden'>
+                        <Link className='lg:bg-primary lg:w-full lg:px-6 lg:rounded-full lg:font-semibold lg:h-9 lg:block hidden' href={routes.estudiante.postulaciones}>
                             Mis postulaciones
-                        </button>
+                        </Link>
                     </div>
                 </div>
             </div>
