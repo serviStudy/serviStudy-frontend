@@ -1,26 +1,67 @@
-import { Building2, CircleDollarSign, MapPin } from 'lucide-react'
+import { Building2, CircleDollarSign, MapPin, Briefcase } from 'lucide-react'
 import React from 'react'
+import { Badge } from '@/components/ui/badge'
 
-export const MiniOffer = () => {
+interface MiniOfferProps {
+  title?: string
+  company?: string
+  location?: string
+  salary?: string
+  tags?: string[]
+}
+
+export const MiniOffer = ({ 
+  title = "Desarrollador Junior", 
+  company = "Tech Solutions", 
+  location = "Remoto", 
+  salary = "2'500.000",
+  tags = ["Flexible", "Prácticas"]
+}: MiniOfferProps) => {
   return (
-    <div className='bg-white w-75 h-30 rounded-2xl flex flex-row items-center '>
-        <div className="w-19 h-19 rounded-xl ml-4 flex items-center justify-center bg-gray-400">
-            <Building2 className="w-12 h-12 text-muted-foreground" />
-        </div>
-        <div className='ml-2'>
-            <h1 className='text-blue-700 text-[14px] font-bold'>
-                nombre
-            </h1>
-            <p className='text-blue-700 text-[10px] font-bold'>
-                descripciòn
-            </p>
-            <div className='flex flex-row gap-3'>
-                <p className='flex items-center text-[12px] text-[#009232]'><MapPin className='w-3 h-3'/> ubicacion</p>
-                <p className='flex items-center text-[12px] text-blue-700'><CircleDollarSign className='w-3 h-3'/> 120.000</p>
+    <div className='group relative bg-white/80 backdrop-blur-md border border-white/50 w-full max-w-[320px] rounded-[1.5rem] p-5 flex flex-col gap-4 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-200/40 hover:-translate-y-2 overflow-hidden shadow-lg'>
+        {/* CARD GLOW */}
+        <div className="absolute top-0 right-0 w-20 h-20 bg-blue-100/50 rounded-full blur-2xl -mr-10 -mt-10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+
+        <div className="flex items-center gap-4">
+            <div className="w-14 h-14 rounded-2xl flex items-center justify-center bg-blue-50 text-blue-600 border border-blue-100 transition-all duration-500 group-hover:bg-blue-600 group-hover:text-white group-hover:rotate-6 shadow-sm">
+                <Building2 size={24} />
             </div>
-            <div className='flex flex-row gap-4'>
-                <p className='flex items-center text-[12px] px-2 rounded-2xl bg-[#FFD9B2] text-[#BE6105] border-[#FF8000] border'>Flexible</p>
-                <p className='flex items-center text-[12px] px-2 rounded-2xl bg-[#C9FFC8] text-[#009232] border-[#009232] border'>Flexible</p>
+            <div className='flex-1 overflow-hidden'>
+                <h3 className='text-blue-950 text-base font-black truncate leading-tight'>
+                    {title}
+                </h3>
+                <p className='text-blue-600/80 text-xs font-bold flex items-center gap-1.5'>
+                    <Briefcase size={12} /> {company}
+                </p>
+            </div>
+        </div>
+
+        <div className='space-y-3'>
+            <div className='flex items-center gap-4'>
+                <div className='flex items-center gap-1 text-[11px] font-bold text-gray-500'>
+                    <MapPin className='w-4 h-4 text-emerald-500'/> 
+                    {location}
+                </div>
+                <div className='flex items-center gap-1 text-[11px] font-bold text-blue-900'>
+                    <CircleDollarSign className='w-4 h-4 text-blue-600'/> 
+                    {salary}
+                </div>
+            </div>
+            
+            <div className='flex flex-wrap gap-2 pt-1'>
+                {tags.map((tag, idx) => (
+                    <Badge 
+                        key={idx} 
+                        variant="secondary" 
+                        className={`text-[10px] px-2.5 py-0.5 rounded-full font-black tracking-wide border transition-colors ${
+                            idx % 2 === 0 
+                                ? 'bg-orange-50 text-orange-600 border-orange-100 group-hover:bg-orange-600 group-hover:text-white' 
+                                : 'bg-green-50 text-green-600 border-green-100 group-hover:bg-green-600 group-hover:text-white'
+                        }`}
+                    >
+                        {tag}
+                    </Badge>
+                ))}
             </div>
         </div>
     </div>

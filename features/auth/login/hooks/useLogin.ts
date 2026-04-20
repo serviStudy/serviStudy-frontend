@@ -24,7 +24,7 @@ export const useLogin = () => {
       // GUARDAR TOKEN Y DATOS DE SESIÓN
       console.log("RAW LOGIN RESPONSE:", data)
       console.log("COPIA TODO ESTE TEXTO:", JSON.stringify(data, null, 2))
-      
+
       if (!data.data) {
         throw new Error("Respuesta del servidor inválida: falta el objeto 'data'")
       }
@@ -32,7 +32,7 @@ export const useLogin = () => {
       localStorage.setItem("token", data.data.token)
       localStorage.setItem("user_email", correo)
       localStorage.setItem("user_role", tipoUsuario)
-      
+
       console.log("Sesión guardada (Token + Info Básica)")
 
       // REDIRECCIÓN AL PERFIL SEGÚN TIPO DE USUARIO

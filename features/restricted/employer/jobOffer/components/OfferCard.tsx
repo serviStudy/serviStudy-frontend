@@ -98,12 +98,12 @@ export const OfferCard = ({ offer }: Props) => {
               </span>
             </button>
             <Link href={`/empleador/ofertas/${offerId}/editar`}>
-               <Pencil size={22} className="text-gray-600 hover:text-blue-600 cursor-pointer" />
+                <Pencil size={22} className="text-gray-600 hover:text-blue-600 cursor-pointer" />
             </Link>
             <Trash2 
-               size={22} 
-               className="text-red-500 hover:text-red-700 cursor-pointer" 
-               onClick={handleDelete}
+                size={22} 
+                className="text-red-500 hover:text-red-700 cursor-pointer" 
+                onClick={handleDelete}
             />
           </div>
         </div>
@@ -112,12 +112,12 @@ export const OfferCard = ({ offer }: Props) => {
         <div className="flex gap-3 my-3">
           <span className="flex items-center gap-1.5 px-3 py-1 rounded-full border border-orange-200 bg-orange-50 text-orange-600 text-xs font-semibold">
              {/* Icono de reloj opcional */}
-             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-             {(offer.work_schedule || offer.workSchedule) === "FULL_TIME" ? "Jornada Completa" : (offer.work_schedule || offer.workSchedule) === "PART_TIME" ? "Media Jornada" : "Flexible"}
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              {(offer.work_schedule || offer.workSchedule) === "FULL_TIME" ? "Jornada Completa" : (offer.work_schedule || offer.workSchedule) === "PART_TIME" ? "Media Jornada" : "Flexible"}
           </span>
           <span className="flex items-center gap-1.5 px-3 py-1 rounded-full border border-green-500 bg-green-50 text-green-600 text-xs font-semibold">
-             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-             {(offer.work_days || offer.workDays)?.length > 2 ? "Entre semana" : "Fines de semana"}
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              {(offer.work_days || offer.workDays)?.length > 2 ? "Entre semana" : "Fines de semana"}
           </span>
         </div>
 
