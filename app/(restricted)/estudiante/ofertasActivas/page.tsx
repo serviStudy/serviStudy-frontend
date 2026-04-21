@@ -102,7 +102,6 @@ const page = () => {
                         <div className='flex items-center justify-center rounded-[21px] lg:max-w-108 w-[85vw] bg-white/30 backdrop-blur-md min-h-7'>
                         </div>
                     )}
-                    
                 </div>
             </div>
         </div>
