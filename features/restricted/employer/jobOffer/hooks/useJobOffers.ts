@@ -6,16 +6,26 @@ export const useJobOffers = () => {
   const [offers, setOffers] = useState<JobOfferDTO[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-  getEmployerOffers()
-    .then((data) => {
-      const visibleOffers = data.filter(
-        (o: JobOfferDTO) => o.status !== "DELETED"
-      );
-      setOffers(visibleOffers);
-    })
-    .finally(() => setLoading(false));
-    }, []);
+  const fetchOffers = async () => {
+    setLoading(true);
+    try {
+      const data = await getEmployerOffers();
+      console.log("[useJobOffers] API Response:", data);
+      
+      // Filtramos DELETED para que las ofertas eliminadas desaparezcan de la lista
+      const visible = data.filter((o: JobOfferDTO) => String(o.status).toUpperCase() !== "DELETED");
+      console.log(`[useJobOffers] Visible: ${visible.length} / Total: ${data.length}`);
+      setOffers(visible);
+    } catch (err) {
+      console.error("[useJobOffers] Error fetching offers:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  return { offers, loading };
+  useEffect(() => {
+    fetchOffers();
+  }, []);
+
+  return { offers, loading, refresh: fetchOffers };
 };

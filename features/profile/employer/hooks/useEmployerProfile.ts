@@ -12,7 +12,12 @@ export const useEmployerProfile = () => {
     const loadProfile = async () => {
       try {
         const data = await getEmployerProfile()
-        if (data) setProfile(data)
+        if (data) {
+          setProfile(data);
+          localStorage.setItem("last_profile", JSON.stringify(data));
+          const id = data.employerId || data.employer_id || data.id;
+          if (id) localStorage.setItem("employer_id", id);
+        }
       } catch (error) {
         console.error("Error al cargar el perfil:", error)
       } finally {

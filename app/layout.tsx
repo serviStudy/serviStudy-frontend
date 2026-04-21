@@ -37,7 +37,7 @@ export default function RootLayout({
               &copy; {new Date().getFullYear()} ServiStudy. Todos los derechos reservados.
             </p>
             <p className="text-xs">
-              Conectando talento estudiantil con oportuninades.
+              Conectando talento estudiantil con oportunidades.
             </p>
           </div>
           <Toaster></Toaster>

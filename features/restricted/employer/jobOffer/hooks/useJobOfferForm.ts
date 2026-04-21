@@ -3,6 +3,7 @@ import { CreateJobOfferDTO, DayWeek, WorkSchedule } from "../types/jobOffer.type
 
 export const useJobOfferForm = (initialData?: Partial<CreateJobOfferDTO>) => {
   const [formData, setFormData] = useState<CreateJobOfferDTO>({
+    employerId: initialData?.employerId || "",
     title: initialData?.title || "",
     establishmentAddress: initialData?.establishmentAddress || "",
     workDays: initialData?.workDays || [],

@@ -20,6 +20,9 @@ export const useEditEmployerProfile = () => {
   const [imageFile, setImageFile]       = useState<File | null>(null)
   const [email, setEmail]               = useState("")
 
+  const [employerId, setEmployerId]     = useState<string | null>(null)
+  const [userId, setUserId]             = useState<string | null>(null)
+
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -29,6 +32,8 @@ export const useEditEmployerProfile = () => {
       try {
         const data = await getEmployerProfile()
         if (data) {
+          setEmployerId(data.employerId || (data as any).employer_id || null)
+          setUserId(data.userId || (data as any).user_id || null)
           setEmployerName(data.employerName || (data as any).employer_name || "")
           setBusinessName(data.businessName || (data as any).business_name || "")
           setBusinessAddress(data.businessAddress || (data as any).business_address || "")
@@ -64,6 +69,8 @@ export const useEditEmployerProfile = () => {
     setSaving(true)
     try {
       await updateEmployerProfile({
+        employerId,
+        userId,
         employerName,
         businessName,
         businessAddress,
