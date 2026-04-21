@@ -1,5 +1,5 @@
 export interface OfferRequeriment {
-    requerimentName: string;
+    requirementName: string;
 }
 
 export interface ActiveOffer {
