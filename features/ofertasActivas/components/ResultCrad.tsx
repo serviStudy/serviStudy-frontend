@@ -17,24 +17,24 @@ const ResultCrad = ({ offer }: Props) => {
     const jornadaTags = ConvertJornadaTags(offer.workSchedule)
 
     return (
-        <div className='lg:w-138 lg:h-34 w-100 h-28 rounded-[21px] bg-white'>
-            <div className='flex h-full gap-8 pl-10 items-center'>
+        <div className='lg:w-130 lg:h-auto p-3 h-28 w-[85vw] rounded-[21px] bg-white'>
+            <div className='flex h-full gap-5 md:gap-8 pl-6 md:pl-3 items-center'>
                 {/* foto de la oferta */}
-                <div className='w-21.25 h-21.25 bg-gray-200 rounded-[10px]'>
-                    {/*
+                <div className='w-21.25 h-30 bg-transparent rounded-[10px]'>
                     <Image
+                        width={95}
+                        height={30}
                         src={offer.imageUrl}
                         alt={offer.title}
-                        className='object-cover'                 
+                        className='object-co rounded-[10px]'                 
                     />
-                    */}
                 </div>
 
-                <div className='flex flex-col gap-4'>
+                <div className='flex flex-col gap-3 md:gap-4'>
                     <div className='flex flex-col gap-1'>
                             <p className='text-primary font-bold text-[18px]'>{offer.title}</p>
 
-                        <div className='flex gap-5'>
+                        <div className='flex gap-2 md:gap-5'>
                             <div className='flex gap-1 items-center'>
                                 <LocationEditIcon className='text-green-700 h-4 w-4'/>
                                 <p className='text-green-700 text-[12px] font-medium'>{offer.establishmentAddress}</p>
@@ -47,7 +47,7 @@ const ResultCrad = ({ offer }: Props) => {
                         </div>
                     </div>
 
-                    <div className='flex gap-4 flex-wrap'>
+                    <div className='flex gap-2 md:gap-4 flex-wrap'>
                         <span className='border rounded-2xl border-orange-600 bg-orange-100 text-orange-700 px-3 py-1 text-xs font-semibold'>
                             {jornadaTags}
                         </span>

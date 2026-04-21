@@ -9,6 +9,7 @@ import { Sidebar } from "./Sidebar";
 import Link from "next/link";
 import { SuscriptionCard } from "./SuscriptionCard";
 import { routes } from "@/type/routes";
+import { useState } from "react";
 
 interface props {
     name: string;
@@ -16,11 +17,18 @@ interface props {
 
 export const HeaderStudent = ( { name }: props ) => {
     const { open, openSidebar, closeSidebar } = useSidebar()
+    const [isScrolled, setIsScrolled] = useState(false)
+    
 
     return (
         <>
         <div className="bg-white w-full fixed top-0 z-50 shadow-sm">
             <header className="border-b">
+
+                {/* BRAND ACCENT LINE */}
+                <div className={`absolute bottom-0 left-0 h-0.5 w-full transition-all duration-500 bg-linear-to-r from-blue-600 via-green-400 to-blue-600 opacity-60 ${isScrolled ? "scale-x-100" : "scale-x-0"
+                    }`} />
+
                 <div className="flex h-16 px-4 md:px-6 w-full items-center justify-between lg:px-16 lg:justify-stretch">
 
                     {/* logo */}
@@ -39,7 +47,7 @@ export const HeaderStudent = ( { name }: props ) => {
 
                     {/* navbar desktop */}
                     <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 gap-6 md:right-32">
-                        <NavLink icon={MapPin} name="Ofertas" link={routes.estudiante.ofertas} />
+                        <NavLink icon={MapPin} name="Ofertas" link="/estudiante/ofertasActivas" />
                         <NavLink icon={User} name="Mi Perfil" link="/estudiante/perfil"/>
                         <NavLink icon={Search} name="Empleadores" link="/" />
                         <NavLink icon={BookOpen} name="Suscripción" link="/" />

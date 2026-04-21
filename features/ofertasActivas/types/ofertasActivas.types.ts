@@ -3,7 +3,7 @@ export interface OfferRequeriment {
 }
 
 export interface ActiveOffer {
-    jobOfferId: string;
+    jobOfferId?: string;
     businessName: string;
     imageUrl: string;
     title: string;

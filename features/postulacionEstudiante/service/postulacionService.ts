@@ -4,10 +4,16 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const APPLICANTS_URL = `${API_URL}/applicants`;
 
 interface CreateApplicationDTO {
-    jobOfferId: string
+    jobOfferId: string;
+    studentProfileId: string
 }
 
 export const createApplication = async (body: CreateApplicationDTO) => {
+        const headers = getAuthHeaders();
+
+    console.log("BODY enviado:", body);
+    console.log("HEADERS:", headers);
+
     const res = await fetch(APPLICANTS_URL, {
         method: "POST",
         headers: {
@@ -17,7 +23,13 @@ export const createApplication = async (body: CreateApplicationDTO) => {
         body: JSON.stringify(body)
     })
 
-    const data = await res.json();
+    let data = null;
+
+    try {
+        data = await res.json();
+    } catch {
+        data = null;
+    }
 
     if (!res.ok) throw new Error(data.message || "Error al postularse");
 
