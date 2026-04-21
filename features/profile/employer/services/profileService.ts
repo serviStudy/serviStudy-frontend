@@ -1,8 +1,10 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
-const EMPLOYER_PROFILE_URL    = `${API_URL}/profiles/employer/me`
-const EMPLOYER_COLLECTION_URL = `${API_URL}/profiles/employer`
+// ENDPOINTS CORRECTOS
+const EMPLOYER_PROFILE_URL = `${API_URL}/profiles/employer/me`
+const EMPLOYER_CREATE_URL  = `${API_URL}/profiles/employer/info`
 
+// HEADERS
 const getServiceHeaders = (): Record<string, string> => {
   const token = localStorage.getItem("token") ?? ""
 
@@ -11,6 +13,9 @@ const getServiceHeaders = (): Record<string, string> => {
   }
 }
 
+// =========================
+// TYPES
+// =========================
 export interface EmployerProfileResponse {
   employerId?: string
   employer_id?: string
@@ -41,7 +46,6 @@ export interface EmployerProfileUpdateData {
   imageFile?: File
 }
 
-
 // =========================
 // GET PROFILE
 // =========================
@@ -51,11 +55,12 @@ export const getEmployerProfile = async (): Promise<EmployerProfileResponse | nu
   })
 
   if (res.status === 404) return null
-  
+
   if (!res.ok) {
     if (res.status === 401) {
       throw new Error("Sesión expirada. Por favor, vuelve a iniciar sesión.")
     }
+
     const errorText = await res.text().catch(() => "Error desconocido")
     throw new Error(`Error ${res.status}: ${errorText}`)
   }
@@ -65,7 +70,7 @@ export const getEmployerProfile = async (): Promise<EmployerProfileResponse | nu
 }
 
 // =========================
-// UPDATE PROFILE (CORRECTO)
+// CREATE / UPDATE PROFILE
 // =========================
 export const updateEmployerProfile = async (
   profileData: EmployerProfileUpdateData
@@ -73,7 +78,6 @@ export const updateEmployerProfile = async (
 
   const formData = new FormData()
 
-  //  Construimos el JSON que el backend espera en @RequestPart("data")
   const profileJson = {
     employerName: profileData.employerName,
     businessName: profileData.businessName,
@@ -82,10 +86,14 @@ export const updateEmployerProfile = async (
     businessSummary: profileData.businessSummary
   }
 
-  //  ESTA ES LA CLAVE (RequestPart "data")
+  // JSON como archivo (requerido por backend Spring)
   formData.append(
     "data",
-    new Blob([JSON.stringify(profileJson)], { type: "application/json" })
+    new Blob(
+      [JSON.stringify(profileJson)],
+      { type: "application/json" }
+    ),
+    "data.json"
   )
 
   // Imagen opcional
@@ -93,22 +101,31 @@ export const updateEmployerProfile = async (
     formData.append("image", profileData.imageFile)
   }
 
-  // DEBUG (puedes quitarlo después)
+  // DEBUG
   for (let pair of formData.entries()) {
     console.log(pair[0], pair[1])
   }
 
-  const res = await fetch(EMPLOYER_PROFILE_URL, {
+  // Intentar actualizar
+  let res = await fetch(EMPLOYER_PROFILE_URL, {
     method: "PATCH",
-    headers: {
-      ...getServiceHeaders()
-      //  NO poner Content-Type
-    },
+    headers: getServiceHeaders(),
     body: formData
   })
 
+  // Si no existe → crear
+  if (res.status === 404) {
+    res = await fetch(EMPLOYER_CREATE_URL, {
+      method: "POST",
+      headers: getServiceHeaders(),
+      body: formData
+    })
+  }
+
+  // Manejo de errores
   if (!res.ok) {
     let errorDetail = ""
+
     try {
       const err = await res.json()
       errorDetail = JSON.stringify(err)
