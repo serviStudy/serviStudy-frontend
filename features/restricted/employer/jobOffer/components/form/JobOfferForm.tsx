@@ -272,12 +272,15 @@ export const JobOfferForm: React.FC<JobOfferFormProps> = ({ initialData, isEditi
                 <Plus size={16} className="text-[#1a3683]" /> Perfil del Estudiante
              </label>
              <div className="flex flex-wrap gap-3.5 min-h-[50px]">
-               {formData.requirements.map((req: string) => (
-                 <Badge key={req} variant="secondary" className="bg-blue-50 text-[#1a4b9e] border border-blue-100 px-6 py-2.5 rounded-[20px] flex items-center gap-3 font-black text-sm shadow-md animate-in zoom-in-75 duration-300">
-                   {req}
-                   <X size={16} className="cursor-pointer hover:text-red-500 transition-colors" onClick={() => handleRequirementRemove(req)} />
-                 </Badge>
-               ))}
+               {formData.requirements.map((req: any, index: number) => {
+                 const label = typeof req === 'string' ? req : (req.requirementName || req.name || "Requisito");
+                 return (
+                   <Badge key={`${label}-${index}`} variant="secondary" className="bg-blue-50 text-[#1a4b9e] border border-blue-100 px-6 py-2.5 rounded-[20px] flex items-center gap-3 font-black text-sm shadow-md animate-in zoom-in-75 duration-300">
+                     {label}
+                     <X size={16} className="cursor-pointer hover:text-red-500 transition-colors" onClick={() => handleRequirementRemove(req)} />
+                   </Badge>
+                 );
+               })}
                {formData.requirements.length === 0 && <span className="text-gray-400 italic text-lg py-2 ml-2">Aún no has definido requisitos</span>}
              </div>
              <div className="flex gap-4">

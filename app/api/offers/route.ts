@@ -3,7 +3,20 @@ import { NextResponse } from 'next/server';
 const PROFILE_API_URL = 'https://api.servistudy.site/api/v1/profiles/employer/me';
 const EXTERNAL_OFFERS_URL = 'https://api.servistudy.site/api/v1/offers';
 
+// --- PERFORMANCE CACHE ---
+const IDENTITY_CACHE = new Map<string, { id: string, expires: number }>();
+const CACHE_TTL = 10 * 60 * 1000; // 10 minutos para balancear velocidad y frescura
+
 async function getVerifiedEmployerId(authHeader: string) {
+  const now = Date.now();
+  const cached = IDENTITY_CACHE.get(authHeader);
+  
+  if (cached && cached.expires > now) {
+    console.log("[Identity Cache] Hit - Usando ID de caché");
+    return cached.id;
+  }
+
+  console.log("[Identity Cache] Miss - Consultando perfil para verificar identidad");
   const profileRes = await fetch(PROFILE_API_URL, {
     headers: { 'Authorization': authHeader }
   });
@@ -11,7 +24,12 @@ async function getVerifiedEmployerId(authHeader: string) {
   if (profileRes.ok) {
     const profileData = await profileRes.json();
     const p = profileData.data || profileData;
-    return p.employerId || p.employer_id || p.id || '';
+    const id = p.employerId || p.employer_id || p.id || '';
+    
+    if (id) {
+       IDENTITY_CACHE.set(authHeader, { id, expires: now + CACHE_TTL });
+    }
+    return id;
   }
   return '';
 }

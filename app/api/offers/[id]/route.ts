@@ -3,7 +3,18 @@ import { NextResponse } from 'next/server';
 const PROFILE_API_URL = 'https://api.servistudy.site/api/v1/profiles/employer/me';
 const EXTERNAL_OFFERS_URL = 'https://api.servistudy.site/api/v1/offers';
 
+// --- PERFORMANCE CACHE ---
+const IDENTITY_CACHE = new Map<string, { id: string, expires: number }>();
+const CACHE_TTL = 10 * 60 * 1000;
+
 async function getVerifiedEmployerId(authHeader: string) {
+  const now = Date.now();
+  const cached = IDENTITY_CACHE.get(authHeader);
+  
+  if (cached && cached.expires > now) {
+    return cached.id;
+  }
+
   const profileRes = await fetch(PROFILE_API_URL, {
     headers: { 'Authorization': authHeader }
   });
@@ -11,7 +22,11 @@ async function getVerifiedEmployerId(authHeader: string) {
   if (profileRes.ok) {
     const profileData = await profileRes.json();
     const p = profileData.data || profileData;
-    return p.employerId || p.employer_id || p.id || '';
+    const id = p.employerId || p.employer_id || p.id || '';
+    if (id) {
+       IDENTITY_CACHE.set(authHeader, { id, expires: now + CACHE_TTL });
+    }
+    return id;
   }
   return '';
 }
@@ -40,6 +55,9 @@ export async function GET(
       next: { revalidate: 0 }
     });
 
+    if (response.status === 204) {
+      return new Response(null, { status: 204 });
+    }
     const data = await response.json().catch(() => ({}));
     return NextResponse.json(data, { status: response.status });
   } catch (error: any) {
@@ -73,10 +91,13 @@ export async function PATCH(
       },
       body: JSON.stringify({
         ...body,
-        employerId: verifiedEmployerId // Inyectamos el ID verificado en el body también
+        employerId: verifiedEmployerId 
       }),
     });
 
+    if (response.status === 204) {
+      return new Response(null, { status: 204 });
+    }
     const data = await response.json().catch(() => ({}));
     return NextResponse.json(data, { status: response.status });
   } catch (error: any) {

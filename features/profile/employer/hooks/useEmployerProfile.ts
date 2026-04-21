@@ -9,6 +9,14 @@ export const useEmployerProfile = () => {
   useEffect(() => {
     setEmail(localStorage.getItem("user_email") ?? "")
 
+    const storedProfile = localStorage.getItem("last_profile");
+    if (storedProfile) {
+      try {
+        setProfile(JSON.parse(storedProfile));
+        setLoading(false); // Consider half-loaded if we have cache
+      } catch (e) {}
+    }
+
     const loadProfile = async () => {
       try {
         const data = await getEmployerProfile()

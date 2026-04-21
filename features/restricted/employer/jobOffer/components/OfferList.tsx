@@ -36,7 +36,7 @@ export const OfferList = () => {
           <div className="bg-[#1a4b9e] p-2 rounded-xl shadow-sm text-white">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
           </div>
-          <h2 className="text-3xl font-extrabold text-[#1a4b9e]">Mi historial de vacantes</h2>
+          <h2 className="text-3xl font-extrabold text-[#1a4b9e]">Mi historial de ofertas</h2>
           {!loading && <span className="ml-2 text-sm font-bold text-gray-400 bg-gray-100 px-2 py-0.5 rounded-md">({offers.length})</span>}
         </div>
 
