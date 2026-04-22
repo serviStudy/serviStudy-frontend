@@ -1,0 +1,1 @@
+export const tagDays = ["Entre semana", "Fin de semana", "Específicos"]
