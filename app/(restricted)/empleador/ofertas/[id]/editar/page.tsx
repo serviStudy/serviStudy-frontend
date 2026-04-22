@@ -56,7 +56,10 @@ export default function EditJobOfferPage() {
           className="w-full"
         >
           <JobOfferForm 
-            initialData={offer || {}} 
+            initialData={offer ? {
+              ...offer,
+              requirements: offer.requirements?.map(req => req.name || req.requirementName || "") || []
+            } : {}} 
             isEditing 
             onSubmit={handleUpdate} 
             saving={saving} 
