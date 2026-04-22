@@ -1,3 +1,4 @@
+import { ActiveOffer } from "@/features/ofertasActivas/types/ofertasActivas.types";
 import { getAuthHeaders } from "@/lib/api/authHeaders";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -34,4 +35,16 @@ export const createApplication = async (body: CreateApplicationDTO) => {
     if (!res.ok) throw new Error(data.message || "Error al postularse");
 
     return data.data ?? data;
+}
+
+export const getOfferById = async (id: string): Promise<ActiveOffer> => {
+    const res = await fetch(`${API_URL}/offers/${id}`, {
+        headers: getAuthHeaders(),
+    })
+
+    const data = await res.json();
+
+    if (!res.ok) throw new Error(data.message || "No se encontró la oferta")
+
+    return data.data
 }

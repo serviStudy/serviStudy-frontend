@@ -1,5 +1,4 @@
 import { ActiveOffer } from "@/features/ofertasActivas/types/ofertasActivas.types";
-import { JobOfferDTO } from "@/features/restricted/employer/jobOffer/types/jobOffer.types";
 import { MapPin, Edit } from "lucide-react";
 import Image from "next/image";
 

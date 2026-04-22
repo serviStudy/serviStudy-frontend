@@ -1,6 +1,4 @@
-import { HeaderStudent } from "@/components/shared/HeaderStudent";
 import { OfferDetailPostulation } from "@/features/postulacionEstudiante/components/OfferDetailPostulation";
-
 export default async function Page({ params }: { params: { id: string } }) {
     const { id } = await params;
     

@@ -17,6 +17,11 @@ export interface ActiveOffer {
     requirements: OfferRequeriment[]
 }
 
+export type WorkSchedule =
+    | "FULL_TIME"
+    | "PART_TIME"
+    | "FLEXIBLE";
+
 export interface ActiveOffersResponse {
     message: string;
     success: boolean;

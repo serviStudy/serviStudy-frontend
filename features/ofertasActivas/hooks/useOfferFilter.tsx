@@ -1,9 +1,9 @@
 import { useMemo, useState } from "react";
 import { ConvertJornadaTags } from "./ConvertJornadaTags";
 import { ConvertWorkDayTags } from "./ConvertWorkDayTags";
-import { ActiveOffer } from "../types/ofertasActivas.types";
+import { Offer } from "@/type/offer";
 
-export const useOfferFilter = (offers: ActiveOffer[]) => {
+export const useOfferFilter = (offers: Offer[]) => {
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedDays, setSelectedDays] = useState<string[]>([]);
     const [selectedJornada, setSelectedJornada] = useState<string[]>([]);
@@ -11,7 +11,7 @@ export const useOfferFilter = (offers: ActiveOffer[]) => {
     const filteredOffers = useMemo(() => {
         return offers.filter((offer) => {
             const convertedDays =
-                ConvertWorkDayTags(offer.workDays);
+                ConvertWorkDayTags(offer.workDays as string[]);
 
             const convertedJornada =
                 ConvertJornadaTags(offer.workSchedule);
@@ -19,7 +19,7 @@ export const useOfferFilter = (offers: ActiveOffer[]) => {
             const searchableText = `
                 ${offer.title}
                 ${offer.description ?? ""}
-                ${offer.establishmentAddress ?? ""}
+                ${offer.address ?? ""}
             `.toLowerCase();
 
             const matchesSearch =

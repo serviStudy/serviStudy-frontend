@@ -26,8 +26,7 @@ export const OfferList = ({offers, selectedOffer, onSelectOffer}: ResultCardProp
             ) : (
 
                 offers.map((offer) => {
-                        console.log(offers[0])
-                        const isSelected = selectedOffer?.jobOfferId === offer.jobOfferId;
+                    const isSelected = selectedOffer?.jobOfferId === offer.jobOfferId;
                     return (
                         <div 
                             key={offer.jobOfferId}

@@ -1,11 +1,10 @@
-"use client";
-import { ActiveOffer } from '../types/ofertasActivas.types'
-import { getActiveOffers } from '../services/ofertaActivaService';
+import { Offer } from "@/type/offer";
+import { getActiveOffers } from "../services/ofertaActivaService";
 import { useEffect, useState } from 'react';
 
 export const useActiveOffers = () => {
-    const [offers, setOffers] = useState<ActiveOffer[]>([]);
-    const [selectedOffer, setSelectedOffer] = useState<ActiveOffer | null>(null);
+    const [offers, setOffers] = useState<Offer[]>([]);
+    const [selectedOffer, setSelectedOffer] = useState<Offer | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {

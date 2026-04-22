@@ -22,7 +22,7 @@ export const OfferDetailInfoCards = ({ offer }: Props) => {
   return (
     <div className="flex flex-wrap md:flex-nowrap gap-4 justify-between mt-8">
       {/* Tarjeta Salario */}
-      <div className="bg-[#F5F5F5] rounded-xl p-4 flex-1 min-w-[150px]">
+      <div className="bg-[#F5F5F5] rounded-xl p-4 flex-1 min-w-37.5">
         <div className="flex items-center gap-2 text-green-600 mb-1">
           <div className="p-1 border border-green-600 rounded-full">
             <DollarSign size={16} strokeWidth={3} />
@@ -35,7 +35,7 @@ export const OfferDetailInfoCards = ({ offer }: Props) => {
       </div>
 
       {/* Tarjeta Jornada */}
-      <div className="bg-[#F5F5F5] rounded-xl p-4 flex-1 min-w-[150px]">
+      <div className="bg-[#F5F5F5] rounded-xl p-4 flex-1 min-w-37.5">
         <div className="flex items-center gap-2 text-orange-500 mb-1">
           <Clock size={18} strokeWidth={2.5} />
           <span className="font-bold text-sm">Jornada</span>
@@ -46,7 +46,7 @@ export const OfferDetailInfoCards = ({ offer }: Props) => {
       </div>
 
       {/* Tarjeta Días laborales */}
-      <div className="bg-[#F5F5F5] rounded-xl p-4 flex-1 min-w-[150px]">
+      <div className="bg-[#F5F5F5] rounded-xl p-4 flex-1 min-w-37.5">
         <div className="flex items-center gap-2 text-[#1a3683] mb-1">
           <Calendar size={18} strokeWidth={2.5} />
           <span className="font-bold text-sm">Días laborales</span>
