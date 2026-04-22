@@ -198,7 +198,10 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
               </div>
             </div>
             <div className="animate-in slide-in-from-bottom-6 duration-1000">
-              <ProfileOffersList imageUrl={profile.imageUrl || profile.image_url} />
+              <ProfileOffersList 
+                imageUrl={profile.imageUrl || profile.image_url} 
+                businessName={profile.businessName || profile.business_name}
+              />
             </div>
           </motion.section>
 

@@ -18,9 +18,10 @@ import { Button } from "@/components/ui/button";
 interface Props {
   offer: JobOfferDTO;
   imageUrl?: string;
+  businessName?: string;
 }
 
-export const ProfileOfferCard = ({ offer, imageUrl }: Props) => {
+export const ProfileOfferCard = ({ offer, imageUrl, businessName }: Props) => {
   const offerId = offer.jobOfferId || offer.id || (offer as any).idJobOffer;
   const [isChanging, setIsChanging] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -57,80 +58,99 @@ export const ProfileOfferCard = ({ offer, imageUrl }: Props) => {
     }
   };
 
+  const getDaysLabel = (days?: string[]) => {
+    if (!days || days.length === 0) return "Días no definidos";
+    if (days.length >= 5 && !days.includes("SATURDAY") && !days.includes("SUNDAY")) return "Entre semana";
+    if (days.length === 2 && days.includes("SATURDAY") && days.includes("SUNDAY")) return "Fines de semana";
+    if (days.length === 7) return "Toda la semana";
+    return "Personalizado";
+  };
+
+  const getScheduleLabel = (schedule?: string) => {
+    switch(schedule) {
+      case "FULL_TIME": return "Jornada completa";
+      case "PART_TIME": return "Media jornada";
+      case "FLEXIBLE": return "Flexible";
+      default: return schedule || "Horario flexible";
+    }
+  };
+
   return (
-    <div className="group bg-white rounded-2xl border border-gray-100 p-5 flex gap-5 w-full shadow-[0_2px_10px_rgb(0,0,0,0.02)] hover:shadow-[0_10px_30px_rgb(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-1">
-      {/* Imagen / Siglas */}
-      <div className="w-20 h-20 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl shrink-0 border border-gray-100 overflow-hidden flex items-center justify-center shadow-inner">
+    <div className="group bg-white rounded-3xl border border-gray-100 p-4 sm:p-5 flex gap-4 sm:gap-6 w-full shadow-sm hover:shadow-xl transition-all duration-300 relative overflow-hidden">
+      
+      {/* 1. Placeholder / Imagen (Left Side) - Large Square */}
+      <div className="w-24 h-24 sm:w-32 sm:h-32 bg-gray-100 rounded-[28px] shrink-0 border border-gray-50 overflow-hidden flex items-center justify-center shadow-inner group-hover:shadow-md transition-shadow">
         {imageUrl ? (
-          <img src={imageUrl} alt="Perfil" className="w-full h-full object-cover transition-transform group-hover:scale-110 duration-500" />
+          <img src={imageUrl} alt="Perfil" className="w-full h-full object-cover transition-transform group-hover:scale-105 duration-700" />
         ) : (
-          <div className="w-full h-full bg-gradient-to-br from-[#34c759] to-[#28a745] flex items-center justify-center text-white text-2xl font-black shadow-lg">
+          <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-gray-400 text-3xl font-black">
             {offer.title ? offer.title.charAt(0).toUpperCase() : "E"}
           </div>
         )}
       </div>
-      
-      {/* Detalles */}
-      <div className="flex flex-col flex-1 pb-1">
-        <div className="flex justify-between items-start gap-4">
-          <div className="flex-1">
-            <h3 className="font-black text-[#1a3683] text-lg leading-tight line-clamp-1 group-hover:text-[#2552d0] transition-colors">{offer.title}</h3>
-            
-            {/* Toggle Status Rediseñado */}
-            <div className="mt-2.5 flex items-center gap-3">
-              <button
-                onClick={handleToggleStatus}
-                disabled={isChanging}
-                className={`relative flex items-center h-7 w-[100px] rounded-full border-2 transition-all duration-300 shadow-sm active:scale-95 ${
-                  isActive 
-                    ? "border-[#34c759]/30 bg-[#f0fff4]" 
-                    : "border-orange-200 bg-orange-50"
-                }`}
-              >
-                <div
-                  className={`absolute w-5 h-5 rounded-full transition-all duration-500 shadow-md transform ${
-                    isActive ? "bg-[#34c759] translate-x-1" : "bg-orange-500 translate-x-[74px]"
-                  }`}
-                ></div>
-                <span 
-                  className={`w-full text-center text-[10px] font-black uppercase tracking-tighter z-10 transition-colors ${
-                    isActive ? "text-[#2d8a43] ml-4" : "text-orange-700 mr-5"
-                  }`}
-                >
-                  {isActive ? "Activa" : "Pausa"}
-                </span>
-              </button>
-            </div>
-          </div>
 
-          <div className="flex gap-2 shrink-0">
-            <Link href={`/empleador/ofertas/${offerId}/editar`} className="p-2 rounded-xl bg-gray-50 text-gray-400 hover:bg-blue-50 hover:text-[#1a4b9e] transition-all border border-transparent hover:border-blue-100 active:scale-90">
+      {/* 2. Content (Right Side) */}
+      <div className="flex flex-col flex-1 min-w-0">
+        
+        {/* Row 1: Status Badge & Action Icons */}
+        <div className="flex justify-between items-center mb-1.5">
+          <button
+            onClick={handleToggleStatus}
+            disabled={isChanging}
+            className={`flex items-center gap-2 px-3 py-1 rounded-full border transition-all active:scale-95 ${
+              isActive 
+                ? "bg-green-50 border-green-100 text-green-600" 
+                : "bg-orange-50 border-orange-100 text-orange-600"
+            }`}
+          >
+            <div className={`w-3 h-3 rounded-full animate-pulse ${isActive ? "bg-green-500" : "bg-orange-500"}`}></div>
+            <span className="text-[12px] font-black uppercase tracking-tight">
+              {isActive ? "Activa" : "Inactiva"}
+            </span>
+          </button>
+
+          <div className="flex gap-1">
+            <Link href={`/empleador/ofertas/${offerId}/editar`} className="p-1.5 text-gray-400 hover:text-[#1a3683] transition-colors rounded-lg hover:bg-gray-50">
               <Edit size={18} />
             </Link>
             <button 
               onClick={() => setShowDeleteModal(true)}
-              className="p-2 rounded-xl bg-gray-50 text-gray-400 hover:bg-red-50 hover:text-red-500 transition-all border border-transparent hover:border-red-100 active:scale-90"
+              className="p-1.5 text-gray-400 hover:text-red-500 transition-colors rounded-lg hover:bg-red-50"
             >
               <Trash2 size={18} />
             </button>
           </div>
         </div>
 
-        {/* Info adicional con chips */}
-        <div className="mt-5 pt-4 border-t border-gray-50 flex flex-wrap justify-between items-end gap-3">
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gray-50 border border-gray-100 text-[13px] font-bold text-gray-600">
-              <MapPin size={14} className="text-[#1a4b9e]" />
-              <span className="truncate max-w-[140px]">{offer.establishment_address || offer.establishmentAddress}</span>
-            </div>
+        {/* Row 2: Title */}
+        <h3 className="font-black text-[#1a3683] text-xl sm:text-2xl leading-none mb-0.5 truncate">
+          {offer.title}
+        </h3>
+
+        {/* Row 3: Company / Context */}
+        <p className="text-[#3a56a5] font-bold text-sm sm:text-base mb-3 opacity-90 truncate">
+          {businessName || "Empresa Verificada"}
+        </p>
+
+        {/* Row 4: Info Icons (Location & Salary) */}
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-4">
+          <div className="flex items-center gap-1.5 text-green-600 font-bold text-sm">
+            <MapPin size={16} />
+            <span className="truncate max-w-[120px] font-bold">{offer.establishment_address || offer.establishmentAddress}</span>
           </div>
-          
-          <div className="flex flex-col items-end">
-            <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-0.5">Sueldo Estimado</span>
-            <div className="flex items-center gap-1.5 text-[#1a3683] font-black text-lg">
-              <span className="text-sm opacity-60">$</span>
-              <span>{Number(offer.salary).toLocaleString()}</span>
-            </div>
+          <div className="flex items-center gap-1.5 text-[#1a3683] font-black text-sm">
+            <div className="w-5 h-5 rounded-full border-2 border-[#1a3683] flex items-center justify-center font-bold text-[10px]">$</div>
+            <span>{Number(offer.salary).toLocaleString()}</span>
+          </div>
+        </div>
+
+        {/* Row 5: Tags (Work Days & Schedule) */}
+        <div className="flex flex-wrap gap-2">
+          <div className="px-5 py-1.5 rounded-xl bg-blue-50 text-[#1a3683] text-[13px] font-black border border-blue-100/50">
+            {getDaysLabel(offer.work_days || offer.workDays)}
+          </div>
+          <div className="px-5 py-1.5 rounded-xl bg-blue-100/40 text-[#1a3683] text-[13px] font-black border border-blue-100/30">
+            {getScheduleLabel(offer.work_schedule || offer.workSchedule)}
           </div>
         </div>
       </div>

@@ -4,9 +4,10 @@ import { ProfileOfferCard } from "@/features/restricted/employer/jobOffer/compon
 
 interface ProfileOffersListProps {
   imageUrl?: string;
+  businessName?: string;
 }
 
-export const ProfileOffersList = ({ imageUrl }: ProfileOffersListProps) => {
+export const ProfileOffersList = ({ imageUrl, businessName }: ProfileOffersListProps) => {
   const { offers, loading } = useJobOffers();
 
   if (loading) return <p className="text-sm text-gray-400 italic">Cargando ofertas...</p>;
@@ -18,10 +19,17 @@ export const ProfileOffersList = ({ imageUrl }: ProfileOffersListProps) => {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 pb-10">
       {activeOffers.map(offer => {
         const offerId = offer.jobOfferId || offer.id || (offer as any).idJobOffer;
-        return <ProfileOfferCard key={offerId} offer={offer} imageUrl={imageUrl} />;
+        return (
+          <ProfileOfferCard 
+            key={offerId} 
+            offer={offer} 
+            imageUrl={imageUrl} 
+            businessName={businessName}
+          />
+        );
       })}
     </div>
   );
