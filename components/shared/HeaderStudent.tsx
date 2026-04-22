@@ -39,7 +39,7 @@ export const HeaderStudent = ( { name }: props ) => {
                     {/* navbar desktop */}
                     <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 gap-6 md:right-32">
                         <NavLink icon={MapPin} name="Ofertas" link="/" />
-                        <NavLink icon={User} name="Mi Perfil" link="/estudiante/profile"/>
+                        <NavLink icon={User} name="Mi Perfil" link="/estudiante/perfil"/>
                         <NavLink icon={Search} name="Empleadores" link="/" />
                         <NavLink icon={BookOpen} name="Suscripción" link="/" />
                     </div>
@@ -60,11 +60,11 @@ export const HeaderStudent = ( { name }: props ) => {
                         <div className="rounded-full bg-blue-300 h-14 w-14 md:h-17 md:w-17"/>
                         <div className="flex flex-col gap-0">
                             <p className="font-semibold text-gray-700 md:text-[20px]">{name}</p>
-                            <Link href='/estudiante/profile' className="text-gray-600 text-[13px] md:text-[15px]">Ver perfil</Link>
+                            <Link href='/estudiante/perfil' className="text-gray-600 text-[13px] md:text-[15px]">Ver perfil</Link>
                         </div>
                     </div> 
                     <div className="flex flex-col pt-6 gap-2 md:gap-6 lg:hidden">
-                        <NavLink icon={MapPin} name="Ofertas" link="/estudiante/profile" />
+                        <NavLink icon={MapPin} name="Ofertas" link="/estudiante/perfil" />
                         <NavLink icon={Search} name="Empleadores" link="/" />
                         <NavLink icon={BookOpen} name="Suscripción" link="/" />
                     </div>

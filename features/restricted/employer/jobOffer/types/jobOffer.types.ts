@@ -12,34 +12,45 @@ export type DayWeek =
   | "SUNDAY";
 
 export interface RequirementDTO {
-  id_requirement: string;
-  requirement_name: string;
+  id_requirement?: string;
+  idRequirement?: string;
+  name?: string;
+  requirementName?: string;
 }
 
 export interface JobOfferDTO {
-  id_job_offers: string;
-  employer_id: string;
+  id?: string;
+  jobOfferId?: string;
+  employerId: string;
+  employer_id?: string;
   title: string;
-  establishment_address: string;
-  work_days: DayWeek[];
-  work_schedule: WorkSchedule;
+  establishmentAddress: string;
+  establishment_address?: string;
+  workDays: DayWeek[];
+  work_days?: DayWeek[];
+  workSchedule: WorkSchedule;
+  work_schedule?: WorkSchedule;
   salary: number;
-  salary_description: string;
-  contract_description: string;
-  duties_description: string;
+  salaryDescription: string;
+  salary_description?: string;
+  contractDescription: string;
+  contract_description?: string;
+  description: string;
   status: JobOfferStatus;
   requirements: RequirementDTO[];
-  created_at: string;
-  updated_at: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface CreateJobOfferDTO {
+  employerId?: string;
   title: string;
-  establishment_address: string;
-  work_days: DayWeek[];
-  work_schedule: WorkSchedule;
+  establishmentAddress: string;
+  workDays: DayWeek[];
+  workSchedule: WorkSchedule;
   salary: number;
-  salary_description: string;
-  contract_description: string;
-  requirements: string[];
+  salaryDescription: string;
+  contractDescription: string;
+  description: string;
+  requirements: string[]; // Se envían como strings en la creación
 }

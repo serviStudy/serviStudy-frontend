@@ -64,7 +64,7 @@
 :root {
   --radius: 0.625rem;
   --background: oklch(100% 0.00011 271.152);
-  --foreground: oklch(100% 0.00011 271.152);
+  --foreground: oklch(0.129 0.042 264.695);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.129 0.042 264.695);
   --popover: oklch(88.88% 0.055 254.30);
@@ -136,5 +136,12 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .bg-dot-pattern {
+    background-image: radial-gradient(circle, #e5e7eb 1px, transparent 1px);
+    background-size: 24px 24px;
   }
 }

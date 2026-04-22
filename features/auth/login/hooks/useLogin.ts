@@ -37,9 +37,9 @@ export const useLogin = () => {
 
       // REDIRECCIÓN AL PERFIL SEGÚN TIPO DE USUARIO
       if (tipoUsuario === "estudiante") {
-        window.location.href = "/estudiante/profile"
+        window.location.href = "/estudiante/perfil"
       } else {
-        window.location.href = "/empleador/profile"
+        window.location.href = "/empleador/perfil"
       }
 
     } catch (error: any) {

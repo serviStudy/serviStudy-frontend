@@ -26,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className="">
+    <html lang="es" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
@@ -37,7 +37,7 @@ export default function RootLayout({
               &copy; {new Date().getFullYear()} ServiStudy. Todos los derechos reservados.
             </p>
             <p className="text-xs">
-              Conectando talento estudiantil con oportuninades.
+              Conectando talento estudiantil con oportunidades.
             </p>
           </div>
           <Toaster></Toaster>
