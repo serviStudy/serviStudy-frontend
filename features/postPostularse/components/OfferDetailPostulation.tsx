@@ -1,19 +1,19 @@
 "use client";
 import { LoadingScreen } from "@/components/shared/LoadingScreen";
-import { OfferDetailRequirements } from "@/features/restricted/employer/jobOffer/components/detail/OfferDetailRequirements";
 import { FileText, ClipboardList } from "lucide-react";
 import { ApplyButton } from "./ApplyButton";
 import { OfferDetailPostulationHeader } from "./OfferDeatilPostulationHeader";
 import { DetailSectionPostulation } from "./DetailSeccionPostulation";
 import { useActiveOffer } from "../hooks/useActiveOffer";
 import { OfferDetailInfoPostulation } from "./OfferDetailInfoPostulation";
+import { DetailRequirementsPostulation } from "./DetailRequirementsPostulation";
 
 interface Props {
     id: string;
 }
 
 export const OfferDetailPostulation = ({ id }: Props) => {
-    const { offer, loading, error } = useActiveOffer(id);
+    const { offer, error } = useActiveOffer(id);
 
     if (error || !offer) {
         return (
@@ -48,7 +48,7 @@ export const OfferDetailPostulation = ({ id }: Props) => {
                         </div>
                     </div>
 
-                    <OfferDetailRequirements requirements={offer.requirements} />
+                    <DetailRequirementsPostulation requirements={offer.requirements} />
                 </div>
 
                 <div className="max-w-3xl mx-9 pb-6">

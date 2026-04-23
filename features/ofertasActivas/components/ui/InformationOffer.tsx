@@ -18,7 +18,11 @@ export const InformationOffer = ({ offer }: InformationProps) => {
                     </div>
                     <p className='text-primary font-bold text-[18px]'>Labores y descripción del puesto</p>
                 </div>
-                <p className='text-gray-500 px-1 text-[15px]'>{offer.description}</p>
+                <div className='flex gap-2'> {/* quiatr || y contract de infor card offer */}
+                    <p className='text-gray-500 px-1 text-[15px]'>{offer.description.split("|||")[0].trim()}</p>
+                    <p className='text-gray-500 px-1 text-[15px]'>{offer.description.split("CONTRACT:")[1].trim()}</p>
+                </div>
+                
             </div>
 
             <div className='border flex flex-col gap-2 rounded-xl border-blue-700 bg-blue-50 p-4'>

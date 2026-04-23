@@ -1,4 +1,3 @@
-import { RequirementDTO } from "@/features/misPostulaciones/types/offersTypes";
 import { OfferRequeriment } from "@/features/ofertasActivas/types/ofertasActivas.types";
 
 interface Props {

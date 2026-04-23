@@ -1,7 +1,6 @@
 import { HeaderStudent } from '@/components/shared/HeaderStudent'
 import { BarraSuperior } from '@/features/misPostulaciones/components/BarraSuperior'
-import { ListPostulaciones } from '@/features/misPostulaciones/components/ListPostulaciones'
-import { Postulacion } from '@/features/misPostulaciones/components/Postulacion'
+import { ListPostulacionesClient } from '@/features/misPostulaciones/hooks/ListPostulationClient'
 import React from 'react'
 
 const page = () => {
@@ -10,7 +9,7 @@ const page = () => {
             <HeaderStudent name={''}/>
             <div className='flex flex-col gap-10'>
                 <BarraSuperior/>
-                <ListPostulaciones/>
+                <ListPostulacionesClient/>
             </div>
         </div>
     )

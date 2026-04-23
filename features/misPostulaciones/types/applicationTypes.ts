@@ -1,4 +1,23 @@
-export interface ApplicationJobOffer {
+export interface ApplicationPageResponse {
+    totalPages: number;
+    totalElements: number;
+    pageable: Pageable;
+    numberOfElements: number;
+    size: number;
+    content: ApplicationItem[];
+    number: number;
+    sort: Sort;
+    first: boolean;
+    last: boolean;
+    empty: boolean;
+}
+
+export interface ApplicationItem {
+    applicationDate: string;
+    jobOffer: JobOffer;
+}
+
+export interface JobOffer {
     jobOfferId: string;
     title: string;
     businessName: string;
@@ -6,21 +25,20 @@ export interface ApplicationJobOffer {
     description: string;
     salary: string;
     salaryDescription: string;
+    establishmentAddress: string;
 }
 
-export type ApplicationStatus =
-    | "PENDING"
-    | "ACCEPTED"
-    | "REJECTED";
-
-export interface Application {
-    applicationDate: string;
-    status: ApplicationStatus;
-    jobOffer: ApplicationJobOffer;
+export interface Pageable {
+    paged: boolean;
+    pageSize: number;
+    pageNumber: number;
+    unpaged: boolean;
+    offset: number;
+    sort: Sort;
 }
 
-export interface ApplicationPageResponse {
-    totalPages: number;
-    totalElements: number;
-    content: Application[];
+export interface Sort {
+    sorted: boolean;
+    unsorted: boolean;
+    empty: boolean;
 }

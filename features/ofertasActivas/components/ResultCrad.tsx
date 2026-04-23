@@ -24,7 +24,7 @@ const ResultCrad = ({ offer }: Props) => {
                     <Image
                         width={123}
                         height={30}
-                        src={offer.imageUrl}
+                        src={offer.imageUrl || "/placeholder-job.png"}
                         alt={offer.title}
                         className='object-cover rounded-[10px]'                 
                     />

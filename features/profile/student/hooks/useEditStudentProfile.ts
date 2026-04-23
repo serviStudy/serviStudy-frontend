@@ -80,7 +80,7 @@ export const useEditStudentProfile = () => {
       await workDaysHook.syncDays(userId);
 
       toast.success("Perfil actualizado correctamente");
-      router.push("/estudiante/profile");
+      router.push("/estudiante/perfil");
     } catch (error: any) {
       console.error("Error al guardar:", error);
       toast.error(error.message || "Error al guardar los cambios");

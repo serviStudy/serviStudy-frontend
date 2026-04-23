@@ -10,7 +10,7 @@ interface CreateApplicationDTO {
 }
 
 export const createApplication = async (body: CreateApplicationDTO) => {
-        const headers = getAuthHeaders();
+    const headers = getAuthHeaders();
 
     console.log("BODY enviado:", body);
     console.log("HEADERS:", headers);
@@ -37,6 +37,8 @@ export const createApplication = async (body: CreateApplicationDTO) => {
     return data.data ?? data;
 }
 
+
+// fetch de vista de oferta (por id)
 export const getOfferById = async (id: string): Promise<ActiveOffer> => {
     const res = await fetch(`${API_URL}/offers/${id}`, {
         headers: getAuthHeaders(),

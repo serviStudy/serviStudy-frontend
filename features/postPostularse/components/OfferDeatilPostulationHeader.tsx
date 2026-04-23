@@ -12,14 +12,18 @@ export const OfferDetailPostulationHeader = ({ offer }: Props) => {
   return (
     <div className="bg-[#EBF3FF] rounded-t-3xl p-6 md:p-8 flex items-start gap-6 relative">
       {/* Placeholder del logo */}
-      <div className="w-32 absolute lg:top-16 h-24 bg-[#D9D9D9] rounded-lg shrink-0 mt-2">
-        <Image
-            width={128}
-            height={96}
-            src={offer.imageUrl}
-            alt={offer.title}
-            className='object-cover rounded-[10px]'                 
-        />
+      <div className="w-32 absolute lg:top-16 h-24 rounded-lg shrink-0 mt-2">
+        {offer.imageUrl ? (
+          <Image
+              width={128}
+              height={30}
+              src={offer.imageUrl}
+              alt={offer.title}
+              className='object-cover rounded-[9px]'                 
+          />
+          ) : (
+              <div className='w-24 h-24  bg-[#D9D9D9] rounded-2xl'/>
+          )}
       </div>
       
       <div className="flex-1 space-y-0 pl-36 flex-col">

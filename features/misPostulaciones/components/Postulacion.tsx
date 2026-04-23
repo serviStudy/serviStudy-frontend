@@ -1,10 +1,9 @@
-import { Button } from '@/components/ui/button'
-import { Calendar, CircleDollarSign, Clock, MapPin } from 'lucide-react'
+import { CircleDollarSign, Clock, MapPin, Scroll } from 'lucide-react'
 import React from 'react'
-import { ApplicationCard } from '../hooks/applicationCard'
+import { ApplicationItem, JobOffer } from '../types/applicationTypes'
 
 interface Props {
-    data: ApplicationCard
+    data: ApplicationItem
 }
 
 export const Postulacion = ({data}: Props) => {
@@ -14,18 +13,18 @@ export const Postulacion = ({data}: Props) => {
                 <div className='h-32 w-32 bg-gray-200 rounded-2xl'></div>
                 <div className='flex gap-1 items-center'>
                     <MapPin className='text-green-700 w-4 h-4'/>
-                    <p className='text-green-700 text-[12px] font-semibold'>{data.establishmentAddress}</p>
+                    <p className='text-green-700 text-[12px] font-semibold'>{data.jobOffer.establishmentAddress}</p>
                 </div>
             </div>
 
             <div className='flex flex-col gap-3'>
                 <div className='flex flex-col'>
-                    <h4 className='text-primary text-[22px] font-semibold'>{data.title}</h4>
+                    <h4 className='text-primary text-[22px] font-semibold'>{data.jobOffer.title}</h4>
                     <div className='flex gap-4'>
-                        <p className='text-primary text-[18px] font-semibold'>{data.businessName}</p>
+                        <p className='text-primary text-[18px] font-semibold'>{data.jobOffer.businessName}</p>
                         <div className='flex gap-1 align-middle items-center'>
                             <CircleDollarSign className='text-green-700 h-4.5 w-4.5'/>
-                            <p className='text-green-700'>{data.salary}</p>
+                            <p className='text-green-700'>{data.jobOffer.salary}</p>
                         </div>
                     </div>
                 </div>
@@ -34,22 +33,17 @@ export const Postulacion = ({data}: Props) => {
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit debitis quia quibusdam maxime natus ut delectus, obcaecati culpa alias, eveniet animi modi deleniti ad mollitia ea. A deleniti eius rerum?
                     </p>
                 </div>
-                <div className='flex gap-3'>
-                    <Button className='border flex items-center gap-1 rounded-2xl border-blue-800 bg-blue-100 text-primary px-4 h-7 text-xs font-semibold'>
-                        Inglés intermedio
-                    </Button>
-                    <Button className='border flex items-center gap-1 rounded-2xl border-blue-800 bg-blue-100 text-primary px-4 h-7 text-xs font-semibold'>
-                        Comunicación intrapersonal
-                    </Button>
+                {/* salary description */}
+                <div className='border flex flex-col w-72 h-auto gap-1 rounded-2xl border-blue-700 bg-blue-50 p-2'>
+                    <div className='flex gap-2 items-center'>
+                        <Scroll className='text-primary h-6 w-6'/>
+                        <p className='text-primary font-bold text-[15px]'>Detalles de contratacion</p>
+                    </div>
+                    <p className='text-gray-500 px-1 text-[13px]'>{data.jobOffer.salaryDescription}</p>
                 </div>
             </div>
 
-            <div className='flex flex-col justify-between items-end'>
-                <Button className='border flex items-center gap-4 text-[14px] rounded-2xl border-red-600 bg-red-100 text-red-700 px-2.5 h-7 w-26 font-semibold'>
-                    <div className='rounded-full h-4 w-4 bg-red-700'/>
-                    Status
-                </Button>
-
+            <div className='items-start h-full'>
                 <button className='bg-primary py-1 w-52 rounded-2xl font-semibold'>Ver oferta</button>
             </div>
         </div>

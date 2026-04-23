@@ -13,14 +13,18 @@ export const HeaderInfoCard = ({ offer }: HeaderInfoProps) => {
     return (
         <div className="relative rounded-t-2xl h-24 md:h-28 bg-[#E2FFE1] w-full flex lg:flex-row gap-6! md:gap-10! lg:gap-8 lg:items-end px-8">
             {/* foto de la oferta */}
-            <div className="absolute lg:top-12 md:top-11 top-10 h-24 w-24 overflow-hidde bg-transparent flex items-center justify-center text-white text-[56px] md:h-20 md:w-20">
-                <Image
-                    width={128}
-                    height={30}
-                    src={offer.imageUrl}
-                    alt={offer.title}
-                    className='object-cover rounded-[9px]'                 
-                />
+            <div className="absolute lg:top-12 md:top-11 top-10 h-24 w-24 overflow-hidde bg-transparent flex items-center justify-center text-white md:h-20 md:w-20">
+                {offer.imageUrl ? (
+                    <Image
+                        width={128}
+                        height={30}
+                        src={offer.imageUrl}
+                        alt={offer.title}
+                        className='object-cover rounded-[9px]'                 
+                    />
+                ) : (
+                    <div className='w-24 h-24 bg-white rounded-2xl'/>
+                )}
             </div>
 
             <div className="pt-10 px-4 flex flex-col pl-22 md:pl-24 leading-none space-y-0 lg:pb-2">
