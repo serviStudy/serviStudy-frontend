@@ -2,20 +2,26 @@ import { useEffect, useState } from "react";
 import { getEmployerOffers } from "../service/jobOffer.service";
 import { JobOfferDTO } from "../types/jobOffer.types";
 
-export const useJobOffers = () => {
-  const [offers, setOffers] = useState<JobOfferDTO[]>([]);
-  const [loading, setLoading] = useState(true);
+// Global cache to make navigation feel instant
+let globalOffersCache: JobOfferDTO[] | null = null;
+let isFirstLoad = true;
 
-  const fetchOffers = async () => {
-    setLoading(true);
+export const useJobOffers = () => {
+  const [offers, setOffers] = useState<JobOfferDTO[]>(globalOffersCache || []);
+  const [loading, setLoading] = useState(isFirstLoad && !globalOffersCache);
+
+  const fetchOffers = async (force = false) => {
+    if (!force && globalOffersCache) {
+       setLoading(false);
+    }
+    
     try {
       const data = await getEmployerOffers();
-      console.log("[useJobOffers] API Response:", data);
-      
-      // Filtramos DELETED para que las ofertas eliminadas desaparezcan de la lista
       const visible = data.filter((o: JobOfferDTO) => String(o.status).toUpperCase() !== "DELETED");
-      console.log(`[useJobOffers] Visible: ${visible.length} / Total: ${data.length}`);
+      
+      globalOffersCache = visible;
       setOffers(visible);
+      isFirstLoad = false;
     } catch (err) {
       console.error("[useJobOffers] Error fetching offers:", err);
     } finally {
@@ -27,5 +33,5 @@ export const useJobOffers = () => {
     fetchOffers();
   }, []);
 
-  return { offers, loading, refresh: fetchOffers };
+  return { offers, loading, refresh: () => fetchOffers(true) };
 };

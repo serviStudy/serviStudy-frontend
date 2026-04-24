@@ -5,7 +5,6 @@ import { useRouter, useParams } from "next/navigation";
 import { JobOfferForm } from "@/features/restricted/employer/jobOffer/components/form/JobOfferForm";
 import { useJobOffer } from "@/features/restricted/employer/jobOffer/hooks/useJobOffer";
 import { updateJobOffer } from "@/features/restricted/employer/jobOffer/service/jobOffer.service";
-import { HeaderEmployer } from "@/components/shared/HeaderEmployer";
 import { LoadingScreen } from "@/components/shared/LoadingScreen";
 import { motion } from "framer-motion";
 
@@ -46,7 +45,6 @@ export default function EditJobOfferPage() {
          <div className="absolute inset-0 bg-dot-pattern opacity-[0.3]" />
       </div>
 
-      <HeaderEmployer name={""} />
 
       <main className="relative z-10 py-12 px-4 flex justify-center">
         <motion.div 

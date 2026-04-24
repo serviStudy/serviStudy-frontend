@@ -1,6 +1,7 @@
 "use client";
 import { useJobOffers } from "@/features/restricted/employer/jobOffer/hooks/useJobOffers";
 import { ProfileOfferCard } from "@/features/restricted/employer/jobOffer/components/ProfileOfferCard";
+import { OffersListSkeleton } from "./ProfileSkeletons";
 
 interface ProfileOffersListProps {
   imageUrl?: string;
@@ -10,7 +11,7 @@ interface ProfileOffersListProps {
 export const ProfileOffersList = ({ imageUrl, businessName }: ProfileOffersListProps) => {
   const { offers, loading } = useJobOffers();
 
-  if (loading) return <p className="text-sm text-gray-400 italic">Cargando ofertas...</p>;
+  if (loading) return <OffersListSkeleton />;
 
   const activeOffers = offers.filter(o => o.status !== "DELETED");
 
