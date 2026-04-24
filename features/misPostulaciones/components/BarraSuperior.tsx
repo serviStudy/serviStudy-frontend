@@ -1,13 +1,14 @@
-import { Button } from '@/components/ui/button'
+import { routes } from '@/type/routes'
 import { ChevronRight } from 'lucide-react'
+import Link from 'next/link'
 
 export const BarraSuperior = () => {
     return (
         <div className='py-3 px-14 pt-11 flex align-middle  justify-between h-auto w-[85vw] lg:w-[85vw] lg:h-44 rounded-[21px] bg-white'>
             <h3 className='text-primary text-[31px] font-bold'>Mis postulaciones</h3>
-            <Button className='flex gap-3 px-5! py-6 text-[20px] text-primary bg-blue-200'>Buscar más ofertas 
-            <ChevronRight className='text-primary font-bold h-7! w-7!'/>
-            </Button>
+            <Link className='flex items-center gap-3 px-5! py-6 h-8 text-[20px] rounded-2xl text-white bg-linear-to-l from-blue-700 to-blue-900'href={routes.estudiante.ofertas}>Buscar más ofertas 
+            <ChevronRight className='text-white font-bold h-7! w-7!'/>
+            </Link>
         </div>
     )
 }

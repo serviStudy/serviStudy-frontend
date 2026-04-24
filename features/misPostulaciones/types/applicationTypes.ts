@@ -13,6 +13,7 @@ export interface ApplicationPageResponse {
 }
 
 export interface ApplicationItem {
+    applicantId: string;
     applicationDate: string;
     jobOffer: JobOffer;
 }

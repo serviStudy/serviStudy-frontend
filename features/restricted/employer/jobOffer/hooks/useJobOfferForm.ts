@@ -3,6 +3,7 @@ import { CreateJobOfferDTO, DayWeek, WorkSchedule } from "../types/jobOffer.type
 
 export const useJobOfferForm = (initialData?: Partial<CreateJobOfferDTO>) => {
   const [formData, setFormData] = useState<CreateJobOfferDTO>({
+    employerId: initialData?.employerId || "",
     title: initialData?.title || "",
     establishmentAddress: initialData?.establishmentAddress || "",
     workDays: initialData?.workDays || [],
@@ -28,10 +29,15 @@ export const useJobOfferForm = (initialData?: Partial<CreateJobOfferDTO>) => {
     }));
   }, []);
 
-  const handleRequirementRemove = useCallback((requirement: string) => {
+  const handleRequirementRemove = useCallback((requirement: any) => {
+    const targetValue = typeof requirement === 'string' ? requirement : (requirement.requirementName || requirement.name);
+    
     setFormData((prev: CreateJobOfferDTO) => ({
       ...prev,
-      requirements: prev.requirements.filter((r: string) => r !== requirement),
+      requirements: prev.requirements.filter((r: any) => {
+        const currentValue = typeof r === 'string' ? r : (r.requirementName || r.name);
+        return currentValue !== targetValue;
+      }),
     }));
   }, []);
 

@@ -9,7 +9,7 @@ export const getApplications = async (): Promise<ApplicationPageResponse> => {
 
     console.log("HEADERS:", headers);
     
-    const res = await fetch(`${API_URL}/applicants/student`, {
+    const res = await fetch(`${API_URL}/applicants/my-applications`, {
         method: "GET",
         headers: getAuthHeaders(),
         cache: "no-store",

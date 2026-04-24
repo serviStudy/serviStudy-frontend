@@ -1,82 +1,71 @@
-"use client";
+"use client"
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { LoadingScreen } from "@/components/shared/LoadingScreen";
 import { JobOfferForm } from "@/features/restricted/employer/jobOffer/components/form/JobOfferForm";
-import { CreateJobOfferDTO, JobOfferDTO } from "@/features/restricted/employer/jobOffer/types/jobOffer.types";
-import { getEmployerOfferById, updateJobOffer, addRequirementToOffer, removeRequirementFromOffer } from "@/features/restricted/employer/jobOffer/service/jobOffer.service";
-import { toast } from "sonner";
-import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
+import { useJobOffer } from "@/features/restricted/employer/jobOffer/hooks/useJobOffer";
+import { updateJobOffer } from "@/features/restricted/employer/jobOffer/service/jobOffer.service";
+import { HeaderEmployer } from "@/components/shared/HeaderEmployer";
+import { LoadingScreen } from "@/components/shared/LoadingScreen";
+import { motion } from "framer-motion";
 
-export default function EditOfferPage() {
+export default function EditJobOfferPage() {
   const router = useRouter();
-  const params = useParams();
-  const offerId = params.id as string;
+  const { id } = useParams();
+  const { offer, loading } = useJobOffer(id as string);
+  const [saving, setSaving] = useState(false);
 
-  const [initialData, setInitialData] = useState<Partial<CreateJobOfferDTO> | null>(null);
-  const [completeOfferData, setCompleteOfferData] = useState<JobOfferDTO | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchOffer = async () => {
-      try {
-        const offer = await getEmployerOfferById(offerId);
-        if (offer) {
-          setCompleteOfferData(offer);
-          setInitialData({
-            title: offer.title,
-            establishmentAddress: offer.establishmentAddress || offer.establishment_address,
-            workDays: offer.workDays || offer.work_days || [],
-            workSchedule: offer.workSchedule || offer.work_schedule || "FULL_TIME",
-            salary: offer.salary,
-            salaryDescription: offer.salaryDescription || offer.salary_description || "",
-            contractDescription: offer.contractDescription || offer.contract_description || (offer as any).contract_type || (offer as any).contractType || "",
-            description: offer.description,
-            requirements: offer.requirements.map((r: any) => r.requirementName || r.name),
-          });
-        } else {
-          toast.error("Oferta no encontrada");
-          router.push("/empleador/ofertas");
-        }
-      } catch (err) {
-        console.error(err);
-        toast.error("Error al cargar la oferta");
-      } finally {
-        setLoading(false);
-      }
-    };
-    if (offerId) fetchOffer();
-  }, [offerId, router]);
-
-  const handleSubmit = async (data: CreateJobOfferDTO) => {
+  const handleUpdate = async (data: any) => {
+    setSaving(true);
     try {
-      await updateJobOffer(offerId, data);
-      
-      toast.success("¡Oferta actualizada exitosamente!");
-      router.push(`/empleador/ofertas/${offerId}`);
-    } catch (err) {
-      toast.error("Hubo un error al actualizar la oferta.");
-      console.error(err);
+      await updateJobOffer(id as string, data);
+      router.push("/empleador/ofertas");
+    } catch (error) {
+      console.error("Error al actualizar oferta:", error);
+    } finally {
+      setSaving(false);
     }
   };
 
-  if (loading) {
-    return <LoadingScreen background="bg-gray-50" />;
-  }
+  if (loading) return <LoadingScreen />;
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto mb-6">
-        <Link href={`/empleador/ofertas/${offerId}`} className="inline-flex items-center text-gray-500 hover:text-blue-600 transition-colors font-medium">
-          <ArrowLeft className="mr-2" size={20} />
-          Volver a Detalles
-        </Link>
+    <div className="min-h-screen bg-white relative overflow-hidden">
+      
+      {/* --- PREMIUM BACKGROUND LAYER --- */}
+      <div className="absolute inset-0 pointer-events-none">
+         <motion.div 
+            animate={{ 
+              x: [0, -100, 0], 
+              y: [0, 60, 0],
+              scale: [1, 1.1, 1] 
+            }}
+            transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+            className="absolute -top-40 -left-40 w-[800px] h-[800px] bg-blue-50/20 rounded-full blur-[140px]"
+         />
+         <div className="absolute inset-0 bg-dot-pattern opacity-[0.3]" />
       </div>
-      {initialData && (
-        <JobOfferForm initialData={initialData} isEditing onSubmit={handleSubmit} />
-      )}
+
+      <HeaderEmployer name={""} />
+
+      <main className="relative z-10 py-12 px-4 flex justify-center">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          className="w-full"
+        >
+          <JobOfferForm 
+            initialData={offer ? {
+              ...offer,
+              requirements: offer.requirements?.map(req => req.name || req.requirementName || "") || []
+            } : {}} 
+            isEditing 
+            onSubmit={handleUpdate} 
+            saving={saving} 
+          />
+        </motion.div>
+      </main>
     </div>
   );
 }

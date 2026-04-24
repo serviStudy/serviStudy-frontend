@@ -38,6 +38,32 @@ export const createApplication = async (body: CreateApplicationDTO) => {
 }
 
 
+// delete application
+interface DeleateApplicationDTO {
+    id: string
+}
+
+export const deleteApplication = async (id: DeleateApplicationDTO) => {
+    const res = await fetch(`${API_URL}/applicants/${id}`, {
+        method: "DELETE",
+        headers: getAuthHeaders(),
+    });
+
+    if (!res.ok) {
+        let errorMessage = "Error al retirar postulación";
+
+        try {
+            const data = await res.json();
+            errorMessage = data?.message || errorMessage;
+        } catch {
+            // algunos DELETE no retornan body
+        }
+
+        throw new Error(errorMessage);
+    }
+};
+
+
 // fetch de vista de oferta (por id)
 export const getOfferById = async (id: string): Promise<ActiveOffer> => {
     const res = await fetch(`${API_URL}/offers/${id}`, {

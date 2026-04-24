@@ -4,7 +4,6 @@ import React from 'react'
 import { createApplication } from '../service/postulacionService';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
-import { Toast } from 'radix-ui';
 
 interface Props {
     offerId: string;

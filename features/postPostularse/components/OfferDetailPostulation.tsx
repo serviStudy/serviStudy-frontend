@@ -1,12 +1,12 @@
 "use client";
 import { LoadingScreen } from "@/components/shared/LoadingScreen";
 import { FileText, ClipboardList } from "lucide-react";
-import { ApplyButton } from "./ApplyButton";
 import { OfferDetailPostulationHeader } from "./OfferDeatilPostulationHeader";
 import { DetailSectionPostulation } from "./DetailSeccionPostulation";
 import { useActiveOffer } from "../hooks/useActiveOffer";
 import { OfferDetailInfoPostulation } from "./OfferDetailInfoPostulation";
 import { DetailRequirementsPostulation } from "./DetailRequirementsPostulation";
+import { ApplyButton } from "./ApplyButton";
 
 interface Props {
     id: string;

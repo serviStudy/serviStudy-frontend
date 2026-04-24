@@ -36,7 +36,7 @@ const SearchCard = ({ inputValue, onInputChange, onSearch }: Props) => {
                             </button>
                         </div>
 
-                        <Link className='lg:bg-primary lg:w-full lg:px-6 lg:rounded-full lg:font-semibold lg:h-9 lg:block hidden' href={routes.estudiante.postulaciones}>
+                        <Link className='lg:bg-primary lg:w-full lg:px-6 text-white lg:rounded-full lg:font-semibold py-[5px] lg:block hidden' href={routes.estudiante.postulaciones}>
                             Mis postulaciones
                         </Link>
                     </div>
