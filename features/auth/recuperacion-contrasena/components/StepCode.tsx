@@ -5,18 +5,27 @@ import { Button } from "@/components/ui/button"
 export const StepCode = ({
     tipoUsuario, correo,
     codigo, setCodigo,
-    loading, handleVerifyCode
+    loading, handleVerifyCode,
+    handleResendCode,
+    error,
 }: any) => {
     const handleCodeChange = (index: number, value: string) => {
         if (value.length > 1) return;
         const newCode = [...codigo];
         newCode[index] = value;
         setCodigo(newCode);
-        
+
         // Auto-focus next input
         if (value !== "" && index < 5) {
             const nextInput = document.getElementById(`code-${index + 1}`)
             if (nextInput) nextInput.focus()
+        }
+    }
+
+    const handleKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Backspace" && !codigo[index] && index > 0) {
+            const prevInput = document.getElementById(`code-${index - 1}`)
+            if (prevInput) prevInput.focus()
         }
     }
 
@@ -45,10 +54,13 @@ export const StepCode = ({
                                 inputMode="numeric"
                                 value={digit}
                                 onChange={(e) => handleCodeChange(index, e.target.value)}
+                                onKeyDown={(e) => handleKeyDown(index, e)}
                                 className={`w-[45px] h-[45px] md:w-12 md:h-12 p-0 text-center text-xl font-bold rounded-lg transition-all duration-500 bg-muted/20 border-2 shadow-inner text-gray-700 ${
-                                    tipoUsuario === "estudiante" 
-                                        ? "focus-visible:border-primary focus-visible:ring-primary/20" 
-                                        : "focus-visible:border-green-600 focus-visible:ring-green-600/20"
+                                    error
+                                        ? "border-red-500 focus-visible:border-red-500 focus-visible:ring-red-500/20"
+                                        : tipoUsuario === "estudiante"
+                                            ? "focus-visible:border-primary focus-visible:ring-primary/20"
+                                            : "focus-visible:border-green-600 focus-visible:ring-green-600/20"
                                 }`}
                             />
                             {!digit && (
@@ -61,6 +73,12 @@ export const StepCode = ({
                         </div>
                     ))}
                 </div>
+
+                {error && (
+                    <p className="text-center text-sm font-semibold text-red-500 -mt-4">
+                        {error}
+                    </p>
+                )}
 
                 <div className="space-y-4">
                     <Button
@@ -77,10 +95,14 @@ export const StepCode = ({
 
                     <div className="flex justify-center gap-2 text-sm font-medium pt-2">
                         <span className="text-gray-500">¿No recibiste el código?</span>
-                        <button className={`font-bold hover:underline transition-colors ${
-                            tipoUsuario === "estudiante" ? "text-primary" : "text-green-600"
-                        }`}>
-                            Reintentar
+                        <button
+                            onClick={handleResendCode}
+                            disabled={loading}
+                            className={`font-bold hover:underline transition-colors disabled:opacity-50 ${
+                                tipoUsuario === "estudiante" ? "text-primary" : "text-green-600"
+                            }`}
+                        >
+                            {loading ? "Enviando..." : "Reintentar"}
                         </button>
                     </div>
                 </div>

@@ -8,8 +8,8 @@ import {
   ArrowUpRight,
   Plus
 } from 'lucide-react';
-import Link from 'next/link';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 const stats = [
   { label: 'Candidatos Totales', value: '124', icon: Users, color: 'bg-blue-50 text-blue-600', trend: '+12%' },
@@ -20,85 +20,85 @@ const stats = [
 
 export default function EmployerDashboard() {
   return (
-    <div className="flex flex-col gap-8 pb-10">
+    <div className="flex flex-col gap-10 pb-12">
       {/* Welcome Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
-          <h1 className="text-3xl font-black text-black tracking-tight">¡Hola de nuevo! 👋</h1>
-          <p className="text-gray-400 font-bold mt-1">Aquí tienes un resumen de lo que está pasando hoy.</p>
+          <h1 className="text-4xl lg:text-5xl font-black text-gray-900 tracking-tighter">¡Hola de nuevo! 👋</h1>
+          <p className="text-gray-400 font-bold text-lg mt-2">Aquí tienes un resumen de lo que está pasando hoy.</p>
         </div>
         <Link 
           href="/empleador/ofertas/crear"
-          className="bg-green-600 hover:bg-green-500 text-white px-6 py-3.5 rounded-2xl font-black text-sm shadow-lg shadow-green-900/20 transition-all active:scale-95 flex items-center gap-2 w-fit"
+          className="bg-green-600 hover:bg-green-700 text-white px-10 py-5 rounded-[24px] font-black text-sm shadow-2xl shadow-green-900/20 transition-all active:scale-95 flex items-center gap-3 w-fit"
         >
-          <Plus size={20} /> Crear Nueva Vacante
+          <Plus size={24} /> Crear Nueva Vacante
         </Link>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {stats.map((stat, i) => (
           <motion.div 
             key={stat.label}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.1 }}
-            className="bg-white p-6 rounded-[32px] border border-gray-100 shadow-sm hover:shadow-md transition-all"
+            transition={{ delay: i * 0.1, duration: 0.5 }}
+            className="bg-white p-8 rounded-[40px] border border-gray-50 shadow-xl shadow-gray-200/40 hover:shadow-2xl transition-all group"
           >
-            <div className="flex items-center justify-between mb-4">
-              <div className={`p-3 rounded-2xl ${stat.color}`}>
-                <stat.icon size={24} />
+            <div className="flex items-center justify-between mb-6">
+              <div className={`p-4 rounded-[20px] ${stat.color} shadow-inner transition-transform group-hover:scale-110`}>
+                <stat.icon size={28} />
               </div>
-              <span className={`text-[11px] font-black px-2 py-1 rounded-full ${
-                stat.trend.startsWith('+') ? 'bg-green-50 text-green-600' : 'bg-gray-50 text-gray-400'
+              <span className={`text-[12px] font-black px-3 py-1.5 rounded-full ${
+                stat.trend.startsWith('+') ? 'bg-green-100 text-green-600' : 'bg-gray-50 text-gray-500'
               }`}>
                 {stat.trend}
               </span>
             </div>
             <div className="flex flex-col">
-              <span className="text-3xl font-black text-black">{stat.value}</span>
-              <span className="text-sm font-bold text-gray-400 mt-1">{stat.label}</span>
+              <span className="text-4xl font-black text-gray-900 tracking-tight">{stat.value}</span>
+              <span className="text-base font-bold text-gray-400 mt-2">{stat.label}</span>
             </div>
           </motion.div>
         ))}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
         {/* Recent Activity */}
-        <div className="lg:col-span-2 flex flex-col gap-6">
-          <div className="flex items-center justify-between">
-            <h2 className="text-xl font-black text-black">Actividad Reciente</h2>
-            <button className="text-sm font-bold text-green-600 hover:underline">Ver todo</button>
+        <div className="lg:col-span-2 flex flex-col gap-8">
+          <div className="flex items-center justify-between px-4">
+            <h2 className="text-2xl font-black text-gray-900 tracking-tight">Actividad Reciente</h2>
+            <button className="text-sm font-black text-green-600 hover:underline tracking-widest uppercase">Ver todo</button>
           </div>
           
-          <div className="bg-white rounded-[32px] border border-gray-100 shadow-sm overflow-hidden">
+          <div className="bg-white rounded-[48px] border border-gray-50 shadow-xl shadow-gray-200/40 overflow-hidden">
              {[1, 2, 3].map((item, i) => (
-               <div key={i} className={`p-6 flex items-center justify-between hover:bg-gray-50 transition-all cursor-pointer ${i !== 2 ? 'border-b border-gray-50' : ''}`}>
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center font-black text-gray-400">
+               <div key={i} className={`p-8 flex items-center justify-between hover:bg-gray-50/50 transition-all cursor-pointer ${i !== 2 ? 'border-b border-gray-50' : ''} group`}>
+                  <div className="flex items-center gap-6">
+                    <div className="w-16 h-16 rounded-[24px] bg-gray-50 flex items-center justify-center font-black text-gray-400 text-xl border border-gray-100 shadow-inner group-hover:bg-green-50 group-hover:text-green-600 transition-all">
                       {String.fromCharCode(65 + i)}
                     </div>
                     <div>
-                      <p className="font-bold text-black text-[15px]">Nuevo candidato aplicado a <span className="text-green-600">Mesero</span></p>
-                      <p className="text-xs text-gray-400 font-medium">Hace {i + 1} horas</p>
+                      <p className="font-black text-gray-800 text-lg">Nuevo candidato aplicado a <span className="text-green-600">Mesero</span></p>
+                      <p className="text-sm text-gray-400 font-bold mt-1 uppercase tracking-wider">Hace {i + 1} horas</p>
                     </div>
                   </div>
-                  <ArrowUpRight size={18} className="text-gray-300" />
+                  <ArrowUpRight size={22} className="text-gray-300 group-hover:text-green-600 transition-all transform group-hover:translate-x-1 group-hover:-translate-y-1" />
                </div>
              ))}
           </div>
         </div>
 
         {/* Tips / Suggestions */}
-        <div className="flex flex-col gap-6">
-          <h2 className="text-xl font-black text-black">Consejos Pro</h2>
-          <div className="bg-green-600 rounded-[32px] p-8 text-white relative overflow-hidden group shadow-xl shadow-green-900/10">
-             <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:scale-110 transition-transform duration-700"></div>
-             <h3 className="text-lg font-black mb-3 relative z-10">Mejora tu alcance</h3>
-             <p className="text-sm font-medium opacity-90 leading-relaxed mb-6 relative z-10">
+        <div className="flex flex-col gap-8">
+          <h2 className="text-2xl font-black text-gray-900 tracking-tight px-4">Consejos Pro</h2>
+          <div className="bg-green-600 rounded-[48px] p-10 text-white relative overflow-hidden group shadow-2xl shadow-green-900/30">
+             <div className="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-1000"></div>
+             <h3 className="text-2xl font-black mb-4 relative z-10">Mejora tu alcance</h3>
+             <p className="text-base font-medium opacity-90 leading-relaxed mb-10 relative z-10">
                Las ofertas con imágenes del lugar de trabajo reciben un 40% más de aplicaciones de calidad.
              </p>
-             <button className="bg-white text-green-700 px-6 py-2.5 rounded-xl font-black text-[13px] shadow-lg relative z-10 hover:bg-green-50 transition-all">
+             <button className="bg-white text-green-600 px-8 py-4 rounded-[20px] font-black text-sm shadow-2xl relative z-10 hover:bg-gray-50 transition-all active:scale-95">
                 Subir Fotos
              </button>
           </div>

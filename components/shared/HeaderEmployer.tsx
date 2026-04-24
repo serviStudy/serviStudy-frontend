@@ -91,21 +91,21 @@ export const HeaderEmployer = ( { name }: props ) => {
                         <NavLink icon={BookOpen} name="Suscripción" link={routes.empleador.suscripcion}/>
                     </div>
 
-                    <SuscriptionCard/>
-                </div>
+                        <SuscriptionCard />
+                    </div>
 
-                <div className="flex flex-col gap-2 md:gap-4">
-                    <div className="flex pl-6 md:px-10 gap-3 items-center">
-                        <Settings className="text-gray-500 w-4.5 md:h-7"/>
-                        <p className="text-[14px] md:text-[18px] font-semibold text-gray-600">Ajustes</p>
-                    </div>
-                    <div className="flex px-6 md:px-10 gap-3 items-center">
-                        <Info className="text-gray-500 w-4.5 md:h-7"/>
-                        <p className="text-[14px] md:text-[18px] font-semibold text-gray-600">Más informacion</p>
+                    <div className="flex flex-col gap-2 md:gap-4">
+                        <div className="flex pl-6 md:px-10 gap-3 items-center">
+                            <Settings className="text-gray-500 w-4.5 md:h-7" />
+                            <p className="text-[14px] md:text-[18px] font-semibold text-gray-600">Ajustes</p>
+                        </div>
+                        <div className="flex px-6 md:px-10 gap-3 items-center">
+                            <Info className="text-gray-500 w-4.5 md:h-7" />
+                            <p className="text-[14px] md:text-[18px] font-semibold text-gray-600">Más informacion</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </Sidebar>
+            </Sidebar>
         </>
     );
 };
