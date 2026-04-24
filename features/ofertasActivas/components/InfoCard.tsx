@@ -2,12 +2,12 @@ import React from 'react'
 import { HeaderInfoCard } from './ui/HeaderInfoCard'
 import { TagsInfoCard } from './ui/TagsInfoCard'
 import { InformationOffer } from './ui/InformationOffer'
-import { ActiveOffer } from '../types/ofertasActivas.types';
+import { Offer } from '@/features/postPostularse/types/offer';
 import Link from 'next/link';
 import { routes } from '@/type/routes';
 
 interface InfoCardProps {
-    offer: ActiveOffer | null;
+    offer: Offer | null;
 }
 
 export const InfoCard = ({ offer }: InfoCardProps) => {
@@ -25,7 +25,7 @@ export const InfoCard = ({ offer }: InfoCardProps) => {
                 <InformationOffer offer={offer}/>
 
                 <div className='flex my-6 w-full justify-center'>
-                    <Link className='bg-green-700 rounded-2xl text-white font-bold text-center p-1.5 w-full items-center' href={`/estudiante/postulacion/${offer.jobOfferId}`}>Ver más detalles</Link>
+                    <Link className='bg-green-700 rounded-2xl text-white font-bold text-center p-1.5 w-full items-center' href={`/estudiante/postulacion/${offer.id}`}>Ver más detalles</Link>
                 </div>
             </div>
         </div>

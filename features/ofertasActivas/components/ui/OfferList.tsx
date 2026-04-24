@@ -1,12 +1,12 @@
 
 import React from 'react'
-import { ActiveOffer } from '../../types/ofertasActivas.types';
+import { Offer } from '@/features/postPostularse/types/offer';
 import ResultCrad from '../ResultCrad';
 
 interface ResultCardProps {
-    offers: ActiveOffer[];
-    selectedOffer: ActiveOffer | null;
-    onSelectOffer: (offer: ActiveOffer) => void
+    offers: Offer[];
+    selectedOffer: Offer | null;
+    onSelectOffer: (offer: Offer) => void
 }
 
 export const OfferList = ({offers, selectedOffer, onSelectOffer}: ResultCardProps) => {
@@ -26,10 +26,10 @@ export const OfferList = ({offers, selectedOffer, onSelectOffer}: ResultCardProp
             ) : (
 
                 offers.map((offer) => {
-                    const isSelected = selectedOffer?.jobOfferId === offer.jobOfferId;
+                    const isSelected = selectedOffer?.id === offer.id;
                     return (
                         <div 
-                            key={offer.jobOfferId}
+                            key={offer.id}
                             onClick={() => onSelectOffer(offer)}
                             
                             className={`cursor-pointer rounded-[21px] border-2 transition-all ${

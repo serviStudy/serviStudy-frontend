@@ -1,11 +1,11 @@
 import React from 'react'
-import { ActiveOffer } from '../../types/ofertasActivas.types'
+import { Offer } from '@/features/postPostularse/types/offer'
 import Image from "next/image";
 import { Button } from '@/components/ui/button';
 import { formatDaysAgo } from '../../hooks/FormatsDaysAgo';
 
 interface HeaderInfoProps {
-    offer: ActiveOffer;
+    offer: Offer;
 }
 
 export const HeaderInfoCard = ({ offer }: HeaderInfoProps) => {

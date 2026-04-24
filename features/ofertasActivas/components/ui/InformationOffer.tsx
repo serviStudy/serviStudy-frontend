@@ -1,9 +1,9 @@
 import { Briefcase, Scroll } from 'lucide-react'
 import React from 'react'
-import { ActiveOffer } from '../../types/ofertasActivas.types';
+import { Offer } from '@/features/postPostularse/types/offer';
 
 interface InformationProps {
-    offer: ActiveOffer;
+    offer: Offer;
 }
 
 export const InformationOffer = ({ offer }: InformationProps) => {

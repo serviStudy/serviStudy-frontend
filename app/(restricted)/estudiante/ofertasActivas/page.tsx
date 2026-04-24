@@ -1,6 +1,5 @@
 "use client"
 import { HeaderLR } from '@/components/shared/HeaderLR'
-import { HeaderStudent } from '@/components/shared/HeaderStudent'
 import { InfoCard} from '@/features/ofertasActivas/components/InfoCard'
 import MenuDays from '@/features/ofertasActivas/components/MenuDays'
 import SearchCard from '@/features/ofertasActivas/components/SearchCard'
@@ -50,7 +49,7 @@ const page = () => {
             !selectedOffer ||
             !filteredOffers.some(
                 (offer) =>
-                    offer.jobOfferId === selectedOffer.jobOfferId
+                    offer.id === selectedOffer.id
             )
         ) {
             setSelectedOffer(filteredOffers[0]);

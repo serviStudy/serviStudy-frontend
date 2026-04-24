@@ -1,11 +1,10 @@
 import { Offer } from '@/features/postPostularse/types/offer';
 import { useEffect, useState } from 'react';
 import { getActiveOffers } from '../services/ofertaActivaService';
-import { ActiveOffer } from '../types/ofertasActivas.types';
 
 export const useActiveOffers = () => {
-    const [offers, setOffers] = useState<ActiveOffer[]>([]);
-    const [selectedOffer, setSelectedOffer] = useState<ActiveOffer | null>(null);
+    const [offers, setOffers] = useState<Offer[]>([]);
+    const [selectedOffer, setSelectedOffer] = useState<Offer | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
