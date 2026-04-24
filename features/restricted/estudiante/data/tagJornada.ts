@@ -1,1 +1,0 @@
-export const tagJornada = ["Jornada completa", "Media jornada",  "Flexible"]
