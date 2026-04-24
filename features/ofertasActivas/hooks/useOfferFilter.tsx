@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { ConvertJornadaTags } from "./ConvertJornadaTags";
 import { ConvertWorkDayTags } from "./ConvertWorkDayTags";
-import { Offer } from "@/type/offer";
+import { Offer } from "@/features/postPostularse/types/offer";
 
 export const useOfferFilter = (offers: Offer[]) => {
     const [searchTerm, setSearchTerm] = useState("");
