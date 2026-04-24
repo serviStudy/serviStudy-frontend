@@ -20,9 +20,9 @@ const ProfilePage = () => {
 
   return (
     <div className="flex min-h-screen flex-col items-center gap-9 bg-gray-50 pt-24 pb-12 w-full px-4 lg:px-0">
-      <HeaderEmployer name={''}/>
+      <HeaderEmployer name={''} />
 
-      <ProfileInfo 
+      <ProfileInfo
         profile={profile}
         email={email}
         inicial={inicial}
