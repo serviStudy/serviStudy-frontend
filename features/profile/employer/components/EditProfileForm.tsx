@@ -5,7 +5,11 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Card, CardContent } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
-import { Camera, ChevronLeft, Loader2, Building2, User, Phone, MapPin, AlignLeft, Mail } from "lucide-react"
+import { 
+  Camera, ChevronLeft, Loader2, Building2, User, 
+  Phone, MapPin, AlignLeft, Mail, ShieldCheck 
+} from "lucide-react"
+import { motion } from 'framer-motion'
 
 interface EditProfileFormProps {
   formData: {
@@ -48,46 +52,54 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
 
   return (
     <div className="mx-auto w-full max-w-5xl px-4 lg:px-8">
-      {/* Header con botón volver alineado */}
-      <div className="mb-10 flex flex-col gap-6">
-        <button
-          onClick={() => router.back()}
-          className="flex items-center gap-3 text-gray-500 hover:text-[#1a3683] transition-colors font-black group w-fit"
-        >
-          <div className="p-3 rounded-2xl bg-gray-100 group-hover:bg-blue-50 transition-colors">
-            <ChevronLeft className="h-5 w-5" />
-          </div>
-          <span className="text-lg">Volver al perfil</span>
-        </button>
-        <h1 className="text-4xl font-black text-[#1a3683] lg:text-5xl tracking-tighter">Editar Perfil</h1>
+      {/* Header with improved navigation */}
+      <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div className="space-y-4">
+          <button
+            onClick={() => router.back()}
+            className="flex items-center gap-2 text-gray-400 hover:text-green-600 transition-all font-bold group"
+          >
+            <ChevronLeft className="h-5 w-5 transition-transform group-hover:-translate-x-1" />
+            <span className="text-sm">Regresar al perfil</span>
+          </button>
+          <h1 className="text-4xl lg:text-5xl font-black text-gray-900 tracking-tighter">
+            Editar <span className="text-green-600">Perfil</span>
+          </h1>
+        </div>
+        <div className="flex items-center gap-2 px-4 py-2 bg-green-50 rounded-2xl border border-green-100">
+          <ShieldCheck className="text-green-600 h-5 w-5" />
+          <span className="text-xs font-black text-green-600 uppercase tracking-widest">Información Segura</span>
+        </div>
       </div>
 
-      <Card className="overflow-hidden border border-gray-100 shadow-[0_25px_60px_rgba(0,0,0,0.06)] rounded-[50px] bg-white transition-all duration-500 hover:shadow-[0_35px_70px_rgba(0,0,0,0.1)]">
-        {/* Banner con el gradiente premium de verdes pasteles */}
-        <div className="h-40 w-full bg-gradient-to-r from-[#dcedc1] via-[#a8e6cf] to-[#81c784] lg:h-56 relative">
-          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/pinstriped-suit.png')] opacity-15"></div>
-          <div className="absolute inset-0 bg-gradient-to-b from-black/5 to-transparent"></div>
+      <Card className="overflow-hidden border-none shadow-[0_32px_64px_-16px_rgba(0,0,0,0.08)] rounded-[48px] bg-white">
+        {/* Dynamic Header Banner - Green theme */}
+        <div className="h-44 w-full bg-gradient-to-br from-green-800 via-green-600 to-green-400 relative">
+          <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
         </div>
 
-        <CardContent className="px-6 pb-16 lg:px-16">
-          {/* Avatar elevado con cámara */}
-          <div className="relative -mt-20 mb-14 flex flex-col items-center lg:items-start lg:ml-6">
+        <CardContent className="px-8 lg:px-16 pb-16">
+          {/* Centered Avatar Upload */}
+          <div className="relative -mt-20 mb-16 flex flex-col items-center">
             <div className="relative group">
-              <div className="flex h-36 w-36 items-center justify-center overflow-hidden rounded-[3rem] border-[10px] border-white bg-gradient-to-br from-[#34c759] to-[#28a745] text-[50px] font-black text-white shadow-[0_20px_45px_-5px_rgba(0,0,0,0.15)] lg:h-[180px] lg:w-[180px] transition-transform hover:scale-[1.02]">
+              <div className="flex h-40 w-40 items-center justify-center overflow-hidden rounded-[40px] border-[8px] border-white bg-white shadow-2xl transition-all duration-500 group-hover:scale-105">
                 {formData.imageUrl ? (
-                  <img src={formData.imageUrl} alt="Perfil" className="h-full w-full object-cover" />
+                  <img src={formData.imageUrl} alt="Perfil" className="h-full w-full object-contain p-4" />
                 ) : (
-                  <span className="drop-shadow-md select-none">{inicial}</span>
+                  <div className="h-full w-full bg-gray-50 flex items-center justify-center">
+                    <span className="text-[60px] font-black text-green-700/10">{inicial}</span>
+                  </div>
                 )}
               </div>
               <button
                 type="button"
-                className="absolute bottom-2 right-2 h-14 w-14 rounded-2xl bg-white shadow-2xl hover:bg-gray-50 border border-gray-100 flex items-center justify-center group/btn active:scale-90 transition-all z-10"
+                className="absolute bottom-1 right-1 h-12 w-12 rounded-2xl bg-green-600 shadow-xl hover:bg-green-700 flex items-center justify-center transition-all z-10 text-white"
                 onClick={actions.triggerFileInput}
               >
-                <Camera className="h-6 w-6 text-[#34c759] group-hover/btn:scale-110 transition-transform" strokeWidth={2.5} />
+                <Camera className="h-5 w-5" />
               </button>
             </div>
+            <p className="mt-4 text-xs font-bold text-gray-400 uppercase tracking-widest">Logo de la empresa</p>
             <input
               type="file"
               ref={refs.fileInputRef}
@@ -97,107 +109,115 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
             />
           </div>
 
-          {/* Información Solo Lectura - Elongada */}
-          <div className="mb-12 flex items-center gap-6 p-7 bg-gradient-to-r from-blue-50/50 via-blue-50/20 to-transparent border border-blue-100/50 rounded-[35px]">
-            <div className="p-4 bg-white rounded-2xl shadow-sm">
-              <Mail className="h-6 w-6 text-[#1a4b9e]" />
+          <div className="space-y-12">
+            {/* Section 1: Business Identity */}
+            <div>
+               <div className="flex items-center gap-3 mb-8">
+                 <div className="h-8 w-1 bg-green-600 rounded-full"></div>
+                 <h2 className="text-xl font-black text-gray-900 tracking-tight">Identidad Corporativa</h2>
+               </div>
+               
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="space-y-3">
+                    <Label className="text-xs font-black text-gray-400 uppercase tracking-widest ml-1">Nombre Comercial</Label>
+                    <div className="relative">
+                      <Building2 className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-300 h-5 w-5" />
+                      <Input
+                        value={formData.businessName}
+                        onChange={(e) => setters.setBusinessName(e.target.value)}
+                        className="h-16 pl-14 rounded-2xl border-gray-100 bg-gray-50/50 focus:bg-white focus:ring-green-500 transition-all font-bold text-gray-900"
+                        placeholder="Ej: ServiStudy Corp"
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <Label className="text-xs font-black text-gray-400 uppercase tracking-widest ml-1">Responsable</Label>
+                    <div className="relative">
+                      <User className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-300 h-5 w-5" />
+                      <Input
+                        value={formData.employerName}
+                        onChange={(e) => setters.setEmployerName(e.target.value)}
+                        className="h-16 pl-14 rounded-2xl border-gray-100 bg-gray-50/50 focus:bg-white focus:ring-green-500 transition-all font-bold text-gray-900"
+                        placeholder="Nombre completo"
+                      />
+                    </div>
+                  </div>
+               </div>
             </div>
-            <div className="flex-1">
-              <p className="text-[13px] text-[#1a4b9e] font-black uppercase tracking-widest mb-1">Identidad de la cuenta</p>
-              <p className="text-xl lg:text-2xl text-gray-700 font-bold leading-tight">{formData.email || "—"}</p>
+
+            {/* Section 2: Contact & Location */}
+            <div>
+               <div className="flex items-center gap-3 mb-8">
+                 <div className="h-8 w-1 bg-green-500 rounded-full"></div>
+                 <h2 className="text-xl font-black text-gray-900 tracking-tight">Contacto y Ubicación</h2>
+               </div>
+               
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="space-y-3">
+                    <Label className="text-xs font-black text-gray-400 uppercase tracking-widest ml-1">Teléfono de Contacto</Label>
+                    <div className="relative">
+                      <Phone className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-300 h-5 w-5" />
+                      <Input
+                        value={formData.contactNumber}
+                        onChange={(e) => setters.setContactNumber(e.target.value)}
+                        className="h-16 pl-14 rounded-2xl border-gray-100 bg-gray-50/50 focus:bg-white focus:ring-green-500 transition-all font-bold text-gray-900"
+                        placeholder="+57 300 000 0000"
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <Label className="text-xs font-black text-gray-400 uppercase tracking-widest ml-1">Dirección Física</Label>
+                    <div className="relative">
+                      <MapPin className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-300 h-5 w-5" />
+                      <Input
+                        value={formData.businessAddress}
+                        onChange={(e) => setters.setBusinessAddress(e.target.value)}
+                        className="h-16 pl-14 rounded-2xl border-gray-100 bg-gray-50/50 focus:bg-white focus:ring-green-500 transition-all font-bold text-gray-900"
+                        placeholder="Calle, Ciudad, País"
+                      />
+                    </div>
+                  </div>
+               </div>
+            </div>
+
+            {/* Section 3: Summary */}
+            <div className="space-y-4">
+              <div className="flex items-center gap-3 mb-4">
+                 <div className="h-8 w-1 bg-green-400 rounded-full"></div>
+                 <h2 className="text-xl font-black text-gray-900 tracking-tight">Descripción de la Empresa</h2>
+              </div>
+              <div className="relative">
+                <AlignLeft className="absolute left-6 top-6 text-gray-300 h-5 w-5" />
+                <Textarea
+                  value={formData.businessSummary}
+                  onChange={(e) => setters.setBusinessSummary(e.target.value)}
+                  className="min-h-[200px] pl-16 pt-6 rounded-[32px] border-gray-100 bg-gray-50/50 focus:bg-white focus:ring-green-500 transition-all font-medium text-gray-700 resize-none text-lg shadow-sm"
+                  placeholder="Describe la visión, misión y lo que hace única a tu empresa..."
+                />
+              </div>
             </div>
           </div>
 
-          {/* Formulario a Escala Completa con Colores de Texto Forzados */}
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
-            <div className="space-y-4">
-              <Label htmlFor="employerName" className="text-[15px] font-black text-gray-500 uppercase tracking-widest flex items-center gap-2 ml-2">
-                <User size={18} className="text-[#1a3683]" />
-                Responsable de la empresa
-              </Label>
-              <Input
-                id="employerName"
-                value={formData.employerName}
-                onChange={(e) => setters.setEmployerName(e.target.value)}
-                placeholder="Ej: Carlos Guerra Morales"
-                className="h-16 rounded-[25px] border-gray-200 bg-gray-50/30 focus-visible:ring-[#1a4b9e] focus:bg-white transition-all font-bold px-7 text-lg shadow-sm text-gray-900"
-              />
-            </div>
-            <div className="space-y-4">
-              <Label htmlFor="contactNumber" className="text-[15px] font-black text-gray-500 uppercase tracking-widest flex items-center gap-2 ml-2">
-                <Phone size={18} className="text-[#1a4b9e]" />
-                Número de contacto
-              </Label>
-              <Input
-                id="contactNumber"
-                value={formData.contactNumber}
-                onChange={(e) => setters.setContactNumber(e.target.value)}
-                placeholder="Ej: 315-887-9086"
-                className="h-16 rounded-[25px] border-gray-200 bg-gray-50/30 focus-visible:ring-[#1a4b9e] focus:bg-white transition-all font-bold px-7 text-lg shadow-sm text-gray-900"
-              />
-            </div>
-            <div className="space-y-4">
-              <Label htmlFor="businessName" className="text-[15px] font-black text-gray-500 uppercase tracking-widest flex items-center gap-2 ml-2">
-                <Building2 size={18} className="text-[#1a4b9e]" />
-                Nombre del Negocio
-              </Label>
-              <Input
-                id="businessName"
-                value={formData.businessName}
-                onChange={(e) => setters.setBusinessName(e.target.value)}
-                placeholder="Ej: Tech Solutions"
-                className="h-16 rounded-[25px] border-gray-200 bg-gray-50/30 focus-visible:ring-[#1a4b9e] focus:bg-white transition-all px-7 font-black text-[#1a4b9e] text-lg shadow-sm"
-              />
-            </div>
-            <div className="space-y-4">
-              <Label htmlFor="businessAddress" className="text-[15px] font-black text-gray-500 uppercase tracking-widest flex items-center gap-2 ml-2">
-                <MapPin size={18} className="text-[#1a3683]" />
-                Dirección Física
-              </Label>
-              <Input
-                id="businessAddress"
-                value={formData.businessAddress}
-                onChange={(e) => setters.setBusinessAddress(e.target.value)}
-                placeholder="Ej: Plaza de bolívar"
-                className="h-16 rounded-[25px] border-gray-200 bg-gray-50/30 focus-visible:ring-[#1a4b9e] focus:bg-white transition-all font-bold px-7 text-lg shadow-sm text-gray-900"
-              />
-            </div>
-          </div>
-
-          <div className="mt-10 space-y-4">
-            <Label htmlFor="businessSummary" className="text-[15px] font-black text-gray-400 uppercase tracking-widest flex items-center gap-2 ml-2">
-              <AlignLeft size={18} className="text-[#1a3683]" />
-              Resumen Profesional
-            </Label>
-            <Textarea
-              id="businessSummary"
-              value={formData.businessSummary}
-              onChange={(e) => setters.setBusinessSummary(e.target.value)}
-              placeholder="Describe detalladamente tu empresa o establecimiento..."
-              className="min-h-[200px] rounded-[35px] border-gray-200 bg-gray-50/30 focus-visible:ring-[#1a4b9e] focus:bg-white transition-all p-8 font-medium resize-none text-[18px] shadow-sm text-gray-900"
-            />
-          </div>
-
-          {/* Botones de acción Estratégicos */}
-          <div className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-6">
+          {/* Action Buttons */}
+          <div className="mt-20 flex flex-col sm:flex-row items-center justify-end gap-4 border-t border-gray-100 pt-12">
             <button
               onClick={() => router.back()}
               disabled={saving}
-              className="w-full sm:w-56 h-16 rounded-2xl border border-gray-200 text-gray-600 font-black text-lg hover:bg-gray-50 active:scale-95 transition-all shadow-sm"
+              className="w-full sm:w-auto px-10 h-16 rounded-2xl text-gray-400 font-black text-sm hover:text-gray-900 transition-all uppercase tracking-widest"
             >
               Cancelar
             </button>
             <button
               onClick={actions.handleSave}
               disabled={saving}
-              className="w-full sm:w-80 h-16 rounded-2xl bg-[#1a4b9e] text-white font-black text-xl hover:bg-[#153a7a] active:scale-95 transition-all shadow-[0_20px_50px_-10px_rgba(26,54,131,0.4)] hover:shadow-[0_25px_60px_-5px_rgba(26,54,131,0.5)] flex items-center justify-center disabled:opacity-70"
+              className="w-full sm:w-auto px-12 h-16 rounded-2xl bg-green-600 text-white font-black text-lg hover:bg-green-700 active:scale-95 transition-all shadow-xl shadow-green-900/20 flex items-center justify-center disabled:opacity-70"
             >
               {saving ? (
                 <span className="flex items-center gap-3">
                   <Loader2 className="h-6 w-6 animate-spin" />
-                  Actualizando...
+                  Guardando...
                 </span>
-              ) : "Actualizar Perfil de Empresa"}
+              ) : "Guardar Cambios"}
             </button>
           </div>
         </CardContent>

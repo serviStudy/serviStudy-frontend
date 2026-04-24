@@ -7,8 +7,11 @@ export const StepPassword = ({
     tipoUsuario,
     password, setPassword,
     confirmPassword, setConfirmPassword,
-    loading, handleChangePassword
+    loading, handleChangePassword,
+    error,
 }: any) => {
+    const passwordMismatch = confirmPassword.length > 0 && password !== confirmPassword
+
     return (
         <Card className={`w-full max-w-md mx-auto p-5 md:p-6 shadow-2xl transition-all duration-500 ${
             tipoUsuario === "estudiante" ? "border-primary/10" : "border-green-600/20"
@@ -36,8 +39,8 @@ export const StepPassword = ({
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             className={`h-12 px-4 rounded-xl transition-all duration-500 focus-visible:ring-2 bg-muted/5 font-normal text-base ${
-                                tipoUsuario === "estudiante" 
-                                    ? "border-input focus-visible:ring-primary/20" 
+                                tipoUsuario === "estudiante"
+                                    ? "border-input focus-visible:ring-primary/20"
                                     : "border-input focus-visible:ring-green-600/20"
                             }`}
                         />
@@ -53,18 +56,31 @@ export const StepPassword = ({
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
                             className={`h-12 px-4 rounded-xl transition-all duration-500 focus-visible:ring-2 bg-muted/5 font-normal text-base ${
-                                tipoUsuario === "estudiante" 
-                                    ? "border-input focus-visible:ring-primary/20" 
-                                    : "border-input focus-visible:ring-green-600/20"
+                                passwordMismatch
+                                    ? "border-red-400 focus-visible:ring-red-400/20"
+                                    : tipoUsuario === "estudiante"
+                                        ? "border-input focus-visible:ring-primary/20"
+                                        : "border-input focus-visible:ring-green-600/20"
                             }`}
                         />
+                        {passwordMismatch && (
+                            <p className="text-xs font-semibold text-red-500 ml-1">
+                                Las contraseñas no coinciden.
+                            </p>
+                        )}
                     </div>
                 </div>
+
+                {error && (
+                    <p className="text-center text-sm font-semibold text-red-500">
+                        {error}
+                    </p>
+                )}
 
                 <div className="pt-4 space-y-4">
                     <Button
                         onClick={handleChangePassword}
-                        disabled={loading || !password || password !== confirmPassword}
+                        disabled={loading || !password || passwordMismatch}
                         className={`w-full h-12 text-lg font-bold rounded-xl transition-all duration-500 active:scale-[0.98] shadow-lg text-white ${
                             tipoUsuario === "estudiante"
                                 ? "bg-primary hover:bg-primary/90 shadow-primary/20"
@@ -81,7 +97,7 @@ export const StepPassword = ({
                                 tipoUsuario === "estudiante" ? "text-primary" : "text-green-600"
                             }`}
                         >
-                            Volver al inicio de sesion
+                            Volver al inicio de sesión
                         </Link>
                     </div>
                 </div>

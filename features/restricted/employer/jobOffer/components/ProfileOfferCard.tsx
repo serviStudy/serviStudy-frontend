@@ -1,7 +1,8 @@
 "use client";
 import { useState } from "react";
 import { JobOfferDTO } from "../types/jobOffer.types";
-import { Edit, Trash2, MapPin } from "lucide-react";
+import { Edit, Trash2, MapPin, Sparkles, TrendingUp } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { toast } from "sonner";
 import { updateJobOfferStatus } from "../service/jobOffer.service";
@@ -18,9 +19,10 @@ import { Button } from "@/components/ui/button";
 interface Props {
   offer: JobOfferDTO;
   imageUrl?: string;
+  businessName?: string;
 }
 
-export const ProfileOfferCard = ({ offer, imageUrl }: Props) => {
+export const ProfileOfferCard = ({ offer, imageUrl, businessName }: Props) => {
   const offerId = offer.jobOfferId || offer.id || (offer as any).idJobOffer;
   const [isChanging, setIsChanging] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -58,114 +60,132 @@ export const ProfileOfferCard = ({ offer, imageUrl }: Props) => {
   };
 
   return (
-    <div className="group bg-white rounded-2xl border border-gray-100 p-5 flex gap-5 w-full shadow-[0_2px_10px_rgb(0,0,0,0.02)] hover:shadow-[0_10px_30px_rgb(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-1">
+    <div className="group bg-white rounded-3xl lg:rounded-[32px] border border-gray-100 p-4 lg:p-6 flex flex-col sm:flex-row gap-4 lg:gap-6 w-full shadow-sm hover:shadow-xl hover:shadow-gray-200/50 transition-all duration-500">
       {/* Imagen / Siglas */}
-      <div className="w-20 h-20 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl shrink-0 border border-gray-100 overflow-hidden flex items-center justify-center shadow-inner">
+      <div className="w-20 h-20 lg:w-28 lg:h-28 bg-gray-50 rounded-2xl lg:rounded-[28px] shrink-0 border border-gray-100 overflow-hidden flex items-center justify-center shadow-inner transition-transform duration-500 mx-auto sm:mx-0">
         {imageUrl ? (
-          <img src={imageUrl} alt="Perfil" className="w-full h-full object-cover transition-transform group-hover:scale-110 duration-500" />
+          <img src={imageUrl} alt="Perfil" className="w-full h-full object-cover transition-transform group-hover:scale-110 duration-700" />
         ) : (
-          <div className="w-full h-full bg-gradient-to-br from-[#34c759] to-[#28a745] flex items-center justify-center text-white text-2xl font-black shadow-lg">
+          <div className="w-full h-full bg-green-600 flex items-center justify-center text-white text-3xl lg:text-4xl font-black">
             {offer.title ? offer.title.charAt(0).toUpperCase() : "E"}
           </div>
         )}
       </div>
       
       {/* Detalles */}
-      <div className="flex flex-col flex-1 pb-1">
-        <div className="flex justify-between items-start gap-4">
-          <div className="flex-1">
-            <h3 className="font-black text-[#1a3683] text-lg leading-tight line-clamp-1 group-hover:text-[#2552d0] transition-colors">{offer.title}</h3>
+      <div className="flex flex-col flex-1 min-w-0">
+        <div className="flex flex-col sm:flex-row justify-between items-start gap-4 sm:gap-0">
+          <div className="flex-1 min-w-0">
+            <h3 className="font-black text-gray-900 text-xl lg:text-2xl leading-tight line-clamp-1 transition-colors group-hover:text-green-600">{offer.title}</h3>
             
-            {/* Toggle Status Rediseñado */}
-            <div className="mt-2.5 flex items-center gap-3">
-              <button
-                onClick={handleToggleStatus}
-                disabled={isChanging}
-                className={`relative flex items-center h-7 w-[100px] rounded-full border-2 transition-all duration-300 shadow-sm active:scale-95 ${
-                  isActive 
-                    ? "border-[#34c759]/30 bg-[#f0fff4]" 
-                    : "border-orange-200 bg-orange-50"
-                }`}
-              >
-                <div
-                  className={`absolute w-5 h-5 rounded-full transition-all duration-500 shadow-md transform ${
-                    isActive ? "bg-[#34c759] translate-x-1" : "bg-orange-500 translate-x-[74px]"
-                  }`}
-                ></div>
-                <span 
-                  className={`w-full text-center text-[10px] font-black uppercase tracking-tighter z-10 transition-colors ${
-                    isActive ? "text-[#2d8a43] ml-4" : "text-orange-700 mr-5"
-                  }`}
-                >
-                  {isActive ? "Activa" : "Pausa"}
-                </span>
-              </button>
+            {/* Ubicación */}
+            <div className="mt-2 flex items-center gap-2 text-gray-400 font-bold text-sm">
+              <MapPin size={16} className="text-green-500 shrink-0" />
+              <span className="truncate tracking-tight">{offer.establishment_address || offer.establishmentAddress || "Ubicación no especificada"}</span>
             </div>
           </div>
 
-          <div className="flex gap-2 shrink-0">
-            <Link href={`/empleador/ofertas/${offerId}/editar`} className="p-2 rounded-xl bg-gray-50 text-gray-400 hover:bg-blue-50 hover:text-[#1a4b9e] transition-all border border-transparent hover:border-blue-100 active:scale-90">
+          <div className="flex gap-2 lg:gap-3 shrink-0 self-end sm:self-start">
+            <Link href={`/empleador/ofertas/${offerId}/editar`} className="p-2.5 lg:p-3 rounded-xl lg:rounded-2xl bg-gray-50 text-gray-400 hover:bg-green-50 hover:text-green-600 transition-all shadow-sm">
               <Edit size={18} />
             </Link>
             <button 
               onClick={() => setShowDeleteModal(true)}
-              className="p-2 rounded-xl bg-gray-50 text-gray-400 hover:bg-red-50 hover:text-red-500 transition-all border border-transparent hover:border-red-100 active:scale-90"
+              className="p-2.5 lg:p-3 rounded-xl lg:rounded-2xl bg-gray-50 text-gray-400 hover:bg-red-50 hover:text-red-600 transition-all shadow-sm"
             >
               <Trash2 size={18} />
             </button>
           </div>
         </div>
 
-        {/* Info adicional con chips */}
-        <div className="mt-5 pt-4 border-t border-gray-50 flex flex-wrap justify-between items-end gap-3">
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gray-50 border border-gray-100 text-[13px] font-bold text-gray-600">
-              <MapPin size={14} className="text-[#1a4b9e]" />
-              <span className="truncate max-w-[140px]">{offer.establishment_address || offer.establishmentAddress}</span>
-            </div>
-          </div>
-          
-          <div className="flex flex-col items-end">
-            <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-0.5">Sueldo Estimado</span>
-            <div className="flex items-center gap-1.5 text-[#1a3683] font-black text-lg">
-              <span className="text-sm opacity-60">$</span>
-              <span>{Number(offer.salary).toLocaleString()}</span>
-            </div>
+        {/* Footer Area with Switch and Price */}
+        <div className="mt-auto pt-4 lg:pt-5 flex flex-wrap justify-between items-center gap-4 border-t border-gray-50">
+          {/* Status Toggle */}
+          <button
+            onClick={handleToggleStatus}
+            disabled={isChanging}
+            className={`relative flex items-center h-8 lg:h-10 w-28 lg:w-32 rounded-full border-2 transition-all duration-500 px-1.5 ${
+              isActive ? "bg-green-50 border-green-100" : "bg-gray-50 border-gray-100"
+            }`}
+          >
+            <div
+              className={`w-5 h-5 lg:w-7 lg:h-7 rounded-full transition-all duration-500 shadow-lg ${
+                isActive ? "bg-green-500 translate-x-[72px] lg:translate-x-[84px]" : "bg-gray-300 translate-x-0"
+              }`}
+            />
+            <span className={`absolute w-full text-center text-[9px] lg:text-[10px] font-black uppercase tracking-[0.1em] transition-all duration-500 ${isActive ? "text-green-600 left-[-12px] lg:left-[-15px]" : "text-gray-400 left-[12px] lg:left-[15px]"}`}>
+              {isActive ? "Activa" : "Inactiva"}
+            </span>
+          </button>
+
+          <div className="text-right">
+            <span className="text-[9px] lg:text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-0.5 lg:mb-1">Sueldo</span>
+            <span className="text-green-600 font-black text-xl lg:text-2xl tracking-tighter">
+              ${Number(offer.salary).toLocaleString()}
+            </span>
           </div>
         </div>
       </div>
 
       <Dialog open={showDeleteModal} onOpenChange={setShowDeleteModal}>
-        <DialogContent className="sm:max-w-md rounded-[24px] border-none shadow-2xl p-0 overflow-hidden">
-          <div className="bg-white px-8 pt-8 pb-8 flex flex-col items-center text-center">
-            
-            {/* Animated Icon Circle */}
-            <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4 relative">
-              <div className="absolute inset-0 bg-red-300 rounded-full animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite] opacity-30"></div>
-              <Trash2 className="text-red-500 w-8 h-8 relative z-10" />
-            </div>
+        <AnimatePresence>
+          {showDeleteModal && (
+            <DialogContent className="sm:max-w-[400px] rounded-xl border border-gray-200 shadow-xl p-0 overflow-hidden bg-white outline-none">
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.95, y: 10 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 10 }}
+                className="relative p-8 flex flex-col items-center justify-center text-center"
+              >
+                {/* Icon Section */}
+                <div className="relative mb-6">
+                  <div className="w-20 h-20 bg-red-50 rounded-xl flex items-center justify-center relative group/icon">
+                    <Trash2 className="text-red-500 w-8 h-8 relative z-10 transition-transform duration-500" />
+                  </div>
+                </div>
 
-            <DialogHeader className="w-full flex flex-col items-center">
-              <DialogTitle className="text-2xl font-black text-[#1a4b9e] mb-2">
-                Eliminar Oferta
-              </DialogTitle>
-              <DialogDescription className="text-gray-500 font-medium text-[15px] leading-relaxed max-w-[280px]">
-                Estás a punto de borrar la oferta <br/>
-                <strong className="text-gray-800 font-bold block mt-1 line-clamp-2">&quot;{offer.title}&quot;</strong>
-                <span className="block mt-4 text-xs text-red-500 font-semibold bg-red-50 px-3 py-1.5 rounded-full">Acción irreversible</span>
-              </DialogDescription>
-            </DialogHeader>
+                <div className="space-y-3 w-full">
+                  <h3 className="text-2xl font-bold text-blue-900 tracking-tight">
+                    Confirmar baja
+                  </h3>
+                  
+                  <div className="space-y-2">
+                    <p className="text-gray-600 font-medium text-sm">
+                      ¿Estás seguro de que deseas eliminar la oferta?
+                    </p>
+                    <div className="py-2.5 px-4 bg-gray-50 rounded-xl border border-gray-200 inline-block max-w-full">
+                      <span className="text-blue-900 font-bold text-base block truncate">"{offer.title}"</span>
+                    </div>
+                  </div>
 
-            <DialogFooter className="mt-8 flex w-full gap-3 flex-col-reverse sm:flex-row">
-              <Button variant="outline" onClick={() => setShowDeleteModal(false)} disabled={isDeleting} className="rounded-full flex-1 font-bold text-gray-500 hover:text-[#1a4b9e] hover:bg-blue-50 hover:border-[#1a4b9e]/30 border-gray-200 h-11 transition-all">
-                Cancelar
-              </Button>
-              <Button onClick={confirmDelete} disabled={isDeleting} className="bg-red-500 hover:bg-red-600 text-white rounded-full flex-1 font-bold shadow-sm border-none h-11 transition-all hover:-translate-y-0.5">
-                {isDeleting ? "Eliminando..." : "Sí, eliminar"}
-              </Button>
-            </DialogFooter>
-          </div>
-        </DialogContent>
+                  <div className="pt-2">
+                    <span className="px-4 py-1.5 bg-red-50 text-red-600 text-[10px] font-bold uppercase tracking-wider rounded-xl border border-red-100">
+                      Operación permanente
+                    </span>
+                  </div>
+                </div>
+
+                <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3 w-full">
+                  <Button 
+                    variant="outline" 
+                    onClick={() => setShowDeleteModal(false)} 
+                    disabled={isDeleting} 
+                    className="rounded-xl font-bold text-gray-700 hover:bg-gray-50 border-gray-200 h-12 transition-all active:scale-95 text-sm order-2 sm:order-1"
+                  >
+                    Cancelar
+                  </Button>
+                  <Button 
+                    onClick={confirmDelete} 
+                    disabled={isDeleting} 
+                    className="bg-red-600 hover:bg-red-700 text-white rounded-xl font-bold shadow-sm h-12 transition-all active:scale-95 text-sm order-1 sm:order-2"
+                  >
+                    {isDeleting ? "Eliminando..." : "Sí, eliminar"}
+                  </Button>
+                </div>
+              </motion.div>
+            </DialogContent>
+          )}
+        </AnimatePresence>
       </Dialog>
     </div>
   );
