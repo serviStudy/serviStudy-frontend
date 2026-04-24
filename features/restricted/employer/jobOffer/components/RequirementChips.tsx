@@ -1,5 +1,5 @@
 interface Props {
-  requirements: { requirement_name: string }[];
+  requirements: { name: string }[];
 }
 
 export const RequirementChips = ({ requirements }: Props) => {
@@ -10,7 +10,7 @@ export const RequirementChips = ({ requirements }: Props) => {
           key={i}
           className="px-3 py-1 text-xs bg-blue-50 text-blue-700 rounded-full"
         >
-          {r.requirement_name}
+          {r.name}
         </span>
       ))}
     </div>

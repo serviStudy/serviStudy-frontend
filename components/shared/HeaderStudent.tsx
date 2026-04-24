@@ -64,8 +64,13 @@ export const HeaderStudent = ({ name }: props) => {
 
                     {/* navbar desktop */}
                     <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 gap-6 md:right-32">
+<<<<<<< HEAD
                         <NavLink icon={MapPin} name="Ofertas" link={routes.estudiante.ofertas} />
                         <NavLink icon={User} name="Mi Perfil" link="/estudiante/profile" />
+=======
+                        <NavLink icon={MapPin} name="Ofertas" link="/" />
+                        <NavLink icon={User} name="Mi Perfil" link="/estudiante/perfil"/>
+>>>>>>> develop
                         <NavLink icon={Search} name="Empleadores" link="/" />
                         <NavLink icon={BookOpen} name="Suscripción" link="/" />
                     </div>
@@ -77,6 +82,7 @@ export const HeaderStudent = ({ name }: props) => {
                 </div>
             </header>
 
+<<<<<<< HEAD
             {/* sidebard de nabvar */}
             <Sidebar open={open} onClose={closeSidebar}>
                 <div className="flex flex-col justify-between h-[90vh]">
@@ -95,6 +101,23 @@ export const HeaderStudent = ({ name }: props) => {
                         </div>
 
                         <SuscriptionCard />
+=======
+        {/* sidebard de nabvar */}
+        <Sidebar open={open} onClose={closeSidebar}>
+            <div className="flex flex-col justify-between h-[90vh]">
+                <div>
+                    <div className="pt-10 px-6 flex items-center gap-4 md:pt-20 md:px-10">
+                        <div className="rounded-full bg-blue-300 h-14 w-14 md:h-17 md:w-17"/>
+                        <div className="flex flex-col gap-0">
+                            <p className="font-semibold text-gray-700 md:text-[20px]">{name}</p>
+                            <Link href='/estudiante/perfil' className="text-gray-600 text-[13px] md:text-[15px]">Ver perfil</Link>
+                        </div>
+                    </div> 
+                    <div className="flex flex-col pt-6 gap-2 md:gap-6 lg:hidden">
+                        <NavLink icon={MapPin} name="Ofertas" link="/estudiante/perfil" />
+                        <NavLink icon={Search} name="Empleadores" link="/" />
+                        <NavLink icon={BookOpen} name="Suscripción" link="/" />
+>>>>>>> develop
                     </div>
 
                     <div className="flex flex-col gap-2 md:gap-4">
