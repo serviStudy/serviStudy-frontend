@@ -2,10 +2,10 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 
-export default function ProfileEditRedirect() {
+export default function ProfileRedirect() {
   const router = useRouter()
   useEffect(() => {
-    router.replace('/empleador/perfil/editar')
+    router.replace('/empleador/perfil')
   }, [router])
   return null
 }

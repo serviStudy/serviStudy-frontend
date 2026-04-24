@@ -3,7 +3,6 @@
 import { LoadingScreen } from '@/components/shared/LoadingScreen'
 import { useEditEmployerProfile } from '@/features/profile/employer/hooks/useEditEmployerProfile'
 import { EditProfileForm } from '@/features/profile/employer/components/EditProfileForm'
-import { HeaderEmployer } from '@/components/shared/HeaderEmployer'
 import { motion } from 'framer-motion'
 
 export default function EditProfilePage() {
@@ -46,12 +45,11 @@ export default function EditProfilePage() {
          <div className="absolute inset-0 bg-dot-pattern opacity-[0.3]" />
       </div>
 
-      <HeaderEmployer name={''} />
 
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="w-full px-4 lg:px-0 flex justify-center mt-12 mb-20 relative z-10"
+        className="w-full px-4 lg:px-0 flex justify-center mt-4 mb-20 relative z-10"
       >
         <EditProfileForm 
           formData={formData}
