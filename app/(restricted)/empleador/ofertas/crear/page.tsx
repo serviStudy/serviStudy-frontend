@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { JobOfferForm } from "@/features/restricted/employer/jobOffer/components/form/JobOfferForm";
 import { createJobOffer } from "@/features/restricted/employer/jobOffer/service/jobOffer.service";
-import { HeaderEmployer } from "@/components/shared/HeaderEmployer";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
 
@@ -42,7 +41,6 @@ export default function CreateJobOfferPage() {
          <div className="absolute inset-0 bg-dot-pattern opacity-[0.3]" />
       </div>
 
-      <HeaderEmployer name={""} />
 
       <main className="relative z-10 py-12 px-4 flex justify-center">
         <motion.div 

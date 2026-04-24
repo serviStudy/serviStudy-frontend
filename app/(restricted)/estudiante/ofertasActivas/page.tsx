@@ -13,28 +13,28 @@ const page = () => {
     const {offers, selectedOffer, setSelectedOffer, loading} = useActiveOffers();
     const {setSearchTerm, setSelectedDays, setSelectedJornada, filteredOffers} = useOfferFilter(offers)
     const [inputValue, setInputValue] = useState("")
-    
+
     const handleInputChange = (value: string) => {
         setInputValue(value);
 
-        if(value.trim() === ""){
+        if (value.trim() === "") {
             setSearchTerm("")
         }
     }
 
     const toggleDay = (day: string) => {
-        setSelectedDays((prev) => 
+        setSelectedDays((prev) =>
             prev.includes(day)
-            ? prev.filter((d) => d !== day)
-            : [...prev, day]
+                ? prev.filter((d) => d !== day)
+                : [...prev, day]
         )
     }
 
     const toggleJornada = (jornada: string) => {
-        setSelectedJornada((prev) => 
+        setSelectedJornada((prev) =>
             prev.includes(jornada)
-            ? prev.filter((j) => j !== jornada)
-            : [...prev, jornada]
+                ? prev.filter((j) => j !== jornada)
+                : [...prev, jornada]
         )
     }
 
@@ -81,7 +81,7 @@ const page = () => {
                     </div>
                     
                     {filteredOffers.length > 0 && selectedOffer ? (
-                        <InfoCard offer={selectedOffer}/>
+                        <InfoCard offer={selectedOffer} />
                     ) : (
                         <div className='flex items-center justify-center rounded-[21px] lg:max-w-108 w-[85vw] bg-white/30 backdrop-blur-md min-h-7'>
                         </div>

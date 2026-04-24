@@ -1,53 +1,69 @@
 "use client";
 
-import { BookOpen, Info, MapPin, Menu, Search, Settings, User} from "lucide-react";
+import { useState, useEffect } from 'react';
+
+import { BookOpen, Info, MapPin, Menu, Search, Settings, User } from "lucide-react";
 
 import Image from "next/image";
 import NavLink from "../ui/NavLink";
 import { useSidebar } from "../../hooks/useSidebar";
 import { Sidebar } from "./Sidebar";
 import Link from "next/link";
-import { SuscriptionCard } from "./SuscriptionCard";
-import { routes } from "@/type/routes";
-import { useState } from "react";
+
 
 interface props {
     name: string;
 }
 
-export const HeaderStudent = ( { name }: props ) => {
-    const { open, openSidebar, closeSidebar } = useSidebar()
-    const [isScrolled, setIsScrolled] = useState(false)
-    
+export const HeaderStudent = ({ name }: props) => {
+    const { open, openSidebar, closeSidebar } = useSidebar();
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 20);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     return (
         <>
-        <div className="bg-white w-full fixed top-0 z-50 shadow-sm">
-            <header className="border-b">
-
+            <header
+                className={`fixed top-0 z-50 w-full transition-all duration-300 ${isScrolled
+                    ? "bg-white/80 backdrop-blur-xl shadow-[0_2px_20px_-5px_rgba(0,0,0,0.1)] py-2"
+                    : "bg-background/95 backdrop-blur-md py-3"
+                    }`}
+            >
                 {/* BRAND ACCENT LINE */}
-                <div className={`absolute bottom-0 left-0 h-0.5 w-full transition-all duration-500 bg-linear-to-r from-blue-600 via-green-400 to-blue-600 opacity-60 ${isScrolled ? "scale-x-100" : "scale-x-0"
+                <div className={`absolute bottom-0 left-0 h-[2px] w-full transition-all duration-500 bg-linear-to-r from-blue-600 via-green-400 to-blue-600 opacity-60 ${isScrolled ? "scale-x-100" : "scale-x-0"
                     }`} />
 
-                <div className="flex h-16 px-4 md:px-6 w-full items-center justify-between lg:px-16 lg:justify-stretch">
+                <div className="flex h-12 md:h-14 px-4 md:px-6 w-full items-center justify-between lg:px-16 mx-auto">
 
                     {/* logo */}
-                    <div className="flex items-center gap-2">
-                        <Image
-                            src="/logo.jpg"
-                            alt="Logo ServiStudy"
-                            width={300}
-                            height={300}
-                            className="w-auto h-12 md:h-14 lg:h-14"
-                        />
-                        <h1 className="text-blue-900 font-extrabold text-[19px] md:text-[24px] lg:text-[24px]">
-                            Servi<span className="text-blue-500">Study</span>
-                        </h1>
+                    <div className="flex items-center gap-2 md:gap-3 transition-transform duration-300 hover:scale-[1.02]">
+                        <Link href="/" className="flex items-center shrink-0">
+                            <Image
+                                src="/logo.jpg"
+                                alt="Logo ServiStudy"
+                                width={300}
+                                height={300}
+                                priority
+                                className="h-10 w-auto md:h-12 lg:h-12 rounded-lg"
+                            />
+                        </Link>
+
+                        <Link href="/" className="flex items-center">
+                            <h1 className="text-blue-900 font-extrabold text-[18px] md:text-[22px] lg:text-[22px] tracking-tight">
+                                Servi<span className="text-blue-500 transition-colors duration-500">Study</span>
+                            </h1>
+                        </Link>
                     </div>
 
                     {/* navbar desktop */}
                     <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 gap-6 md:right-32">
-                        <NavLink icon={MapPin} name="Ofertas" link="/estudiante/ofertasActivas" />
+                        <NavLink icon={MapPin} name="Ofertas" link="/" />
                         <NavLink icon={User} name="Mi Perfil" link="/estudiante/perfil"/>
                         <NavLink icon={Search} name="Empleadores" link="/" />
                         <NavLink icon={BookOpen} name="Suscripción" link="/" />
@@ -59,7 +75,6 @@ export const HeaderStudent = ( { name }: props ) => {
                     </button>
                 </div>
             </header>
-        </div>
 
         {/* sidebard de nabvar */}
         <Sidebar open={open} onClose={closeSidebar}>
@@ -78,21 +93,19 @@ export const HeaderStudent = ( { name }: props ) => {
                         <NavLink icon={BookOpen} name="Suscripción" link="/" />
                     </div>
 
-                    <SuscriptionCard/>
-                </div>
-
-                <div className="flex flex-col gap-2 md:gap-4">
-                    <div className="flex pl-6 md:px-10 gap-3 items-center">
-                        <Settings className="text-gray-500 w-4.5 md:h-7"/>
-                        <p className="text-[14px] md:text-[18px] font-semibold text-gray-600">Ajustes</p>
-                    </div>
-                    <div className="flex px-6 md:px-10 gap-3 items-center">
-                        <Info className="text-gray-500 w-4.5 md:h-7"/>
-                        <p className="text-[14px] md:text-[18px] font-semibold text-gray-600">Más informacion</p>
+                    <div className="flex flex-col gap-2 md:gap-4">
+                        <div className="flex pl-6 md:px-10 gap-3 items-center">
+                            <Settings className="text-gray-500 w-4.5 md:h-7" />
+                            <p className="text-[14px] md:text-[18px] font-semibold text-gray-600">Ajustes</p>
+                        </div>
+                        <div className="flex px-6 md:px-10 gap-3 items-center">
+                            <Info className="text-gray-500 w-4.5 md:h-7" />
+                            <p className="text-[14px] md:text-[18px] font-semibold text-gray-600">Más informacion</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </Sidebar>
+            </Sidebar>
         </>
     );
 };

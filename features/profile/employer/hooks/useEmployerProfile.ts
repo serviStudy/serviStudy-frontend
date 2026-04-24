@@ -1,28 +1,31 @@
 import { useState, useEffect } from 'react'
 import { getEmployerProfile, type EmployerProfileResponse } from '../services/profileService'
 
+// Cache persistente en memoria para carga instantánea
+let globalProfileCache: EmployerProfileResponse | null = null;
+let isFirstLoad = true;
+
 export const useEmployerProfile = () => {
-  const [loading, setLoading] = useState(true)
-  const [profile, setProfile] = useState<EmployerProfileResponse>({})
+  const [profile, setProfile] = useState<EmployerProfileResponse>(globalProfileCache || {})
+  const [loading, setLoading] = useState(isFirstLoad && !globalProfileCache)
   const [email, setEmail] = useState("")
 
   useEffect(() => {
-    setEmail(localStorage.getItem("user_email") ?? "")
-
-    const storedProfile = localStorage.getItem("last_profile");
-    if (storedProfile) {
-      try {
-        setProfile(JSON.parse(storedProfile));
-        setLoading(false); // Consider half-loaded if we have cache
-      } catch (e) {}
+    // Si ya tenemos cache, dejamos de mostrar el skeleton principal inmediatamente
+    if (globalProfileCache) {
+      setLoading(false);
     }
+
+    setEmail(localStorage.getItem("user_email") ?? "")
 
     const loadProfile = async () => {
       try {
         const data = await getEmployerProfile()
         if (data) {
+          globalProfileCache = data;
           setProfile(data);
           localStorage.setItem("last_profile", JSON.stringify(data));
+          
           const id = data.employerId || data.employer_id || data.id;
           if (id) localStorage.setItem("employer_id", id);
         }
@@ -30,6 +33,7 @@ export const useEmployerProfile = () => {
         console.error("Error al cargar el perfil:", error)
       } finally {
         setLoading(false)
+        isFirstLoad = false;
       }
     }
 
@@ -41,8 +45,9 @@ export const useEmployerProfile = () => {
     (profile as any).business_name || 
     profile.employerName || 
     (profile as any).employer_name || 
-    email
-  ).charAt(0).toUpperCase() || "E"
+    email ||
+    "E"
+  ).charAt(0).toUpperCase()
 
   return {
     loading,
