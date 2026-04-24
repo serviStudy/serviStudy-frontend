@@ -81,7 +81,7 @@ const page = () => {
                 <div className="absolute w-50 h-50 bg-green-100/60 rounded-full blur-[90px] top-[10%] left-[50%]" />
             </div>
 
-            <HeaderStudent />
+            <HeaderStudent name={''} />
 
             <div className="flex-col gap-7 min-h-[80vh] py-14">
                 <SearchCard inputValue={inputValue} onInputChange={handleInputChange} onSearch={handleSearch} />
