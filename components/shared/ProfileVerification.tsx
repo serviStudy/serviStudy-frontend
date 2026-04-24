@@ -16,7 +16,7 @@ export const ProfileVerification = () => {
                         <div className='items-center flex gap-4 md:text-[16px] lg:text-[20px] lg:flex-row lg:gap-3'>
                             <ShieldCheck className='lg:h-17.5 lg:w-17.5 md:h-14 md:w-14 w-11 h-12 text-white justify-center' strokeWidth={1}/>
                             <div>
-                                <ItemTitle className='font-bold lg:text-[27px] md:text-[22px] text-[17px]'>Verfica tu perfil</ItemTitle>
+                                <ItemTitle className='font-bold lg:text-[27px] md:text-[22px] text-white text-[17px]'>Verfica tu perfil</ItemTitle>
                                 <ItemDescription className='lg:text-[17.5px] md:text-[14px] text-white text-[11px]'>Adjunta tu documento para obtener la etiqueta de verificación</ItemDescription>
                             </div>
                         </div>

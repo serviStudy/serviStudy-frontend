@@ -7,7 +7,7 @@ interface LoadingScreenProps {
 }
 
 export const LoadingScreen: React.FC<LoadingScreenProps> = ({ 
-  background = "bg-gray-200" 
+  background = "" 
 }) => {
   return (
     <div className={`flex min-h-screen items-center justify-center ${background}`}>
