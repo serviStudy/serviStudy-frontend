@@ -36,17 +36,17 @@ export default function CreateJobOfferPage() {
               scale: [1, 1.2, 1] 
             }}
             transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-            className="absolute -top-40 -right-40 w-[800px] h-[800px] bg-[#dcedc1]/20 rounded-full blur-[140px]"
+            className="absolute -top-40 -right-40 w-[800px] h-[800px] bg-green-50/40 rounded-full blur-[140px]"
          />
          <div className="absolute inset-0 bg-dot-pattern opacity-[0.3]" />
       </div>
 
 
-      <main className="relative z-10 py-12 px-4 flex justify-center">
+      <main className="relative z-10 py-8 px-4 flex justify-center">
         <motion.div 
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
+          transition={{ duration: 0.5 }}
           className="w-full"
         >
           <JobOfferForm onSubmit={handleCreate} saving={loading} />

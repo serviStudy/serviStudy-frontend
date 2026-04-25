@@ -40,7 +40,7 @@ export default function EditJobOfferPage() {
               scale: [1, 1.1, 1] 
             }}
             transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-            className="absolute -top-40 -left-40 w-[800px] h-[800px] bg-blue-50/20 rounded-full blur-[140px]"
+            className="absolute -top-40 -left-40 w-[800px] h-[800px] bg-green-50/40 rounded-full blur-[140px]"
          />
          <div className="absolute inset-0 bg-dot-pattern opacity-[0.3]" />
       </div>

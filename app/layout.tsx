@@ -17,7 +17,22 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "ServiStudy",
-  description: "",
+  description: "Conectando talento estudiantil con oportunidades.",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "ServiStudy",
+  },
+  formatDetection: {
+    telephone: false,
+  },
+};
+
+export const viewport = {
+  themeColor: "#16a34a",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
 };
 
 export default function RootLayout({
@@ -29,6 +44,7 @@ export default function RootLayout({
     <html lang="es" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        suppressHydrationWarning
       >
         {children}
         <footer>
