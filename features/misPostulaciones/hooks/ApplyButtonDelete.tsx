@@ -3,19 +3,17 @@
 import React from 'react'
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
-import { deleteApplication } from '@/features/postPostularse/service/postulacionService';
+import { deleteApplication } from '../services/applicationService';
 
 interface Props {
-    postulationId: string;
+    jobOfferId: string;
 }
 
-export const ApplyButtonDelete = ({postulationId}: Props) => {
+export const ApplyButtonDelete = ({jobOfferId}: Props) => {
     const handleApply = async () => {
         try {
-            await deleteApplication({
-                id: postulationId
-            })
-            alert("Postulación eliminada con exito")
+            await deleteApplication(jobOfferId)
+            toast.success("Postulación eliminada con exito")
         }catch (error) {
             console.log(error)
             toast.error("Error al retirar postulación");
@@ -23,6 +21,6 @@ export const ApplyButtonDelete = ({postulationId}: Props) => {
     }
 
     return (
-        <Button className='bg-green-50 border border-green-900 text-green-900 py-1 w-auto px-7 rounded-2xl font-semibold' onClick={handleApply}>Retirar postulación</Button>
+        <Button className='bg-green-50 border cursor-pointer border-green-900 text-green-900 py-1 w-auto px-7 rounded-2xl font-semibold' onClick={handleApply}>Retirar postulación</Button>
     )
-}
+} 

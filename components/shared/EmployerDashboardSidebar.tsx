@@ -40,12 +40,13 @@ export const EmployerDashboardSidebar = () => {
       {/* Mobile Header */}
       <header className="lg:hidden fixed top-0 left-0 w-full h-16 bg-white/90 backdrop-blur-md border-b border-gray-100 z-40 flex items-center justify-between px-4">
         <Link href="/" className="flex items-center gap-2 group">
+
           <div className="relative w-8 h-8 transition-transform group-hover:scale-110 duration-500">
-             <img 
-               src="/logo.jpg" 
-               alt="ServiStudy Logo" 
-               className="w-full h-full object-contain mix-blend-multiply" 
-             />
+              <img 
+                src="/logo.jpg" 
+                alt="ServiStudy Logo" 
+                className="w-full h-full object-contain mix-blend-multiply" 
+              />
           </div>
           <span className="text-lg font-bold tracking-tighter">
             <span className="text-blue-900">Servi</span>
@@ -82,11 +83,11 @@ export const EmployerDashboardSidebar = () => {
         <div className="p-6 h-20 flex items-center">
           <Link href="/" className="flex items-center gap-2 group" onClick={closeMobile}>
             <div className="relative w-10 h-10 transition-transform group-hover:scale-110 duration-500">
-               <img 
-                 src="/logo.jpg" 
-                 alt="ServiStudy Logo" 
-                 className="w-full h-full object-contain mix-blend-multiply" 
-               />
+                <img 
+                  src="/logo.jpg" 
+                  alt="ServiStudy Logo" 
+                  className="w-full h-full object-contain mix-blend-multiply" 
+                />
             </div>
             <span className="text-2xl font-bold tracking-tighter">
               <span className="text-blue-900">Servi</span>
