@@ -1,6 +1,5 @@
 import { JobOfferDTO } from "@/features/restricted/employer/jobOffer/types/jobOffer.types";
 import { getAuthHeaders } from "@/lib/api/authHeaders";
-import { parseOfferHack } from "@/features/restricted/employer/jobOffer/utils/parseOfferHack";
 
 export const getEmployerOfferById = async (
     id: string
@@ -33,3 +32,7 @@ export const getEmployerOfferById = async (
         id,
     };
 };
+
+function parseOfferHack(arg0: any): JobOfferDTO {
+    throw new Error("Function not implemented.");
+}
