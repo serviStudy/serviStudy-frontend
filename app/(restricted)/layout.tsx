@@ -2,7 +2,6 @@ import { cookies } from "next/headers";
 import { jwtVerify, JWTPayload } from "jose";
 import { EmployerDashboardSidebar } from "@/components/shared/EmployerDashboardSidebar";
 import { StudentSidebar } from "@/components/shared/StudentSidebar";
-import { RestrictedHeader } from "../../components/shared/RestrictedHeader";
 
 interface TokenPayload extends JWTPayload {
   role: "EMPLOYER" | "STUDENT";
