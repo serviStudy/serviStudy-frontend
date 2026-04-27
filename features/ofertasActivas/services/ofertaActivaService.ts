@@ -1,10 +1,12 @@
 import { getAuthHeaders } from "@/lib/api/authHeaders";
 import { ActiveOffer, ActiveOffersResponse } from "../types/ofertasActivas.types";
+import { Offer } from "@/features/postPostularse/types/offer";
+import { mapActiveOfferToOffer } from "../mappers/offerMapper";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const ACTIVE_OFFERS_URL = `${API_URL}/offers`;
 
-export const getActiveOffers = async (): Promise<ActiveOffer[] | null> => {
+export const getActiveOffers = async (): Promise<Offer[] | null> => {
     const res = await fetch(ACTIVE_OFFERS_URL, {
         headers: getAuthHeaders()
     })
@@ -15,5 +17,7 @@ export const getActiveOffers = async (): Promise<ActiveOffer[] | null> => {
 
     if (!res.ok) throw new Error(data.message || "Error al obtener ofertas");
 
-    return data.data ?? data;
+    const rawOffers: ActiveOffer[] = data.data ?? data;
+    
+    return rawOffers.map(mapActiveOfferToOffer);
 }

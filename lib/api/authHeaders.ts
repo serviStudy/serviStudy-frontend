@@ -4,6 +4,7 @@ export const getAuthHeaders = (): Record<string, string> => {
     if (!token) return {}
 
     return{
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "Application/json",
     }
 }
