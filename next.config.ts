@@ -13,6 +13,14 @@ const withPWA = withPWAInit({
 const nextConfig: NextConfig = {
   // Silences the Turbopack/Webpack error caused by the PWA plugin during 'next dev'
   turbopack: {},
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+      },
+    ],
+  },
 };
 
 export default withPWA(nextConfig);
