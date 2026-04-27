@@ -1,12 +1,12 @@
 import { CircleDollarSign, LocationEditIcon } from 'lucide-react'
 import React from 'react'
-import { ActiveOffer } from '../types/ofertasActivas.types'
+import { Offer } from '@/features/postPostularse/types/offer'
 import { ConvertWorkDayTags } from '../hooks/ConvertWorkDayTags'
 import { ConvertJornadaTags } from '../hooks/ConvertJornadaTags'
 import Image from "next/image";
 
 type Props = {
-    offer: ActiveOffer
+    offer: Offer
     isSelected: boolean
 }
 
@@ -20,11 +20,13 @@ const ResultCrad = ({ offer }: Props) => {
         <div className='lg:w-138 lg:h-34 w-100 h-28 rounded-[21px] bg-white'>
             <div className='flex h-full gap-8 pl-10 items-center'>
                 {/* foto de la oferta */}
-                <div className='w-21.25 h-21.25 bg-gray-200 rounded-[10px]'>
+                <div className='w-23 h-23 bg-transparent'>
                     <Image
-                        src={offer.imageUrl}
+                        width={123}
+                        height={30}
+                        src={offer.imageUrl || "/placeholder-job.png"}
                         alt={offer.title}
-                        className='object-cover'                 
+                        className='object-cover rounded-[10px]'                 
                     />
                 </div>
 
@@ -35,7 +37,7 @@ const ResultCrad = ({ offer }: Props) => {
                         <div className='flex gap-5'>
                             <div className='flex gap-1 items-center'>
                                 <LocationEditIcon className='text-green-700 h-4 w-4'/>
-                                <p className='text-green-700 text-[12px] font-medium'>{offer.establishmentAddress}</p>
+                                <p className='text-green-700 text-[12px] font-medium'>{offer.address}</p>
                             </div>
 
                             <div className='flex gap-1 items-center'>

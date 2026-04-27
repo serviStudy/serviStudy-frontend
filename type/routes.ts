@@ -1,13 +1,15 @@
 export const routes = {
     estudiante: {
-        profile: "estudiante/perfil",
-        edit: "perfil/editar-perfil"
+        profile: "estudiante/profile",
+        edit: "profile/editProfile",
+        ofertas: "ofertasActivas",
+        postulaciones: "misPostulaciones"
     },
     empleador: {
         profile: "/empleador/perfil",
         edit: "/empleador/perfil/editar",
         search: "/empleador/buscar",
-        oferta: "/empleador/oferta",
+        oferta: "ofertas",
         ofertas: "/empleador/ofertas",
         suscripcion: "/empleador/suscripcion"
     }

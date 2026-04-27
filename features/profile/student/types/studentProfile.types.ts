@@ -10,7 +10,7 @@ export interface StudentProfileResponse {
   email?: string;
   contactNumber?: string;
   description?: string;
-  verifyStatus?: boolean;
+  verificationStatus?: boolean;
   imgUrl?: string;
   workDays?: string[];
   workSchedule?: string;

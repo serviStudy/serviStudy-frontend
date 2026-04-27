@@ -33,7 +33,7 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
       <div className="w-full max-w-228 rounded-[24px] bg-white shadow-sm overflow-hidden border border-gray-100">
         <div className="h-30 w-full bg-popover lg:h-40 relative">
           <Link
-            href="/estudiante/profile/editProfile"
+            href="/estudiante/perfil/editar-perfil"
             className="absolute top-6 right-6 lg:top-8 lg:right-8 bg-[#2552d0] p-3 rounded-xl hover:bg-blue-800 transition-colors shadow-sm"
           >
             <SquarePen className="h-5 w-5 text-white" />
