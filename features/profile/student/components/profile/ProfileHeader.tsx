@@ -46,7 +46,7 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({ profile, email, in
         <div className="mt-4 flex">
           <span className="flex items-center gap-1.5 rounded-full border border-gray-300 px-3 py-1 text-xs text-gray-500 font-medium">
             <CheckCircle2 className="h-3.5 w-3.5" />
-            {profile.verifyStatus ? "Estudiante verificado" : "Estudiante no verificado"}
+            {profile.verificationStatus ? "Estudiante verificado" : "Estudiante no verificado"}
           </span>
         </div>
       </div>

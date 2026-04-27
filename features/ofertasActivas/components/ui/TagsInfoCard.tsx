@@ -1,13 +1,12 @@
 import { Calendar, CircleDollarSign, Clock, MapPin } from 'lucide-react'
 import React from 'react'
-import { ActiveOffer } from '../../types/ofertasActivas.types';
+import { Offer } from '@/features/postPostularse/types/offer';
 import { formatLabel } from '../../hooks/FormatLabel';
-import { spawn } from 'child_process';
 import { ConvertWorkDayTags } from '../../hooks/ConvertWorkDayTags';
 import { ConvertJornadaTags } from '../../hooks/ConvertJornadaTags';
 
 interface TagsCardProps {
-    offer: ActiveOffer;
+    offer: Offer;
 }
 
 export const TagsInfoCard = ({ offer }: TagsCardProps) => {
@@ -32,7 +31,7 @@ export const TagsInfoCard = ({ offer }: TagsCardProps) => {
                     <MapPin className='h-5 w-5'/>
                     <p className='font-medium'>Dirección</p>
                 </div>
-                <p className='text-gray-500 font-semibold text-[13px] pl-7'>{offer.establishmentAddress}</p>
+                <p className='text-gray-500 font-semibold text-[13px] pl-7'>{offer.address}</p>
             </div>
 
             <div className='bg-amber-100 space-x-0 w-auto px-3 lg:px-5 py-2 rounded-[7px]'>

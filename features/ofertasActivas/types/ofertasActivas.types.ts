@@ -1,10 +1,10 @@
 export interface OfferRequeriment {
-    requerimentName: string;
+    requirementName: string;
 }
 
 export interface ActiveOffer {
-    jobOfferId: string;
-    bussinesName: string;
+    jobOfferId?: string;
+    businessName: string;
     imageUrl: string;
     title: string;
     establishmentAddress: string;
@@ -16,6 +16,11 @@ export interface ActiveOffer {
     createdAt: string;
     requirements: OfferRequeriment[]
 }
+
+export type WorkSchedule =
+    | "FULL_TIME"
+    | "PART_TIME"
+    | "FLEXIBLE";
 
 export interface ActiveOffersResponse {
     message: string;
