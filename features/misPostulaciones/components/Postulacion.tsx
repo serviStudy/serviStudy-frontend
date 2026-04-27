@@ -62,7 +62,7 @@ export const Postulacion = ({data}: Props) => {
                         <p className='text-gray-500 px-1 text-[13px]'>{data.jobOffer.salaryDescription}</p>
                     </div>
                     <div className='flex gap-4'>
-                        <ApplyButtonDelete postulationId={data.applicantId}></ApplyButtonDelete>
+                        <ApplyButtonDelete jobOfferId={data.jobOffer.jobOfferId}></ApplyButtonDelete>
                         <Link className='bg-primary text-white rounded-full h-9 py-1 w-auto px-12 font-semibold' href={`/estudiante/postulacion/${data.jobOffer.jobOfferId}`}>Ver oferta</Link>
                     </div>
                 </div>

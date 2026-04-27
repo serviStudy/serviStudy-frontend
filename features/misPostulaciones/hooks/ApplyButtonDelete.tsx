@@ -6,13 +6,13 @@ import { Button } from '@/components/ui/button';
 import { deleteApplication } from '../services/applicationService';
 
 interface Props {
-    postulationId: string;
+    jobOfferId: string;
 }
 
-export const ApplyButtonDelete = ({postulationId}: Props) => {
+export const ApplyButtonDelete = ({jobOfferId}: Props) => {
     const handleApply = async () => {
         try {
-            await deleteApplication(postulationId)
+            await deleteApplication(jobOfferId)
             toast.success("Postulación eliminada con exito")
         }catch (error) {
             console.log(error)

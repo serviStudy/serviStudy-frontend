@@ -28,7 +28,7 @@ export const getApplications = async (): Promise<ApplicationPageResponse> => {
 
 
 // delete application
-type DeleteApplication = ApplicationResponse["applicantId"]
+type DeleteApplication = ApplicationResponse["jobOfferId"]
 
 export const deleteApplication = async (id: DeleteApplication): Promise<void> => {
     const res = await fetch(`${API_URL}/applicants/${id}`, {

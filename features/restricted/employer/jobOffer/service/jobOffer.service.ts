@@ -116,7 +116,6 @@ export const getEmployerOffers = async (): Promise<JobOfferDTO[]> => {
 export const getEmployerOfferById = async (id: string): Promise<JobOfferDTO | undefined> => {
   const res = await fetch(`/api/offers/${id}`, {
     headers: getServiceHeaders(),
-    cache: "no-store",
   });
 
   if (res.status === 404) return undefined;
