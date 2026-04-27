@@ -22,15 +22,15 @@ export const TagsInfoCard = ({ offer }: TagsCardProps) => {
     ];
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
             {infoItems.map((item, idx) => (
-                <div key={idx} className="flex items-center gap-3 p-3 rounded-2xl bg-gray-50/50 border border-gray-100 hover:bg-white hover:shadow-sm transition-all">
-                    <div className={`p-2 rounded-xl bg-${item.color}-100 text-${item.color}-600`}>
-                        <item.icon size={18} />
+                <div key={idx} className="flex items-center gap-4 p-4 rounded-[20px] bg-gray-50/50 border border-gray-100 hover:shadow-sm hover:border-gray-200 transition-all duration-300">
+                    <div className={`p-2.5 rounded-xl bg-white text-${item.color}-600 shadow-sm border border-gray-100/80`}>
+                        <item.icon size={18} strokeWidth={2.5} />
                     </div>
                     <div className="flex flex-col min-w-0">
-                        <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">{item.label}</p>
-                        <p className="text-sm font-bold text-gray-700 truncate">{item.value}</p>
+                        <p className="text-[11px] font-bold text-gray-500 uppercase tracking-wider">{item.label}</p>
+                        <p className="text-sm font-extrabold text-gray-800 truncate">{item.value}</p>
                     </div>
                 </div>
             ))}

@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useEmployerProfile } from "@/features/profile/employer/hooks/useEmployerProfile";
 import { useJobOffers } from "@/features/restricted/employer/jobOffer/hooks/useJobOffers";
 import { JobOfferStatus } from "@/features/misPostulaciones/types/offersTypes";
-import { OfferCard } from "@/features/restricted/employer/jobOffer/components/OfferCard";
 import { SelectOfferCard } from "./selectOfferCard";
 import { OfferHeaderApplicants } from "./OfferHeaderApplicants";
 

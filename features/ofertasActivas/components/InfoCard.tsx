@@ -20,7 +20,7 @@ export const InfoCard = ({ offer }: InfoCardProps) => {
     }
 
     return (
-        <div className='w-full lg:sticky lg:top-8 overflow-hidden rounded-[32px] bg-white shadow-sm border border-gray-100'>
+        <div className='w-full lg:sticky lg:top-8 rounded-[32px] bg-white border border-transparent'>
             <HeaderInfoCard offer={offer}/>
             
             <div className='px-6 md:px-8 pb-8'>
@@ -32,7 +32,7 @@ export const InfoCard = ({ offer }: InfoCardProps) => {
 
                 <div className='mt-4 w-full'>
                     <Link 
-                        className='group flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-2xl transition-all shadow-lg shadow-blue-200 active:scale-[0.98]' 
+                        className='group flex items-center justify-center gap-2 bg-[#1a4b9e] hover:bg-[#14346e] text-white font-bold py-4 px-6 rounded-2xl transition-all shadow-lg shadow-blue-200 active:scale-[0.98]' 
                         href={`/estudiante/postulacion/${offer.id}`}
                     >
                         <span>Ver más detalles</span>
