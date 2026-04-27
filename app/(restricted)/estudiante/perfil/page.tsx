@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { motion, Variants } from 'framer-motion'
 import { 
     Loader2, SquarePen, Mail, Phone, CheckCircle2, User, Zap, Clock, Calendar, Users, MapPin, Briefcase
 } from 'lucide-react'
@@ -13,7 +13,7 @@ import { normalizeDays, isWeekDays, isWeekend, isSpecificDays } from '@/features
 import { WorkDaysModal } from '@/features/profile/student/components/modals/WorkDaysModal'
 import { Tag } from '@/features/profile/student/components/ui/Tag'
 
-const containerVariants = {
+const containerVariants: Variants = {
     hidden: { opacity: 0 },
     show: {
         opacity: 1,
@@ -23,7 +23,7 @@ const containerVariants = {
     },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
 };
