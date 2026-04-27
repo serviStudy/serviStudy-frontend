@@ -9,7 +9,7 @@ interface ProfileOffersListProps {
 }
 
 export const ProfileOffersList = ({ imageUrl, businessName }: ProfileOffersListProps) => {
-  const { offers, loading } = useJobOffers();
+  const { offers, loading, refresh } = useJobOffers();
 
   if (loading) return <OffersListSkeleton />;
 
@@ -29,6 +29,7 @@ export const ProfileOffersList = ({ imageUrl, businessName }: ProfileOffersListP
             offer={offer} 
             imageUrl={imageUrl} 
             businessName={businessName}
+            onStatusChange={refresh}
           />
         );
       })}
