@@ -17,22 +17,22 @@ const ResultCrad = ({ offer }: Props) => {
     const jornadaTags = ConvertJornadaTags(offer.workSchedule)
 
     return (
-        <div className='lg:w-138 lg:h-34 w-100 h-28 rounded-[21px] bg-white'>
-            <div className='flex h-full gap-8 pl-10 items-center'>
+        <div className='w-full rounded-[24px] bg-white p-4 md:p-6 transition-all border border-gray-100 shadow-sm hover:shadow-md'>
+            <div className='flex gap-4 md:gap-6 items-center'>
                 {/* foto de la oferta */}
-                <div className='w-23 h-23 bg-transparent'>
+                <div className='w-16 h-16 md:w-20 md:h-20 shrink-0 bg-gray-50 rounded-2xl overflow-hidden flex items-center justify-center'>
                     <Image
-                        width={123}
-                        height={30}
+                        width={80}
+                        height={80}
                         src={offer.imageUrl || "/placeholder-job.png"}
                         alt={offer.title}
-                        className='object-cover rounded-[10px]'                 
+                        className='object-cover w-full h-full'                 
                     />
                 </div>
 
-                <div className='flex flex-col gap-4'>
+                <div className='flex flex-col gap-3 flex-1 min-w-0'>
                     <div className='flex flex-col gap-1'>
-                            <p className='text-primary font-bold text-[18px]'>{offer.title}</p>
+                            <p className='text-blue-900 font-bold text-lg md:text-xl truncate'>{offer.title}</p>
 
                         <div className='flex gap-5'>
                             <div className='flex gap-1 items-center'>
@@ -47,15 +47,15 @@ const ResultCrad = ({ offer }: Props) => {
                         </div>
                     </div>
 
-                    <div className='flex gap-4 flex-wrap'>
-                        <span className='border rounded-2xl border-orange-600 bg-orange-100 text-orange-700 px-3 py-1 text-xs font-semibold'>
+                    <div className='flex gap-2 flex-wrap'>
+                        <span className='px-3 py-1 bg-amber-50 text-amber-700 rounded-lg text-xs font-bold uppercase tracking-wider border border-amber-100'>
                             {jornadaTags}
                         </span>
 
                         {dayTags.map((tag) => (
                             <span
                                 key={tag}
-                                className="border rounded-2xl border-green-700 bg-green-100 text-green-700 px-3 py-1 text-xs font-semibold"
+                                className="px-3 py-1 bg-green-50 text-green-700 rounded-lg text-xs font-bold border border-green-100"
                             >
                                 {tag}
                             </span>

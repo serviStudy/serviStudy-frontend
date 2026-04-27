@@ -30,11 +30,11 @@ export const EmployerDashboardSidebar = () => {
       <div className="p-6">
         <Link href="/" className="flex items-center gap-2 group">
           <div className="relative w-12 h-12 transition-transform group-hover:scale-110 duration-500">
-             <img 
-               src="/logo.jpg" 
-               alt="ServiStudy Logo" 
-               className="w-full h-full object-contain mix-blend-multiply" 
-             />
+              <img 
+                src="/logo.jpg" 
+                alt="ServiStudy Logo" 
+                className="w-full h-full object-contain mix-blend-multiply" 
+              />
           </div>
           <span className="text-2xl font-bold tracking-tighter">
             <span className="text-blue-900">Servi</span>

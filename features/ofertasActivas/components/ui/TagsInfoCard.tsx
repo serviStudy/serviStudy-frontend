@@ -1,7 +1,6 @@
 import { Calendar, CircleDollarSign, Clock, MapPin } from 'lucide-react'
 import React from 'react'
 import { Offer } from '@/features/postPostularse/types/offer';
-import { formatLabel } from '../../hooks/FormatLabel';
 import { ConvertWorkDayTags } from '../../hooks/ConvertWorkDayTags';
 import { ConvertJornadaTags } from '../../hooks/ConvertJornadaTags';
 
@@ -15,49 +14,26 @@ export const TagsInfoCard = ({ offer }: TagsCardProps) => {
     const dayTags = ConvertWorkDayTags(offer.workDays)
     const jornadaTags = ConvertJornadaTags(offer.workSchedule)
 
+    const infoItems = [
+        { icon: CircleDollarSign, label: 'Salario', value: offer.salary, color: 'blue' },
+        { icon: MapPin, label: 'Dirección', value: offer.address, color: 'emerald' },
+        { icon: Clock, label: 'Jornada', value: jornadaTags, color: 'amber' },
+        { icon: Calendar, label: 'Días laborales', value: dayTags.join(", "), color: 'green' },
+    ];
+
     return (
-        <div className='w-full md:pt-12 pt-10 flex flex-wrap gap-2 md:gap-3'>
-            
-            <div className='bg-sky-100 w-auto px-3 lg:px-5 py-2 rounded-[7px]'>
-                <div className='flex lg:-mb-0.5 -mb-1 gap-1.5 items-center text-primary'>
-                    <CircleDollarSign className='h-5 w-5'/>
-                    <p className='font-medium'>Salario</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-6">
+            {infoItems.map((item, idx) => (
+                <div key={idx} className="flex items-center gap-3 p-3 rounded-2xl bg-gray-50/50 border border-gray-100 hover:bg-white hover:shadow-sm transition-all">
+                    <div className={`p-2 rounded-xl bg-${item.color}-100 text-${item.color}-600`}>
+                        <item.icon size={18} />
+                    </div>
+                    <div className="flex flex-col min-w-0">
+                        <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">{item.label}</p>
+                        <p className="text-sm font-bold text-gray-700 truncate">{item.value}</p>
+                    </div>
                 </div>
-                <p className='text-gray-500 font-semibold text-[13px] pl-7'>{offer.salary}</p>
-            </div>
-
-            <div className='bg-emerald-100 space-x-0 w-auto px-3 lg:px-5 py-2 rounded-[7px]'>
-                <div className='flex lg:-mb-0.5 -mb-1 gap-1.5 items-center text-green-700'>
-                    <MapPin className='h-5 w-5'/>
-                    <p className='font-medium'>Dirección</p>
-                </div>
-                <p className='text-gray-500 font-semibold text-[13px] pl-7'>{offer.address}</p>
-            </div>
-
-            <div className='bg-amber-100 space-x-0 w-auto px-3 lg:px-5 py-2 rounded-[7px]'>
-                <div className='flex lg:-mb-0.5 -mb-1 gap-1.5 items-center text-orange-700'>
-                    <Clock className='h-5 w-5'/>
-                    <p className='font-medium'>Jornada</p>
-                </div>
-                <span className='text-gray-500 font-semibold text-[13px] pl-7'>
-                    {jornadaTags}
-                </span>
-            </div>
-
-            <div className='bg-emerald-100 space-x-0 w-auto px-3 lg:px-5 py-2 rounded-[7px]'>
-                <div className='flex gap-1.5 lg:-mb-0.5 -mb-1 items-center text-green-700'>
-                    <Calendar className='h-5 w-5'/>
-                    <p className='font-medium'>Días laborales</p>
-                </div>
-                {dayTags.map((tag) => (
-                    <span
-                        key={tag}
-                        className='text-gray-500 font-semibold text-[13px] pl-7'
-                    >
-                        {tag}
-                    </span>
-                ))}
-            </div>
+            ))}
         </div>
     )
 }

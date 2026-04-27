@@ -11,7 +11,7 @@ const ProfilePage = () => {
 
     if (loading || !profile) {
         return (
-            <div className="flex min-h-[90vh] items-center justify-center bg-gray-200">
+            <div className="flex min-h-[90vh] items-center justify-center ">
                 <HeaderLR />
                 <Loader2 className="h-10 w-10 animate-spin text-[#1a4b9e]" />
             </div>
@@ -19,7 +19,7 @@ const ProfilePage = () => {
     }
 
     return (
-        <div className="flex flex-col gap-9 min-h-[90vh] items-center bg-gray-200 pt-16 md:pt-10 lg:pt-18 pb-12 px-4 lg:px-0 w-full">
+        <div className="flex flex-col gap-9 min-h-[90vh] items-center  pt-16 md:pt-10 lg:pt-18 pb-12 px-4 lg:px-0 w-full">
             <HeaderStudent name={profile.name || email} />
 
             <ProfileInfo
