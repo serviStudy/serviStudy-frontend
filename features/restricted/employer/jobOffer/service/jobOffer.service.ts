@@ -24,11 +24,31 @@ const parseOfferHack = (offer: any) => {
   offer.jobOfferId = foundId;
   offer.id = foundId;
 
+  // --- DIAGNÓSTICO: ver el objeto completo crudo ---
+  console.log(`[parseOfferHack] Objeto crudo de oferta:`, JSON.stringify(offer, null, 2));
+
   // --- NORMALIZACIÓN DE ESTADO ---
-  const rawStatus = String(offer.status || "").toUpperCase();
-  if (rawStatus === "ACTIVE" || offer.status === true || offer.status === "active") {
+  // Buscar el status en múltiples campos posibles que el backend puede usar
+  const rawStatus = 
+    offer.status ?? 
+    offer.offerStatus ?? 
+    offer.offer_status ?? 
+    offer.active ?? 
+    offer.isActive ?? 
+    offer.is_active ?? 
+    null;
+
+  const rawStatusStr = String(rawStatus ?? "").toUpperCase().trim();
+
+  console.log(`[parseOfferHack] status detectado:`, rawStatus, "| str:", rawStatusStr, "| typeof:", typeof rawStatus);
+
+  const isActiveByStr = ["ACTIVE", "ACTIVA", "ACTIVO", "ENABLED", "TRUE", "1"].includes(rawStatusStr);
+  const isActiveByBool = rawStatus === true || rawStatus === 1;
+  const isDeletedByStr = ["DELETED", "ELIMINADO", "ELIMINADA", "REMOVED"].includes(rawStatusStr);
+
+  if (isActiveByStr || isActiveByBool) {
     offer.status = "ACTIVE";
-  } else if (rawStatus === "DELETED" || rawStatus === "ELIMINADA") {
+  } else if (isDeletedByStr) {
     offer.status = "DELETED";
   } else {
     offer.status = "DISABLED";

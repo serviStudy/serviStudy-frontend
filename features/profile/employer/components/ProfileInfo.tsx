@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import {
   BriefcaseBusiness, Building2, MapPin, Pencil, CheckCircle2, 
-  Mail, Phone, Share2, AlignLeft, Globe, Zap, ArrowRight
+  Mail, Phone, AlignLeft, Globe, Zap, ArrowRight
 } from 'lucide-react'
 import { type EmployerProfileResponse } from '../services/profileService'
 import { ProfileOffersList } from './ProfileOffersList'
@@ -31,9 +31,6 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
           
           {/* Action Buttons in Banner */}
           <div className="absolute top-8 right-10 flex gap-4">
-             <button className="p-4 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 text-white hover:bg-white/20 transition-all shadow-xl">
-                <Share2 size={22} />
-             </button>
              <Link
               href="/empleador/perfil/editar"
               className="px-8 py-4 rounded-2xl bg-white text-green-700 font-black text-sm flex items-center gap-2 shadow-2xl hover:bg-gray-50 transition-all active:scale-95"

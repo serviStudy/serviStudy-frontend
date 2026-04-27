@@ -3,10 +3,10 @@
 import { useJobOffer } from "../../hooks/useJobOffer";
 import { OfferDetailHeader } from "./OfferDetailHeader";
 import { OfferDetailInfoCards } from "./OfferDetailInfoCards";
-import { OfferDetailSection } from "./OfferDetailSection";
 import { OfferDetailRequirements } from "./OfferDetailRequirements";
-import { FileText, ClipboardList } from "lucide-react";
+import { FileText, ClipboardList, ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 interface Props {
   id: string;
@@ -17,59 +17,78 @@ export const OfferDetailView = ({ id }: Props) => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <p className="text-gray-500 font-medium">Cargando oferta...</p>
+      <div className="min-h-screen flex flex-col items-center justify-center gap-6">
+        <div className="w-16 h-16 border-4 border-green-600 border-t-transparent rounded-full animate-spin"></div>
+        <p className="text-gray-400 font-black uppercase tracking-widest text-xs">Cargando oferta...</p>
       </div>
     );
   }
 
   if (error || !offer) {
     return (
-      <div className="flex flex-col items-center justify-center h-64">
-        <p className="text-red-500 mb-4">{error || "No se encontró la oferta"}</p>
-        <Link href="/empleador/ofertas" className="text-blue-600 underline">
-          Volver a ofertas
+      <div className="min-h-screen flex flex-col items-center justify-center gap-6">
+        <div className="w-20 h-20 bg-red-50 rounded-[28px] flex items-center justify-center text-red-400 text-4xl font-black shadow-inner">!</div>
+        <p className="text-gray-400 font-bold text-lg">{error || "No se encontró la oferta"}</p>
+        <Link href="/empleador/ofertas" className="px-8 py-4 bg-green-600 text-white rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-green-700 transition-all shadow-xl shadow-green-900/20">
+          Volver a Ofertas
         </Link>
       </div>
     );
   }
 
   return (
-    <div className="w-full max-w-4xl mx-auto py-8 px-4">
-      <Link href="/empleador/ofertas" className="text-blue-600 hover:underline mb-4 inline-block font-medium">
-        ← Volver
+    <div className="max-w-5xl mx-auto py-12 px-6 lg:px-0">
+      {/* Back Link */}
+      <Link
+        href="/empleador/ofertas"
+        className="inline-flex items-center gap-3 text-gray-400 hover:text-green-600 font-black text-sm uppercase tracking-widest mb-10 transition-colors group"
+      >
+        <div className="w-10 h-10 rounded-2xl bg-white border border-gray-100 flex items-center justify-center shadow-sm group-hover:bg-green-50 group-hover:border-green-100 transition-all">
+          <ArrowLeft size={18} />
+        </div>
+        Volver a Ofertas
       </Link>
-      
-      <div className="bg-white rounded-3xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] w-full max-w-3xl mx-auto">
+
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="bg-white rounded-[48px] shadow-2xl shadow-gray-200/50 border border-gray-50 overflow-hidden"
+      >
         <OfferDetailHeader offer={offer} />
-        
-        <div className="p-6 md:p-10 pt-4">
+
+        <div className="p-10 lg:p-16 flex flex-col gap-12">
           <OfferDetailInfoCards offer={offer} />
 
-          <OfferDetailSection 
-            title="Detalles de contratación" 
-            icon={<FileText size={20} />}
-          >
-            {offer.contract_description || (offer as any).contractDescription || <span className="text-gray-400 italic">No especificado</span>}
-          </OfferDetailSection>
+          {/* Contract Details */}
+          <div>
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-12 h-12 rounded-[18px] bg-green-50 border border-green-100 flex items-center justify-center text-green-600 shadow-inner">
+                <FileText size={22} />
+              </div>
+              <h2 className="text-2xl font-black text-gray-900 tracking-tight">Detalles de Contratación</h2>
+            </div>
+            <div className="bg-gray-50 border border-gray-100 rounded-[28px] p-8 text-gray-600 font-medium leading-relaxed whitespace-pre-line text-base shadow-inner">
+              {offer.contract_description || (offer as any).contractDescription || <span className="text-gray-300 italic">No especificado</span>}
+            </div>
+          </div>
 
-          {/* Fallback to summary if duties_description empty? Using the added field. */}
-          <div className="mb-8">
-            <h2 className="text-xl font-bold text-[#1a3683] mb-4 flex items-center gap-2">
-              <ClipboardList size={22} className="text-orange-500" />
-              Labores y descripción del puesto
-            </h2>
-            <div className="bg-[#eff4ff] border border-[#d6e4ff] rounded-xl p-5 text-[#3b528b] font-medium leading-relaxed whitespace-pre-line text-sm">
-              {offer.description || (offer as any).dutiesDescription || (offer as any).duties_description || "Sin descripción de labores adicionales."}
+          {/* Description */}
+          <div>
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-12 h-12 rounded-[18px] bg-orange-50 border border-orange-100 flex items-center justify-center text-orange-500 shadow-inner">
+                <ClipboardList size={22} />
+              </div>
+              <h2 className="text-2xl font-black text-gray-900 tracking-tight">Descripción del Puesto</h2>
+            </div>
+            <div className="bg-green-50/40 border border-green-100 rounded-[28px] p-8 text-gray-700 font-medium leading-relaxed whitespace-pre-line text-base">
+              {offer.description || (offer as any).dutiesDescription || (offer as any).duties_description || "Sin descripción adicional."}
             </div>
           </div>
 
           <OfferDetailRequirements requirements={offer.requirements} />
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
-
-// Aliasing for internal usage inside the component return
-const DetailSection = OfferDetailSection;

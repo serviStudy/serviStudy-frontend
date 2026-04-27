@@ -10,6 +10,7 @@ import {
   Phone, MapPin, AlignLeft, Mail, ShieldCheck 
 } from "lucide-react"
 import { motion } from 'framer-motion'
+import { VerifyEmployerModal } from './modals/VerifyEmployerModal'
 
 interface EditProfileFormProps {
   formData: {
@@ -49,6 +50,7 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
   inicial
 }) => {
   const router = useRouter()
+  const [isVerifyModalOpen, setIsVerifyModalOpen] = React.useState(false)
 
   return (
     <div className="mx-auto w-full max-w-5xl px-4 lg:px-8">
@@ -71,6 +73,30 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
           <span className="text-xs font-black text-green-600 uppercase tracking-widest">Información Segura</span>
         </div>
       </div>
+
+      {/* Verification Banner */}
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="mb-8 p-6 lg:p-8 bg-gradient-to-r from-green-600 to-green-500 rounded-[32px] text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl shadow-green-900/20 relative overflow-hidden group"
+      >
+        <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:scale-110 transition-transform duration-1000"></div>
+        <div className="flex items-center gap-6 relative z-10">
+          <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-xl border border-white/30 flex items-center justify-center shadow-inner">
+            <ShieldCheck className="h-9 w-9 text-white" strokeWidth={1.5} />
+          </div>
+          <div>
+            <h3 className="text-2xl font-black tracking-tight">Verifica tu empresa</h3>
+            <p className="text-white/80 font-bold text-sm mt-1">Adjunta tus documentos legales para obtener el sello de confianza.</p>
+          </div>
+        </div>
+        <button 
+          onClick={() => setIsVerifyModalOpen(true)}
+          className="px-10 h-14 bg-white text-green-600 rounded-2xl font-black text-sm uppercase tracking-widest shadow-2xl hover:bg-gray-50 transition-all active:scale-95 relative z-10 whitespace-nowrap"
+        >
+          Verificar Ahora
+        </button>
+      </motion.div>
 
       <Card className="overflow-hidden border-none shadow-[0_32px_64px_-16px_rgba(0,0,0,0.08)] rounded-[48px] bg-white">
         {/* Dynamic Header Banner - Green theme */}
@@ -222,6 +248,11 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
           </div>
         </CardContent>
       </Card>
+
+      <VerifyEmployerModal 
+        isOpen={isVerifyModalOpen} 
+        onClose={() => setIsVerifyModalOpen(false)} 
+      />
     </div>
   )
 }

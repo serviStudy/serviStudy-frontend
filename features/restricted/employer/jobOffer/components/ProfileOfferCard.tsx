@@ -20,9 +20,10 @@ interface Props {
   offer: JobOfferDTO;
   imageUrl?: string;
   businessName?: string;
+  onStatusChange?: () => void;
 }
 
-export const ProfileOfferCard = ({ offer, imageUrl, businessName }: Props) => {
+export const ProfileOfferCard = ({ offer, imageUrl, businessName, onStatusChange }: Props) => {
   const offerId = offer.jobOfferId || offer.id || (offer as any).idJobOffer;
   const [isChanging, setIsChanging] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -35,7 +36,7 @@ export const ProfileOfferCard = ({ offer, imageUrl, businessName }: Props) => {
     try {
       await updateJobOfferStatus(offerId, "DELETED");
       toast.success("Oferta eliminada correctamente");
-      window.location.reload(); 
+      onStatusChange?.(); 
     } catch (error: any) {
       toast.error(error.message || "No se pudo eliminar la oferta");
     } finally {
@@ -51,7 +52,7 @@ export const ProfileOfferCard = ({ offer, imageUrl, businessName }: Props) => {
     try {
       await updateJobOfferStatus(offerId, newStatus);
       toast.success(`Oferta ${isActive ? "desactivada" : "activada"} correctamente`);
-      window.location.reload(); 
+      onStatusChange?.(); 
     } catch (error: any) {
       toast.error(error.message || "Error al cambiar estado");
     } finally {
@@ -105,15 +106,15 @@ export const ProfileOfferCard = ({ offer, imageUrl, businessName }: Props) => {
             onClick={handleToggleStatus}
             disabled={isChanging}
             className={`relative flex items-center h-8 lg:h-10 w-28 lg:w-32 rounded-full border-2 transition-all duration-500 px-1.5 ${
-              isActive ? "bg-green-50 border-green-100" : "bg-gray-50 border-gray-100"
+              isActive ? "bg-green-50 border-green-100" : "bg-orange-50 border-orange-100"
             }`}
           >
             <div
               className={`w-5 h-5 lg:w-7 lg:h-7 rounded-full transition-all duration-500 shadow-lg ${
-                isActive ? "bg-green-500 translate-x-[72px] lg:translate-x-[84px]" : "bg-gray-300 translate-x-0"
+                isActive ? "bg-green-500 translate-x-[72px] lg:translate-x-[84px]" : "bg-orange-500 translate-x-0"
               }`}
             />
-            <span className={`absolute w-full text-center text-[9px] lg:text-[10px] font-black uppercase tracking-[0.1em] transition-all duration-500 ${isActive ? "text-green-600 left-[-12px] lg:left-[-15px]" : "text-gray-400 left-[12px] lg:left-[15px]"}`}>
+            <span className={`absolute w-full text-center text-[9px] lg:text-[10px] font-black uppercase tracking-[0.1em] transition-all duration-500 ${isActive ? "text-green-600 left-[-12px] lg:left-[-15px]" : "text-orange-600 left-[12px] lg:left-[15px]"}`}>
               {isActive ? "Activa" : "Inactiva"}
             </span>
           </button>
