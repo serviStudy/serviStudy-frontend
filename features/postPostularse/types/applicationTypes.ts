@@ -1,6 +1,6 @@
 export interface ApplicationResponse {
     applicantId: string;
-    spplicationDate: string;
+    applicationDate: string;
     studentProfileId: string;
     jobOfferId: string;
     status: string

@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { jwtVerify, JWTPayload } from "jose";
 import { EmployerDashboardSidebar } from "@/components/shared/EmployerDashboardSidebar";
-import { RestrictedHeader } from "../../components/shared/RestrictedHeader";
+import { StudentSidebar } from "@/components/shared/StudentSidebar";
 
 interface TokenPayload extends JWTPayload {
   role: "EMPLOYER" | "STUDENT";
@@ -28,29 +28,44 @@ export default async function RestrictedLayout({
     }
   }
 
-  const safeUser = user || {
-    role: "EMPLOYER",
+  const safeUser: TokenPayload = user || {
+    role: "STUDENT",
     name: "DEV USER",
   };
 
   const isEmployer = safeUser.role === "EMPLOYER";
+  const isStudent = safeUser.role === "STUDENT";
 
   return (
-    <div className="min-h-screen flex relative overflow-hidden bg-white selection:bg-green-100 selection:text-green-900">
-      {/* Premium Background Layer */}
+    <div className="min-h-screen flex relative overflow-hidden bg-blue-100 selection:bg-blue-200 selection:text-blue-900">
+      {/* Background */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-br from-green-50/20 via-white to-blue-50/10" />
-        <div className="absolute top-[-10%] left-[-10%] w-[70%] h-[70%] rounded-full bg-green-100/20 blur-[120px]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50/20 via-white to-blue-50/10" />
+        <div className="absolute top-[-10%] left-[-10%] w-[70%] h-[70%] rounded-full bg-blue-100/20 blur-[120px]" />
         <div className="absolute inset-0 opacity-[0.01] bg-[url('https://www.transparenttextures.com/patterns/p6-mini.png')]" />
       </div>
 
+      {/* Sidebar dinámico */}
       {isEmployer && <EmployerDashboardSidebar />}
+      {isStudent && <StudentSidebar />}
 
-      <div className={`flex-1 flex flex-col min-h-screen relative z-10 ${isEmployer ? 'lg:pl-72' : ''}`}>
-        <RestrictedHeader name={safeUser.name} />
-
-        <main className={`flex-1 ${isEmployer ? 'pt-24 p-6 lg:p-12 lg:pt-12' : 'pt-20 px-4 md:px-6 lg:px-16'}`}>
-          <div className={`${isEmployer ? 'max-w-full' : 'max-w-7xl mx-auto'} w-full`}>
+      <div
+        className={`flex-1 flex flex-col min-h-screen relative z-10 ${
+          isEmployer || isStudent ? "lg:pl-72" : ""
+        }`}
+      >
+        <main
+          className={`flex-1 ${
+            isEmployer
+              ? "p-8 lg:p-12"
+              : "p-4 md:p-8 lg:p-12"
+          }`}
+        >
+          <div
+            className={`${
+              isEmployer ? "max-w-full" : "max-w-[1600px] mx-auto"
+            } w-full`}
+          >
             {children}
           </div>
         </main>

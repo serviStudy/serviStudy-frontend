@@ -13,13 +13,13 @@ export const OfferList = ({offers, selectedOffer, onSelectOffer}: ResultCardProp
     return (
         <div className='flex flex-col gap-4 w-auto'>
             {offers.length === 0 ? (
-                <div className='flex items-center justify-center rounded-[21px] min-w-138 bg-white/30 backdrop-blur-md min-h-75'>
+                <div className='flex items-center justify-center rounded-[32px] w-full bg-white border border-dashed border-gray-200 min-h-[300px]'>
                     <div className='text-center px-6'>
-                        <h3 className='text-lg font-semibold text-gray-500'>
+                        <h3 className='text-lg font-bold text-gray-700'>
                             No se encontraron ofertas
                         </h3>
                         <p className='text-sm text-gray-400 mt-2'>
-                            No encontramos resultados para esos filtros
+                            Intenta con otros filtros o términos de búsqueda.
                         </p>
                     </div>
                 </div>

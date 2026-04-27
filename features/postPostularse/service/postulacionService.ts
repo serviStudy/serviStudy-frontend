@@ -1,5 +1,7 @@
+import { ApplicationPageResponse } from "@/features/misPostulaciones/types/applicationTypes";
 import { ActiveOffer } from "@/features/ofertasActivas/types/ofertasActivas.types";
 import { getAuthHeaders } from "@/lib/api/authHeaders";
+import { ApplicationResponse } from "../types/applicationTypes";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const APPLICANTS_URL = `${API_URL}/applicants`;
@@ -31,37 +33,14 @@ export const createApplication = async (body: CreateApplicationDTO) => {
     } catch {
         data = null;
     }
+    
+    console.log("RESPONSE STATUS:", res.status);
+    console.log("RESPONSE DATA:", data);
 
     if (!res.ok) throw new Error(data.message || "Error al postularse");
 
     return data.data ?? data;
 }
-
-
-// delete application
-interface DeleateApplicationDTO {
-    id: string
-}
-
-export const deleteApplication = async (id: DeleateApplicationDTO) => {
-    const res = await fetch(`${API_URL}/applicants/${id}`, {
-        method: "DELETE",
-        headers: getAuthHeaders(),
-    });
-
-    if (!res.ok) {
-        let errorMessage = "Error al retirar postulación";
-
-        try {
-            const data = await res.json();
-            errorMessage = data?.message || errorMessage;
-        } catch {
-            // algunos DELETE no retornan body
-        }
-
-        throw new Error(errorMessage);
-    }
-};
 
 
 // fetch de vista de oferta (por id)

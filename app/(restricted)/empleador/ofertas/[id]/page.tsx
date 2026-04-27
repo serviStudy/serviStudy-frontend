@@ -3,7 +3,7 @@ import { OfferDetailView } from "@/features/restricted/employer/jobOffer/compone
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen">
       <OfferDetailView id={id} />
     </div>
   );
