@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { BookOpen, CirclePlus, Info, MapPin, Menu, Search, Settings, User} from "lucide-react";
+import { BookOpen, CirclePlus, Info, LogOut, MapPin, Menu, Search, Settings, User} from "lucide-react";
 import Image from "next/image";
 import NavLink from "../ui/NavLink";
 import { useSidebar } from "../../hooks/useSidebar";
@@ -102,6 +102,18 @@ export const HeaderEmployer = ( { name }: props ) => {
                         <div className="flex px-6 md:px-10 gap-3 items-center">
                             <Info className="text-gray-500 w-4.5 md:h-7" />
                             <p className="text-[14px] md:text-[18px] font-semibold text-gray-600">Más informacion</p>
+                        </div>
+                        <div 
+                          className="flex px-6 md:px-10 gap-3 items-center pt-4 mt-4 border-t border-gray-100 cursor-pointer text-red-500 hover:text-red-700 transition-colors"
+                          onClick={() => {
+                            localStorage.removeItem("token");
+                            localStorage.removeItem("user_email");
+                            localStorage.removeItem("user_role");
+                            window.location.href = "/";
+                          }}
+                        >
+                            <LogOut className="w-4.5 md:h-7" />
+                            <p className="text-[14px] md:text-[18px] font-bold">Cerrar Sesión</p>
                         </div>
                     </div>
                 </div>

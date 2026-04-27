@@ -49,7 +49,7 @@ export default async function RestrictedLayout({
       <div className={`flex-1 flex flex-col min-h-screen relative z-10 ${isEmployer ? 'lg:pl-72' : ''}`}>
         <RestrictedHeader name={safeUser.name} />
 
-        <main className={`flex-1 ${isEmployer ? 'p-8 lg:p-12' : 'pt-20 px-4 md:px-6 lg:px-16'}`}>
+        <main className={`flex-1 ${isEmployer ? 'pt-24 p-6 lg:p-12 lg:pt-12' : 'pt-20 px-4 md:px-6 lg:px-16'}`}>
           <div className={`${isEmployer ? 'max-w-full' : 'max-w-7xl mx-auto'} w-full`}>
             {children}
           </div>

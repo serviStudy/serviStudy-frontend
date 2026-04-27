@@ -9,8 +9,7 @@ import NavLink from "../ui/NavLink";
 import { useSidebar } from "../../hooks/useSidebar";
 import { Sidebar } from "./Sidebar";
 import Link from "next/link";
-import { SuscriptionCard } from "./SuscriptionCard";
-import { routes } from "@/type/routes";
+
 
 interface props {
     name: string;

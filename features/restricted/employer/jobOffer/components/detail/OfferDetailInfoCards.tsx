@@ -6,59 +6,69 @@ interface Props {
 }
 
 export const OfferDetailInfoCards = ({ offer }: Props) => {
-  // Configuración de los días para mostrar
-  const formatDays = (days: string[]) => {
-    // Aquí puedes añadir la lógica para mapear a "Fines de semana" o "Lunes a Viernes"
-    // Pero por la imagen la idea es poner algo representativo
-    return days.length > 2 ? "Lunes a Viernes" : "Fines de semana"; 
+  const scheduleMap: Record<string, string> = {
+    FULL_TIME: "Jornada Completa",
+    PART_TIME: "Media Jornada",
+    FLEXIBLE: "Flexible",
   };
 
-  const scheduleMap: Record<string, string> = {
-    FULL_TIME: "Tiempo Completo",
-    PART_TIME: "Medio Tiempo",
-    FLEXIBLE: "Flexible"
-  };
+  const workDays = offer.work_days || (offer as any).workDays || [];
+  const workSchedule = offer.work_schedule || (offer as any).workSchedule;
+  const daysLabel = workDays.length > 2 ? "Lunes a Viernes" : "Fines de semana";
+
+  const cards = [
+    {
+      icon: DollarSign,
+      label: "Salario",
+      value: `$${Number(offer.salary).toLocaleString("es-CO")}`,
+      accent: "green",
+      bg: "bg-green-50",
+      border: "border-green-100",
+      iconBg: "bg-green-600",
+      text: "text-green-600",
+    },
+    {
+      icon: Clock,
+      label: "Tipo de Jornada",
+      value: scheduleMap[workSchedule] || "Flexible",
+      accent: "orange",
+      bg: "bg-orange-50",
+      border: "border-orange-100",
+      iconBg: "bg-orange-500",
+      text: "text-orange-500",
+    },
+    {
+      icon: Calendar,
+      label: "Días Laborales",
+      value: daysLabel,
+      accent: "gray",
+      bg: "bg-gray-50",
+      border: "border-gray-100",
+      iconBg: "bg-gray-800",
+      text: "text-gray-600",
+    },
+  ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mt-8">
-      {/* Tarjeta Salario */}
-      <div className="bg-white border border-green-100 rounded-2xl p-5 shadow-[0_4px_20px_-4px_rgba(52,199,89,0.1)] hover:-translate-y-1 transition-transform group">
-        <div className="flex items-center gap-2 text-green-600 mb-2">
-          <div className="p-1.5 bg-green-50 text-green-600 rounded-full group-hover:bg-green-600 group-hover:text-white transition-colors">
-            <DollarSign size={18} strokeWidth={3} />
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+      {cards.map((card) => (
+        <div
+          key={card.label}
+          className={`${card.bg} ${card.border} border rounded-[32px] p-8 flex flex-col gap-4 shadow-sm hover:-translate-y-1 transition-transform duration-300`}
+        >
+          <div className={`w-14 h-14 ${card.iconBg} rounded-[20px] flex items-center justify-center text-white shadow-lg`}>
+            <card.icon size={26} strokeWidth={2.5} />
           </div>
-          <span className="font-bold text-sm uppercase tracking-wide text-green-700/80">Salario</span>
-        </div>
-        <p className="text-gray-800 font-extrabold text-[22px] ml-1 pt-1">
-          $ {offer.salary.toLocaleString("es-CO")}
-        </p>
-      </div>
-
-      {/* Tarjeta Jornada */}
-      <div className="bg-white border border-orange-100 rounded-2xl p-5 shadow-[0_4px_20px_-4px_rgba(249,115,22,0.1)] hover:-translate-y-1 transition-transform group">
-        <div className="flex items-center gap-2 text-orange-500 mb-2">
-          <div className="p-1.5 bg-orange-50 text-orange-500 rounded-full group-hover:bg-orange-500 group-hover:text-white transition-colors">
-            <Clock size={18} strokeWidth={2.5} />
+          <div>
+            <p className={`text-[11px] font-black uppercase tracking-widest ${card.text} mb-2`}>
+              {card.label}
+            </p>
+            <p className="text-gray-900 font-black text-2xl tracking-tighter leading-none">
+              {card.value}
+            </p>
           </div>
-          <span className="font-bold text-sm uppercase tracking-wide text-orange-600/80">Jornada</span>
         </div>
-        <p className="text-gray-800 font-extrabold text-[22px] ml-1 pt-1">
-          {scheduleMap[offer.work_schedule || (offer as any).workSchedule] || "Flexible"}
-        </p>
-      </div>
-
-      {/* Tarjeta Días laborales */}
-      <div className="bg-white border border-blue-100 rounded-2xl p-5 shadow-[0_4px_20px_-4px_rgba(26,75,158,0.1)] hover:-translate-y-1 transition-transform group">
-        <div className="flex items-center gap-2 text-[#1a4b9e] mb-2">
-          <div className="p-1.5 bg-blue-50 text-[#1a4b9e] rounded-full group-hover:bg-[#1a4b9e] group-hover:text-white transition-colors">
-            <Calendar size={18} strokeWidth={2.5} />
-          </div>
-          <span className="font-bold text-sm uppercase tracking-wide text-[#1a4b9e]/80">Días laborales</span>
-        </div>
-        <p className="text-gray-800 font-extrabold text-[22px] ml-1 pt-1">
-          {formatDays(offer.work_days || (offer as any).workDays)}
-        </p>
-      </div>
+      ))}
     </div>
   );
 };
