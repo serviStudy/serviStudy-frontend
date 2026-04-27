@@ -13,7 +13,7 @@ interface Props {
 
 export const Postulacion = ({data}: Props) => {
     return (
-        <div className='flex px-10 py-5 gap-14 align-middle h-auto w-[85vw] lg:w-[85vw] lg:h-auto rounded-[21px] bg-white'>
+        <div className='flex px-7 py-5 gap-9 align-middle h-auto w-[85vw] lg:w-[70vw] lg:h-auto rounded-[21px] bg-gray-50'>
             {/* foto de la oferta */}
             <div className='w-28 h-28 bg-transparent'>
                 <Image
@@ -25,7 +25,8 @@ export const Postulacion = ({data}: Props) => {
                 />
             </div>
 
-            <div className='flex flex-col gap-4'>
+            <div className='flex lg:w-full flex-col gap-4'>
+
                 <div className='flex flex-col gap-2'>
                     <div className='flex justify-between'>
                         <div className='flex flex-col'>
@@ -51,7 +52,7 @@ export const Postulacion = ({data}: Props) => {
 
                 <hr className='w-auto border text-gray-200'/>
 
-                <div className='flex w-[70vw] justify-between'>
+                <div className='flex justify-between'>
                     {/* salary description */}
                     <div className='flex flex-col'>
                         <div className='flex gap-2 items-center'>
@@ -61,8 +62,7 @@ export const Postulacion = ({data}: Props) => {
                         <p className='text-gray-500 px-1 text-[13px]'>{data.jobOffer.salaryDescription}</p>
                     </div>
                     <div className='flex gap-4'>
-                        
-                        <ApplyButtonDelete postulationId={data.applicantId}></ApplyButtonDelete>
+                        <ApplyButtonDelete jobOfferId={data.jobOffer.jobOfferId}></ApplyButtonDelete>
                         <Link className='bg-primary text-white rounded-full h-9 py-1 w-auto px-12 font-semibold' href={`/estudiante/postulacion/${data.jobOffer.jobOfferId}`}>Ver oferta</Link>
                     </div>
                 </div>
