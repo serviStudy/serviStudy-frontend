@@ -10,8 +10,8 @@ import { Dialog, DialogTrigger } from '../ui/dialog'
 export const ProfileVerification = () => {
     return (
         <Dialog>
-            <div className='flex tems-center'>  
-                <Item className='lg:h-29 w-79 h-30 md:h-35 md:w-113 lg:w-242 bg-linear-to-r from-chart-1 to-chart-2 rounded-[14px] lg:py-3 lg:px-8 lg:items-center lg:justify-between'>
+            <div className='flex items-center justify-center'>  
+                <Item className='lg:h-29 w-79 h-30 md:h-35 md:w-113 lg:w-[70vw] bg-linear-to-r from-chart-1 to-chart-2 rounded-[14px] lg:py-3 lg:px-8 lg:items-center lg:justify-between'>
                     <ItemContent className='flex flex-col lg:flex-row lg:justify-between lg:items-center gap-2'>
                         <div className='items-center flex gap-4 md:text-[16px] lg:text-[20px] lg:flex-row lg:gap-3'>
                             <ShieldCheck className='lg:h-17.5 lg:w-17.5 md:h-14 md:w-14 w-11 h-12 text-white justify-center' strokeWidth={1}/>

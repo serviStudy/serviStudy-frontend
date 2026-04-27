@@ -5,8 +5,7 @@ import React from 'react'
 
 const page = () => {
     return (
-        <div className='flex min-h-screen items-center justify-center py-8'>
-            <HeaderStudent name={''}/>
+        <div className='flex min-h-screen  items-center justify-center py-8'>
             <div className='flex flex-col gap-10'>
                 <BarraSuperior/>
                 <ListPostulacionesClient/>
