@@ -6,6 +6,8 @@ import { JobOfferForm } from "@/features/restricted/employer/jobOffer/components
 import { createJobOffer } from "@/features/restricted/employer/jobOffer/service/jobOffer.service";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 
 export default function CreateJobOfferPage() {
   const router = useRouter();
@@ -42,13 +44,24 @@ export default function CreateJobOfferPage() {
       </div>
 
 
-      <main className="relative z-10 py-8 px-4 flex justify-center">
+      <main className="relative z-10 py-8 px-4 flex flex-col items-center">
         <motion.div 
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="w-full"
+          className="w-full max-w-4xl"
         >
+          {/* Back Link */}
+          <Link
+            href="/empleador/ofertas"
+            className="inline-flex items-center gap-3 text-gray-400 hover:text-green-600 font-black text-sm uppercase tracking-widest mb-10 transition-colors group"
+          >
+            <div className="w-10 h-10 rounded-2xl bg-white border border-gray-100 flex items-center justify-center shadow-sm group-hover:bg-green-50 group-hover:border-green-100 transition-all">
+              <ArrowLeft size={18} />
+            </div>
+            Volver a Ofertas
+          </Link>
+
           <JobOfferForm onSubmit={handleCreate} saving={loading} />
         </motion.div>
       </main>

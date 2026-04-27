@@ -307,7 +307,7 @@ export const JobOfferForm: React.FC<JobOfferFormProps> = ({ initialData, isEditi
                  <button 
                    type="button"
                    onClick={onAddSkill}
-                   className="px-6 h-12 bg-gray-900 text-white rounded-xl font-black text-xs uppercase tracking-widest hover:bg-gray-800 transition-colors shadow-lg"
+                   className="px-6 h-12 bg-green-600 text-white rounded-xl font-black text-xs uppercase tracking-widest hover:bg-green-700 transition-all shadow-lg shadow-green-600/20 active:scale-95"
                  >
                    Añadir
                  </button>
@@ -323,10 +323,10 @@ export const JobOfferForm: React.FC<JobOfferFormProps> = ({ initialData, isEditi
                          animate={{ scale: 1, opacity: 1 }}
                          key={`${label}-${index}`} 
                          onClick={() => handleRequirementRemove(req)}
-                         className="group bg-white text-gray-700 border border-gray-200 px-3 py-1.5 rounded-lg flex items-center gap-2 text-xs font-bold hover:border-red-200 hover:bg-red-50 hover:text-red-600 transition-colors cursor-pointer shadow-sm"
+                         className="group bg-green-50/50 text-green-700 border border-green-100 px-3 py-1.5 rounded-lg flex items-center gap-2 text-xs font-bold hover:border-red-200 hover:bg-red-50 hover:text-red-600 transition-all cursor-pointer shadow-sm"
                        >
                          {label}
-                         <X size={14} className="text-gray-300 group-hover:text-red-500 transition-colors" />
+                         <X size={14} className="text-green-300 group-hover:text-red-500 transition-colors" />
                        </motion.span>
                      );
                    })}
