@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { validateRegisterForm } from "../utils/registerValidator";
-import { registerUser } from "@/lib/api/register";
+import { registerUser } from "@/features/auth/register/service/register";
 import { TipoUsuario } from "@/type/auth";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";

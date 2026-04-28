@@ -70,6 +70,7 @@ export const updateStudentProfile = async (
   }
 };
 
+
 // ADD SKILL
 export const addStudentSkill = async (skillName: string): Promise<void> => {
   const res = await fetch(`${STUDENT_PROFILE_URL}/skills`, {
@@ -114,24 +115,6 @@ export const addStudentWorkDay = async (
     throw new Error(`Error: ${errorText}`);
   }
 };
-
-
-// // DELETE WORK DAY
-// export const deleteStudentWorkDay = async (userId: string, days: string[]): Promise<void> => {
-//   if (!days || days.length === 0) return;
-//   const qs = days.map(d => `day=${d}`).join('&');
-//   const res = await fetch(`${STUDENT_PROFILE_URL}/days?${qs}`, {
-//     method: "DELETE",
-//     headers: {
-//       ...getAuthHeaders(),
-//     }
-//   });
-
-//   if (!res.ok) {
-//     const errorText = await res.text();
-//     throw new Error(`Error al eliminar días laborables: ${errorText}`);
-//   }
-// };
 
 export const syncStudentWorkDays = async (days: string[]): Promise<void> => {
   const normalizedDays = Array.from(
