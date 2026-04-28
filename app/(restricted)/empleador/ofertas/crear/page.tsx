@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { JobOfferForm } from "@/features/restricted/employer/jobOffer/components/form/JobOfferForm";
-import { createJobOffer } from "@/features/restricted/employer/jobOffer/service/jobOffer.service";
+import { JobOfferForm } from "@/features/restricted/empleador/jobOffer/components/form/JobOfferForm";
+import { createJobOffer } from "@/features/restricted/empleador/jobOffer/service/jobOffer.service";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
 import Link from "next/link";

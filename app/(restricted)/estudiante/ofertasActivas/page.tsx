@@ -1,9 +1,9 @@
 "use client"
-import { InfoCard } from '@/features/ofertasActivas/components/InfoCard'
-import SearchCard from '@/features/ofertasActivas/components/SearchCard'
-import { OfferList } from '@/features/ofertasActivas/components/ui/OfferList'
-import { useActiveOffers } from '@/features/ofertasActivas/hooks/useActiveOffers'
-import { useOfferFilter } from '@/features/ofertasActivas/hooks/useOfferFilter'
+import { InfoCard } from '@/features/restricted/estudiante/ofertasActivas/components/InfoCard'
+import SearchCard from '@/features/restricted/estudiante/ofertasActivas/components/SearchCard'
+import { OfferList } from '@/features/restricted/estudiante/ofertasActivas/components/ui/OfferList'
+import { useActiveOffers } from '@/features/restricted/estudiante/ofertasActivas/hooks/useActiveOffers'
+import { useOfferFilter } from '@/features/restricted/estudiante/ofertasActivas/hooks/useOfferFilter'
 import { Loader2, Inbox } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 
@@ -58,20 +58,20 @@ const Page = () => {
         }
     }, [filteredOffers, selectedOffer, setSelectedOffer]);
 
+
     if (loading) {
         return (
             <div className="flex h-[80vh] items-center justify-center">
-                <div className="flex flex-col items-center gap-4 bg-white p-8 rounded-[32px] shadow-sm border border-gray-100">
-                    <Loader2 className="h-10 w-10 animate-spin text-blue-600" />
-                    <p className="text-gray-500 font-bold animate-pulse">Cargando las mejores ofertas...</p>
-                </div>
+                <Loader2 className="h-10 w-10 animate-spin text-blue-600" />
+                <p className="text-gray-500 font-bold animate-pulse">Cargando las mejores ofertas...</p>
             </div>
         )
     }
 
+
     return (
         <div className="flex flex-col min-h-screen pb-20 w-full px-4 md:px-8 pt-8">
-            <div className="max-w-[1600px] mx-auto w-full">
+            <div className="max-w-400 mx-auto w-full">
                 {/* Search & Filters Header */}
                 <SearchCard 
                     inputValue={inputValue} 
@@ -90,7 +90,7 @@ const Page = () => {
                     <div className="flex flex-col gap-6">
                         <div className="flex items-center justify-between px-2">
                             <h3 className="text-xl font-bold text-gray-900">
-                                Resultados <span className="text-blue-600 ml-1 bg-blue-50 px-2 py-0.5 rounded-lg text-lg">({filteredOffers.length})</span>
+                                Resultados <span className="text-blue-600 ml-1 bg-blue-50 py-0.5 rounded-lg text-lg">({filteredOffers.length})</span>
                             </h3>
                         </div>
 
@@ -106,7 +106,7 @@ const Page = () => {
                                     <Inbox className="text-gray-300 w-10 h-10" />
                                 </div>
                                 <h4 className="text-lg font-bold text-gray-700">No hay ofertas</h4>
-                                <p className="text-gray-500 max-w-[250px] text-center mt-2 font-medium">
+                                <p className="text-gray-500 max-w-62.5 text-center mt-2 font-medium">
                                     Intenta ajustar tus filtros o buscar con otras palabras clave.
                                 </p>
                             </div>
@@ -120,7 +120,7 @@ const Page = () => {
                                 <InfoCard offer={selectedOffer} />
                             </div>
                         ) : (
-                            <div className="h-[400px] flex items-center justify-center bg-gray-50/50 rounded-[32px] border border-dashed border-gray-200 p-10">
+                            <div className="h-100 flex items-center justify-center bg-gray-50/50 rounded-[32px] border border-dashed border-gray-200 p-10">
                                 <p className="text-gray-400 font-medium text-center italic">
                                     Selecciona una oferta para ver los detalles completos aquí.
                                 </p>

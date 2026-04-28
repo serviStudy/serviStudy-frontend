@@ -29,6 +29,7 @@ export const useLogin = () => {
         throw new Error("Respuesta del servidor inválida: falta el objeto 'data'")
       }
 
+      document.cookie = `token=${data.data.token}; path=/; SameSite=Lax` //Guarda el token como cookie al hacer login para usarlo en el Sidebar employer/student
       localStorage.setItem("token", data.data.token)
       localStorage.setItem("user_email", correo)
       localStorage.setItem("user_role", tipoUsuario)

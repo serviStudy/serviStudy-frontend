@@ -19,7 +19,7 @@ const sidebarItems = [
   { name: 'Dashboard', icon: LayoutDashboard, href: '/empleador/dashboard' },
   { name: 'Perfil de Empresa', icon: User, href: '/empleador/perfil' },
   { name: 'Mis Ofertas', icon: Briefcase, href: '/empleador/ofertas' },
-  { name: 'Candidatos', icon: Users, href: '/empleador/candidatos' },
+  { name: 'Postulantes', icon: Users, href: '/empleador/selectOffer' },
   { name: 'Configuración', icon: Settings, href: '/empleador/configuracion' },
 ];
 

@@ -1,11 +1,12 @@
 "use client";
 
 import { use } from "react";
-import { useJobOffer } from "@/features/restricted/employer/jobOffer/hooks/useJobOffer";
-import { SelectOfferCard } from "@/features/selectOffersApplicants/components/selectOfferCard";
-import { ApplicantsList } from "@/features/applicantsEmployer/components/ApplicantsList";
+import { useJobOffer } from "@/features/restricted/empleador/jobOffer/hooks/useJobOffer";
+import { SelectOfferCard } from "@/features/restricted/empleador/selectOffersApplicants/components/selectOfferCard";
+import { ApplicantsList } from "@/features/restricted/empleador/applicantsEmployer/components/ApplicantsList";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { LoadingScreen } from "@/components/shared/LoadingScreen";
 
 interface PageProps {
     params: Promise<{ id: string }>;
@@ -25,7 +26,8 @@ export default function Page({ params }: PageProps) {
 
     if (loading) {
         return (
-            <div className="min-h-screen flex items-center justify-center">
+            <div className="min-h-screen items-center justify-center">
+                <LoadingScreen></LoadingScreen>
                 <p>Cargando oferta...</p>
             </div>
         );

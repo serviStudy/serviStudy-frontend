@@ -2,8 +2,8 @@
 import React from 'react'
 import { HeaderLR } from '@/components/shared/HeaderLR'
 import { Loader2 } from 'lucide-react'
-import { useEditStudentProfile } from '@/features/profile/student/hooks/useEditStudentProfile'
-import { EditProfileForm } from '@/features/profile/student/components/EditProfileForm'
+import { useEditStudentProfile } from '@/features/restricted/estudiante/perfil/hooks/useEditStudentProfile'
+import { EditProfileForm } from '@/features/restricted/estudiante/perfil/components/EditProfileForm'
 import { HeaderStudent } from '@/components/shared/HeaderStudent'
 
 const EditProfilePage = () => {

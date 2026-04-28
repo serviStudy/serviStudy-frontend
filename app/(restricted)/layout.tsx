@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { jwtVerify, JWTPayload } from "jose";
+import { decodeJwt, JWTPayload } from "jose";
 import { EmployerDashboardSidebar } from "@/components/shared/EmployerDashboardSidebar";
 import { StudentSidebar } from "@/components/shared/StudentSidebar";
 
@@ -18,15 +18,17 @@ export default async function RestrictedLayout({
 
   let user: TokenPayload | null = null;
 
+  console.log("🔑 [LAYOUT DEBUG] token en cookie:", token ? `${token.substring(0, 30)}...` : "NO HAY TOKEN")
+
   if (token) {
     try {
-      const secret = new TextEncoder().encode(process.env.JWT_SECRET || "");
-      const { payload } = await jwtVerify(token, secret);
-      user = payload as TokenPayload;
+      user = decodeJwt(token) as TokenPayload;
+      console.log("[LAYOUT DEBUG] JWT decoded payload:", JSON.stringify(user, null, 2))
     } catch (e) {
-      console.error("JWT verification failed:", e);
+      console.error("[LAYOUT DEBUG] JWT decode failed:", e);
     }
   }
+
 
   const safeUser: TokenPayload = user || {
     role: "STUDENT",
@@ -40,7 +42,7 @@ export default async function RestrictedLayout({
     <div className="min-h-screen flex relative overflow-hidden bg-blue-100 selection:bg-blue-200 selection:text-blue-900">
       {/* Background */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50/20 via-white to-blue-50/10" />
+        <div className="absolute inset-0 bg-linear-to-br from-blue-50/20 via-white to-blue-50/10" />
         <div className="absolute top-[-10%] left-[-10%] w-[70%] h-[70%] rounded-full bg-blue-100/20 blur-[120px]" />
         <div className="absolute inset-0 opacity-[0.01] bg-[url('https://www.transparenttextures.com/patterns/p6-mini.png')]" />
       </div>
@@ -63,7 +65,7 @@ export default async function RestrictedLayout({
         >
           <div
             className={`${
-              isEmployer ? "max-w-full" : "max-w-[1600px] mx-auto"
+              isEmployer ? "max-w-full" : "max-w-400 mx-auto"
             } w-full`}
           >
             {children}
