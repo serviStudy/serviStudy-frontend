@@ -11,7 +11,7 @@ interface Props {
 
 export const ListPostulaciones = ({ items, onDelete }: Props) => {
     return (
-        <div className="flex flex-col gap-4 w-full">
+        <div className="flex flex-col gap-6 w-full">
         {items.length === 0 ? (
             <div className="flex flex-col items-center justify-center bg-white rounded-3xl border border-gray-100 shadow-sm py-20 px-8 gap-5">
                 <div className="bg-blue-50 p-5 rounded-2xl">

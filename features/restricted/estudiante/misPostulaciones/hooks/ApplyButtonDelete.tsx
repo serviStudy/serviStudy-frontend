@@ -24,7 +24,7 @@ export const ApplyButtonDelete = ({ jobOfferId, onDelete }: Props) => {
     return (
         <button
             onClick={handleApply}
-            className='text-sm font-semibold px-5 py-2.5 rounded-2xl border border-red-200 bg-red-50 text-red-600 hover:bg-red-100 transition-colors cursor-pointer'
+            className='text-xs md:text-sm font-semibold px-4 md:px-5 py-2 md:py-2.5 rounded-xl border border-red-200 bg-red-50 text-red-600 hover:bg-red-100 transition-colors cursor-pointer w-full md:w-auto text-center'
         >
             Retirar postulación
         </button>

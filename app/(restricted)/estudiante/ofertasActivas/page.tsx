@@ -102,11 +102,11 @@ const Page = () => {
 
                 {/* Search & Filters Header - Sticky with edge-to-edge blur */}
                 <div className="sticky top-0 z-30 w-full transition-all">
-                    {/* Full-width background layer */}
-                    <div className="absolute inset-0 w-screen left-1/2 -ml-[50vw] backdrop-blur-xl bg-white/60 border-b border-gray-100/50" />
+                    {/* Full-width background layer - Safely extends without causing overflow */}
+                    <div className="absolute inset-y-0 left-[-4vw] right-[-3vw] backdrop-blur-xl bg-white/15" />
                     
                     {/* Centered content layer */}
-                    <div className="relative z-10 py-4 max-w-[1440px] mx-auto w-full">
+                    <div className="relative z-10 py-4 max-w-[1440px] mx-auto w-full px-4 md:px-0">
                         <SearchCard 
                             inputValue={inputValue} 
                             onInputChange={handleInputChange} 

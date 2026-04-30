@@ -50,7 +50,7 @@ const ResultCrad = ({ offer, isSelected }: Props) => {
                     </div>
 
                     <div className='flex gap-2 flex-wrap'>
-                        <span className='px-2.5 py-1.5 bg-amber-50 text-amber-700 rounded-lg text-xs font-medium border border-amber-100 flex items-center gap-1.5'>
+                        <span className='px-2.5 py-1.5 border-orange-600 text-orange-700 bg-orange-100 rounded-lg text-xs font-medium border border-amber-100 flex items-center gap-1.5'>
                             <div className="h-1.5 w-1.5 rounded-full bg-amber-500"></div>
                             {jornadaTags}
                         </span>
@@ -58,7 +58,7 @@ const ResultCrad = ({ offer, isSelected }: Props) => {
                         {dayTags.map((tag) => (
                             <span
                                 key={tag}
-                                className="px-2.5 py-1.5 bg-emerald-50 text-emerald-700 rounded-lg text-xs font-medium border border-emerald-100 flex items-center gap-1.5"
+                                className="px-2.5 py-1.5 border-green-600 bg-green-100 text-green-700 rounded-lg text-xs font-medium border border-emerald-100 flex items-center gap-1.5"
                             >
                                 <div className="h-1.5 w-1.5 rounded-full bg-emerald-500"></div>
                                 {tag}

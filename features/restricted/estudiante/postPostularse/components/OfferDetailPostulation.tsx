@@ -33,7 +33,7 @@ export const OfferDetailPostulation = ({ id }: Props) => {
 
                 <OfferDetailPostulationHeader offer={offer} />
 
-                <div className="p-6 md:p-10 pt-6">
+                <div className="p-6 pt-2 md:p-10 md:pt-6">
                     {/* Tarjetas de info: salario, jornada, días */}
                     <OfferDetailInfoPostulation offer={offer} />
 
@@ -60,7 +60,7 @@ export const OfferDetailPostulation = ({ id }: Props) => {
 
                     {/* Botón postularse */}
                     {offer.jobOfferId && (
-                        <div className="mt-10 pb-2">
+                        <div className="mt-8 pb-2">
                             <ApplyButton offerId={offer.jobOfferId} />
                         </div>
                     )}
@@ -68,4 +68,4 @@ export const OfferDetailPostulation = ({ id }: Props) => {
             </div>
         </div>
     );
-};
+};

@@ -27,6 +27,7 @@ export interface JobOffer {
     salary: string;
     salaryDescription: string;
     establishmentAddress: string;
+    workSchedule?: string;
 }
 
 export interface Pageable {

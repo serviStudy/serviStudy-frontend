@@ -14,7 +14,7 @@ export const DetailRequirementsPostulation = ({ requirements }: Props) => {
                 <div className="bg-gray-900 p-2 rounded-xl">
                     <CheckCircle2 size={20} className="text-white" />
                 </div>
-                <h2 className="text-gray-900 font-extrabold text-lg">Habilidades y Requisitos</h2>
+                <h2 className="text-blue-900 font-semibold text-lg">Habilidades y Requisitos</h2>
             </div>
             <div className="flex flex-wrap gap-2.5">
                 {requirements.map((req, index) => (

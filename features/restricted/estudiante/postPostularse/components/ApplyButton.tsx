@@ -73,7 +73,7 @@ export const ApplyButton = ({ offerId }: Props) => {
     if (hasApplied) {
         return (
             <div className="flex flex-col gap-2">
-                <div className="w-full flex items-center justify-center gap-2.5 bg-emerald-500 text-white font-bold py-4 px-6 rounded-2xl text-base cursor-default select-none">
+                <div className="w-full flex items-center justify-center gap-2.5 bg-emerald-500 text-white font-semibold py-2 leading-tight px-4 rounded-2xl text-base cursor-default select-none">
                     <CheckCircle2 size={20} />
                     Ya estás postulado a esta oferta
                 </div>

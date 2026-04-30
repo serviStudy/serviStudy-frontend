@@ -24,7 +24,6 @@ export const AvatarCard = ({ variants, profile, email, inicial }: AvatarCardProp
             <h1 className="text-2xl font-extrabold text-gray-900 mt-5">
                 {profile.name || <span className="text-gray-400 italic font-medium text-lg">Sin nombre</span>}
             </h1>
-            <h2 className="text-blue-600 font-semibold mt-1">Estudiante</h2>
 
             <div className="mt-4 flex w-full justify-center">
                 <span className={`flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-bold shadow-sm ${profile.verificationStatus ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-gray-50 text-gray-500 border border-gray-200'}`}>

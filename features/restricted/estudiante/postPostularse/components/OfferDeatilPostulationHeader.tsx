@@ -14,7 +14,7 @@ export const OfferDetailPostulationHeader = ({ offer }: Props) => {
       <div className="absolute bottom-0 left-1/2 w-40 h-40 bg-blue-300 opacity-10 rounded-full blur-2xl translate-y-1/2 pointer-events-none" />
 
       {/* Logo */}
-      <div className="flex-shrink-0 w-24 h-24 rounded-2xl overflow-hidden bg-white shadow-lg border-2 border-white/40 z-10">
+      <div className="flex-shrink-0 w-20 h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden bg-white shadow-lg border-2 border-white/40 z-10">
         {offer.imageUrl ? (
           <Image
             width={96}

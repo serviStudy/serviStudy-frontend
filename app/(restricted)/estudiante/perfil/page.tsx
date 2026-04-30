@@ -1,14 +1,14 @@
 "use client"
 import React, { useState, useEffect } from 'react'
 import { motion, Variants } from 'framer-motion'
+
+// Shared UI Components
 import { ProfileVerification } from '@/components/shared/ProfileVerification'
+
+// Perfil Features & Modular Components
 import { useStudentProfile } from '@/features/restricted/estudiante/perfil/hooks/useStudentProfile'
 import { normalizeDays, isWeekDays, isWeekend, isSpecificDays } from '@/features/restricted/estudiante/perfil/utils/workDays.utils'
 import { WorkDaysModal } from '@/features/restricted/estudiante/perfil/components/modals/WorkDaysModal'
-import { getApplications } from '@/features/restricted/estudiante/misPostulaciones/services/applicationService'
-import { ApplicationItem } from '@/features/restricted/estudiante/misPostulaciones/types/applicationTypes'
-
-// Modular Components
 import { ProfileLoading } from '@/features/restricted/estudiante/perfil/components/ProfileLoading'
 import { ProfileHeader } from '@/features/restricted/estudiante/perfil/components/ProfileHeader'
 import { AvatarCard } from '@/features/restricted/estudiante/perfil/components/AvatarCard'
@@ -16,7 +16,12 @@ import { AvailabilityCard } from '@/features/restricted/estudiante/perfil/compon
 import { AboutMeCard } from '@/features/restricted/estudiante/perfil/components/AboutMeCard'
 import { SkillsCard } from '@/features/restricted/estudiante/perfil/components/SkillsCard'
 import { RecentApplicationsCard } from '@/features/restricted/estudiante/perfil/components/RecentApplicationsCard'
+import { MobileProfileView } from '@/features/restricted/estudiante/perfil/components/MobileProfileView'
 
+// External Services & Types
+import { getApplications } from '@/features/restricted/estudiante/misPostulaciones/services/applicationService'
+import { ApplicationItem } from '@/features/restricted/estudiante/misPostulaciones/types/applicationTypes'
+ 
 const containerVariants: Variants = {
     hidden: { opacity: 0 },
     show: {
@@ -74,11 +79,12 @@ const ProfilePage = () => {
                 <ProfileVerification />
             </div>
 
+            {/* DESKTOP VIEW - INTACT */}
             <motion.div 
                 variants={containerVariants}
                 initial="hidden"
                 animate="show"
-                className="w-full flex flex-col items-center mt-4"
+                className="hidden md:flex w-full flex-col items-center mt-4"
             >
                 <ProfileHeader variants={itemVariants} />
 
@@ -114,6 +120,29 @@ const ProfilePage = () => {
                 </div>
             </motion.div>
 
+            {/* MOBILE VIEW - REDESIGNED */}
+            <motion.div 
+                variants={containerVariants}
+                initial="hidden"
+                animate="show"
+                className="block md:hidden mt-4"
+            >
+                <MobileProfileView 
+                    profile={profile}
+                    email={email || ''}
+                    inicial={inicial || ''}
+                    postulaciones={postulaciones}
+                    loadingPosts={loadingPosts}
+                    normalizedDays={normalizedDays}
+                    isEntreSemana={isEntreSemana}
+                    isFinesDeSemana={isFinesDeSemana}
+                    isEspecificos={isEspecificos}
+                    scheduleLabel={scheduleLabel}
+                    onOpenDaysModal={() => setIsDaysModalOpen(true)}
+                    variants={itemVariants}
+                />
+            </motion.div>
+
             <WorkDaysModal 
                 open={isDaysModalOpen} 
                 onOpenChange={setIsDaysModalOpen} 
@@ -124,4 +153,4 @@ const ProfilePage = () => {
     )
 }
 
-export default ProfilePage
+export default ProfilePage
