@@ -4,7 +4,6 @@ import { HeaderLR } from '@/components/shared/HeaderLR'
 import { Loader2 } from 'lucide-react'
 import { useEditStudentProfile } from '@/features/restricted/estudiante/perfil/hooks/useEditStudentProfile'
 import { EditProfileForm } from '@/features/restricted/estudiante/perfil/components/EditProfileForm'
-import { HeaderStudent } from '@/components/shared/HeaderStudent'
 
 const EditProfilePage = () => {
     const {
@@ -29,7 +28,6 @@ const EditProfilePage = () => {
 
     return (
         <div className="flex flex-col gap-9 min-h-[90vh] items-center pt-14 md:pt-18 lg:pt-18 lg:pb-12 w-full">
-        <HeaderStudent name={''} />
 
         <div className="w-full max-w-4xl">
             <EditProfileForm 

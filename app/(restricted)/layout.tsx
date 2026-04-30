@@ -39,7 +39,7 @@ export default async function RestrictedLayout({
   const isStudent = safeUser.role === "STUDENT";
 
   return (
-    <div className="min-h-screen flex relative overflow-hidden bg-blue-100 selection:bg-blue-200 selection:text-blue-900">
+    <div className="min-h-screen flex relative bg-blue-100 selection:bg-blue-200 selection:text-blue-900">
       {/* Background */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <div className="absolute inset-0 bg-linear-to-br from-blue-50/20 via-white to-blue-50/10" />
@@ -57,7 +57,7 @@ export default async function RestrictedLayout({
         }`}
       >
         <main
-          className={`flex-1 ${
+          className={`flex-1 pt-20 ${
             isEmployer
               ? "p-8 lg:p-12"
               : "p-4 md:p-8 lg:p-12"

@@ -1,4 +1,4 @@
-import { Calendar, CircleDollarSign, Clock, MapPin } from 'lucide-react'
+import { Calendar, CircleDollarSign, Clock } from 'lucide-react'
 import React from 'react'
 import { Offer } from '@/features/restricted/estudiante/postPostularse/types/offer';
 import { ConvertWorkDayTags } from '../../hooks/ConvertWorkDayTags';
@@ -15,22 +15,42 @@ export const TagsInfoCard = ({ offer }: TagsCardProps) => {
     const jornadaTags = ConvertJornadaTags(offer.workSchedule)
 
     const infoItems = [
-        { icon: CircleDollarSign, label: 'Salario', value: offer.salary, color: 'blue' },
-        { icon: MapPin, label: 'Dirección', value: offer.address, color: 'emerald' },
-        { icon: Clock, label: 'Jornada', value: jornadaTags, color: 'amber' },
-        { icon: Calendar, label: 'Días laborales', value: dayTags.join(", "), color: 'green' },
+        { 
+            icon: CircleDollarSign, 
+            label: 'SALARIO', 
+            value: `$${Number(offer.salary).toLocaleString('es-CO')}`, 
+            bgColor: 'bg-[#f0fdf4]', 
+            iconBg: 'bg-[#22c55e]',
+            textColor: 'text-[#15803d]'
+        },
+        { 
+            icon: Clock, 
+            label: 'TIPO DE JORNADA', 
+            value: jornadaTags, 
+            bgColor: 'bg-[#fff7ed]', 
+            iconBg: 'bg-[#f97316]',
+            textColor: 'text-[#c2410c]'
+        },
+        { 
+            icon: Calendar, 
+            label: 'DÍAS LABORALES', 
+            value: dayTags.join(", "), 
+            bgColor: 'bg-[#f8fafc]', 
+            iconBg: 'bg-[#1e293b]',
+            textColor: 'text-[#334155]'
+        },
     ];
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
             {infoItems.map((item, idx) => (
-                <div key={idx} className="flex items-center gap-4 p-4 rounded-[20px] bg-gray-50/50 border border-gray-100 hover:shadow-sm hover:border-gray-200 transition-all duration-300">
-                    <div className={`p-2.5 rounded-xl bg-white text-${item.color}-600 shadow-sm border border-gray-100/80`}>
-                        <item.icon size={18} strokeWidth={2.5} />
+                <div key={idx} className={`flex flex-col gap-3 p-6 rounded-3xl border border-gray-100 ${item.bgColor} shadow-sm transition-all hover:scale-[1.02]`}>
+                    <div className={`p-2.5 rounded-xl ${item.iconBg} text-white shadow-md w-fit`}>
+                        <item.icon size={22} strokeWidth={2.5} />
                     </div>
                     <div className="flex flex-col min-w-0">
-                        <p className="text-[11px] font-bold text-gray-500 uppercase tracking-wider">{item.label}</p>
-                        <p className="text-sm font-extrabold text-gray-800 truncate">{item.value}</p>
+                        <p className={`text-[10px] font-black uppercase tracking-widest ${item.textColor} opacity-80`}>{item.label}</p>
+                        <p className={`text-xl font-black ${item.textColor} tracking-tight leading-tight mt-1`}>{item.value}</p>
                     </div>
                 </div>
             ))}

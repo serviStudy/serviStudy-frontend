@@ -13,30 +13,30 @@ interface InfoCardProps {
 export const InfoCard = ({ offer }: InfoCardProps) => {
     if (!offer) {
         return (
-            <div className='w-full rounded-[32px] bg-white p-8 text-center border border-gray-100 shadow-sm'>
+            <div className='w-full rounded-[18px] bg-white p-8 text-center border border-gray-100 shadow-sm'>
                 <p className="text-gray-400 font-medium italic">Selecciona una oferta para ver los detalles.</p>
             </div>
         )
     }
 
     return (
-        <div className='w-full rounded-[32px] bg-white border border-transparent'>
+        <div className='w-full rounded-[40px] bg-white border border-gray-100 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.1)] overflow-hidden'>
             <HeaderInfoCard offer={offer}/>
             
-            <div className='px-6 md:px-8 pb-8'>
+            <div className='p-6 md:p-8 pt-4'>
                 <TagsInfoCard offer={offer}/>
                 
-                <div className='mt-8 pt-2 border-t border-gray-50'>
+                <div className='mt-8'>
                     <InformationOffer offer={offer}/>
                 </div>
 
-                <div className='mt-4 w-full'>
+                <div className='mt-8 sticky bottom-0 bg-white/80 backdrop-blur-md pt-4 pb-2'>
                     <Link 
-                        className='group flex items-center justify-center gap-2 bg-[#1a4b9e] hover:bg-[#14346e] text-white font-bold py-4 px-6 rounded-2xl transition-all shadow-lg shadow-blue-200 active:scale-[0.98]' 
+                        className='group flex items-center justify-center gap-2 bg-[#2552d0] hover:bg-[#1e44af] text-white font-black py-4 px-6 rounded-2xl transition-all shadow-lg active:scale-[0.98]' 
                         href={`/estudiante/postulacion/${offer.id}`}
                     >
-                        <span>Ver más detalles</span>
-                        <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                        <span className="text-base">Ver más detalles</span>
+                        <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                     </Link>
                 </div>
             </div>

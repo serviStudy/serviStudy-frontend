@@ -13,9 +13,9 @@ export const Tag: React.FC<TagProps> = ({ label, variant = 'skill', onRemove }) 
       case 'skill':
         return 'border-[2px] font-semibold border-blue-800 bg-blue-100 text-blue-800 px-4 py-2 text-sm';
       case 'day':
-        return 'border border-red-300 text-green-600 px-4 py-1 text-sm font-medium';
+        return 'border border-green-700 bg-green-100 text-green-700 px-4 py-1 text-sm font-semibold';
       case 'specific_day':
-        return 'border border-green-700 bg-green-100 text-green-700 px-3 py-1 text-xs font-semibold';
+        return 'border border-green-700 bg-green-100 text-green-700 px-4 py-1 text-sm font-semibold';
       case 'schedule':
         return 'border border-orange-600 text-orange-700 bg-orange-100 px-4 py-1 text-sm font-medium';
       default:

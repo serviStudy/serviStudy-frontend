@@ -97,7 +97,7 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
   return (
     <div className="mx-auto max-w-4xl px-4 lg:px-0">
       <Card className="overflow-hidden border-none shadow-2xl shadow-gray-200/50 rounded-[32px] bg-white mb-10">
-        <div className="w-full bg-gradient-to-b from-[#2552d0] to-[#3a6bf0] h-48 relative">
+        <div className="w-full bg-linear-to-b from-[#2552d0] to-[#3a6bf0] h-48 relative">
         </div>
 
         <div className="px-8 pb-16 lg:px-16">

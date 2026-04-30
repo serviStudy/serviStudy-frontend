@@ -2,6 +2,7 @@ import React from 'react'
 import { Offer } from '@/features/restricted/estudiante/postPostularse/types/offer'
 import Image from "next/image";
 import { formatDaysAgo } from '../../hooks/FormatsDaysAgo';
+import { MapPin } from 'lucide-react';
 
 interface HeaderInfoProps {
     offer: Offer;
@@ -9,40 +10,47 @@ interface HeaderInfoProps {
 
 export const HeaderInfoCard = ({ offer }: HeaderInfoProps) => {
     return (
-        <div className="relative sticky top-0 z-20 rounded-t-[32px] overflow-hidden bg-gradient-to-br from-green-600 via-emerald-600 to-teal-500 shadow-sm">
-            {/* Subtle noise overlay */}
-            <div className="absolute inset-0 opacity-20 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMSIvPgo8L3N2Zz4=')]"></div>
+        <div className="relative overflow-hidden bg-gradient-to-r from-[#1e4eb9] to-[#3b82f6] min-h-[160px] flex items-center">
+            {/* Subtle background overlay */}
+            <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
 
-            <div className="p-6 flex items-start justify-between gap-4 relative z-10">
-                <div className="flex items-center gap-4 md:gap-5 w-full">
-                    {/* foto de la oferta */}
-                    <div className="h-16 w-16 md:h-20 md:w-20 shrink-0 bg-white rounded-2xl shadow-lg border-2 border-white/20 flex items-center justify-center overflow-hidden">
-                        {offer.imageUrl ? (
-                            <Image
-                                width={80}
-                                height={80}
-                                src={offer.imageUrl}
-                                alt={offer.title}
-                                className='object-cover w-full h-full'                 
-                            />
-                        ) : (
-                            <div className='w-full h-full bg-gray-50 flex items-center justify-center text-green-300 text-xs font-bold'>
-                                No image
-                            </div>
-                        )}
-                    </div>
+            <div className="p-6 md:p-8 flex items-center gap-6 relative z-10 w-full">
+                {/* Logo container - White rounded square as in image */}
+                <div className="h-20 w-20 md:h-24 md:w-24 shrink-0 bg-white rounded-2xl shadow-lg flex items-center justify-center overflow-hidden p-2">
+                    {offer.imageUrl ? (
+                        <Image
+                            width={96}
+                            height={96}
+                            src={offer.imageUrl}
+                            alt={offer.title}
+                            className='object-contain w-full h-full'                 
+                        />
+                    ) : (
+                        <div className='w-full h-full bg-gray-50 flex items-center justify-center text-gray-400 text-xs font-bold text-center'>
+                            Logo
+                        </div>
+                    )}
+                </div>
 
-                    <div className="flex flex-col gap-1.5 flex-1 min-w-0">
-                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-white/20 text-white border border-white/20 backdrop-blur-sm uppercase tracking-wider w-fit">
-                            Hace {formatDaysAgo(offer.createdAt)}
+                <div className="flex flex-col gap-1 flex-1 min-w-0 text-white">
+                    <h2 className="text-3xl md:text-4xl font-black tracking-tighter leading-tight capitalize">
+                        {offer.title}
+                    </h2>
+                    <p className="text-lg md:text-xl font-bold opacity-90">
+                        {offer.businessName}
+                    </p>
+                    <div className="flex items-center gap-1.5 mt-1 opacity-80">
+                        <MapPin size={16} fill="white" className="text-transparent" />
+                        <span className="text-sm font-bold capitalize">
+                            {offer.address || "san jose"}
                         </span>
-                        <h4 className="text-xl md:text-2xl font-black text-white leading-tight truncate">
-                            {offer.title}
-                        </h4>
-                        <p className="text-sm md:text-[15px] font-semibold text-green-100 truncate">
-                            {offer.businessName}
-                        </p>
                     </div>
+                </div>
+                
+                <div className="absolute top-6 right-6">
+                    <span className="bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold text-white uppercase tracking-widest border border-white/20">
+                        Hace {formatDaysAgo(offer.createdAt)}
+                    </span>
                 </div>
             </div>
         </div>

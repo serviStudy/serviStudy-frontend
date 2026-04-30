@@ -13,14 +13,14 @@ interface Props {
 }
 
 export const OfferDetailPostulation = ({ id }: Props) => {
-    const { offer, error } = useActiveOffer(id);
+    const { offer, error, loading } = useActiveOffer(id);
 
     if (error || !offer) {
         return (
-        <div className="flex flex-col items-center justify-center h-[80vh]">
-            <p className="text-transparent">{error || "No se encontró la oferta"}</p>
-            <LoadingScreen />
-        </div>
+            <div className="flex flex-col items-center justify-center h-[80vh]">
+                <p className="text-transparent">{error || "No se encontró la oferta"}</p>
+                <LoadingScreen />
+            </div>
         );
     }
 

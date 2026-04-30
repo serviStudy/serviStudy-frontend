@@ -11,6 +11,24 @@ const EMPLOYER_CREATE_URL  = `${API_URL}/profiles/employer/info`
 // =========================
 const getServiceHeaders = (): Record<string, string> => {
   const token = localStorage.getItem("token") ?? ""
+  
+  // DIAGNÓSTICO
+  if (token) {
+    try {
+      const base64Url = token.split('.')[1]
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
+      const decoded = JSON.parse(window.atob(base64))
+      console.log("🔍 [DEBUG Service] Token en localStorage:", {
+        role: decoded.role || decoded.roles || "NO ENCONTRADO",
+        email: decoded.sub || decoded.email || "NO ENCONTRADO",
+        exp: decoded.exp ? new Date(decoded.exp * 1000).toLocaleString() : "NO ENCONTRADO"
+      })
+    } catch (e) {
+      console.error("🔍 [DEBUG Service] Error al decodificar token:", e)
+    }
+  } else {
+    console.warn("🔍 [DEBUG Service] No hay token en localStorage")
+  }
 
   return {
     Authorization: `Bearer ${token}`
@@ -77,6 +95,8 @@ export const getEmployerProfile = async (): Promise<EmployerProfileResponse | nu
   const res = await fetch(EMPLOYER_PROFILE_URL, {
     headers: getServiceHeaders()
   })
+
+  console.log(`🔍 [DEBUG Service] Respuesta de ${EMPLOYER_PROFILE_URL}:`, res.status)
 
   if (res.status === 404) return null
 

@@ -1,8 +1,9 @@
 import { useState } from "react"
 import { loginService } from "../sevice/login.service"
+import { usePersistentRole } from "@/hooks/usePersistentRole"
 
 export const useLogin = () => {
-  const [tipoUsuario, setTipoUsuario] = useState("estudiante")
+  const { tipoUsuario, setTipoUsuario } = usePersistentRole()
   const [correo, setCorreo] = useState("")
   const [password, setPassword] = useState("")
   const [errorCorreo, setErrorCorreo] = useState("")

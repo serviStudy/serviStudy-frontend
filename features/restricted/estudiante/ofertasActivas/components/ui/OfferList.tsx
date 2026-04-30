@@ -31,10 +31,7 @@ export const OfferList = ({offers, selectedOffer, onSelectOffer}: ResultCardProp
                         <div 
                             key={offer.id}
                             onClick={() => onSelectOffer(offer)}
-                            
-                            className={`cursor-pointer rounded-[21px] border-2 transition-all ${
-                                isSelected ? "border-green-600/35" : "border-transparent"
-                            }`}
+                            className="cursor-pointer"
                         >
                             <ResultCrad offer={offer} isSelected={isSelected}/>
                         </div>

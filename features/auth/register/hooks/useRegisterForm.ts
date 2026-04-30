@@ -4,11 +4,11 @@ import { registerUser } from "@/features/auth/register/service/register";
 import { TipoUsuario } from "@/type/auth";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { usePersistentRole } from "@/hooks/usePersistentRole";
 
 export function useRegisterForm(){
     const router = useRouter();
-
-    const [tipoUsuario, setTipoUsuario] = useState<TipoUsuario>("estudiante");
+    const { tipoUsuario, setTipoUsuario } = usePersistentRole();
 
     const [formData, setFormData] = useState({
         email: '',

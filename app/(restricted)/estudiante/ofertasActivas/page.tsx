@@ -4,7 +4,7 @@ import SearchCard from '@/features/restricted/estudiante/ofertasActivas/componen
 import { OfferList } from '@/features/restricted/estudiante/ofertasActivas/components/ui/OfferList'
 import { useActiveOffers } from '@/features/restricted/estudiante/ofertasActivas/hooks/useActiveOffers'
 import { useOfferFilter } from '@/features/restricted/estudiante/ofertasActivas/hooks/useOfferFilter'
-import { Loader2, Inbox } from 'lucide-react'
+import { Loader2, Inbox, X } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 
 const Page = () => {
@@ -19,6 +19,21 @@ const Page = () => {
     } = useOfferFilter(offers)
     
     const [inputValue, setInputValue] = useState("")
+    const [isMobileDetailOpen, setIsMobileDetailOpen] = useState(false)
+
+    const handleClearAll = () => {
+        setInputValue("")
+        setSearchTerm("")
+        setSelectedDays([])
+        setSelectedJornada([])
+    }
+
+    const handleSelectOffer = (offer: any) => {
+        setSelectedOffer(offer)
+        if (window.innerWidth < 1024) {
+            setIsMobileDetailOpen(true)
+        }
+    }
 
     const handleInputChange = (value: string) => {
         setInputValue(value);
@@ -50,18 +65,21 @@ const Page = () => {
     useEffect(() => {
         if (filteredOffers.length === 0) {
             setSelectedOffer(null);
-        } else if (
-            !selectedOffer ||
-            !filteredOffers.some((offer) => offer.id === selectedOffer.id)
-        ) {
-            setSelectedOffer(filteredOffers[0]);
+            setIsMobileDetailOpen(false);
+        } else if (window.innerWidth >= 1024) {
+            if (
+                !selectedOffer ||
+                !filteredOffers.some((offer) => offer.id === selectedOffer.id)
+            ) {
+                setSelectedOffer(filteredOffers[0]);
+            }
         }
     }, [filteredOffers, selectedOffer, setSelectedOffer]);
 
 
     if (loading) {
         return (
-            <div className="flex h-[80vh] items-center justify-center">
+            <div className="flex flex-col h-[80vh] items-center justify-center">
                 <Loader2 className="h-10 w-10 animate-spin text-blue-600" />
                 <p className="text-gray-500 font-bold animate-pulse">Cargando las mejores ofertas...</p>
             </div>
@@ -70,38 +88,51 @@ const Page = () => {
 
 
     return (
-        <div className="flex flex-col min-h-screen pb-20 w-full px-4 md:px-8 pt-8">
-            <div className="max-w-400 mx-auto w-full">
-                {/* Search & Filters Header */}
-                <SearchCard 
-                    inputValue={inputValue} 
-                    onInputChange={handleInputChange} 
-                    onSearch={handleSearch}
-                    selectedDays={selectedDays}
-                    toggleDay={toggleDay}
-                    selectedJornada={selectedJornada}
-                    toggleJornada={toggleJornada}
-                />
+        <div className="flex flex-col  gap-8 pb-14 w-full">
+            <div className="flex flex-col">
+                {/* Title Section - Non-sticky */}
+                <div className="pb-4">
+                    <h1 className="text-3xl font-bold text-gray-900 tracking-tight lg:text-4xl">
+                        Encuentra nuevas ofertas
+                    </h1>
+                    <p className="text-gray-500 mt-2 text-lg font-medium">
+                        Explora cientos de oportunidades para estudiantes
+                    </p>
+                </div>
+
+                {/* Search & Filters Header - Sticky */}
+                <div className="sticky top-0 z-30 backdrop-blur-md w-full py-6 transition-all">
+                    <SearchCard 
+                        inputValue={inputValue} 
+                        onInputChange={handleInputChange} 
+                        onSearch={handleSearch}
+                        selectedDays={selectedDays}
+                        toggleDay={toggleDay}
+                        selectedJornada={selectedJornada}
+                        toggleJornada={toggleJornada}
+                        onClearAll={handleClearAll}
+                    />
+                </div>
 
                 {/* Content Layout */}
-                <div className="grid grid-cols-1 lg:grid-cols-[1fr_450px] xl:grid-cols-[1fr_500px] gap-8 items-start">
+                <div className="grid grid-cols-1 lg:pt-10 lg:grid-cols-[1fr_450px] xl:grid-cols-[1fr_500px] gap-16 items-start">
                     
                     {/* Results Column */}
-                    <div className="flex flex-col gap-6">
-                        <div className="flex items-center justify-between px-2">
-                            <h3 className="text-xl font-bold text-gray-900">
-                                Resultados <span className="text-blue-600 ml-1 bg-blue-50 py-0.5 rounded-lg text-lg">({filteredOffers.length})</span>
+                    <div className="flex flex-col gap-4">
+                        <div className="flex items-center-safe">
+                            <h3 className="text-xl font-bold text-blue-900">
+                                Resultados <span className="text-gray-700 ml-1 rounded-lg text-sm">({filteredOffers.length})</span>
                             </h3>
                         </div>
 
                         {filteredOffers.length > 0 ? (
                             <OfferList 
                                 offers={filteredOffers} 
-                                onSelectOffer={setSelectedOffer} 
+                                onSelectOffer={handleSelectOffer} 
                                 selectedOffer={selectedOffer}
                             />
                         ) : (
-                            <div className="flex flex-col items-center justify-center py-20 bg-white rounded-[32px] border border-dashed border-gray-200 shadow-sm">
+                            <div className="flex flex-col items-center justify-center p-20 bg-white rounded-[32px] border border-dashed border-gray-200 shadow-sm">
                                 <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mb-4">
                                     <Inbox className="text-gray-300 w-10 h-10" />
                                 </div>
@@ -114,9 +145,9 @@ const Page = () => {
                     </div>
 
                     {/* Preview Column (Sticky on Desktop) */}
-                    <div className="hidden lg:block sticky top-8">
+                    <div className="hidden lg:block sticky top-32 self-start">
                         {selectedOffer ? (
-                            <div className="h-[calc(100vh-100px)] overflow-y-auto no-scrollbar rounded-[32px] shadow-xl shadow-blue-900/5 border border-gray-100 bg-white">
+                            <div className="h-[calc(100vh-180px)] rounded-32 overflow-y-auto no-scrollbar bg-transparent">
                                 <InfoCard offer={selectedOffer} />
                             </div>
                         ) : (
@@ -128,17 +159,25 @@ const Page = () => {
                         )}
                     </div>
 
-                    {/* Mobile Preview (Below results) */}
-                    <div className="lg:hidden mt-8">
-                        {selectedOffer && (
-                            <div className="flex flex-col gap-4">
-                                <h3 className="text-xl font-bold text-gray-900 px-2">Detalles de la oferta</h3>
+                    {/* Mobile Preview Modal/Overlay */}
+                    {isMobileDetailOpen && selectedOffer && (
+                        <div className="fixed inset-0 z-50 bg-white lg:hidden overflow-y-auto animate-in slide-in-from-bottom-4 duration-300">
+                            <div className="sticky top-0 z-10 bg-white/90 backdrop-blur-sm p-4 border-b flex items-center gap-4">
+                                <button 
+                                    onClick={() => setIsMobileDetailOpen(false)}
+                                    className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                                >
+                                    <X className="w-6 h-6 text-gray-600" />
+                                </button>
+                                <h3 className="text-lg font-bold text-gray-900">Detalles de la oferta</h3>
+                            </div>
+                            <div className="p-4 pb-20">
                                 <div className="rounded-[32px] overflow-hidden shadow-xl shadow-blue-900/5 border border-gray-100 bg-white">
                                     <InfoCard offer={selectedOffer} />
                                 </div>
                             </div>
-                        )}
-                    </div>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

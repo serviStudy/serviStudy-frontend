@@ -51,6 +51,8 @@ export const getOfferById = async (id: string): Promise<ActiveOffer> => {
     const data = await res.json();
 
     if (!res.ok) throw new Error(data.message || "No se encontró la oferta")
+    
+    console.log("🔍 [DEBUG Service] Detalle de oferta recibida:", data);
 
-    return data.data
+    return data.data ?? data;
 }

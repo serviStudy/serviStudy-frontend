@@ -2,12 +2,13 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
+import { usePersistentRole } from "@/hooks/usePersistentRole"
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
 export const useRecuperacion = () => {
     const router = useRouter()
-    const [tipoUsuario, setTipoUsuario] = useState<"estudiante" | "empresa">("estudiante")
+    const { tipoUsuario, setTipoUsuario } = usePersistentRole()
     const [step, setStep] = useState<1 | 2 | 3>(1)
     const [correo, setCorreo] = useState("")
     const [codigo, setCodigo] = useState(["", "", "", "", "", ""])
