@@ -11,7 +11,7 @@ interface ResultCardProps {
 
 export const OfferList = ({offers, selectedOffer, onSelectOffer}: ResultCardProps) => {
     return (
-        <div className='flex flex-col gap-4 w-auto'>
+        <div className='flex flex-col gap-3 w-auto'>
             {offers.length === 0 ? (
                 <div className='flex items-center justify-center rounded-[32px] w-full bg-white border border-dashed border-gray-200 min-h-[300px]'>
                     <div className='text-center px-6'>

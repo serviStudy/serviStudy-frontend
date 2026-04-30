@@ -15,17 +15,17 @@ export const InformationOffer = ({ offer }: InformationProps) => {
         : offer.description;
 
     return (
-        <div className='flex flex-col w-full gap-8 mt-4'>
+        <div className='flex flex-col w-full gap-6 mt-4'>
             {/* Detalles de contratación */}
             <div className='flex flex-col gap-4'>
                 <div className='flex gap-3 items-center'>
                     <div className='p-2 bg-[#2552d0] rounded-xl text-white shadow-md'>
-                        <Scroll size={22} strokeWidth={2.5}/>
+                        <Scroll size={20} strokeWidth={2.5}/>
                     </div>
-                    <h3 className='font-black text-xl text-[#0f172a] tracking-tight'>Detalles de Contratación</h3>
+                    <h3 className='font-semibold text-lg md:text-xl text-blue-900 tracking-tight'>Detalles de Contratación</h3>
                 </div>
-                <div className='p-6 rounded-[32px] bg-[#f1f5f9]/50 border border-[#e2e8f0]/60 min-h-[80px] flex items-center'>
-                    <p className='text-[#475569] text-sm md:text-base font-medium leading-relaxed'>
+                <div className='p-4 md:p-6 rounded-xl bg-slate-50 border border-slate-200 min-h-[60px] flex items-center'>
+                    <p className='text-gray-700 text-sm md:text-base font-normal leading-relaxed'>
                         {offer.salaryDescription || offer.salary}
                     </p>
                 </div>
@@ -35,12 +35,12 @@ export const InformationOffer = ({ offer }: InformationProps) => {
             <div className='flex flex-col gap-4'>
                 <div className='flex gap-3 items-center'>
                     <div className='p-2 bg-[#f97316] rounded-xl text-white shadow-md'>
-                        <Briefcase size={22} strokeWidth={2.5}/>
+                        <Briefcase size={20} strokeWidth={2.5}/>
                     </div>
-                    <h3 className='font-black text-xl text-[#0f172a] tracking-tight'>Descripción del Puesto</h3>
+                    <h3 className='font-semibold text-lg md:text-xl text-blue-900 tracking-tight'>Descripción del Puesto</h3>
                 </div>
-                <div className='p-6 rounded-[32px] bg-[#f1f5f9]/50 border border-[#e2e8f0]/60'>
-                    <p className='text-[#475569] text-sm md:text-base font-medium leading-relaxed'>
+                <div className='p-4 md:p-6 rounded-xl bg-slate-50 border border-slate-200'>
+                    <p className='text-gray-700 text-sm md:text-base font-normal leading-relaxed'>
                         {cleanDescription}
                     </p>
                 </div>
@@ -50,15 +50,15 @@ export const InformationOffer = ({ offer }: InformationProps) => {
             <div className='flex flex-col gap-4'>
                 <div className='flex gap-3 items-center'>
                     <div className='p-2 bg-[#0f172a] rounded-xl text-white shadow-md'>
-                        <CheckCircle2 size={22} strokeWidth={2.5}/>
+                        <CheckCircle2 size={20} strokeWidth={2.5}/>
                     </div>
-                    <h3 className='font-black text-xl text-[#0f172a] tracking-tight'>Habilidades y Requisitos</h3>
+                    <h3 className='font-semibold text-lg md:text-xl text-blue-900 tracking-tight'>Habilidades y Requisitos</h3>
                 </div>
                 <div className='flex flex-wrap gap-2 px-1'>
                     {offer.requirements && offer.requirements.length > 0 ? (
                         offer.requirements.map((req: any, idx: number) => (
-                            <div key={idx} className="flex items-center gap-2 px-4 py-2 bg-[#dbeafe] text-[#1e40af] rounded-full text-sm font-bold border border-[#bfdbfe]">
-                                <div className="w-1.5 h-1.5 rounded-full bg-[#3b82f6]" />
+                            <div key={idx} className="flex items-center gap-2 px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg text-xs font-medium border border-blue-100">
+                                <div className="w-1 h-1 rounded-full bg-blue-500" />
                                 {req.requirementName || req.name || req}
                             </div>
                         ))

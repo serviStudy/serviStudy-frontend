@@ -92,30 +92,36 @@ const Page = () => {
             <div className="flex flex-col">
                 {/* Title Section - Non-sticky */}
                 <div className="pb-4">
-                    <h1 className="text-3xl font-bold text-gray-900 tracking-tight lg:text-4xl">
+                    <h1 className="text-2xl md:text-3xl font-bold text-blue-900 tracking-tight">
                         Encuentra nuevas ofertas
                     </h1>
-                    <p className="text-gray-500 mt-2 text-lg font-medium">
+                    <p className="text-gray-500 mt-1 text-sm md:text-base font-normal">
                         Explora cientos de oportunidades para estudiantes
                     </p>
                 </div>
 
-                {/* Search & Filters Header - Sticky */}
-                <div className="sticky top-0 z-30 backdrop-blur-md w-full py-6 transition-all">
-                    <SearchCard 
-                        inputValue={inputValue} 
-                        onInputChange={handleInputChange} 
-                        onSearch={handleSearch}
-                        selectedDays={selectedDays}
-                        toggleDay={toggleDay}
-                        selectedJornada={selectedJornada}
-                        toggleJornada={toggleJornada}
-                        onClearAll={handleClearAll}
-                    />
+                {/* Search & Filters Header - Sticky with edge-to-edge blur */}
+                <div className="sticky top-0 z-30 w-full transition-all">
+                    {/* Full-width background layer */}
+                    <div className="absolute inset-0 w-screen left-1/2 -ml-[50vw] backdrop-blur-xl bg-white/60 border-b border-gray-100/50" />
+                    
+                    {/* Centered content layer */}
+                    <div className="relative z-10 py-4 max-w-[1440px] mx-auto w-full">
+                        <SearchCard 
+                            inputValue={inputValue} 
+                            onInputChange={handleInputChange} 
+                            onSearch={handleSearch}
+                            selectedDays={selectedDays}
+                            toggleDay={toggleDay}
+                            selectedJornada={selectedJornada}
+                            toggleJornada={toggleJornada}
+                            onClearAll={handleClearAll}
+                        />
+                    </div>
                 </div>
 
                 {/* Content Layout */}
-                <div className="grid grid-cols-1 lg:pt-10 lg:grid-cols-[1fr_450px] xl:grid-cols-[1fr_500px] gap-16 items-start">
+                <div className="grid grid-cols-1 pt-7 lg:pt-10 lg:grid-cols-[1fr_450px] xl:grid-cols-[1fr_500px] gap-16 items-start">
                     
                     {/* Results Column */}
                     <div className="flex flex-col gap-4">
@@ -161,18 +167,20 @@ const Page = () => {
 
                     {/* Mobile Preview Modal/Overlay */}
                     {isMobileDetailOpen && selectedOffer && (
-                        <div className="fixed inset-0 z-50 bg-white lg:hidden overflow-y-auto animate-in slide-in-from-bottom-4 duration-300">
-                            <div className="sticky top-0 z-10 bg-white/90 backdrop-blur-sm p-4 border-b flex items-center gap-4">
-                                <button 
-                                    onClick={() => setIsMobileDetailOpen(false)}
-                                    className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-                                >
-                                    <X className="w-6 h-6 text-gray-600" />
-                                </button>
-                                <h3 className="text-lg font-bold text-gray-900">Detalles de la oferta</h3>
+                        <div className="fixed inset-0 z-50 bg-slate-50/50 backdrop-blur-md lg:hidden overflow-y-auto animate-in slide-in-from-bottom-4 duration-300">
+                            <div className="sticky top-0 z-10 bg-white/80 backdrop-blur-xl p-4 border-b border-slate-100 flex items-center justify-between">
+                                <div className="flex items-center gap-3">
+                                    <button 
+                                        onClick={() => setIsMobileDetailOpen(false)}
+                                        className="p-2 hover:bg-slate-100 rounded-full transition-colors"
+                                    >
+                                        <X className="w-6 h-6 text-slate-600" />
+                                    </button>
+                                    <h3 className="text-lg font-semibold text-blue-900 tracking-tight">Detalles de la oferta</h3>
+                                </div>
                             </div>
-                            <div className="p-4 pb-20">
-                                <div className="rounded-[32px] overflow-hidden shadow-xl shadow-blue-900/5 border border-gray-100 bg-white">
+                            <div className="p-4 pb-32">
+                                <div className="rounded-2xl overflow-hidden shadow-2xl shadow-blue-900/10 border border-slate-100 bg-white">
                                     <InfoCard offer={selectedOffer} />
                                 </div>
                             </div>

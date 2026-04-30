@@ -33,11 +33,11 @@ export const OfferDetailPostulationHeader = ({ offer }: Props) => {
       </div>
 
       {/* Info */}
-      <div className="flex flex-col gap-1.5 z-10 min-w-0">
-        <h1 className="text-2xl md:text-3xl font-extrabold text-white leading-tight">
+      <div className="flex flex-col gap-1 z-10 min-w-0">
+        <h1 className="text-2xl md:text-3xl font-bold text-white leading-tight tracking-tight">
           {offer.title}
         </h1>
-        <p className="text-blue-200 font-semibold text-base">{offer.businessName}</p>
+        <p className="text-blue-200 font-semibold text-lg md:text-xl">{offer.businessName}</p>
         <div className="flex items-center gap-1.5 text-blue-100 mt-1">
           <MapPin size={16} className="flex-shrink-0" />
           <span className="text-sm font-medium leading-tight">{offer.establishmentAddress}</span>

@@ -44,13 +44,13 @@ export const TagsInfoCard = ({ offer }: TagsCardProps) => {
     return (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
             {infoItems.map((item, idx) => (
-                <div key={idx} className={`flex flex-col gap-3 p-6 rounded-3xl border border-gray-100 ${item.bgColor} shadow-sm transition-all hover:scale-[1.02]`}>
-                    <div className={`p-2.5 rounded-xl ${item.iconBg} text-white shadow-md w-fit`}>
-                        <item.icon size={22} strokeWidth={2.5} />
+                <div key={idx} className={`flex flex-col gap-3 p-4 rounded-xl border border-gray-100 ${item.bgColor} shadow-sm transition-all hover:scale-[1.02]`}>
+                    <div className={`p-2 rounded-xl ${item.iconBg} text-white shadow-md w-fit`}>
+                        <item.icon size={20} strokeWidth={2.5} />
                     </div>
                     <div className="flex flex-col min-w-0">
-                        <p className={`text-[10px] font-black uppercase tracking-widest ${item.textColor} opacity-80`}>{item.label}</p>
-                        <p className={`text-xl font-black ${item.textColor} tracking-tight leading-tight mt-1`}>{item.value}</p>
+                        <p className={`text-xs font-medium uppercase tracking-widest ${item.textColor} opacity-80`}>{item.label}</p>
+                        <p className={`text-sm md:text-base font-semibold ${item.textColor} tracking-tight leading-tight mt-1`}>{item.value}</p>
                     </div>
                 </div>
             ))}
