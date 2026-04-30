@@ -10,7 +10,8 @@ import {
   LogOut,
   HelpCircle,
   Menu,
-  X
+  X,
+  CreditCard
 } from 'lucide-react';
 
 import NavLink from '../ui/NavLink';
@@ -20,6 +21,7 @@ const sidebarItems = [
   { name: 'Perfil de Empresa', icon: User, href: '/empleador/perfil' },
   { name: 'Mis Ofertas', icon: Briefcase, href: '/empleador/ofertas' },
   { name: 'Candidatos', icon: Users, href: '/empleador/candidatos' },
+  { name: 'Suscripción', icon: CreditCard, href: '/empleador/suscripcion' },
   { name: 'Configuración', icon: Settings, href: '/empleador/configuracion' },
 ];
 

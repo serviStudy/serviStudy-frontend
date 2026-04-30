@@ -11,7 +11,8 @@ import {
     LogOut,
     HelpCircle,
     Menu,
-    X
+    X,
+    CreditCard
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -21,8 +22,8 @@ const sidebarItems = [
     { name: 'Perfil estudiante', icon: User, href: '/estudiante/perfil' },
     { name: 'Ofertas', icon: Briefcase, href: '/estudiante/ofertasActivas' },
     { name: 'Empleadores', icon: Users, href: '/estudiante/empleadores' },
-    { name: 'Suscripción', icon: LayoutDashboard, href: '/empleador/dashboard' },
-    { name: 'Configuración', icon: Settings, href: '/empleador/configuracion' },
+    { name: 'Suscripción', icon: CreditCard, href: '/estudiante/suscripcion' },
+    { name: 'Configuración', icon: Settings, href: '/estudiante/configuracion' },
 ];
 
 export const StudentSidebar = () => {
