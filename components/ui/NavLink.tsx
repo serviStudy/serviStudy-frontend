@@ -4,8 +4,8 @@ import Link from "next/link";
 import * as Icons from "lucide-react";
 import { LucideIcon } from "lucide-react";
 import { Button } from "./button";
-import { useActivePath } from "@/hooks/useActivePath";
 import { motion } from "framer-motion";
+import { useActivePath } from "../shared/useActivePath";
 
 interface ButtonNavProps {
     icon: LucideIcon;

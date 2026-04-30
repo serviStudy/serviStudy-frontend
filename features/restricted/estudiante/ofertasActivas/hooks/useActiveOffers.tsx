@@ -1,0 +1,38 @@
+import { Offer } from '@/features/restricted/estudiante/postPostularse/types/offer';
+import { useEffect, useState } from 'react';
+import { getActiveOffers } from '../services/ofertaActivaService';
+
+export const useActiveOffers = () => {
+    const [offers, setOffers] = useState<Offer[]>([]);
+    const [selectedOffer, setSelectedOffer] = useState<Offer | null>(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchOffers = async () => {
+            try {
+                const data = await getActiveOffers();
+
+                if (!data) return;
+
+                setOffers(data);
+
+                if (data.length > 0){
+                    setSelectedOffer(data[0]);
+                }
+            }catch (error){
+                console.log("error loading offers", error)
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        fetchOffers();
+    }, [])
+
+    return {
+        offers,
+        selectedOffer,
+        setSelectedOffer,
+        loading
+    }
+}

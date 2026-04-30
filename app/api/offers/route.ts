@@ -16,13 +16,16 @@ async function getVerifiedEmployerId(authHeader: string) {
     return cached.id;
   }
 
-  console.log("[Identity Cache] Miss - Consultando perfil para verificar identidad");
+  console.log(`[Identity Proxy] Consultando perfil en ${PROFILE_API_URL}`);
   const profileRes = await fetch(PROFILE_API_URL, {
     headers: { 'Authorization': authHeader }
   });
 
+  console.log(`[Identity Proxy] Respuesta perfil: ${profileRes.status}`);
+
   if (profileRes.ok) {
     const profileData = await profileRes.json();
+    console.log(`[Identity Proxy] Datos perfil recibidos:`, JSON.stringify(profileData).substring(0, 100) + "...");
     const p = profileData.data || profileData;
     const id = p.employerId || p.employer_id || p.id || '';
     
@@ -30,6 +33,9 @@ async function getVerifiedEmployerId(authHeader: string) {
        IDENTITY_CACHE.set(authHeader, { id, expires: now + CACHE_TTL });
     }
     return id;
+  } else {
+    const errText = await profileRes.text().catch(() => "N/A");
+    console.error(`[Identity Proxy] Error perfil: ${errText}`);
   }
   return '';
 }
@@ -42,6 +48,7 @@ export async function GET(request: Request) {
     }
 
     const verifiedEmployerId = await getVerifiedEmployerId(authHeader);
+    console.log(`[Identity Proxy] GET offers - Usando verifiedEmployerId: ${verifiedEmployerId}`);
     
     // Consultamos la lista de ofertas del empleador usando su identidad verificada
     const response = await fetch(`${EXTERNAL_OFFERS_URL}/employer`, {
