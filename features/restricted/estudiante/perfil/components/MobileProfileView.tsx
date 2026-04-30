@@ -102,7 +102,7 @@ export const MobileProfileView = ({
                             {isEntreSemana && <span className="bg-green-100 text-green-700 px-3 py-1.5 rounded-lg text-xs font-bold border border-green-200">Entre semana</span>}
                             {isFinesDeSemana && <span className="bg-green-100 text-green-700 px-3 py-1.5 rounded-lg text-xs font-bold border border-green-200">Fines de semana</span>}
                             {isEspecificos && (
-                                <button onClick={onOpenDaysModal} className="bg-blue-100 text-blue-700 px-3 py-1.5 rounded-lg text-xs font-bold border border-blue-200">Ver días</button>
+                                <button onClick={onOpenDaysModal} className="bg-green-100 text-green-700 px-3 py-1.5 rounded-lg text-xs font-bold border border-green-200">Ver días</button>
                             )}
                             {!normalizedDays.length && <span className="text-sm text-gray-400 italic">No especificado</span>}
                         </div>

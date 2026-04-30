@@ -12,7 +12,7 @@ export const ProfileHeader = ({ variants }: ProfileHeaderProps) => {
     return (
         <motion.div 
             variants={variants}
-            className="w-full max-w-6xl mx-auto h-48 md:h-56 rounded-3xl bg-linear-to-br from-[#1e3a8a] via-[#1d4ed8] to-[#3b82f6] relative overflow-hidden shadow-lg"
+            className="w-full max-w-6xl mx-auto h-48 md:h-56 rounded-3xl bg-linear-to-br from-blue-900 via-blue-700 to-blue-600 relative overflow-hidden shadow-lg"
         >
             <div className="absolute inset-0 opacity-20 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMSIvPgo8L3N2Zz4=')]"></div>
             

@@ -21,7 +21,7 @@ import { MobileProfileView } from '@/features/restricted/estudiante/perfil/compo
 // External Services & Types
 import { getApplications } from '@/features/restricted/estudiante/misPostulaciones/services/applicationService'
 import { ApplicationItem } from '@/features/restricted/estudiante/misPostulaciones/types/applicationTypes'
- 
+
 const containerVariants: Variants = {
     hidden: { opacity: 0 },
     show: {
@@ -74,8 +74,8 @@ const ProfilePage = () => {
         : null;
 
     return (
-        <div className="flex flex-col min-h-screen w-full pb-16">
-            <div className="pt-6 px-4 max-w-6xl mx-auto w-full">
+        <div className="flex flex-col min-h-screen w-full pb-8 gap-6">
+            <div className="max-w-6xl mx-auto w-full">
                 <ProfileVerification />
             </div>
 
@@ -120,7 +120,7 @@ const ProfilePage = () => {
                 </div>
             </motion.div>
 
-            {/* MOBILE VIEW - REDESIGNED */}
+            {/* versión movil del diseño de perfil */}
             <motion.div 
                 variants={containerVariants}
                 initial="hidden"

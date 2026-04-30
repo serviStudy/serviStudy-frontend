@@ -43,7 +43,7 @@ export const AvailabilityCard = ({
                                 <button
                                     type="button"
                                     onClick={onOpenDaysModal}
-                                    className="bg-green-50 border border-green-200 text-green-700 rounded-lg px-3 py-1 text-sm font-bold hover:bg-green-100 transition-colors"
+                                    className="bg-green-50 border border-green-200 text-green-700 rounded-lg px-3 py-1 text-sm font-semibold hover:bg-green-100 transition-colors"
                                 >
                                     Ver días
                                 </button>

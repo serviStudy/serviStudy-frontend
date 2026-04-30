@@ -51,12 +51,13 @@ export const updateStudentProfile = async (
   });
 
   if (!res.ok) {
-    let errorDetail = "";
+    const errorText = await res.text();
+    let errorDetail = errorText;
     try {
-      const err = await res.json();
-      errorDetail = JSON.stringify(err);
+      const err = JSON.parse(errorText);
+      errorDetail = err.message || JSON.stringify(err);
     } catch {
-      errorDetail = await res.text();
+      // No es JSON, mantener el texto original
     }
     throw new Error(errorDetail || `Error ${res.status}`);
   }

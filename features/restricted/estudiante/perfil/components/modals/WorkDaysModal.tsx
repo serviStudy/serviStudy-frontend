@@ -2,6 +2,7 @@ import React from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { translateDay } from '../../utils/workDays.utils';
+import { Calendar } from 'lucide-react';
 
 export const SPECIFIC_DAYS = [
   { id: 'MONDAY', label: 'Lunes' },
@@ -30,16 +31,17 @@ export const WorkDaysModal: React.FC<WorkDaysModalProps> = ({
 }) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-106.25">
+      <DialogContent className="max-w-[90vw] sm:max-w-125 rounded-2xl md:rounded-3xl">
         <DialogHeader>
-          <DialogTitle className="text-xl font-bold text-[#1a4b9e]">
-            {readOnly ? 'Días laborales' : 'Selecciona tus días laborales'}
+          <DialogTitle className='flex gap-2 items-center'>
+            <Calendar className='text-gray-600 w-5 h-5 md:w-6 md:h-6'/>
+            <p className="text-lg md:text-xl font-semibold text-gray-600">{readOnly ? 'Días laborales' : 'Selecciona tus días laborales'}</p>
           </DialogTitle>
         </DialogHeader>
-        <div className={`mt-4 ${readOnly ? 'flex flex-wrap gap-2' : 'grid grid-cols-2 gap-3'}`}>
+        <div className={`mt-4 ${readOnly ? 'flex flex-wrap gap-2 md:gap-4' : 'grid grid-cols-2 gap-2 md:gap-3'}`}>
           {readOnly ? (
             selectedDays.map((d, idx) => (
-              <span key={idx} className="bg-[#2552d0] text-white rounded-lg px-4 py-2 text-sm font-medium">
+              <span key={idx} className="bg-green-50 border border-green-600 text-green-700 rounded-lg px-3 py-1 md:px-4 md:py-2 text-xs md:text-sm font-medium">
                 {translateDay(d)}
               </span>
             ))
@@ -49,10 +51,10 @@ export const WorkDaysModal: React.FC<WorkDaysModalProps> = ({
                 key={sd.id}
                 type="button"
                 onClick={() => onToggleDay && onToggleDay(sd.id)}
-                className={`px-4 py-2 text-sm font-medium rounded-lg border transition-colors ${
+                className={`px-3 py-2 md:px-4 md:py-2 text-xs md:text-sm font-medium rounded-lg border transition-colors ${
                   selectedDays.includes(sd.id)
-                    ? "bg-[#2552d0] text-white border-[#2552d0]"
-                    : "bg-white text-gray-600 border-gray-300 hover:bg-gray-50"
+                    ? "bg-green-50 border-green-600 text-green-700 shadow-sm"
+                    : "bg-white text-gray-500 border-gray-100 hover:border-gray-300 hover:bg-gray-50"
                 }`}
               >
                 {sd.label}
@@ -63,7 +65,7 @@ export const WorkDaysModal: React.FC<WorkDaysModalProps> = ({
         {!readOnly && (
           <div className="mt-6 flex justify-end">
             <Button
-              className="bg-[#2552d0] text-white font-bold hover:bg-blue-800"
+              className="bg-green-900 px-6 md:px-8 h-10 md:h-12 text-white font-bold hover:bg-blue-800 rounded-xl"
               onClick={() => onOpenChange(false)}
             >
               Aceptar

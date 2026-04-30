@@ -11,7 +11,7 @@ type Props = {
 }
 
 const ResultCrad = ({ offer, isSelected }: Props) => {
-    if (!offer) return null; 
+    if (!offer) return null;
 
     const dayTags = ConvertWorkDayTags(offer.workDays)
     const jornadaTags = ConvertJornadaTags(offer.workSchedule)
@@ -26,7 +26,7 @@ const ResultCrad = ({ offer, isSelected }: Props) => {
                         height={80}
                         src={offer.imageUrl || "/placeholder-job.png"}
                         alt={offer.title}
-                        className='object-contain w-full h-full'                 
+                        className='object-contain w-full h-full'
                     />
                 </div>
 
@@ -38,12 +38,12 @@ const ResultCrad = ({ offer, isSelected }: Props) => {
 
                         <div className='flex gap-4 flex-wrap mt-0.5'>
                             <div className='flex gap-1.5 items-center bg-green-50 px-2.5 py-1 rounded-lg border border-green-100'>
-                                <MapPin className='text-green-600 h-3.5 w-3.5'/>
-                                <p className='text-green-700 text-xs font-medium uppercase tracking-wide'>{offer.address || "san jose"}</p>
+                                <MapPin className='text-green-600 h-3.5 w-3.5' />
+                                <p className='text-green-700 text-xs font-medium uppercase tracking-wide'>{offer.address}</p>
                             </div>
 
                             <div className='flex gap-1.5 items-center bg-blue-50 px-2.5 py-1 rounded-lg border border-blue-100'>
-                                <CircleDollarSign className='text-blue-600 h-3.5 w-3.5'/>
+                                <CircleDollarSign className='text-blue-600 h-3.5 w-3.5' />
                                 <p className='text-blue-700 text-xs font-medium uppercase tracking-wide'>${Number(offer.salary).toLocaleString('es-CO')}</p>
                             </div>
                         </div>
