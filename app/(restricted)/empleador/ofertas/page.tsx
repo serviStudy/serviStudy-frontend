@@ -1,4 +1,4 @@
-import { OfferList } from "@/features/restricted/employer/jobOffer/components/OfferList";
+import { OfferList } from "@/features/restricted/empleador/jobOffer/components/OfferList";
 
 export default function Page() {
   return(

@@ -1,4 +1,4 @@
-import { SelectOffer } from "@/features/selectOffersApplicants/components/SelectOffer";
+import { SelectOffer } from "@/features/restricted/empleador/selectOffersApplicants/components/SelectOffer";
 
 export default function Page() {
     return(

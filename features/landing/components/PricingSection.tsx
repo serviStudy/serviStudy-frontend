@@ -1,14 +1,14 @@
 "use client";
 
-import { useState } from "react";
-import { RoleSwitch } from "@/components/shared/RoleSwitch";
+import { usePersistentRole } from "@/hooks/usePersistentRole";
 import { employerPlans, studentPlans } from "../constants/pricing";
 import { PricingHeader } from "./pricing/PricingHeader";
 import { PricingCarousel } from "./pricing/PricingCarousel";
 import { PricingGrid } from "./pricing/PricingGrid";
+import { RoleSwitch } from "@/components/shared/RoleSwitch";
 
 export function PricingSection() {
-  const [activeType, setActiveType] = useState<"empresa" | "estudiante">("empresa");
+  const { tipoUsuario: activeType, setTipoUsuario: setActiveType } = usePersistentRole();
 
   const plans = activeType === "empresa" ? employerPlans : studentPlans;
 
@@ -22,9 +22,9 @@ export function PricingSection() {
         <PricingHeader />
 
         <div className="flex justify-center mb-16">
-          <RoleSwitch 
-            tipoUsuario={activeType} 
-            setTipoUsuario={setActiveType} 
+          <RoleSwitch
+            tipoUsuario={activeType}
+            setTipoUsuario={setActiveType}
           />
         </div>
 

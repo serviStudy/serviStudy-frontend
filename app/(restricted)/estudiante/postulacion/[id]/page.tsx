@@ -1,4 +1,4 @@
-import { OfferDetailPostulation } from "@/features/postPostularse/components/OfferDetailPostulation";
+import { OfferDetailPostulation } from "@/features/restricted/estudiante/postPostularse/components/OfferDetailPostulation";
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
     
