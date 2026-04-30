@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { useEmployerDashboard } from '@/features/restricted/employer/dashboard/hooks/useEmployerDashboard';
+import { useEmployerDashboard } from '@/features/restricted/empleador/dashboard/hooks/useEmployerDashboard';
 
 const DashboardSkeleton = () => (
   <div className="flex flex-col gap-10 pb-12 animate-pulse">

@@ -1,8 +1,8 @@
 "use client"
-import { useEmployerProfile } from '@/features/profile/employer/hooks/useEmployerProfile'
-import { ProfileInfo } from '@/features/profile/employer/components/ProfileInfo'
+import { useEmployerProfile } from '@/features/restricted/empleador/perfil/hooks/useEmployerProfile'
+import { ProfileInfo } from '@/features/restricted/empleador/perfil/components/ProfileInfo'
 import { motion } from 'framer-motion'
-import { ProfileInfoSkeleton } from '@/features/profile/employer/components/ProfileSkeletons'
+import { ProfileInfoSkeleton } from '@/features/restricted/empleador/perfil/components/ProfileSkeletons'
 
 const ProfilePage = () => {
   const { loading, profile, email, inicial } = useEmployerProfile()
@@ -16,7 +16,7 @@ const ProfilePage = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="w-full flex justify-center min-h-[600px]"
+          className="w-full flex justify-center min-h-150"
         >
           {loading && !profile.id && !profile.employerId ? (
             <ProfileInfoSkeleton />

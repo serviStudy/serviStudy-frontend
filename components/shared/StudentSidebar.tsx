@@ -7,7 +7,6 @@ import {
     User, 
     Briefcase, 
     Users, 
-    Settings, 
     LogOut,
     HelpCircle,
     Menu,
@@ -19,10 +18,8 @@ import NavLink from '../ui/NavLink';
 
 const sidebarItems = [
     { name: 'Perfil estudiante', icon: User, href: '/estudiante/perfil' },
-    { name: 'Ofertas', icon: Briefcase, href: '/estudiante/ofertasActivas' },
-    { name: 'Empleadores', icon: Users, href: '/estudiante/empleadores' },
-    { name: 'Suscripción', icon: LayoutDashboard, href: '/empleador/dashboard' },
-    { name: 'Configuración', icon: Settings, href: '/empleador/configuracion' },
+    { name: 'Buscar Ofertas', icon: Briefcase, href: '/estudiante/ofertasActivas' },
+    { name: 'Mis Postulaciones', icon: LayoutDashboard, href: '/estudiante/misPostulaciones' },
 ];
 
 export const StudentSidebar = () => {
@@ -36,7 +33,7 @@ export const StudentSidebar = () => {
             {/* Mobile Menu Button */}
             <button 
                 onClick={toggleSidebar}
-                className="lg:hidden fixed top-4 left-4 z-[60] p-2 bg-white rounded-xl shadow-md border border-gray-100 text-blue-900"
+                className="lg:hidden fixed top-4 left-4 z-60 p-2 bg-white rounded-xl shadow-md border border-gray-100 text-blue-900"
             >
                 {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -49,14 +46,14 @@ export const StudentSidebar = () => {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={toggleSidebar}
-                        className="fixed inset-0 bg-black/20 backdrop-blur-sm z-[55] lg:hidden"
+                        className="fixed inset-0 bg-black/20 backdrop-blur-sm z-55 lg:hidden"
                     />
                 )}
             </AnimatePresence>
 
             {/* Sidebar Container */}
             <aside className={`
-                fixed left-0 top-0 h-screen bg-white border-r border-gray-100 z-[58] flex flex-col transition-all duration-300 ease-in-out
+                fixed left-0 top-0 h-screen bg-white border-r border-gray-100 z-58 flex flex-col transition-all duration-300 ease-in-out
                 ${isOpen ? 'w-72 translate-x-0' : 'w-72 -translate-x-full lg:translate-x-0 lg:w-72'}
             `}>
                 {/* Logo Area */}
@@ -84,7 +81,7 @@ export const StudentSidebar = () => {
                                 icon={item.icon} 
                                 name={item.name} 
                                 link={item.href}
-                                exact={item.href === '/empleador/dashboard'}
+                                exact={item.href === '/estudiante/dashboard'}
                             />
                         </div>
                     ))}
