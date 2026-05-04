@@ -1,7 +1,8 @@
 "use client"
 import React from 'react'
+import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { CheckCircle2, Mail, Phone } from 'lucide-react'
+import { CheckCircle2, Mail, Phone, MapPin, SquarePen } from 'lucide-react'
 
 interface AvatarCardProps {
     variants: any;
@@ -12,43 +13,52 @@ interface AvatarCardProps {
 
 export const AvatarCard = ({ variants, profile, email, inicial }: AvatarCardProps) => {
     return (
-        <motion.div variants={variants} className="bg-white rounded-3xl p-6 shadow-xl border border-gray-100 flex flex-col items-center text-center">
-            <div className="h-32 w-32 -mt-16 overflow-hidden rounded-full bg-[#2552d0] border-4 border-white flex items-center justify-center text-white text-[56px] font-bold shadow-lg ring-4 ring-blue-50">
-                {profile.imgUrl ? (
-                    <img src={profile.imgUrl} alt="Perfil" className="h-full w-full object-cover" />
-                ) : (
-                    inicial
+        <motion.div variants={variants} className="bg-white rounded-xl p-8 shadow-sm border border-gray-200 flex flex-col md:flex-row items-center gap-8 relative">
+            {/* Left: Avatar with Badge */}
+            <div className="relative shrink-0">
+                <div className="h-32 w-32 overflow-hidden rounded-xl bg-blue-600 flex items-center justify-center text-white text-5xl font-bold shadow-md">
+                    {profile.imgUrl ? (
+                        <img src={profile.imgUrl} alt="Perfil" className="h-full w-full object-cover" />
+                    ) : (
+                        inicial
+                    )}
+                </div>
+                {profile.verificationStatus && (
+                    <div className="absolute -bottom-2 -right-2 bg-blue-600 rounded-full p-1 border-4 border-white shadow-sm">
+                        <CheckCircle2 className="h-5 w-5 text-white fill-current" />
+                    </div>
                 )}
             </div>
             
-            <h1 className="text-2xl font-extrabold text-gray-900 mt-5">
-                {profile.name || <span className="text-gray-400 italic font-medium text-lg">Sin nombre</span>}
-            </h1>
-
-            <div className="mt-4 flex w-full justify-center">
-                <span className={`flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-bold shadow-sm ${profile.verificationStatus ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-gray-50 text-gray-500 border border-gray-200'}`}>
-                    <CheckCircle2 className="h-4 w-4" />
-                    {profile.verificationStatus ? "Perfil verificado" : "No verificado"}
-                </span>
+            {/* Center: Info */}
+            <div className="flex-1 text-center md:text-left">
+                <h1 className="text-3xl font-bold text-blue-900 mb-2">
+                    {profile.name || <span className="text-gray-400 italic">Sin nombre</span>}
+                </h1>
+                
+                <div className="flex flex-wrap justify-center md:justify-start gap-x-6 gap-y-3 text-sm text-gray-500 font-medium">
+                    <div className="flex items-center gap-2">
+                        <Mail className="h-4 w-4 text-blue-600" />
+                        <span>{email || "—"}</span>
+                    </div>
+                    {profile.contactNumber && (
+                        <div className="flex items-center gap-2">
+                            <Phone className="h-4 w-4 text-blue-600" />
+                            <span>{profile.contactNumber}</span>
+                        </div>
+                    )}
+                </div>
             </div>
 
-            <hr className="w-full border-gray-100 my-6" />
-
-            <div className="flex flex-col gap-4 w-full text-left text-sm text-gray-600 font-medium">
-                <div className="flex items-center gap-3">
-                    <div className="bg-blue-50 p-2 rounded-lg text-blue-600">
-                        <Mail className="h-4 w-4" />
-                    </div>
-                    <span className="truncate">{email || "—"}</span>
-                </div>
-                {profile.contactNumber && (
-                    <div className="flex items-center gap-3">
-                        <div className="bg-blue-50 p-2 rounded-lg text-blue-600">
-                            <Phone className="h-4 w-4" />
-                        </div>
-                        <span>{profile.contactNumber}</span>
-                    </div>
-                )}
+            {/* Right: Action */}
+            <div className="shrink-0">
+                <Link
+                    href="/estudiante/perfil/editar-perfil"
+                    className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-lg font-bold transition-all shadow-md shadow-blue-600/20 active:scale-95"
+                >
+                    <SquarePen className="h-4 w-4" />
+                    Editar Perfil
+                </Link>
             </div>
         </motion.div>
     )

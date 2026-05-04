@@ -99,12 +99,6 @@ export const Postulacion = ({ data, onDelete }: Props) => {
                     <div className="mt-auto flex flex-col md:flex-row md:items-center justify-between gap-4 pt-4 border-t border-gray-100">
                         
                         <div className="flex flex-wrap items-center gap-2 md:gap-3">
-                            <span className="border-orange-600 text-orange-700 bg-orange-100 px-3 py-1 rounded-md text-[10px] md:text-xs font-semibold border  uppercase tracking-wide">
-                                {data.jobOffer.workSchedule === 'FULL_TIME' ? 'Tiempo Completo' : 'Medio Tiempo'}
-                            </span>
-                            <span className="border-green-600 bg-green-100 text-green-700 px-3 py-1 rounded-md text-[10px] md:text-xs font-semibold border  uppercase tracking-wide">
-                                Activa
-                            </span>
                             {data.jobOffer.salaryDescription && (
                                 <div className="hidden md:flex items-center gap-2 bg-gray-50 px-3 py-1.5 rounded-lg border border-gray-100">
                                     <FileText className="h-4 w-4 text-blue-500 shrink-0" />

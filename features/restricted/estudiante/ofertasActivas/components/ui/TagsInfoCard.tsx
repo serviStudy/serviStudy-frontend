@@ -16,14 +16,6 @@ export const TagsInfoCard = ({ offer }: TagsCardProps) => {
 
     const infoItems = [
         { 
-            icon: CircleDollarSign, 
-            label: 'SALARIO', 
-            value: `$${Number(offer.salary).toLocaleString('es-CO')}`, 
-            bgColor: 'bg-[#f0fdf4]', 
-            iconBg: 'bg-[#22c55e]',
-            textColor: 'text-[#15803d]'
-        },
-        { 
             icon: Clock, 
             label: 'TIPO DE JORNADA', 
             value: jornadaTags, 
@@ -42,7 +34,7 @@ export const TagsInfoCard = ({ offer }: TagsCardProps) => {
     ];
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ">
             {infoItems.map((item, idx) => (
                 <div key={idx} className={`flex flex-col gap-3 p-4 rounded-xl border border-gray-100 ${item.bgColor} shadow-sm transition-all hover:scale-[1.02]`}>
                     <div className={`p-2 rounded-xl ${item.iconBg} text-white shadow-md w-fit`}>

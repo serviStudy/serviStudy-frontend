@@ -10,7 +10,6 @@ import { useStudentProfile } from '@/features/restricted/estudiante/perfil/hooks
 import { normalizeDays, isWeekDays, isWeekend, isSpecificDays } from '@/features/restricted/estudiante/perfil/utils/workDays.utils'
 import { WorkDaysModal } from '@/features/restricted/estudiante/perfil/components/modals/WorkDaysModal'
 import { ProfileLoading } from '@/features/restricted/estudiante/perfil/components/ProfileLoading'
-import { ProfileHeader } from '@/features/restricted/estudiante/perfil/components/ProfileHeader'
 import { AvatarCard } from '@/features/restricted/estudiante/perfil/components/AvatarCard'
 import { AvailabilityCard } from '@/features/restricted/estudiante/perfil/components/AvailabilityCard'
 import { AboutMeCard } from '@/features/restricted/estudiante/perfil/components/AboutMeCard'
@@ -21,7 +20,7 @@ import { MobileProfileView } from '@/features/restricted/estudiante/perfil/compo
 // External Services & Types
 import { getApplications } from '@/features/restricted/estudiante/misPostulaciones/services/applicationService'
 import { ApplicationItem } from '@/features/restricted/estudiante/misPostulaciones/types/applicationTypes'
-
+ 
 const containerVariants: Variants = {
     hidden: { opacity: 0 },
     show: {
@@ -40,14 +39,24 @@ const itemVariants: Variants = {
 const ProfilePage = () => {
     const { loading, profile, email, inicial } = useStudentProfile()
     const [isDaysModalOpen, setIsDaysModalOpen] = useState(false);
-    const [postulaciones, setPostulaciones] = useState<ApplicationItem[]>([]);
+    const [postulaciones, setPostulaciones] = useState<any>([]);
     const [loadingPosts, setLoadingPosts] = useState(true);
 
     useEffect(() => {
         getApplications()
             .then(data => {
                 if (data && data.content) {
-                    setPostulaciones(data.content.slice(0, 3));
+                    // Map JobOffer to unified Offer format for RecentApplicationsCard
+                    const mappedApplications = data.content.slice(0, 3).map((app: any) => ({
+                        ...app,
+                        jobOffer: {
+                            ...app.jobOffer,
+                            id: app.jobOffer.jobOfferId,
+                            address: app.jobOffer.establishmentAddress,
+                            workSchedule: app.jobOffer.workSchedule
+                        }
+                    }));
+                    setPostulaciones(mappedApplications);
                 }
             })
             .catch(() => {})
@@ -74,53 +83,57 @@ const ProfilePage = () => {
         : null;
 
     return (
-        <div className="flex flex-col min-h-screen w-full pb-8 gap-6">
-            <div className="max-w-6xl mx-auto w-full">
+        // w-[cal()] w- de sidebar y 1005 total de pantalla
+        <div className="flex flex-col min-h-screen pb-6">
+            <div className="px-4 max-w-6xl mx-auto w-full">
                 <ProfileVerification />
             </div>
 
-            {/* DESKTOP VIEW - INTACT */}
+            {/* DESKTOP VIEW - REDESIGNED */}
             <motion.div 
                 variants={containerVariants}
                 initial="hidden"
                 animate="show"
-                className="hidden md:flex w-full flex-col items-center mt-4"
+                className="hidden md:flex w-full flex-col items-center mt-12"
             >
-                <ProfileHeader variants={itemVariants} />
+                <div className="w-full max-w-6xl mx-auto px-4 md:px-8 flex flex-col gap-8">
+                    {/* Unified Header Card */}
+                    <AvatarCard 
+                        variants={itemVariants} 
+                        profile={profile} 
+                        email={email || ''} 
+                        inicial={inicial || ''} 
+                    />
 
-                <div className="w-full max-w-6xl mx-auto px-4 md:px-8 flex flex-col md:flex-row gap-8 -mt-20 relative z-10">
-                    <div className="w-full md:w-80 flex flex-col gap-6 shrink-0">
-                        <AvatarCard 
-                            variants={itemVariants} 
-                            profile={profile} 
-                            email={email || ''} 
-                            inicial={inicial || ''} 
-                        />
+                    <div className="flex flex-col lg:flex-row gap-8">
+                        {/* Left Column - Main Content (Wide) */}
+                        <div className="flex-1 flex flex-col gap-6">
+                            <AboutMeCard variants={itemVariants} description={profile.description || null} />
+                            <SkillsCard variants={itemVariants} skills={profile.studentSkills || []} />
+                            <RecentApplicationsCard 
+                                variants={itemVariants}
+                                loading={loadingPosts} 
+                                applications={postulaciones}                            
+                            />
+                        </div>
 
-                        <AvailabilityCard 
-                            variants={itemVariants}
-                            normalizedDays={normalizedDays}
-                            isEntreSemana={isEntreSemana}
-                            isFinesDeSemana={isFinesDeSemana}
-                            isEspecificos={isEspecificos}
-                            scheduleLabel={scheduleLabel}
-                            onOpenDaysModal={() => setIsDaysModalOpen(true)}
-                        />
-                    </div>
-
-                    <div className="w-full flex-1 flex flex-col gap-6 pt-4 md:pt-0">
-                        <AboutMeCard variants={itemVariants} description={profile.description || null} />
-                        <SkillsCard variants={itemVariants} skills={profile.studentSkills || []} />
-                        <RecentApplicationsCard 
-                            variants={itemVariants} 
-                            loading={loadingPosts} 
-                            applications={postulaciones} 
-                        />
+                        {/* Right Column - Sidebar (Narrow) */}
+                        <div className="w-full lg:w-80 flex flex-col gap-6">
+                            <AvailabilityCard 
+                                variants={itemVariants}
+                                normalizedDays={normalizedDays}
+                                isEntreSemana={isEntreSemana}
+                                isFinesDeSemana={isFinesDeSemana}
+                                isEspecificos={isEspecificos}
+                                scheduleLabel={scheduleLabel}
+                                onOpenDaysModal={() => setIsDaysModalOpen(true)}
+                            />
+                        </div>
                     </div>
                 </div>
             </motion.div>
 
-            {/* versión movil del diseño de perfil */}
+            {/* MOBILE VIEW - REDESIGNED */}
             <motion.div 
                 variants={containerVariants}
                 initial="hidden"

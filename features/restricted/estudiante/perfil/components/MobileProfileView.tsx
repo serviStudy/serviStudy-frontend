@@ -35,7 +35,7 @@ export const MobileProfileView = ({
     variants
 }: Props) => {
     return (
-        <div className="flex flex-col gap-6 px-4 pb-12 w-full">
+        <div className="flex flex-col gap-6 px-2 pb-12 w-full">
             {/* Header Mobile - Restored Size */}
             <motion.div variants={variants} className="bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col items-center text-center relative overflow-hidden">
                 <div className="w-full h-32 bg-linear-to-br from-[#1e3a8a] via-[#1d4ed8] to-[#3b82f6] relative">
@@ -200,15 +200,6 @@ export const MobileProfileView = ({
                                         <CircleDollarSign className="h-3.5 w-3.5 text-blue-500" />
                                         <span className="text-xs font-bold">${app.jobOffer.salary?.toLocaleString("es-CO")}</span>
                                     </div>
-                                </div>
-
-                                <div className="flex flex-wrap gap-2">
-                                    <span className="px-3 py-1 bg-orange-50 text-orange-700 text-[10px] font-bold rounded-lg border border-orange-100 uppercase tracking-wide">
-                                        {app.jobOffer.workSchedule === 'FULL_TIME' ? 'Tiempo Completo' : 'Medio Tiempo'}
-                                    </span>
-                                    <span className="px-3 py-1 bg-green-50 text-green-700 text-[10px] font-bold rounded-lg border border-green-100 uppercase tracking-wide">
-                                        Activa
-                                    </span>
                                 </div>
                             </div>
                         ))

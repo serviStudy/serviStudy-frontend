@@ -27,7 +27,7 @@ const EditProfilePage = () => {
 
     return (
         <div className="flex flex-col min-h-screen items-center w-full">
-            <div className="w-full max-w-5xl pb-12 px-0 md:px-6">
+            <div className="w-full max-w-6xl pb-12 px-0 md:px-6">
                 <EditProfileForm
                     formData={formData}
                     setters={setters}

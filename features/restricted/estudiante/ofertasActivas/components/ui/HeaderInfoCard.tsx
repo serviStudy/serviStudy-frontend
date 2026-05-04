@@ -14,7 +14,7 @@ export const HeaderInfoCard = ({ offer }: HeaderInfoProps) => {
             {/* Subtle background overlay */}
             <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
 
-            <div className="p-6 md:p-8 flex items-center gap-6 relative z-10 w-full">
+            <div className="p-6 md:p-8  md:pt-12  md:pb-6 flex items-center gap-6 relative z-10 w-full">
                 {/* Logo container */}
                 <div className="h-20 w-20 md:h-24 md:w-24 shrink-0 bg-white rounded-2xl shadow-lg flex items-center justify-center overflow-hidden p-2">
                     {offer.imageUrl ? (
@@ -42,12 +42,12 @@ export const HeaderInfoCard = ({ offer }: HeaderInfoProps) => {
                     <div className="flex items-center gap-1.5 mt-1 opacity-80">
                         <MapPin size={14} fill="white" className="text-transparent" />
                         <span className="text-sm font-medium capitalize">
-                            {offer.address || "san jose"}
+                            {offer.address}
                         </span>
                     </div>
                 </div>
                 
-                <div className="absolute top-6 right-6">
+                <div className="absolute top-4 right-8">
                     <span className="bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold text-white uppercase tracking-widest border border-white/20">
                         Hace {formatDaysAgo(offer.createdAt)}
                     </span>
@@ -55,4 +55,4 @@ export const HeaderInfoCard = ({ offer }: HeaderInfoProps) => {
             </div>
         </div>
     )
-}
+}
