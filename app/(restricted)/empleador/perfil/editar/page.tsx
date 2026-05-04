@@ -1,8 +1,8 @@
 "use client"
 
 import { LoadingScreen } from '@/components/shared/LoadingScreen'
-import { useEditEmployerProfile } from '@/features/profile/employer/hooks/useEditEmployerProfile'
-import { EditProfileForm } from '@/features/profile/employer/components/EditProfileForm'
+import { useEditEmployerProfile } from '@/features/restricted/empleador/perfil/hooks/useEditEmployerProfile'
+import { EditProfileForm } from '@/features/restricted/empleador/perfil/components/EditProfileForm'
 import { motion } from 'framer-motion'
 
 export default function EditProfilePage() {

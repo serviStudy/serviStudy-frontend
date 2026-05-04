@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { JobOfferForm } from "@/features/restricted/employer/jobOffer/components/form/JobOfferForm";
-import { useJobOffer } from "@/features/restricted/employer/jobOffer/hooks/useJobOffer";
-import { updateJobOffer } from "@/features/restricted/employer/jobOffer/service/jobOffer.service";
+import { JobOfferForm } from "@/features/restricted/empleador/jobOffer/components/form/JobOfferForm";
+import { useJobOffer } from "@/features/restricted/empleador/jobOffer/hooks/useJobOffer";
+import { updateJobOffer } from "@/features/restricted/empleador/jobOffer/service/jobOffer.service";
 import { LoadingScreen } from "@/components/shared/LoadingScreen";
 import { motion } from "framer-motion";
 import Link from "next/link";
