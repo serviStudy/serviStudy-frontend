@@ -2,11 +2,11 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import {
-    LayoutDashboard,
-    User,
-    Briefcase,
-    Users,
+import { 
+    LayoutDashboard, 
+    User, 
+    Briefcase, 
+    Users, 
     LogOut,
     HelpCircle,
     Menu,
@@ -19,9 +19,8 @@ import NavLink from '../ui/NavLink';
 
 const sidebarItems = [
     { name: 'Perfil estudiante', icon: User, href: '/estudiante/perfil' },
+    { name: 'Buscar Ofertas', icon: Briefcase, href: '/estudiante/ofertasActivas' },
     { name: 'Mis Postulaciones', icon: LayoutDashboard, href: '/estudiante/misPostulaciones' },
-    { name: 'Ofertas', icon: Briefcase, href: '/estudiante/ofertasActivas' },
-    { name: 'Empleadores', icon: Users, href: '/estudiante/empleadores' },
     { name: 'Suscripción', icon: CreditCard, href: '/estudiante/suscripcion' },
 ];
 

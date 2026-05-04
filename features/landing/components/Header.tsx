@@ -30,8 +30,8 @@ export function Header() {
         }`}
     >
       <div className={`absolute bottom-0 left-0 h-[2.5px] w-full transition-all duration-700 bg-linear-to-r ${tipoUsuario === "estudiante"
-        ? "from-blue-600 via-blue-400 to-blue-600"
-        : "from-green-600 via-green-400 to-green-600"
+          ? "from-blue-600 via-blue-400 to-blue-600"
+          : "from-green-600 via-green-400 to-green-600"
         } ${isScrolled ? "scale-x-100 opacity-100" : "scale-x-0 opacity-0"
         }`} />
 
@@ -61,8 +61,8 @@ export function Header() {
             asChild
             size="sm"
             className={`text-sm font-bold transition-colors rounded-xl px-4 ${tipoUsuario === 'estudiante'
-              ? 'text-blue-800 hover:bg-blue-50'
-              : 'text-green-700 hover:bg-green-50'
+                ? 'text-blue-800 hover:bg-blue-50'
+                : 'text-green-700 hover:bg-green-50'
               }`}>
             <Link href="/login">Iniciar sesión</Link>
           </Button>
@@ -71,8 +71,8 @@ export function Header() {
             size="sm"
             asChild
             className={`hidden sm:inline-flex text-white shadow-lg transition-all rounded-xl px-6 active:scale-95 ${tipoUsuario === 'estudiante'
-              ? 'bg-blue-700 hover:bg-blue-800 shadow-blue-500/20 hover:shadow-blue-500/40'
-              : 'bg-green-600 hover:bg-green-700 shadow-green-600/20 hover:shadow-green-600/40'
+                ? 'bg-blue-700 hover:bg-blue-800 shadow-blue-500/20 hover:shadow-blue-500/40'
+                : 'bg-green-600 hover:bg-green-700 shadow-green-600/20 hover:shadow-green-600/40'
               }`}>
             <Link href="/registro">Registrarse</Link>
           </Button>
