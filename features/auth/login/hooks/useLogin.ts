@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { loginService } from "../sevice/login.service"
+import { loginService } from "../service/login.service"
 import { usePersistentRole } from "@/hooks/usePersistentRole"
 
 export const useLogin = () => {

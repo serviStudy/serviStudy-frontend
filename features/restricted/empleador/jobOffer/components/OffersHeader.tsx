@@ -41,7 +41,7 @@ export const OfferHeader = ({ onFilterChange }: Props) => {
           {/* Filter Container */}
           <motion.div 
             layout
-            className={`bg-white/10 backdrop-blur-xl border border-white/20 p-1.5 rounded-xl flex ${showFilters ? 'flex-col sm:flex-row' : 'items-center'} shadow-lg transition-all duration-500`}
+            className={`bg-white/10 backdrop-blur-xl border border-white/20 p-1.5 rounded-xl flex ${showFilters ? 'flex-col sm:flex-row' : 'items-center'} shadow-lg`}
           >
             <motion.button 
               layout
@@ -59,9 +59,10 @@ export const OfferHeader = ({ onFilterChange }: Props) => {
             <AnimatePresence>
               {showFilters && (
                 <motion.div
-                  initial={{ opacity: 0, height: 0, x: -20 }}
-                  animate={{ opacity: 1, height: "auto", x: 0 }}
-                  exit={{ opacity: 0, height: 0, x: -20 }}
+                  initial={{ opacity: 0, scale: 0.95, width: 0 }}
+                  animate={{ opacity: 1, scale: 1, width: "auto" }}
+                  exit={{ opacity: 0, scale: 0.95, width: 0 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
                   className="flex flex-col sm:flex-row items-center gap-2 mt-2 sm:mt-0 sm:ml-3 sm:pr-4 overflow-hidden py-2 sm:py-0"
                 >
                   {[
