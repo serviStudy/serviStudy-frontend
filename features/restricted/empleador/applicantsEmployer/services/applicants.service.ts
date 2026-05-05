@@ -21,7 +21,7 @@ export const getApplicantsByOfferId = async (
   }
 
   try {
-    const res = await fetch(`${API_URL}/applicants/offer/${offerId}?page=${page}&size=${size}`, {
+    const res = await fetch(`/api/applicants/${offerId}?page=${page}&size=${size}`, {
       method: "GET",
       headers: getServiceHeaders(),
       cache: "no-store",
