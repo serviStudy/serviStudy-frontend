@@ -58,7 +58,7 @@ const ResultCrad = ({ offer, isSelected }: Props) => {
                         {dayTags.map((tag) => (
                             <span
                                 key={tag}
-                                className="px-2.5 py-1.5 border-green-600 bg-green-100 text-green-700 rounded-lg text-xs font-medium border border-emerald-100 flex items-center gap-1.5"
+                                className="px-2.5 py-1.5 border-green-600 bg-green-100 text-green-700 rounded-lg text-xs font-medium border flex items-center gap-1.5"
                             >
                                 <div className="h-1.5 w-1.5 rounded-full bg-emerald-500"></div>
                                 {tag}

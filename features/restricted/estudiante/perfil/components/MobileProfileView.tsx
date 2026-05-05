@@ -35,7 +35,7 @@ export const MobileProfileView = ({
     variants
 }: Props) => {
     return (
-        <div className="flex flex-col gap-6 px-2 pb-12 w-full">
+        <div className="flex flex-col gap-6 pb-12 w-full">
             {/* Header Mobile - Restored Size */}
             <motion.div variants={variants} className="bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col items-center text-center relative overflow-hidden">
                 <div className="w-full h-32 bg-linear-to-br from-[#1e3a8a] via-[#1d4ed8] to-[#3b82f6] relative">
@@ -97,20 +97,20 @@ export const MobileProfileView = ({
                 </h3>
                 <div className="grid grid-cols-1 gap-4">
                     <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Días preferidos</p>
+                        <p className="text-xs font-semibold text-gray-400 tracking-widest mb-3">Días preferidos</p>
                         <div className="flex flex-wrap gap-2">
                             {isEntreSemana && <span className="bg-green-100 text-green-700 px-3 py-1.5 rounded-lg text-xs font-bold border border-green-200">Entre semana</span>}
                             {isFinesDeSemana && <span className="bg-green-100 text-green-700 px-3 py-1.5 rounded-lg text-xs font-bold border border-green-200">Fines de semana</span>}
                             {isEspecificos && (
-                                <button onClick={onOpenDaysModal} className="bg-green-100 text-green-700 px-3 py-1.5 rounded-lg text-xs font-bold border border-green-200">Ver días</button>
+                                <button onClick={onOpenDaysModal} className="bg-green-100 text-green-700 px-3 py-1.5 rounded-lg text-xs font-semibold border border-green-200">Ver días</button>
                             )}
                             {!normalizedDays.length && <span className="text-sm text-gray-400 italic">No especificado</span>}
                         </div>
                     </div>
                     <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Tipo de jornada</p>
+                        <p className="text-xs font-semibold text-gray-400 tracking-widest mb-3">Tipo de jornada</p>
                         {scheduleLabel ? (
-                            <span className="bg-orange-100 text-orange-700 px-3 py-1.5 rounded-lg text-xs font-bold border border-orange-200 uppercase tracking-wide">{scheduleLabel}</span>
+                            <span className="bg-orange-100 text-orange-700 px-3 py-1.5 rounded-lg text-xs font-semibold border border-orange-200 tracking-wide">{scheduleLabel}</span>
                         ) : (
                             <span className="text-sm text-gray-400 italic">No especificado</span>
                         )}

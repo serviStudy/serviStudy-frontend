@@ -14,7 +14,7 @@ export const HeaderInfoCard = ({ offer }: HeaderInfoProps) => {
             {/* Subtle background overlay */}
             <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
 
-            <div className="p-6 md:p-8  md:pt-12  md:pb-6 flex items-center gap-6 relative z-10 w-full">
+            <div className="pt-6 pb-2 md:p-8  md:pt-6  md:pb-2 flex items-center gap-6 relative z-10 w-full">
                 {/* Logo container */}
                 <div className="h-20 w-20 md:h-24 md:w-24 shrink-0 bg-white rounded-2xl shadow-lg flex items-center justify-center overflow-hidden p-2">
                     {offer.imageUrl ? (

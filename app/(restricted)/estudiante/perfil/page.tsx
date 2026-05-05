@@ -110,11 +110,13 @@ const ProfilePage = () => {
                         <div className="flex-1 flex flex-col gap-6">
                             <AboutMeCard variants={itemVariants} description={profile.description || null} />
                             <SkillsCard variants={itemVariants} skills={profile.studentSkills || []} />
-                            <RecentApplicationsCard 
-                                variants={itemVariants}
-                                loading={loadingPosts} 
-                                applications={postulaciones}                            
-                            />
+                            <div className='pt-4 flex flex-wrap'>
+                                <RecentApplicationsCard 
+                                    variants={itemVariants}
+                                    loading={loadingPosts} 
+                                    applications={postulaciones}                            
+                                />
+                            </div>
                         </div>
 
                         {/* Right Column - Sidebar (Narrow) */}

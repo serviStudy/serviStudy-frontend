@@ -29,13 +29,13 @@ export const AvailabilityCard = ({
                 <div className="bg-blue-600 p-2 rounded-lg text-white">
                     <CalendarDays className="h-5 w-5" />
                 </div>
-                <h3 className="text-xl font-bold text-blue-900">Work Availability</h3>
+                <h3 className="text-xl font-bold text-blue-900">Disponibilidad</h3>
             </div>
             
             <div className="flex flex-col gap-6">
                 <div>
-                    <span className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.1em] block mb-2">
-                        DÍAS LABORALES
+                    <span className="text-sm font-semibold text-gray-400 capitalize tracking-[0.1em] block mb-2">
+                        Días laborales
                     </span>
                     {normalizedDays.length > 0 ? (
                         <div className="flex flex-wrap gap-2">
@@ -57,8 +57,8 @@ export const AvailabilityCard = ({
                 </div>
 
                 <div>
-                    <span className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.1em] block mb-2">
-                        JORNADA
+                    <span className="text-sm font-semibold text-gray-400 capitalize tracking-[0.1em] block mb-2">
+                        Jornada
                     </span>
                     {scheduleLabel ? (
                         <Tag variant="schedule" label={scheduleLabel} />
