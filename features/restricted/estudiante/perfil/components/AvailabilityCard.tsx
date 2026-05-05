@@ -24,8 +24,8 @@ export const AvailabilityCard = ({
     onOpenDaysModal
 }: AvailabilityCardProps) => {
     return (
-        <motion.div variants={variants} className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100">
-            <h3 className="text-lg font-bold text-gray-900 mb-5 flex items-center gap-2">
+        <motion.div variants={variants} className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+            <h3 className="text-base font-bold text-gray-900 mb-5 flex items-center gap-2">
                 <Briefcase className="h-5 w-5 text-blue-600" />
                 Disponibilidad
             </h3>

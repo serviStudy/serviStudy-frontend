@@ -1,6 +1,5 @@
 "use client"
 import React from 'react'
-import { HeaderLR } from '@/components/shared/HeaderLR'
 import { Loader2 } from 'lucide-react'
 import { useEditStudentProfile } from '@/features/restricted/estudiante/perfil/hooks/useEditStudentProfile'
 import { EditProfileForm } from '@/features/restricted/estudiante/perfil/components/EditProfileForm'
