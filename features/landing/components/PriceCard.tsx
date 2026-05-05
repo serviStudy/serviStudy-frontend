@@ -1,5 +1,6 @@
 import { Briefcase, Check, User } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 interface PriceCardProps {
@@ -12,6 +13,7 @@ interface PriceCardProps {
   isRecommended?: boolean;
   ctaText: string;
   className?: string;
+  onSelect?: () => void;
 }
 
 export function PriceCard({
@@ -22,7 +24,9 @@ export function PriceCard({
   description,
   features,
   isRecommended = false,
+  ctaText,
   className,
+  onSelect,
 }: PriceCardProps) {
   // Configuración de colores basada en el tipo de plan y si es recomendado
   const baseColors = "bg-white text-slate-900 border-slate-200";
@@ -75,8 +79,8 @@ export function PriceCard({
         <p className="text-sm opacity-90">{description}</p>
       </CardHeader>
 
-      <CardContent className="grow p-0 relative z-10">
-        <ul className="space-y-4 text-sm">
+      <CardContent className="grow p-0 relative z-10 flex flex-col justify-between">
+        <ul className="space-y-4 text-sm mb-8">
           {features.map((feature, index) => (
             <li key={index} className="flex items-start gap-3">
               <div
@@ -93,6 +97,20 @@ export function PriceCard({
             </li>
           ))}
         </ul>
+        
+        <Button 
+          onClick={onSelect}
+          className={cn(
+            "w-full mt-auto py-6 text-base font-semibold shadow-md transition-all",
+            isRecommended 
+              ? "bg-white text-slate-900 hover:bg-slate-50" 
+              : type === "estudiante" 
+                ? "bg-blue-600 hover:bg-blue-700 text-white"
+                : "bg-green-600 hover:bg-green-700 text-white"
+          )}
+        >
+          {ctaText || "Seleccionar Plan"}
+        </Button>
       </CardContent>
     </Card>
   );
