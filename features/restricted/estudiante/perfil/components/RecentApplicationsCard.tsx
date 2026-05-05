@@ -70,6 +70,7 @@ export const RecentApplicationsCard = ({ loading, applications, variants }: Prop
                                                 <span className="text-[11px] font-semibold truncate">{app.jobOffer.businessName}</span>
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
 

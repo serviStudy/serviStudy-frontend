@@ -84,7 +84,7 @@ const ProfilePage = () => {
 
     return (
         // w-[cal()] w- de sidebar y 1005 total de pantalla
-        <div className="flex flex-col min-h-screen pb-6">
+        <div className="flex flex-col min-h-screen">
             <div className="px-4 max-w-6xl mx-auto w-full">
                 <ProfileVerification />
             </div>
@@ -96,7 +96,7 @@ const ProfilePage = () => {
                 animate="show"
                 className="hidden md:flex w-full flex-col items-center mt-12"
             >
-                <div className="w-full max-w-6xl mx-auto px-4 md:px-8 flex flex-col gap-8">
+                <div className="w-full max-w-6xl mx-auto px-4 md:px-0 flex flex-col gap-8">
                     {/* Unified Header Card */}
                     <AvatarCard 
                         variants={itemVariants} 
@@ -120,7 +120,7 @@ const ProfilePage = () => {
                         </div>
 
                         {/* Right Column - Sidebar (Narrow) */}
-                        <div className="w-full lg:w-80 flex flex-col gap-6">
+                        <div className="w-full lg:w-72 flex flex-col gap-6">
                             <AvailabilityCard 
                                 variants={itemVariants}
                                 normalizedDays={normalizedDays}
