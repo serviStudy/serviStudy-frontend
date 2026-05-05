@@ -16,20 +16,6 @@ export const InformationOffer = ({ offer }: InformationProps) => {
 
     return (
         <div className='flex flex-col w-full gap-6 mt-4'>
-            {/* Detalles de contratación */}
-            <div className='flex flex-col gap-4'>
-                <div className='flex gap-3 items-center'>
-                    <div className='p-2 bg-[#2552d0] rounded-xl text-white shadow-md'>
-                        <Scroll size={20} strokeWidth={2.5}/>
-                    </div>
-                    <h3 className='font-semibold text-lg md:text-xl text-blue-900 tracking-tight'>Detalles de Contratación</h3>
-                </div>
-                <div className='p-4 md:p-6 rounded-xl bg-slate-50 border border-slate-200 min-h-[60px] flex items-center'>
-                    <p className='text-gray-700 text-sm md:text-base font-normal leading-relaxed'>
-                        {offer.salaryDescription || offer.salary}
-                    </p>
-                </div>
-            </div>
 
             {/* Descripción del puesto */}
             <div className='flex flex-col gap-4'>
@@ -37,9 +23,9 @@ export const InformationOffer = ({ offer }: InformationProps) => {
                     <div className='p-2 bg-[#f97316] rounded-xl text-white shadow-md'>
                         <Briefcase size={20} strokeWidth={2.5}/>
                     </div>
-                    <h3 className='font-semibold text-lg md:text-xl text-blue-900 tracking-tight'>Descripción del Puesto</h3>
+                    <h3 className='font-semibold text-lg md:text-xl text-orange-700 tracking-tight'>Descripción del Puesto</h3>
                 </div>
-                <div className='p-4 md:p-6 rounded-xl bg-slate-50 border border-slate-200'>
+                <div className='p-4 rounded-xl bg-slate-50 border border-slate-200'>
                     <p className='text-gray-700 text-sm md:text-base font-normal leading-relaxed'>
                         {cleanDescription}
                     </p>
@@ -49,10 +35,10 @@ export const InformationOffer = ({ offer }: InformationProps) => {
             {/* Habilidades y Requisitos */}
             <div className='flex flex-col gap-4'>
                 <div className='flex gap-3 items-center'>
-                    <div className='p-2 bg-[#0f172a] rounded-xl text-white shadow-md'>
+                    <div className='p-2 bg-green-600 rounded-xl text-white shadow-md'>
                         <CheckCircle2 size={20} strokeWidth={2.5}/>
                     </div>
-                    <h3 className='font-semibold text-lg md:text-xl text-blue-900 tracking-tight'>Habilidades y Requisitos</h3>
+                    <h3 className='font-semibold text-lg md:text-xl text-green-700 tracking-tight'>Habilidades y Requisitos</h3>
                 </div>
                 <div className='flex flex-wrap gap-2 px-1'>
                     {offer.requirements && offer.requirements.length > 0 ? (
@@ -69,4 +55,4 @@ export const InformationOffer = ({ offer }: InformationProps) => {
             </div>
         </div>
     )
-}
+}

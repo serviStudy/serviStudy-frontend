@@ -1,7 +1,7 @@
 "use client"
 import React from 'react'
 import { motion } from 'framer-motion'
-import { User } from 'lucide-react'
+import { FileText } from 'lucide-react'
 import Link from 'next/link'
 
 interface AboutMeCardProps {
@@ -11,15 +11,15 @@ interface AboutMeCardProps {
 
 export const AboutMeCard = ({ variants, description }: AboutMeCardProps) => {
     return (
-        <motion.div variants={variants} className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-            <div className="flex items-center gap-3 mb-5">
-                <div className="bg-blue-600 p-2 rounded-lg shadow-sm text-white">
-                    <User className="h-4 w-4" strokeWidth={2.5} />
+        <motion.div variants={variants} className="bg-white rounded-xl p-8 shadow-sm border border-gray-200">
+            <div className="flex items-center gap-3 mb-6">
+                <div className="bg-blue-600 p-2 rounded-lg text-white">
+                    <FileText className="h-5 w-5" />
                 </div>
-                <h3 className="text-base font-bold text-gray-900">Sobre mí</h3>
+                <h3 className="text-xl font-bold text-blue-900">Resumen profesional</h3>
             </div>
             {description ? (
-                <p className="text-sm leading-relaxed text-gray-600 font-medium">
+                <p className="text-base leading-relaxed text-gray-700">
                     {description}
                 </p>
             ) : (

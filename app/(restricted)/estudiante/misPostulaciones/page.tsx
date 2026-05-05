@@ -4,8 +4,8 @@ import React from 'react'
 
 const page = () => {
     return (
-        <div className='flex flex-col min-h-screen w-full items-center pb-16 px-4'>
-            <div className='flex flex-col gap-12 w-full max-w-5xl'>
+        <div className='flex flex-col w-full items-center pb-16 px-4'>
+            <div className='flex flex-col gap-12 w-full w-full'>
                 <BarraSuperior/>
                 <ListPostulacionesClient/>
             </div>

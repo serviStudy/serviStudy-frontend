@@ -3,6 +3,7 @@ import { Card } from '@/components/ui/card';
 import { StudentSkill } from '../types/studentProfile.types';
 import { isSpecificDays, isWeekDays, isWeekend, normalizeDays } from '../utils/workDays.utils';
 import { WorkDaysModal } from './modals/WorkDaysModal';
+import { Calendar, FileText, BadgeCheck } from 'lucide-react';
 
 // Modular Components
 import { FormHeader } from './profile-form/FormHeader';
@@ -11,6 +12,7 @@ import { DescriptionSection } from './profile-form/DescriptionSection';
 import { AvailabilitySection } from './profile-form/AvailabilitySection';
 import { SkillsSection } from './profile-form/SkillsSection';
 import { FormActions } from './profile-form/FormActions';
+import { SectionTitle } from './profile-form/SectionTitle';
 
 interface EditProfileFormProps {
   formData: {
@@ -88,30 +90,35 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
   };
 
   return (
-    <div className="mx-auto w-full max-w-5xl">
+    <div className="mx-auto w-full max-w-6xl px-4 md:px-0">
+      {/* Page Header */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
+        <div>
+          <h1 className="text-3xl font-bold text-blue-900 tracking-tight">Editar Perfil</h1>
+          <p className="text-gray-500 font-medium mt-1">Gestiona tu identidad profesional y disponibilidad.</p>
+        </div>
+        <FormActions saving={saving} actions={actions} />
+      </div>
 
-      <Card className="overflow-hidden border border-gray-100 shadow-sm rounded-xl bg-white mb-8">
-        <FormHeader 
-          formData={formData} 
-          actions={actions} 
-          refs={refs} 
-          inicial={inicial} 
-        />
-
-        <div className="px-6 md:px-12 pb-12">
-          <div className="space-y-16">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        {/* Left Column: Avatar, Personal Info & Availability */}
+        <div className="lg:col-span-5 space-y-8">
+          <Card className="p-8 rounded-xl shadow-sm border border-gray-100 bg-white overflow-hidden">
+            <FormHeader 
+              formData={formData} 
+              actions={actions} 
+              refs={refs} 
+              inicial={inicial} 
+            />
             <PersonalInfoSection 
               formData={formData} 
               setters={setters} 
               errors={errors} 
             />
+          </Card>
 
-            <DescriptionSection 
-              formData={formData} 
-              setters={setters} 
-              errors={errors} 
-            />
-
+          <Card className="p-8 rounded-xl shadow-sm border border-gray-100 bg-white overflow-hidden">
+            <SectionTitle title="Disponibilidad" icon={Calendar} />
             <AvailabilitySection 
               formData={formData}
               setters={setters}
@@ -124,7 +131,22 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
               isEspecificosSelected={isEspecificosSelected}
               normalizedDays={normalizedDays}
             />
+          </Card>
+        </div>
 
+        {/* Right Column: Professional Summary & Skills */}
+        <div className="lg:col-span-7 space-y-8">
+          <Card className="p-8 rounded-xl shadow-sm border border-gray-100 bg-white overflow-hidden">
+            <SectionTitle title="Resumen profesional" icon={FileText} />
+            <DescriptionSection 
+              formData={formData} 
+              setters={setters} 
+              errors={errors} 
+            />
+          </Card>
+
+          <Card className="p-8 rounded-xl shadow-sm border border-gray-100 bg-white overflow-hidden">
+            <SectionTitle title="Cualidades" icon={BadgeCheck} />
             <SkillsSection 
               formData={formData}
               actions={actions}
@@ -133,14 +155,9 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
               setNewSkill={setNewSkill}
               handleAddSkillClick={handleAddSkillClick}
             />
-
-            <FormActions 
-              saving={saving} 
-              actions={actions} 
-            />
-          </div>
+          </Card>
         </div>
-      </Card>
+      </div>
 
       <WorkDaysModal 
         open={isDaysModalOpen} 

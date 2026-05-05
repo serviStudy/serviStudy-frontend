@@ -39,7 +39,7 @@ const ResultCrad = ({ offer, isSelected }: Props) => {
                         <div className='flex gap-4 flex-wrap mt-0.5'>
                             <div className='flex gap-1.5 items-center bg-green-50 px-2.5 py-1 rounded-lg border border-green-100'>
                                 <MapPin className='text-green-600 h-3.5 w-3.5' />
-                                <p className='text-green-700 text-xs font-medium uppercase tracking-wide'>{offer.address}</p>
+                                <p className='text-green-700 text-xs font-medium capitalize tracking-wide'>{offer.address}</p>
                             </div>
 
                             <div className='flex gap-1.5 items-center bg-blue-50 px-2.5 py-1 rounded-lg border border-blue-100'>
@@ -58,7 +58,7 @@ const ResultCrad = ({ offer, isSelected }: Props) => {
                         {dayTags.map((tag) => (
                             <span
                                 key={tag}
-                                className="px-2.5 py-1.5 border-green-600 bg-green-100 text-green-700 rounded-lg text-xs font-medium border border-emerald-100 flex items-center gap-1.5"
+                                className="px-2.5 py-1.5 border-green-600 bg-green-100 text-green-700 rounded-lg text-xs font-medium border flex items-center gap-1.5"
                             >
                                 <div className="h-1.5 w-1.5 rounded-full bg-emerald-500"></div>
                                 {tag}
