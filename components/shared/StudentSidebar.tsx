@@ -29,6 +29,14 @@ export const StudentSidebar = () => {
     const pathname = usePathname();
 
     const toggleSidebar = () => setIsOpen(!isOpen);
+    
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user_email");
+        localStorage.removeItem("user_role");
+        document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC; SameSite=Lax";
+        window.location.href = "/";
+    };
 
     return (
         <>
@@ -101,7 +109,7 @@ export const StudentSidebar = () => {
                     </Link>
                     <button
                         className="flex items-center gap-3 px-4 py-3.5 rounded-2xl text-red-400 hover:text-red-600 hover:bg-red-50 transition-all"
-                        onClick={() => {/* logout logic */ }}
+                        onClick={handleLogout}
                     >
                         <LogOut size={22} />
                         <span className="font-bold text-[15px]">Cerrar Sesión</span>

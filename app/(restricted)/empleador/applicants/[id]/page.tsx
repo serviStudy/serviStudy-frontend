@@ -2,7 +2,7 @@
 
 import { use } from "react";
 import { useJobOffer } from "@/features/restricted/empleador/jobOffer/hooks/useJobOffer";
-import { SelectOfferCard } from "@/features/restricted/empleador/selectOffersApplicants/components/selectOfferCard";
+import { OfferCard } from "@/features/restricted/empleador/jobOffer/components/OfferCard";
 import { ApplicantsList } from "@/features/restricted/empleador/applicantsEmployer/components/ApplicantsList";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
@@ -37,7 +37,7 @@ export default function Page({ params }: PageProps) {
         return (
             <div className="min-h-screen flex flex-col items-center justify-center gap-4">
                 <h2 className="text-xl font-bold text-gray-900">Oferta no encontrada</h2>
-                <Link href="/empleador/selectOffer" className="text-sm font-medium text-green-600 hover:underline">
+                <Link href="/empleador/ofertas" className="text-sm font-medium text-green-600 hover:underline">
                     Volver a ofertas
                 </Link>
             </div>
@@ -48,7 +48,7 @@ export default function Page({ params }: PageProps) {
         <div className="min-h-screen max-w-6xl mx-auto py-8 px-4 md:px-0">
             {/* Botón de volver */}
             <Link 
-                href="/empleador/selectOffer"
+                href="/empleador/ofertas"
                 className="inline-flex items-center gap-2 text-green-600 font-bold text-sm mb-6 hover:bg-green-50 px-4 py-2 rounded-xl transition-all"
             >
                 <ArrowLeft size={18} />
@@ -59,7 +59,7 @@ export default function Page({ params }: PageProps) {
             <div className="mb-8">
                 <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">Detalle de la Oferta</h1>
                 <div className="pointer-events-none">
-                    <SelectOfferCard offer={offer} />
+                    <OfferCard offer={offer} showActions={false} />
                 </div>
             </div>
 
