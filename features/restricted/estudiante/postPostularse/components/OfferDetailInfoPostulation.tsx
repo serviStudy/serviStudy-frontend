@@ -14,8 +14,8 @@ export const OfferDetailInfoPostulation = ({ offer }: Props) => {
     };
 
     const scheduleMap: Record<string, string> = {
-        FULL_TIME: "Jornada Completa",
-        PART_TIME: "Media Jornada",
+        FULL_TIME: "Tiempo Completo",
+        PART_TIME: "Medio tiempo",
         FLEXIBLE: "Flexible"
     };
 

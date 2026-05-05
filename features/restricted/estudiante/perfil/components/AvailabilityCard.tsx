@@ -1,7 +1,7 @@
 "use client"
 import React from 'react'
 import { motion } from 'framer-motion'
-import { Briefcase, Clock, Calendar } from 'lucide-react'
+import { CalendarDays } from 'lucide-react'
 import { Tag } from './ui/Tag'
 
 interface AvailabilityCardProps {
@@ -24,17 +24,19 @@ export const AvailabilityCard = ({
     onOpenDaysModal
 }: AvailabilityCardProps) => {
     return (
-        <motion.div variants={variants} className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100">
-            <h3 className="text-lg font-bold text-gray-900 mb-5 flex items-center gap-2">
-                <Briefcase className="h-5 w-5 text-blue-600" />
-                Disponibilidad
-            </h3>
+        <motion.div variants={variants} className="bg-white rounded-xl p-6 shadow-sm border-2">
+            <div className="flex items-center gap-3 mb-6">
+                <div className="bg-blue-600 p-2 rounded-lg text-white">
+                    <CalendarDays className="h-5 w-5" />
+                </div>
+                <h3 className="text-xl font-bold text-blue-900">Disponibilidad</h3>
+            </div>
             
             <div className="flex flex-col gap-6">
                 <div>
-                    <div className="flex items-center gap-2 text-sm text-gray-500 mb-3 font-semibold uppercase tracking-wider">
-                        <Clock className="h-4 w-4" /> Días
-                    </div>
+                    <span className="text-sm font-semibold text-gray-400 capitalize tracking-[0.1em] block mb-2">
+                        Días laborales
+                    </span>
                     {normalizedDays.length > 0 ? (
                         <div className="flex flex-wrap gap-2">
                             {isEntreSemana && <Tag variant="day" label="Entre semana" />}
@@ -55,9 +57,9 @@ export const AvailabilityCard = ({
                 </div>
 
                 <div>
-                    <div className="flex items-center gap-2 text-sm text-gray-500 mb-3 font-semibold uppercase tracking-wider">
-                        <Calendar className="h-4 w-4" /> Jornada
-                    </div>
+                    <span className="text-sm font-semibold text-gray-400 capitalize tracking-[0.1em] block mb-2">
+                        Jornada
+                    </span>
                     {scheduleLabel ? (
                         <Tag variant="schedule" label={scheduleLabel} />
                     ) : (

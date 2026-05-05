@@ -22,8 +22,9 @@ export const useEditStudentProfile = () => {
   const formHook = useProfileForm();
   const workDaysHook = useWorkDays();
   const imageHook = useImageUpload();
+  const skillsHook = useSkills(loadProfile);
 
-  const loadProfile = async (silent = false) => {
+  async function loadProfile(silent = false) {
     try {
       if (!silent) setLoading(true);
       const data = await getStudentProfile();
@@ -47,9 +48,8 @@ export const useEditStudentProfile = () => {
     } finally {
       if (!silent) setLoading(false);
     }
-  };
+  }
 
-  const skillsHook = useSkills(loadProfile);
 
   useEffect(() => {
     setEmail(localStorage.getItem("user_email") ?? "");
