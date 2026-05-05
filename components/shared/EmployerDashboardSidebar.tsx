@@ -6,9 +6,9 @@ import {
   User, 
   Briefcase, 
   Users, 
-  Settings, 
   LogOut,
   HelpCircle,
+  PlusCircle,
   Menu,
   X
 } from 'lucide-react';
@@ -19,8 +19,7 @@ const sidebarItems = [
   { name: 'Dashboard', icon: LayoutDashboard, href: '/empleador/dashboard' },
   { name: 'Perfil de Empresa', icon: User, href: '/empleador/perfil' },
   { name: 'Mis Ofertas', icon: Briefcase, href: '/empleador/ofertas' },
-  { name: 'Postulantes', icon: Users, href: '/empleador/selectOffer' },
-  { name: 'Configuración', icon: Settings, href: '/empleador/configuracion' },
+  { name: 'Crear Oferta', icon: PlusCircle, href: '/empleador/ofertas/crear' },
 ];
 
 export const EmployerDashboardSidebar = () => {
@@ -30,6 +29,7 @@ export const EmployerDashboardSidebar = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user_email");
     localStorage.removeItem("user_role");
+    document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC; SameSite=Lax";
     window.location.href = "/";
   };
 
@@ -88,7 +88,7 @@ export const EmployerDashboardSidebar = () => {
                 icon={item.icon} 
                 name={item.name} 
                 link={item.href}
-                exact={item.href === '/empleador/dashboard'}
+                exact={item.href === '/empleador/dashboard' || item.href === '/empleador/ofertas'}
               />
             </div>
           ))}

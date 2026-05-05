@@ -1,7 +1,7 @@
 "use client";
 
 import { JobOfferDTO } from "../types/jobOffer.types";
-import { Pencil, Trash2, MapPin, Sparkles, Clock, Calendar } from "lucide-react";
+import { Pencil, Trash2, MapPin, Sparkles, Clock, Calendar, Users } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
@@ -21,9 +21,10 @@ interface Props {
   offer: JobOfferDTO;
   imageUrl?: string;
   onRefresh?: () => void;
+  showActions?: boolean;
 }
 
-export const OfferCard = ({ offer, imageUrl, onRefresh }: Props) => {
+export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true }: Props) => {
   const offerId = offer.jobOfferId || offer.id || (offer as any).idJobOffer;
 
   const [isChanging, setIsChanging] = useState(false);
@@ -90,14 +91,16 @@ export const OfferCard = ({ offer, imageUrl, onRefresh }: Props) => {
               </div>
             </div>
           </div>
-          <div className="flex items-center gap-1 ml-2">
-            <Link href={`/empleador/ofertas/${offerId}/editar`} className="p-2 rounded-lg bg-gray-50 text-gray-400">
-               <Pencil size={16} />
-            </Link>
-            <button onClick={() => setShowDeleteModal(true)} className="p-2 rounded-lg bg-gray-50 text-gray-400">
-               <Trash2 size={16} />
-            </button>
-          </div>
+          {showActions && (
+            <div className="flex items-center gap-1 ml-2">
+              <Link href={`/empleador/ofertas/${offerId}/editar`} className="p-2 rounded-lg bg-gray-50 text-gray-400">
+                 <Pencil size={16} />
+              </Link>
+              <button onClick={() => setShowDeleteModal(true)} className="p-2 rounded-lg bg-gray-50 text-gray-400">
+                 <Trash2 size={16} />
+              </button>
+            </div>
+          )}
         </div>
 
         <div className="flex items-center justify-between bg-gray-50/50 rounded-xl p-2.5 mb-4 border border-gray-100/50">
@@ -124,9 +127,22 @@ export const OfferCard = ({ offer, imageUrl, onRefresh }: Props) => {
           </div>
         </div>
 
-        <Link href={`/empleador/ofertas/${offerId}`} className="w-full bg-green-600 text-white h-10 rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-2 shadow-lg shadow-green-600/20 active:scale-95">
-          Ver Detalle <Sparkles size={12} />
-        </Link>
+        {showActions && (
+          <div className="flex gap-2">
+            <Link 
+              href={`/empleador/applicants/${offerId}`} 
+              className="flex-1 bg-white border-2 border-green-600 text-green-600 h-10 rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-2 active:scale-95 transition-all"
+            >
+              Postulantes <Users size={12} />
+            </Link>
+            <Link 
+              href={`/empleador/ofertas/${offerId}`} 
+              className="flex-1 bg-green-600 text-white h-10 rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-2 shadow-lg shadow-green-600/20 active:scale-95"
+            >
+              Ver Detalle <Sparkles size={12} />
+            </Link>
+          </div>
+        )}
       </motion.div>
 
       {/* DESKTOP VERSION (hidden lg:flex) */}
@@ -179,6 +195,7 @@ export const OfferCard = ({ offer, imageUrl, onRefresh }: Props) => {
                   {isActive ? "Activa" : "Pausada"}
                 </span>
               </button>
+            {showActions && (
               <div className="flex items-center gap-2 relative z-10">
                 <Link href={`/empleador/ofertas/${offerId}/editar`} className="relative z-10 p-4 rounded-2xl bg-gray-50 text-gray-400 hover:bg-green-50 hover:text-green-600 transition-all border border-transparent hover:border-green-100 shadow-sm active:scale-90 cursor-pointer">
                    <Pencil size={22} />
@@ -187,6 +204,7 @@ export const OfferCard = ({ offer, imageUrl, onRefresh }: Props) => {
                    <Trash2 size={22} />
                 </button>
               </div>
+            )}
             </div>
           </div>
 
@@ -209,9 +227,24 @@ export const OfferCard = ({ offer, imageUrl, onRefresh }: Props) => {
                 </span>
               ))}
             </div>
-            <Link href={`/empleador/ofertas/${offerId}`} className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-xl text-xs font-bold transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5 text-center uppercase tracking-wider flex items-center justify-center gap-2 active:scale-95 group/btn">
-              Ver Detalle Completo <Sparkles size={16} className="group-hover:rotate-12 transition-transform" />
-            </Link>
+            {showActions && (
+              <div className="flex gap-3">
+                <Link 
+                  href={`/empleador/applicants/${offerId}`} 
+                  className="group/applicants flex items-center gap-3 px-6 py-3 rounded-xl text-xs font-bold transition-all border-2 border-green-600 text-green-600 hover:bg-green-50 active:scale-95 uppercase tracking-wider"
+                >
+                  Ver Postulantes
+                  <Users size={16} className="group-hover/applicants:scale-110 transition-transform" />
+                </Link>
+                <Link 
+                  href={`/empleador/ofertas/${offerId}`} 
+                  className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-xl text-xs font-bold transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5 text-center uppercase tracking-wider flex items-center justify-center gap-2 active:scale-95 group/btn"
+                >
+                  Ver Detalle Completo 
+                  <Sparkles size={16} className="group-hover:rotate-12 transition-transform" />
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </motion.div>

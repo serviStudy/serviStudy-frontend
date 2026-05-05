@@ -28,8 +28,8 @@ export default function StudentProfilePage() {
 
     useEffect(() => {
         const raw = sessionStorage.getItem("employer_student_view");
-        if (!raw) { router.replace("/empleador/selectOffer"); return; }
-        try { setData(JSON.parse(raw)); } catch { router.replace("/empleador/selectOffer"); }
+        if (!raw) { router.replace("/empleador/ofertas"); return; }
+        try { setData(JSON.parse(raw)); } catch { router.replace("/empleador/ofertas"); }
     }, [router]);
 
     if (!data) return null;
