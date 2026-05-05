@@ -12,9 +12,10 @@ import { motion } from "framer-motion";
 interface PricingCarouselProps {
   plans: PricingPlan[];
   activeType: "estudiante" | "empresa";
+  onSelectPlan?: (plan: PricingPlan) => void;
 }
 
-export function PricingCarousel({ plans, activeType }: PricingCarouselProps) {
+export function PricingCarousel({ plans, activeType, onSelectPlan }: PricingCarouselProps) {
   return (
     <div className="md:hidden">
       <Carousel className="w-full">
@@ -25,8 +26,13 @@ export function PricingCarousel({ plans, activeType }: PricingCarouselProps) {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.1 }}
+                className="h-full"
               >
-                <PriceCard {...plan} type={activeType} />
+                <PriceCard 
+                  {...plan} 
+                  type={activeType} 
+                  onSelect={() => onSelectPlan && onSelectPlan(plan)}
+                />
               </motion.div>
             </CarouselItem>
           ))}

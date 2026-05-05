@@ -23,19 +23,19 @@ export const InfoCard = ({ offer }: InfoCardProps) => {
         <div className='w-full rounded-xl bg-white border border-gray-100 shadow-[0_10px_30px_-15px_rgba(0,0,0,0.1)] overflow-hidden'>
             <HeaderInfoCard offer={offer}/>
             
-            <div className='p-4 md:p-6'>
+            <div className='p-4 md:p-8 md:pb-4'>
                 <TagsInfoCard offer={offer}/>
                 
                 <div className='mt-6 md:mt-8'>
                     <InformationOffer offer={offer}/>
                 </div>
 
-                <div className='mt-8 sticky bottom-0 bg-white/90 backdrop-blur-md pt-4 pb-4 px-2'>
+                <div className='mt-4 sticky bottom-0 bg-white/90 backdrop-blur-md pt-4 pb-4 px-2'>
                     <Link 
-                        className='group flex items-center justify-center gap-2 bg-[#2552d0] hover:bg-[#1e44af] text-white font-semibold py-4 px-6 rounded-xl transition-all shadow-lg active:scale-[0.98]' 
+                        className='group flex items-center justify-center gap-2 bg-[#2552d0] hover:bg-[#1e44af] text-white font-semibold py-2.25 px-6 rounded-xl transition-all shadow-lg active:scale-[0.98]' 
                         href={`/estudiante/postulacion/${offer.id}`}
                     >
-                        <span className="text-sm md:text-base uppercase tracking-wider">Ver más detalles</span>
+                        <span className="text-sm md:text-base capitalize font-bold">Ver más detalles</span>
                         <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                     </Link>
                 </div>

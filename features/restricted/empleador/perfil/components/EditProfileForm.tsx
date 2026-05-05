@@ -59,18 +59,18 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
         <div className="space-y-4">
           <button
             onClick={() => router.back()}
-            className="flex items-center gap-2 text-gray-400 hover:text-green-600 transition-all font-bold group"
+            className="flex items-center gap-2 text-gray-400 hover:text-green-600 transition-all font-semibold group"
           >
             <ChevronLeft className="h-5 w-5 transition-transform group-hover:-translate-x-1" />
-            <span className="text-sm">Regresar al perfil</span>
+            <span className="text-xs uppercase tracking-wider">Regresar al perfil</span>
           </button>
-          <h1 className="text-4xl lg:text-5xl font-black text-gray-900 tracking-tighter">
+          <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 tracking-tight">
             Editar <span className="text-green-600">Perfil</span>
           </h1>
         </div>
-        <div className="flex items-center gap-2 px-4 py-2 bg-green-50 rounded-2xl border border-green-100">
-          <ShieldCheck className="text-green-600 h-5 w-5" />
-          <span className="text-xs font-black text-green-600 uppercase tracking-widest">Información Segura</span>
+        <div className="flex items-center gap-2 px-3 py-1.5 bg-green-50 rounded-lg border border-green-100">
+          <ShieldCheck className="text-green-600 h-4 w-4" />
+          <span className="text-[10px] font-bold text-green-600 uppercase tracking-widest">Información Segura</span>
         </div>
       </div>
 
@@ -78,27 +78,27 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
       <motion.div 
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="mb-8 p-6 lg:p-8 bg-gradient-to-r from-green-600 to-green-500 rounded-[32px] text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl shadow-green-900/20 relative overflow-hidden group"
+        className="mb-8 p-6 bg-gradient-to-r from-green-600 to-green-500 rounded-xl text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm shadow-green-900/10 relative overflow-hidden group"
       >
         <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:scale-110 transition-transform duration-1000"></div>
         <div className="flex items-center gap-6 relative z-10">
-          <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-xl border border-white/30 flex items-center justify-center shadow-inner">
-            <ShieldCheck className="h-9 w-9 text-white" strokeWidth={1.5} />
+          <div className="w-14 h-14 rounded-lg bg-white/20 backdrop-blur-xl border border-white/30 flex items-center justify-center">
+            <ShieldCheck className="h-8 w-8 text-white" strokeWidth={1.5} />
           </div>
           <div>
-            <h3 className="text-2xl font-black tracking-tight">Verifica tu empresa</h3>
-            <p className="text-white/80 font-bold text-sm mt-1">Adjunta tus documentos legales para obtener el sello de confianza.</p>
+            <h3 className="text-xl font-bold tracking-tight">Verifica tu empresa</h3>
+            <p className="text-white/80 font-medium text-xs mt-0.5">Adjunta tus documentos legales para obtener el sello de confianza.</p>
           </div>
         </div>
         <button 
           onClick={() => setIsVerifyModalOpen(true)}
-          className="px-10 h-14 bg-white text-green-600 rounded-2xl font-black text-sm uppercase tracking-widest shadow-2xl hover:bg-gray-50 transition-all active:scale-95 relative z-10 whitespace-nowrap"
+          className="px-8 h-12 bg-white text-green-600 rounded-lg font-bold text-xs uppercase tracking-widest shadow-sm hover:bg-gray-50 transition-all active:scale-95 relative z-10 whitespace-nowrap"
         >
           Verificar Ahora
         </button>
       </motion.div>
 
-      <Card className="overflow-hidden border-none shadow-[0_32px_64px_-16px_rgba(0,0,0,0.08)] rounded-[48px] bg-white">
+      <Card className="overflow-hidden border border-gray-100 shadow-sm rounded-xl bg-white">
         {/* Dynamic Header Banner - Green theme */}
         <div className="h-44 w-full bg-gradient-to-br from-green-800 via-green-600 to-green-400 relative">
           <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
@@ -108,7 +108,7 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
           {/* Centered Avatar Upload */}
           <div className="relative -mt-20 mb-16 flex flex-col items-center">
             <div className="relative group">
-              <div className="flex h-40 w-40 items-center justify-center overflow-hidden rounded-[40px] border-[8px] border-white bg-white shadow-2xl transition-all duration-500 group-hover:scale-105">
+              <div className="flex h-40 w-40 items-center justify-center overflow-hidden rounded-xl border-8 border-white bg-white shadow-md transition-all duration-500 group-hover:scale-105">
                 {formData.imageUrl ? (
                   <img src={formData.imageUrl} alt="Perfil" className="h-full w-full object-contain p-4" />
                 ) : (
@@ -119,13 +119,13 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
               </div>
               <button
                 type="button"
-                className="absolute bottom-1 right-1 h-12 w-12 rounded-2xl bg-green-600 shadow-xl hover:bg-green-700 flex items-center justify-center transition-all z-10 text-white"
+                className="absolute bottom-1 right-1 h-10 w-10 rounded-lg bg-green-600 shadow-md hover:bg-green-700 flex items-center justify-center transition-all z-10 text-white"
                 onClick={actions.triggerFileInput}
               >
                 <Camera className="h-5 w-5" />
               </button>
             </div>
-            <p className="mt-4 text-xs font-bold text-gray-400 uppercase tracking-widest">Logo de la empresa</p>
+            <p className="mt-4 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Logo de la empresa</p>
             <input
               type="file"
               ref={refs.fileInputRef}
@@ -139,31 +139,31 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
             {/* Section 1: Business Identity */}
             <div>
                <div className="flex items-center gap-3 mb-8">
-                 <div className="h-8 w-1 bg-green-600 rounded-full"></div>
-                 <h2 className="text-xl font-black text-gray-900 tracking-tight">Identidad Corporativa</h2>
+                 <div className="h-6 w-1 bg-green-600 rounded-full"></div>
+                 <h2 className="text-lg font-bold text-gray-900 tracking-tight">Identidad Corporativa</h2>
                </div>
                
                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="space-y-3">
-                    <Label className="text-xs font-black text-gray-400 uppercase tracking-widest ml-1">Nombre Comercial</Label>
+                    <Label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">Nombre Comercial</Label>
                     <div className="relative">
-                      <Building2 className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-300 h-5 w-5" />
+                      <Building2 className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-300 h-4 w-4" />
                       <Input
                         value={formData.businessName}
                         onChange={(e) => setters.setBusinessName(e.target.value)}
-                        className="h-16 pl-14 rounded-2xl border-gray-100 bg-gray-50/50 focus:bg-white focus:ring-green-500 transition-all font-bold text-gray-900"
+                        className="h-12 pl-12 rounded-lg border-gray-100 bg-gray-50/50 focus:bg-white focus:ring-green-500 transition-all font-medium text-gray-900 text-sm"
                         placeholder="Ej: ServiStudy Corp"
                       />
                     </div>
                   </div>
                   <div className="space-y-3">
-                    <Label className="text-xs font-black text-gray-400 uppercase tracking-widest ml-1">Responsable</Label>
+                    <Label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">Responsable</Label>
                     <div className="relative">
-                      <User className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-300 h-5 w-5" />
+                      <User className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-300 h-4 w-4" />
                       <Input
                         value={formData.employerName}
                         onChange={(e) => setters.setEmployerName(e.target.value)}
-                        className="h-16 pl-14 rounded-2xl border-gray-100 bg-gray-50/50 focus:bg-white focus:ring-green-500 transition-all font-bold text-gray-900"
+                        className="h-12 pl-12 rounded-lg border-gray-100 bg-gray-50/50 focus:bg-white focus:ring-green-500 transition-all font-medium text-gray-900 text-sm"
                         placeholder="Nombre completo"
                       />
                     </div>
@@ -174,31 +174,31 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
             {/* Section 2: Contact & Location */}
             <div>
                <div className="flex items-center gap-3 mb-8">
-                 <div className="h-8 w-1 bg-green-500 rounded-full"></div>
-                 <h2 className="text-xl font-black text-gray-900 tracking-tight">Contacto y Ubicación</h2>
+                 <div className="h-6 w-1 bg-green-500 rounded-full"></div>
+                 <h2 className="text-lg font-bold text-gray-900 tracking-tight">Contacto y Ubicación</h2>
                </div>
                
                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="space-y-3">
-                    <Label className="text-xs font-black text-gray-400 uppercase tracking-widest ml-1">Teléfono de Contacto</Label>
+                    <Label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">Teléfono de Contacto</Label>
                     <div className="relative">
-                      <Phone className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-300 h-5 w-5" />
+                      <Phone className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-300 h-4 w-4" />
                       <Input
                         value={formData.contactNumber}
                         onChange={(e) => setters.setContactNumber(e.target.value)}
-                        className="h-16 pl-14 rounded-2xl border-gray-100 bg-gray-50/50 focus:bg-white focus:ring-green-500 transition-all font-bold text-gray-900"
+                        className="h-12 pl-12 rounded-lg border-gray-100 bg-gray-50/50 focus:bg-white focus:ring-green-500 transition-all font-medium text-gray-900 text-sm"
                         placeholder="+57 300 000 0000"
                       />
                     </div>
                   </div>
                   <div className="space-y-3">
-                    <Label className="text-xs font-black text-gray-400 uppercase tracking-widest ml-1">Dirección Física</Label>
+                    <Label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">Dirección Física</Label>
                     <div className="relative">
-                      <MapPin className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-300 h-5 w-5" />
+                      <MapPin className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-300 h-4 w-4" />
                       <Input
                         value={formData.businessAddress}
                         onChange={(e) => setters.setBusinessAddress(e.target.value)}
-                        className="h-16 pl-14 rounded-2xl border-gray-100 bg-gray-50/50 focus:bg-white focus:ring-green-500 transition-all font-bold text-gray-900"
+                        className="h-12 pl-12 rounded-lg border-gray-100 bg-gray-50/50 focus:bg-white focus:ring-green-500 transition-all font-medium text-gray-900 text-sm"
                         placeholder="Calle, Ciudad, País"
                       />
                     </div>
@@ -209,15 +209,15 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
             {/* Section 3: Summary */}
             <div className="space-y-4">
               <div className="flex items-center gap-3 mb-4">
-                 <div className="h-8 w-1 bg-green-400 rounded-full"></div>
-                 <h2 className="text-xl font-black text-gray-900 tracking-tight">Descripción de la Empresa</h2>
+                 <div className="h-6 w-1 bg-green-400 rounded-full"></div>
+                 <h2 className="text-lg font-bold text-gray-900 tracking-tight">Descripción de la Empresa</h2>
               </div>
               <div className="relative">
-                <AlignLeft className="absolute left-6 top-6 text-gray-300 h-5 w-5" />
+                <AlignLeft className="absolute left-6 top-6 text-gray-300 h-4 w-4" />
                 <Textarea
                   value={formData.businessSummary}
                   onChange={(e) => setters.setBusinessSummary(e.target.value)}
-                  className="min-h-[200px] pl-16 pt-6 rounded-[32px] border-gray-100 bg-gray-50/50 focus:bg-white focus:ring-green-500 transition-all font-medium text-gray-700 resize-none text-lg shadow-sm"
+                  className="min-h-[160px] pl-14 pt-5 rounded-xl border-gray-100 bg-gray-50/50 focus:bg-white focus:ring-green-500 transition-all font-medium text-gray-700 resize-none text-sm shadow-sm"
                   placeholder="Describe la visión, misión y lo que hace única a tu empresa..."
                 />
               </div>
@@ -229,18 +229,18 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
             <button
               onClick={() => router.back()}
               disabled={saving}
-              className="w-full sm:w-auto px-10 h-16 rounded-2xl text-gray-400 font-black text-sm hover:text-gray-900 transition-all uppercase tracking-widest"
+              className="w-full sm:w-auto px-10 h-12 rounded-lg text-gray-400 font-bold text-xs hover:text-gray-900 transition-all uppercase tracking-widest"
             >
               Cancelar
             </button>
             <button
               onClick={actions.handleSave}
               disabled={saving}
-              className="w-full sm:w-auto px-12 h-16 rounded-2xl bg-green-600 text-white font-black text-lg hover:bg-green-700 active:scale-95 transition-all shadow-xl shadow-green-900/20 flex items-center justify-center disabled:opacity-70"
+              className="w-full sm:w-auto px-12 h-12 rounded-lg bg-green-600 text-white font-bold text-sm hover:bg-green-700 active:scale-95 transition-all shadow-md shadow-green-900/10 flex items-center justify-center disabled:opacity-70"
             >
               {saving ? (
                 <span className="flex items-center gap-3">
-                  <Loader2 className="h-6 w-6 animate-spin" />
+                  <Loader2 className="h-5 w-5 animate-spin" />
                   Guardando...
                 </span>
               ) : "Guardar Cambios"}

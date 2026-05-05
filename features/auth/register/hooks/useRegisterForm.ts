@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { usePersistentRole } from "@/hooks/usePersistentRole";
 
-export function useRegisterForm(){
+export function useRegisterForm() {
     const router = useRouter();
     const { tipoUsuario, setTipoUsuario } = usePersistentRole();
 
@@ -27,21 +27,21 @@ export function useRegisterForm(){
     const [loading, setLoading] = useState(false);
 
     function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-        const{name, value, type, checked} = e.target;
+        const { name, value, type, checked } = e.target;
         setFormData(prev => ({
             ...prev,
             [name]: type === "checkbox" ? checked : value
         }))
     }
 
-    function handleCheckboxChange(checked:boolean) {
-        setFormData(prev =>({
+    function handleCheckboxChange(checked: boolean) {
+        setFormData(prev => ({
             ...prev,
             tyc: checked
         }))
     }
 
-    function handleTipoUsuarioChange(tipo: TipoUsuario){
+    function handleTipoUsuarioChange(tipo: TipoUsuario) {
         setTipoUsuario(tipo)
         setFormData({
             email: '',
@@ -58,29 +58,29 @@ export function useRegisterForm(){
         })
     }
 
-    async function handleSubmit(e:React.FormEvent<HTMLFormElement>) {
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
         const newErrors = validateRegisterForm(formData, tipoUsuario);
         setErrors(newErrors);
 
         const hasErrors = Object.values(newErrors).some(err => err !== "");
-        if(hasErrors) return;
+        if (hasErrors) return;
 
         setLoading(true);
-        try{
+        try {
             await registerUser({
                 email: formData.email,
                 password: formData.password,
             },
-            tipoUsuario
-        );
+                tipoUsuario
+            );
 
-        toast.success("Usuario registrado")
-        
-        router.push(`/verificar?email=${formData.email}&role=${tipoUsuario}`);
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        }catch (error: any){
+            toast.success("Usuario registrado")
+
+            router.push(`/verificar?email=${formData.email}&role=${tipoUsuario}`);
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
             toast.error(error.message);
 
             if (error.status === 409) {
