@@ -48,7 +48,7 @@ export const StudentSidebar = () => {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={toggleSidebar}
-                        className="fixed inset-0 bg-black/20 backdrop-blur-sm z-55 lg:hidden"
+                        className="fixed inset-0 bg-black/20 backdrop-blur-sm z-55 md:hidden"
                     />
                 )}
             </AnimatePresence>

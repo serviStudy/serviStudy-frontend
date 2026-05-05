@@ -1,8 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
-import { Plus, Filter } from "lucide-react";
+import { Filter } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { JobOfferStatus } from "@/features/restricted/empleador/jobOffer/types/jobOffer.types";
 
@@ -20,68 +19,69 @@ export const OfferHeaderApplicants = ({ onFilterChange }: Props) => {
     };
 
     return (
-        <div className="bg-gradient-to-br from-white to-blue-50/50 border border-gray-100 rounded-3xl shadow-sm py-10 px-8 mb-10 overflow-hidden">
-        {/* Título */}
-        <div className="text-center mb-8 flex flex-col items-center">
-            <h2 className="text-[32px] md:text-4xl font-extrabold text-[#1a4b9e] mb-3 tracking-tight">Postulantes por oferta</h2>
-            <p className="text-gray-500 font-medium text-sm md:text-base max-w-md">
-            Selecciona una oferta y visualiza los postulantes
-            </p>
-        </div>
+        <div className="bg-gradient-to-br from-green-900 via-green-700 to-green-600 rounded-xl py-10 px-8 mb-8 overflow-hidden relative shadow-sm">
+            {/* Decorative background elements */}
+            <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" />
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-black/10 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2" />
 
-        {/* Filtros y acciones */}
-        <motion.div layout className="flex flex-col md:flex-row justify-center items-center gap-4">
-            
-            <motion.div 
-            layout
-            initial={false}
-            className="flex items-center gap-1 bg-white/50 p-1.5 rounded-full border border-gray-100 shadow-sm transition-all hover:bg-white pr-4"
-            >
-            <motion.button 
-                layout
-                onClick={() => setShowFilters(!showFilters)}
-                className={`flex items-center gap-2 px-6 py-2 rounded-full text-sm font-bold transition-all relative z-10 ${
-                showFilters 
-                    ? "bg-[#1a4b9e] text-white shadow-lg shadow-blue-900/30" 
-                    : "text-gray-500 hover:text-[#1a4b9e] hover:bg-blue-50"
-                }`}
-            >
-                <Filter size={16} className={showFilters ? "text-white" : "text-[#1a4b9e]"} />
-                Filtros
-            </motion.button>
+            {/* Content */}
+            <div className="relative z-10 flex flex-col items-center text-center">
+                <h2 className="text-2xl md:text-3xl font-bold text-white mb-3 tracking-tight">
+                    Postulantes por <span className="text-green-300">Oferta</span>
+                </h2>
+                <p className="text-white/80 font-medium text-sm md:text-base max-w-xl mb-8 leading-relaxed">
+                    Selecciona una oferta para visualizar los postulantes que han aplicado a tus vacantes.
+                </p>
 
-            {/* Filter Buttons Section (Framer Motion Displacement) */}
-            <AnimatePresence>
-                {showFilters && (
+                {/* Filter Container */}
                 <motion.div
-                    initial={{ opacity: 0, x: -20, width: 0 }}
-                    animate={{ opacity: 1, x: 0, width: "auto" }}
-                    exit={{ opacity: 0, x: -20, width: 0 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                    className="flex items-center gap-2 ml-2 overflow-hidden"
+                    layout
+                    className={`bg-white/10 backdrop-blur-xl border border-white/20 p-1.5 rounded-xl flex ${showFilters ? 'flex-col sm:flex-row' : 'items-center'} shadow-lg transition-all duration-500`}
                 >
-                    {[
-                    { id: "ALL", label: "Todas" },
-                    { id: "ACTIVE", label: "Activas" },
-                    { id: "DISABLED", label: "Inactivas" }
-                    ].map((f) => (
-                    <button
-                        key={f.id}
-                        onClick={() => handleFilter(f.id as any)}
-                        className={`px-5 py-2 rounded-full text-xs font-black transition-all whitespace-nowrap ${
-                        active === f.id
-                            ? "bg-blue-100 text-[#1a4b9e] shadow-inner"
-                            : "text-gray-400 hover:text-[#1a4b9e] hover:bg-gray-50/50"
+                    <motion.button
+                        layout
+                        onClick={() => setShowFilters(!showFilters)}
+                        className={`flex items-center gap-2 px-6 py-3 rounded-lg text-xs font-bold transition-all relative z-10 w-full sm:w-auto justify-center ${
+                            showFilters
+                                ? "bg-white text-green-700 shadow-sm"
+                                : "text-white hover:bg-white/10"
                         }`}
                     >
-                        {f.label}
-                    </button>
-                    ))}
+                        <Filter size={20} className={showFilters ? "text-green-700" : "text-green-300"} />
+                        {showFilters ? "Cerrar Filtros" : "Filtrar Resultados"}
+                    </motion.button>
+
+                    <AnimatePresence>
+                        {showFilters && (
+                            <motion.div
+                                initial={{ opacity: 0, height: 0, x: -20 }}
+                                animate={{ opacity: 1, height: "auto", x: 0 }}
+                                exit={{ opacity: 0, height: 0, x: -20 }}
+                                className="flex flex-col sm:flex-row items-center gap-2 mt-2 sm:mt-0 sm:ml-3 sm:pr-4 overflow-hidden py-2 sm:py-0"
+                            >
+                                {[
+                                    { id: "ALL", label: "Todas" },
+                                    { id: "ACTIVE", label: "Activas" },
+                                    { id: "DISABLED", label: "Inactivas" }
+                                ].map((f) => (
+                                    <button
+                                        key={f.id}
+                                        onClick={() => handleFilter(f.id as any)}
+                                        className={`w-full sm:w-auto px-4 py-2 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all whitespace-nowrap ${
+                                            active === f.id
+                                                ? "bg-green-500 text-white shadow-sm"
+                                                : "text-white/60 hover:text-white hover:bg-white/10"
+                                        }`}
+                                    >
+                                        {f.label}
+                                    </button>
+                                ))}
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 </motion.div>
-                )}
-            </AnimatePresence>
-            </motion.div>
-        </motion.div>
+            </div>
         </div>
     );
 };
