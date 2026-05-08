@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { usePersistentRole } from "@/hooks/usePersistentRole"
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL
+const API_URL = "/api/proxy"
 
 export const useRecuperacion = () => {
     const router = useRouter()
