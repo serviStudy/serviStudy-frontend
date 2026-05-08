@@ -11,7 +11,6 @@ import {
   PlusCircle,
   Menu,
   X,
-  Settings,
   CreditCard
 } from 'lucide-react';
 
@@ -23,9 +22,6 @@ const sidebarItems = [
   { name: 'Mis Ofertas', icon: Briefcase, href: '/empleador/ofertas' },
   { name: 'Crear Oferta', icon: PlusCircle, href: '/empleador/ofertas/crear' },
   { name: 'Buscar Talento', icon: Users, href: '/empleador/buscar-talento' },
-  { name: 'Postulantes', icon: Users, href: '/empleador/selectOffer' },
-  { name: 'Suscripción', icon: CreditCard, href: '/empleador/suscripcion' },
-  { name: 'Configuración', icon: Settings, href: '/empleador/configuracion' },
 ];
 
 export const EmployerDashboardSidebar = () => {
