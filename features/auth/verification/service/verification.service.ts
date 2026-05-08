@@ -2,7 +2,7 @@ export const validateVerificationCode = async (
   email: string,
   code: string
 ) => {
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  const API_URL = "/api/proxy";
 
   const res = await fetch(`${API_URL}/users/code/validate`, {
     method: "POST",
