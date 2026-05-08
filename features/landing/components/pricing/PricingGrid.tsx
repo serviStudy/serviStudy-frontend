@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 interface PricingGridProps {
   plans: PricingPlan[];
   activeType: "estudiante" | "empresa";
+  onSelectPlan?: (plan: PricingPlan) => void;
 }
 
 const containerVariants = {
@@ -32,7 +33,7 @@ const itemVariants = {
   },
 };
 
-export function PricingGrid({ plans, activeType }: PricingGridProps) {
+export function PricingGrid({ plans, activeType, onSelectPlan }: PricingGridProps) {
   return (
     <AnimatePresence mode="wait">
       <motion.div
@@ -48,7 +49,11 @@ export function PricingGrid({ plans, activeType }: PricingGridProps) {
       >
         {plans.map((plan, index) => (
           <motion.div key={index} variants={itemVariants} className="h-full">
-            <PriceCard {...plan} type={activeType} />
+            <PriceCard 
+              {...plan} 
+              type={activeType} 
+              onSelect={() => onSelectPlan && onSelectPlan(plan)} 
+            />
           </motion.div>
         ))}
       </motion.div>
