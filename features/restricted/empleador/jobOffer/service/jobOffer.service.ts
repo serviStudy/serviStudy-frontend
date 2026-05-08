@@ -1,6 +1,6 @@
 import { JobOfferDTO, CreateJobOfferDTO } from "../types/jobOffer.types";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const API_URL = "/api/proxy";
 
 const getServiceHeaders = (): Record<string, string> => {
   const token = localStorage.getItem("token") ?? "";

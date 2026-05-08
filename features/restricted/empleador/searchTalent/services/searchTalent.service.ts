@@ -70,7 +70,7 @@ export const getStudents = async (
 
     // Intentamos la llamada real por si acaso, pero si falla o no existe, usamos los mocks
     try {
-      const res = await fetch(`/api/students?page=${page}&size=${size}`, {
+      const res = await fetch(`/api/proxy/profiles/student?page=${page}&size=${size}`, {
         method: "GET",
         headers: getServiceHeaders(),
         cache: "no-store",
