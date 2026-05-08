@@ -1,23 +1,20 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Phone, Mail, Calendar, UserCircle } from "lucide-react";
-import { ApplicantDTO } from "../types/applicants.types";
+import { Phone, Mail, UserCircle, CheckCircle2 } from "lucide-react";
+import { StudentProfile } from "../types/searchTalent.types";
 
 interface Props {
-  applicant: ApplicantDTO;
+  student: StudentProfile;
 }
 
-export const ApplicantCard = ({ applicant }: Props) => {
-  const { student, applicationDate } = applicant;
+export const StudentCard = ({ student }: Props) => {
   const router = useRouter();
 
-  const formattedDate = applicationDate
-    ? new Intl.DateTimeFormat("es-ES", { day: '2-digit', month: 'short', year: 'numeric' }).format(new Date(applicationDate))
-    : "Fecha desconocida";
-
   const handleViewProfile = () => {
-    sessionStorage.setItem("employer_student_view", JSON.stringify({ student, applicationDate }));
+    // Reutilizamos el mecanismo de sessionStorage que ya usa la app para ver perfiles de estudiantes
+    // Nota: applicationDate se deja vacío ya que no es una postulación específica
+    sessionStorage.setItem("employer_student_view", JSON.stringify({ student, applicationDate: "" }));
     router.push("/empleador/applicants/student");
   };
 
@@ -44,14 +41,15 @@ export const ApplicantCard = ({ applicant }: Props) => {
 
       {/* Center: Info */}
       <div className="flex-1 flex flex-col gap-2.5 justify-center min-w-0">
-        <div>
+        <div className="flex items-center gap-2">
           <h3 className="text-lg font-semibold text-gray-900 truncate group-hover:text-green-600 transition-colors">
             {student.name || "Sin nombre"}
           </h3>
-          <p className="text-xs text-gray-500 font-medium flex items-center gap-1.5 mt-1 bg-gray-50 w-fit px-2.5 py-1 rounded-lg">
-            <Calendar size={12} className="text-gray-400" />
-            Postulado el {formattedDate}
-          </p>
+          {student.verificationStatus && (
+            <div className="bg-green-50 text-green-600 p-0.5 rounded-full" title="Perfil verificado">
+              <CheckCircle2 size={14} />
+            </div>
+          )}
         </div>
 
         <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-gray-700 font-medium">

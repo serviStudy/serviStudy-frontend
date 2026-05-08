@@ -5,7 +5,7 @@ function getEndpoint(tipoUsuario: TipoUsuario){
 }
 
 export async function registerUser(data: { email: string; password: string }, tipoUsuario: TipoUsuario) {
-    const API_URL = process.env.NEXT_PUBLIC_API_URL;
+    const API_URL = "/api/proxy";
 
     const response = await fetch(`${API_URL}/users/register/${getEndpoint(tipoUsuario)}`, {
         method: "POST",

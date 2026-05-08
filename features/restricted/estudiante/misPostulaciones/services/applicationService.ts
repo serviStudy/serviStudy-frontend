@@ -2,7 +2,7 @@ import { getAuthHeaders } from "@/lib/api/authHeaders";
 import { ApplicationPageResponse} from "../types/applicationTypes";
 import { ApplicationResponse } from "@/features/restricted/estudiante/postPostularse/types/applicationTypes";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const API_URL = "/api/proxy";
 
 export const getApplications = async (): Promise<ApplicationPageResponse> => {
     const headers = getAuthHeaders();
