@@ -6,9 +6,10 @@ const EXTERNAL_API_URL = 'https://api.servistudy.site/api/v1';
  * Proxy universal para evitar errores de CORS y problemas de Service Worker en despliegue.
  * Reenvía todas las peticiones a la API externa desde el servidor de Next.js.
  */
-async function handleRequest(request: Request, { params }: { params: { path: string[] } }) {
+async function handleRequest(request: Request, context: { params: Promise<{ path: string[] }> }) {
   try {
-    const path = params.path.join('/');
+    const { path: pathSegments } = await context.params;
+    const path = pathSegments.join('/');
     const { searchParams } = new URL(request.url);
     const queryString = searchParams.toString();
     const targetUrl = `${EXTERNAL_API_URL}/${path}${queryString ? `?${queryString}` : ''}`;
