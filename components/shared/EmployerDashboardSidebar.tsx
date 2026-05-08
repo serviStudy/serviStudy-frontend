@@ -20,6 +20,7 @@ const sidebarItems = [
   { name: 'Perfil de Empresa', icon: User, href: '/empleador/perfil' },
   { name: 'Mis Ofertas', icon: Briefcase, href: '/empleador/ofertas' },
   { name: 'Crear Oferta', icon: PlusCircle, href: '/empleador/ofertas/crear' },
+  { name: 'Buscar Talento', icon: Users, href: '/empleador/buscar-talento' },
 ];
 
 export const EmployerDashboardSidebar = () => {

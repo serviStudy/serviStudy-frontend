@@ -18,14 +18,11 @@ export default async function RestrictedLayout({
 
   let user: TokenPayload | null = null;
 
-  console.log("🔑 [LAYOUT DEBUG] token en cookie:", token ? `${token.substring(0, 30)}...` : "NO HAY TOKEN")
 
   if (token) {
     try {
       user = decodeJwt(token) as TokenPayload;
-      console.log("[LAYOUT DEBUG] JWT decoded payload:", JSON.stringify(user, null, 2))
     } catch (e) {
-      console.error("[LAYOUT DEBUG] JWT decode failed:", e);
     }
   }
 
