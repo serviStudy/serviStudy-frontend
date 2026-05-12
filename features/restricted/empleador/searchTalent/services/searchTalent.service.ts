@@ -68,36 +68,61 @@ export const getStudents = async (
       }
     ];
 
-    // Intentamos la llamada real por si acaso, pero si falla o no existe, usamos los mocks
+    // Intentamos la llamada real al endpoint proporcionado
     try {
-      const res = await fetch(`/api/proxy/profiles/student?page=${page}&size=${size}`, {
+      const res = await fetch(`/api/proxy/profiles/student/all?page=${page}&size=${size}`, {
         method: "GET",
         headers: getServiceHeaders(),
         cache: "no-store",
       });
 
       if (res.ok) {
-        const data = await res.json();
+        const responseData = await res.json();
+        console.log("[searchTalent.service] API response:", responseData);
+
+        // El backend devuelve los estudiantes en responseData.data según la captura
+        const studentsList = responseData.data || (Array.isArray(responseData) ? responseData : []);
+
         const normalizeStudent = (s: any): StudentProfile => ({
           id: s.id || s.studentId || "",
-          userId: s.userId || s.user_id || "",
+          userId: s.userId || s.user_id || s.id || "",
           name: s.name || s.fullName || s.studentName || "Sin nombre",
           email: s.email || "",
           imgUrl: s.imgUrl || s.imageUrl || s.img_url || "",
           contactNumber: s.contactNumber || s.contact_number || "",
           description: s.description || s.bio || "",
           verificationStatus: s.verificationStatus || s.verified || false,
-          studentSkills: s.studentSkills || s.skills || [],
+          studentSkills: (s.studentSkills || s.skills || []).map((skill: any, index: number) => {
+            if (typeof skill === "string") {
+              return { id: index, skillName: skill };
+            }
+            return {
+              id: skill.id || index,
+              skillName: skill.skillName || skill.name || skill.label || "Habilidad",
+            };
+          }),
           workDays: s.workDays || [],
           workSchedule: s.workSchedule || "",
         });
 
-        if (data && Array.isArray(data.content)) {
-          return { ...data, content: data.content.map(normalizeStudent) } as PaginatedStudents;
+        if (Array.isArray(studentsList)) {
+          return {
+            content: studentsList.map(normalizeStudent),
+            pageable: {},
+            last: true,
+            totalPages: 1,
+            totalElements: studentsList.length,
+            first: true,
+            size: size,
+            number: page,
+            sort: {},
+            numberOfElements: studentsList.length,
+            empty: studentsList.length === 0,
+          } as PaginatedStudents;
         }
       }
     } catch (e) {
-      console.log("[searchTalent.service] Usando datos mock debido a error en API:", e);
+      console.log("[searchTalent.service] Error en API, usando mocks:", e);
     }
 
     // Retornar datos mock si la API falla o no devuelve contenido
