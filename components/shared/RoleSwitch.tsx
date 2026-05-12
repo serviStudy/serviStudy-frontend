@@ -13,6 +13,7 @@ export const RoleSwitch = ({ tipoUsuario, setTipoUsuario }: RoleSwitchProps) => 
     return (
         <div className="flex justify-center gap-2 bg-muted/30 p-1.5 rounded-xl border border-border w-fit mx-auto shadow-sm">
             <Button
+                type="button"
                 variant={tipoUsuario === "estudiante" ? "default" : "ghost"}
                 className={`rounded-lg transition-all duration-500 flex items-center gap-2 px-3 md:px-4 h-9 md:h-10 ${
                     tipoUsuario === "estudiante"
@@ -26,6 +27,7 @@ export const RoleSwitch = ({ tipoUsuario, setTipoUsuario }: RoleSwitchProps) => 
             </Button>
 
             <Button
+                type="button"
                 variant={tipoUsuario === "empresa" ? "default" : "ghost"}
                 className={`rounded-lg transition-all duration-500 flex items-center gap-2 px-3 md:px-4 h-9 md:h-10 ${
                     tipoUsuario === "empresa"

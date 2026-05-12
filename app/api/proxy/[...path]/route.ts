@@ -15,12 +15,14 @@ async function handleRequest(request: Request, context: { params: Promise<{ path
     const targetUrl = `${EXTERNAL_API_URL}/${path}${queryString ? `?${queryString}` : ''}`;
 
     const authHeader = request.headers.get('Authorization');
+    const xUserId = request.headers.get('X-User-Id');
     
     // Configuración de la petición al backend
     const fetchOptions: RequestInit = {
       method: request.method,
       headers: {
         'Authorization': authHeader || '',
+        ...(xUserId ? { 'X-User-Id': xUserId } : {}),
       },
       cache: 'no-store',
     };
