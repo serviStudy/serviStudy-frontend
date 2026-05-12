@@ -75,9 +75,9 @@ export const StudentCard = ({ student }: Props) => {
 
         {student.studentSkills && student.studentSkills.length > 0 && (
           <div className="flex flex-wrap gap-2 mt-1">
-            {student.studentSkills.map((skill) => (
+            {student.studentSkills.map((skill, index) => (
               <span
-                key={skill.id}
+                key={skill.id || `skill-${index}`}
                 className="px-3 py-1 bg-green-50 text-green-700 text-xs font-medium rounded-lg border border-green-100"
               >
                 {skill.skillName}
