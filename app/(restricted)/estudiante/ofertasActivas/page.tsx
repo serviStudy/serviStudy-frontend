@@ -153,7 +153,7 @@ const Page = () => {
                     {/* Preview Column (Sticky on Desktop) */}
                     <div className="hidden lg:block sticky top-32 self-start">
                         {selectedOffer ? (
-                            <div className="h-[calc(100vh-180px)] rounded-32 overflow-y-auto no-scrollbar bg-transparent">
+                            <div className="h-[calc(100vh-150px)] rounded-32 overflow-y-auto no-scrollbar bg-transparent">
                                 <InfoCard offer={selectedOffer} />
                             </div>
                         ) : (
@@ -168,8 +168,8 @@ const Page = () => {
                     {/* Mobile Preview Modal/Overlay */}
                     {isMobileDetailOpen && selectedOffer && (
                         <div className="fixed inset-0 z-50 bg-slate-50/50 backdrop-blur-md lg:hidden overflow-y-auto animate-in slide-in-from-bottom-4 duration-300">
-                            <div className="sticky top-0 z-10 bg-white/80 backdrop-blur-xl p-4 border-b border-slate-100 flex items-center justify-between">
-                                <div className="flex items-center gap-3">
+                            <div className="sticky top-0 z-10 bg-white/80 backdrop-blur-xl py-4 px-6 border-b border-slate-100 flex items-center justify-between">
+                                <div className="flex flex-row-reverse justify-between w-full items-center gap-3 pl-16">
                                     <button 
                                         onClick={() => setIsMobileDetailOpen(false)}
                                         className="p-2 hover:bg-slate-100 rounded-full transition-colors"
@@ -179,7 +179,7 @@ const Page = () => {
                                     <h3 className="text-lg font-semibold text-blue-900 tracking-tight">Detalles de la oferta</h3>
                                 </div>
                             </div>
-                            <div className="p-4 pb-32">
+                            <div className="p-12">
                                 <div className="rounded-2xl overflow-hidden shadow-2xl shadow-blue-900/10 border border-slate-100 bg-white">
                                     <InfoCard offer={selectedOffer} />
                                 </div>

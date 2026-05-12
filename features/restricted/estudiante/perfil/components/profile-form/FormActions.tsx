@@ -17,26 +17,27 @@ export const FormActions: React.FC<FormActionsProps> = ({
   const router = useRouter();
 
   return (
-    <div className="mt-16 pt-8 flex flex-col-reverse sm:flex-row items-center justify-end gap-6 border-t border-gray-100">
-      <button
+    <div className="flex items-center gap-3">
+      <Button
         type="button"
-        className="w-full sm:w-auto px-8 py-3 text-gray-400 font-bold text-sm tracking-widest uppercase hover:text-gray-600 transition-all"
+        variant="ghost"
+        className="bg-blue-100/50 text-blue-600 hover:bg-blue-100 hover:text-blue-700 font-semibold px-6 rounded-lg transition-all"
         onClick={() => router.back()}
         disabled={saving}
       >
         Cancelar
-      </button>
+      </Button>
       <Button
-        className="w-full sm:w-auto px-8 h-14 rounded-xl bg-blue-600 text-white font-bold text-base hover:bg-blue-700 transition-all shadow-sm active:scale-95"
+        className="bg-blue-600 text-white font-semibold px-6 rounded-lg hover:bg-blue-700 transition-all shadow-sm active:scale-95"
         onClick={actions.handleSave}
         disabled={saving}
       >
         {saving ? (
           <span className="flex items-center gap-2">
-            <Loader2 className="h-5 w-5 animate-spin" />
+            <Loader2 className="h-4 w-4 animate-spin" />
             Guardando...
           </span>
-        ) : "Guardar Cambios"}
+        ) : "Guardar cambios"}
       </Button>
     </div>
   );

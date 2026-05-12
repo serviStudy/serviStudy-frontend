@@ -1,6 +1,6 @@
 import { JobOfferDTO, CreateJobOfferDTO } from "../types/jobOffer.types";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const API_URL = "/api/proxy";
 
 const getServiceHeaders = (): Record<string, string> => {
   const token = localStorage.getItem("token") ?? "";
@@ -134,7 +134,8 @@ export const getEmployerOffers = async (): Promise<JobOfferDTO[]> => {
 };
 
 export const getEmployerOfferById = async (id: string): Promise<JobOfferDTO | undefined> => {
-  const res = await fetch(`/api/offers/${id}`, {
+  // Llamada directa al backend (el proxy [id] de Next.js no funciona con Turbopack)
+  const res = await fetch(`${API_URL}/offers/${id}`, {
     headers: getServiceHeaders(),
   });
 
@@ -204,7 +205,8 @@ export const updateJobOffer = async (id: string, data: CreateJobOfferDTO) => {
       : []
   };
 
-  const res = await fetch(`/api/offers/${id}`, {
+  // Llamada directa al backend (el proxy [id] de Next.js no funciona con Turbopack)
+  const res = await fetch(`${API_URL}/offers/${id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -224,8 +226,8 @@ export const updateJobOffer = async (id: string, data: CreateJobOfferDTO) => {
 };
 
 export const updateJobOfferStatus = async (id: string, status: "ACTIVE" | "DISABLED" | "DELETED") => {
-  // Intentar via proxy PATCH con el campo status
-  const res = await fetch(`/api/offers/${id}`, {
+  // Llamada directa al backend (el proxy [id] de Next.js no funciona con Turbopack)
+  const res = await fetch(`${API_URL}/offers/${id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",

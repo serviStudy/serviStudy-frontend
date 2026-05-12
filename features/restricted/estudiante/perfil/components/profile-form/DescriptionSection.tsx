@@ -1,7 +1,5 @@
 import React from 'react';
-import { AlignLeft } from 'lucide-react';
 import { Textarea } from '@/components/ui/textarea';
-import { SectionTitle } from './SectionTitle';
 
 interface DescriptionSectionProps {
   formData: {
@@ -19,21 +17,23 @@ export const DescriptionSection: React.FC<DescriptionSectionProps> = ({
   errors
 }) => {
   return (
-    <section>
-      <SectionTitle title="Descripción del Perfil" icon={AlignLeft} />
-      <div className="space-y-2.5">
-        <div className="relative group">
-          <AlignLeft className="absolute left-4 top-4 h-5 w-5 text-gray-400 group-focus-within:text-blue-600 transition-colors" />
-          <Textarea
-            id="description"
-            value={formData.description}
-            onChange={(e) => setters.setDescription(e.target.value)}
-            placeholder="Describe tu experiencia, habilidades blandas, y qué buscas aportar..."
-            className="pl-12 pt-4 min-h-[160px] rounded-xl border border-gray-100 bg-gray-50/50 text-sm md:text-base font-medium text-gray-600 focus-visible:ring-4 focus-visible:ring-blue-600/5 focus-visible:border-blue-600/20 transition-all resize-none placeholder:text-gray-300"
-          />
-        </div>
-        {errors.description && <p className="text-red-500 text-xs font-medium ml-1">{errors.description}</p>}
+    <div className="space-y-4">
+      <Textarea
+        id="description"
+        value={formData.description}
+        onChange={(e) => setters.setDescription(e.target.value)}
+        placeholder="Comparte tu experiencia, habilidades y metas académicas..."
+        className="min-h-[280px] rounded-lg border border-gray-100 bg-white p-4 text-sm font-medium text-gray-700 focus-visible:ring-2 focus-visible:ring-blue-600/10 focus-visible:border-blue-600/50 transition-all resize-none placeholder:text-gray-300"
+      />
+      
+      <div className="flex justify-between text-[10px] font-bold text-gray-400 uppercase tracking-widest px-1">
+        <span>Se recomiendan al menos 100 caracteres</span>
+        <span className={formData.description.length > 2000 ? "text-red-500" : ""}>
+          {formData.description.length} / 2000
+        </span>
       </div>
-    </section>
+      
+      {errors.description && <p className="text-red-500 text-xs font-medium ml-1">{errors.description}</p>}
+    </div>
   );
 };

@@ -1,6 +1,6 @@
 
 export const login = async (email: string, password: string) => {
-  const API_URL = process.env.NEXT_PUBLIC_API_URL
+  const API_URL = "/api/proxy"
 
   const res = await fetch(`${API_URL}/auth/login`, {
     method: "POST",

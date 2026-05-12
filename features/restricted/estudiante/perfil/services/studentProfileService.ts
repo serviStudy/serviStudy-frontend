@@ -1,6 +1,6 @@
 import { getAuthHeaders } from "@/lib/api/authHeaders";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const API_URL = "/api/proxy";
 const STUDENT_PROFILE_URL = `${API_URL}/profiles/student`;
 
 import { StudentProfileResponse, StudentProfileUpdateData } from '../types/studentProfile.types';
