@@ -64,8 +64,8 @@ export const StudentList = () => {
 
       {/* List */}
       <div className="space-y-4">
-        {data.content.map((student) => (
-          <StudentCard key={student.id || student.userId} student={student} />
+        {data.content.map((student, index) => (
+          <StudentCard key={student.id || student.userId || `student-${index}`} student={student} />
         ))}
       </div>
 
