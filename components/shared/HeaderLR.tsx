@@ -29,8 +29,9 @@ export const HeaderLR = () => {
                 }`}
         >
             {/* BRAND ACCENT LINE */}
-            <div className={`absolute bottom-0 left-0 h-[2.5px] w-full transition-all duration-700 bg-linear-to-r ${tipoUsuario === "estudiante"
-                ? "from-blue-600 via-blue-400 to-blue-600"
+            <div className={`absolute bottom-0 left-0 h-[2.5px] w-full transition-all duration-700 bg-linear-to-r ${
+                tipoUsuario === "estudiante" 
+                ? "from-blue-600 via-blue-400 to-blue-600" 
                 : "from-green-600 via-green-400 to-green-600"
                 } ${isScrolled ? "scale-x-100 opacity-100" : "scale-x-0 opacity-0"
                 }`} />
