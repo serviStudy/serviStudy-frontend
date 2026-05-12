@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { toast } from "sonner";
-import { validateVerificationCode } from "../sevice/verification.service";
+import { validateVerificationCode } from "../service/verification.service";
 
 export const useVerification = (email: string | null) => {
   const [code, setCode] = useState(["", "", "", "", "", ""]);

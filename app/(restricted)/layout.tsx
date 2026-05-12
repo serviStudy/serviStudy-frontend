@@ -18,14 +18,11 @@ export default async function RestrictedLayout({
 
   let user: TokenPayload | null = null;
 
-  console.log("🔑 [LAYOUT DEBUG] token en cookie:", token ? `${token.substring(0, 30)}...` : "NO HAY TOKEN")
 
   if (token) {
     try {
       user = decodeJwt(token) as TokenPayload;
-      console.log("[LAYOUT DEBUG] JWT decoded payload:", JSON.stringify(user, null, 2))
     } catch (e) {
-      console.error("[LAYOUT DEBUG] JWT decode failed:", e);
     }
   }
 
@@ -39,33 +36,35 @@ export default async function RestrictedLayout({
   const isStudent = safeUser.role === "STUDENT";
 
   return (
-    <div className="min-h-screen flex relative bg-blue-100 selection:bg-blue-200 selection:text-blue-900">
-      {/* Background */}
+    <div className="min-h-screen flex relative bg-blue-50 selection:bg-blue-100 selection:text-blue-900 overflow-x-hidden">
+      {/* Background Premium */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-linear-to-br from-blue-50/20 via-white to-blue-50/10" />
-        <div className="absolute top-[-10%] left-[-10%] w-[70%] h-[70%] rounded-full bg-blue-100/20 blur-[120px]" />
-        <div className="absolute inset-0 opacity-[0.01] bg-[url('https://www.transparenttextures.com/patterns/p6-mini.png')]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-white to-transparent" />
+        <div className="absolute top-[-10%] left-[-10%] w-[70%] h-[70%] rounded-full bg-blue-100/10 blur-[120px]" />
       </div>
 
-      {/* Sidebar dinámico */}
-      {isEmployer && <EmployerDashboardSidebar />}
-      {isStudent && <StudentSidebar />}
+      {/* Navegación Lateral (Sidebar) por Rol */}
+      <div className="relative z-50">
+        {isEmployer && <EmployerDashboardSidebar />}
+        {isStudent && <StudentSidebar />}
+      </div>
 
+      {/* Contenido Principal */}
       <div
-        className={`flex-1 flex flex-col min-h-screen relative z-10 ${
+        className={`flex-1 flex flex-col min-h-screen relative z-10 transition-all duration-300 ${
           isEmployer || isStudent ? "lg:pl-72" : ""
         }`}
       >
         <main
-          className={`flex-1 pt-20 ${
+          className={`flex-1 ${
             isEmployer
-              ? "p-8 lg:p-12"
-              : "p-4 md:p-8 lg:p-12"
+              ? "p-4 pt-20 sm:pt-4 md:p-8 lg:p-10"
+              : "p-4 pt-20 sm:pt-4 md:p-8 lg:p-10"
           }`}
         >
           <div
             className={`${
-              isEmployer ? "max-w-full" : "max-w-400 mx-auto"
+              isEmployer ? "max-w-full" : "max-w-5xl mx-auto"
             } w-full`}
           >
             {children}
