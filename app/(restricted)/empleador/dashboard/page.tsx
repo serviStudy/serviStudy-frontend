@@ -74,12 +74,20 @@ export default function EmployerDashboard() {
           <h1 className="text-4xl lg:text-5xl font-black text-gray-900 tracking-tighter">¡Hola, {userName}! 👋</h1>
           <p className="text-gray-400 font-bold text-lg mt-2">Aquí tienes un resumen de lo que está pasando hoy.</p>
         </div>
-        <Link 
-          href="/empleador/ofertas/crear"
-          className="bg-green-600 hover:bg-green-700 text-white px-10 py-5 rounded-[24px] font-black text-sm shadow-2xl shadow-green-900/20 transition-all active:scale-95 flex items-center gap-3 w-fit"
-        >
-          <Plus size={24} /> Crear Nueva Vacante
-        </Link>
+        <div className="flex flex-col sm:flex-row items-center gap-4">
+          <Link 
+            href="/empleador/test-subscription"
+            className="bg-purple-100 hover:bg-purple-200 text-purple-700 px-6 py-5 rounded-[24px] font-black text-sm shadow-sm transition-all active:scale-95 flex items-center gap-3 w-full sm:w-auto justify-center"
+          >
+             Test Suscripción
+          </Link>
+          <Link 
+            href="/empleador/ofertas/crear"
+            className="bg-green-600 hover:bg-green-700 text-white px-10 py-5 rounded-[24px] font-black text-sm shadow-2xl shadow-green-900/20 transition-all active:scale-95 flex items-center gap-3 w-full sm:w-auto justify-center"
+          >
+            <Plus size={24} /> Crear Nueva Vacante
+          </Link>
+        </div>
       </div>
 
       {/* Stats Grid */}
