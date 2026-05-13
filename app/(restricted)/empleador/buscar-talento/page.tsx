@@ -24,10 +24,10 @@ export default function BuscarTalentoPage() {
 
   const { profile, loading: loadingProfile } = useEmployerProfile();
   const { offers, loading: loadingOffers } = useJobOffers();
+  
+  // Solo se permite el modo IA si tiene suscripción activa
+  const hasSubscription = (profile as any)?.hasSubscription || (profile as any)?.subscriptionTier || false;
 
-  // Verificar suscripción (esto debería venir del backend)
-  // FORZADO A TRUE PARA PRUEBAS
-  const hasSubscription = true; // (profile as any)?.hasSubscription || (profile as any)?.subscriptionTier || false;
 
   const handleSearch = (e?: React.FormEvent) => {
     e?.preventDefault();
@@ -79,7 +79,7 @@ export default function BuscarTalentoPage() {
           </p>
         </div>
 
-        {/* AI Toggle - Only if subscribed */}
+        {/* AI Toggle - Solo visible con suscripción */}
         {hasSubscription && (
           <div className="flex items-center gap-3 bg-white p-1.5 rounded-2xl border border-gray-100 shadow-sm">
             <button

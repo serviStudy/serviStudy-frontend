@@ -28,7 +28,7 @@ export const StudentCard = ({ student }: Props) => {
           <div className="bg-linear-to-r from-green-500 to-blue-500 text-white px-4 py-1.5 rounded-bl-xl flex items-center gap-2 shadow-sm">
             <Sparkles size={12} className="text-white animate-pulse" />
             <span className="text-[11px] font-black tracking-wider uppercase">
-              {student.compatibilityScore}% Compatible
+              {Math.round((student.compatibilityScore <= 1 ? student.compatibilityScore * 100 : student.compatibilityScore))}% Compatible
             </span>
           </div>
         </div>

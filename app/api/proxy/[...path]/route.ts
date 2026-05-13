@@ -18,28 +18,24 @@ async function handleRequest(request: Request, context: { params: Promise<{ path
     const xUserId = request.headers.get('X-User-Id');
     
     // Configuración de la petición al backend
-    const fetchOptions: RequestInit = {
+    const fetchOptions: any = {
       method: request.method,
       headers: {
         'Authorization': authHeader || '',
         ...(xUserId ? { 'X-User-Id': xUserId } : {}),
       },
       cache: 'no-store',
+      duplex: 'half', // REQUERIDO para enviar streams en Node.js fetch
     };
 
     // Manejar el cuerpo de la petición si no es GET o HEAD
     if (request.method !== 'GET' && request.method !== 'HEAD') {
       const contentType = request.headers.get('Content-Type');
       
-      if (contentType?.includes('multipart/form-data')) {
-        // Para multipart (imágenes), clonamos el FormData
-        const formData = await request.formData();
-        fetchOptions.body = formData;
-        // Nota: No establecemos Content-Type manualmente para multipart, 
-        // el navegador lo hará con el boundary correcto.
-      } else {
-        // Para JSON y otros
-        const body = await request.blob();
+      // Leemos el cuerpo completo como Blob para evitar problemas de stream
+      const body = await request.blob().catch(() => null);
+      
+      if (body) {
         fetchOptions.body = body;
         if (contentType) {
           (fetchOptions.headers as Record<string, string>)['Content-Type'] = contentType;
