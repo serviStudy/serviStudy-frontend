@@ -68,7 +68,7 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true }: Pr
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="lg:hidden group bg-white rounded-[24px] border border-gray-100 p-4 shadow-[0_8px_30px_rgb(0,0,0,0.04)] relative overflow-hidden mb-4"
+        className="lg:hidden group bg-white rounded-2xl border border-gray-100 p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] relative overflow-hidden mb-4"
       >
         <div className={`absolute top-0 left-0 right-0 h-1 transition-all duration-700 ${isActive ? 'bg-green-600' : 'bg-orange-400'}`} />
         
@@ -151,13 +151,13 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true }: Pr
         animate={{ opacity: 1, scale: 1 }}
         whileHover={{ y: -8 }}
         transition={{ duration: 0.4 }}
-        className="hidden lg:flex group bg-white rounded-xl border border-gray-100 p-6 gap-6 shadow-sm hover:shadow-md transition-all duration-300 relative overflow-hidden w-full"
+        className="hidden lg:flex group bg-white rounded-2xl border border-gray-100 p-6 gap-6 shadow-sm hover:shadow-md transition-all duration-300 relative overflow-hidden w-full"
       >
         <div className={`absolute left-0 top-0 bottom-0 w-3 transition-all duration-700 ${isActive ? 'bg-green-600 shadow-[4px_0_20px_rgba(22,163,74,0.3)]' : 'bg-orange-400 shadow-[4px_0_20px_rgba(251,146,60,0.3)]'}`} />
         <div className="pointer-events-none absolute top-0 right-0 w-64 h-64 bg-green-50/30 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-1000"></div>
 
         <div className="relative shrink-0">
-          <div className="w-48 h-48 bg-gray-50 rounded-[40px] overflow-hidden border border-gray-100 flex items-center justify-center shadow-inner group-hover:rotate-2 transition-all duration-700">
+          <div className="w-48 h-48 bg-gray-50 rounded-2xl overflow-hidden border border-gray-100 flex items-center justify-center shadow-inner group-hover:rotate-2 transition-all duration-700">
             {imageUrl ? (
               <img src={imageUrl} alt="Establecimiento" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
             ) : (
