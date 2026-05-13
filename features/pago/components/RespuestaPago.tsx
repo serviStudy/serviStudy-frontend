@@ -2,10 +2,9 @@
 
 import React, { useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { CheckCircle2, XCircle, Clock, ArrowLeft, Loader2 } from "lucide-react";
+import { CheckCircle2, XCircle, Clock, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
 
 interface TransactionData {
   x_response: string;
@@ -32,7 +31,6 @@ export function RespuestaPago() {
       return;
     }
 
-    // Consultar el estado de la transacción directamente a ePayco
     const fetchTransactionStatus = async () => {
       try {
         const response = await fetch(`https://secure.epayco.co/validation/v1/reference/${refPayco}`);
@@ -53,6 +51,31 @@ export function RespuestaPago() {
 
     fetchTransactionStatus();
   }, [searchParams]);
+
+  // Obtener la ruta del dashboard según el rol
+  const getDashboardPath = () => {
+    const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+    if (!token) return "/login";
+    try {
+      const base64Url = token.split(".")[1];
+      const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+      const jsonPayload = decodeURIComponent(
+        window
+          .atob(base64)
+          .split("")
+          .map((c) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
+          .join("")
+      );
+      const decoded = JSON.parse(jsonPayload);
+      const role = decoded.role || decoded.X_User_Role || "";
+      
+      if (role.includes("EMPLOYER")) return "/empleador/dashboard";
+      if (role.includes("STUDENT")) return "/estudiante/dashboard";
+      return "/dashboard";
+    } catch {
+      return "/login";
+    }
+  };
 
   if (loading) {
     return (
@@ -86,9 +109,7 @@ export function RespuestaPago() {
     );
   }
 
-  // x_response status values: Aceptada, Rechazada, Pendiente, Fallida
   const status = data.x_response;
-  
   const isSuccess = status === "Aceptada";
   const isPending = status === "Pendiente";
   const isFailed = status === "Rechazada" || status === "Fallida";
@@ -155,8 +176,11 @@ export function RespuestaPago() {
                 Intentar de nuevo
               </Button>
             ) : (
-              <Button onClick={() => router.push("/login")} className="w-full bg-blue-600 hover:bg-blue-700">
-                Continuar
+              <Button 
+                onClick={() => router.push(getDashboardPath())} 
+                className="w-full bg-blue-600 hover:bg-blue-700"
+              >
+                Ir a mi Dashboard
               </Button>
             )}
           </div>
