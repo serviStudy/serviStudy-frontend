@@ -4,17 +4,17 @@ import { useState, useEffect, useCallback } from "react";
 import { PaginatedStudents } from "../types/searchTalent.types";
 import { getStudents } from "../services/searchTalent.service";
 
-export const useStudents = (initialPage: number = 0, size: number = 10) => {
+export const useStudents = (initialPage: number = 0, size: number = 10, search: string = "") => {
   const [data, setData] = useState<PaginatedStudents | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [page, setPage] = useState<number>(initialPage);
 
-  const fetchStudents = useCallback(async (pageNumber: number) => {
+  const fetchStudents = useCallback(async (pageNumber: number, searchQuery: string) => {
     try {
       setLoading(true);
       setError(null);
-      const res = await getStudents(pageNumber, size);
+      const res = await getStudents(pageNumber, size, searchQuery);
       setData(res);
       setPage(pageNumber);
     } catch (err: any) {
@@ -25,8 +25,12 @@ export const useStudents = (initialPage: number = 0, size: number = 10) => {
   }, [size]);
 
   useEffect(() => {
-    fetchStudents(page);
-  }, [fetchStudents, page]);
+    setPage(0);
+  }, [search]);
+
+  useEffect(() => {
+    fetchStudents(page, search);
+  }, [fetchStudents, page, search]);
 
   return {
     data,
@@ -34,6 +38,6 @@ export const useStudents = (initialPage: number = 0, size: number = 10) => {
     error,
     page,
     setPage,
-    refresh: () => fetchStudents(page),
+    refresh: () => fetchStudents(page, search),
   };
 };

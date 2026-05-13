@@ -15,6 +15,7 @@ export interface StudentProfile {
   workDays?: string[];
   workSchedule?: string;
   studentSkills: StudentSkill[];
+  compatibilityScore?: number;
 }
 
 export interface PaginatedStudents {
