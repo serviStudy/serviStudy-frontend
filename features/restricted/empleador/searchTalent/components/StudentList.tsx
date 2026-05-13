@@ -3,9 +3,17 @@
 import { useStudents } from "../hooks/useStudents";
 import { StudentCard } from "./StudentCard";
 import { Loader2, AlertCircle, Users } from "lucide-react";
+import { StudentProfile, PaginatedStudents } from "../types/searchTalent.types";
 
-export const StudentList = () => {
-  const { data, loading, error, page, setPage } = useStudents(0, 10);
+interface Props {
+  searchQuery?: string;
+  manualResults?: PaginatedStudents | null;
+}
+
+export const StudentList = ({ searchQuery = "", manualResults }: Props) => {
+  const { data: hookData, loading, error, page, setPage } = useStudents(0, 10, searchQuery);
+  
+  const data = manualResults || hookData;
 
   if (loading && !data) {
     return (
@@ -64,7 +72,7 @@ export const StudentList = () => {
 
       {/* List */}
       <div className="space-y-4">
-        {data.content.map((student, index) => (
+        {data.content.map((student: StudentProfile, index: number) => (
           <StudentCard key={student.id || student.userId || `student-${index}`} student={student} />
         ))}
       </div>
