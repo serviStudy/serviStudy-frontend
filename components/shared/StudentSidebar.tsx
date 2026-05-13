@@ -18,10 +18,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import NavLink from '../ui/NavLink';
 
 const sidebarItems = [
-    { name: 'Perfil estudiante', icon: User, href: '/estudiante/perfil' },
     { name: 'Buscar Ofertas', icon: Briefcase, href: '/estudiante/ofertasActivas' },
     { name: 'Mis Postulaciones', icon: LayoutDashboard, href: '/estudiante/misPostulaciones' },
     { name: 'Suscripción', icon: CreditCard, href: '/estudiante/suscripcion' },
+    { name: 'Perfil estudiante', icon: User, href: '/estudiante/perfil' },
 ];
 
 export const StudentSidebar = () => {

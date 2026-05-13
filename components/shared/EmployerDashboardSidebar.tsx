@@ -18,10 +18,11 @@ import NavLink from '../ui/NavLink';
 
 const sidebarItems = [
   { name: 'Dashboard', icon: LayoutDashboard, href: '/empleador/dashboard' },
-  { name: 'Perfil de Empresa', icon: User, href: '/empleador/perfil' },
   { name: 'Mis Ofertas', icon: Briefcase, href: '/empleador/ofertas' },
   { name: 'Crear Oferta', icon: PlusCircle, href: '/empleador/ofertas/crear' },
   { name: 'Buscar Talento', icon: Users, href: '/empleador/buscar-talento' },
+  { name: 'Suscripción', icon: CreditCard, href: '/empleador/suscripcion' },
+  { name: 'Perfil de Empresa', icon: User, href: '/empleador/perfil' },
 ];
 
 export const EmployerDashboardSidebar = () => {
