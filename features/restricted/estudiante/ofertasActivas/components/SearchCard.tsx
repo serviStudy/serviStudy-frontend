@@ -109,7 +109,7 @@ const SearchCard = ({
                                         <button 
                                             key={jornada}
                                             onClick={() => toggleJornada(jornada)}
-                                            className={`px-4 py-2 rounded-lg text-xs uppercase tracking-wide font-medium transition-all border ${
+                                            className={`px-4 py-2 rounded-lg text-xs capitalize tracking-wide font-medium transition-all border ${
                                                 selectedJornada.includes(jornada) 
                                                 ? 'bg-blue-600 text-white border-blue-600' 
                                                 : 'bg-white text-gray-600 border-gray-200 hover:border-blue-300'

@@ -3,14 +3,18 @@
 import React from 'react'
 import { toast } from 'sonner';
 import { deleteApplication } from '../services/applicationService';
+import { Trash2 } from 'lucide-react';
 
 interface Props {
     jobOfferId: string;
     onDelete: (jobOfferId: string) => void;
+    variant?: 'default' | 'icon';
 }
 
-export const ApplyButtonDelete = ({ jobOfferId, onDelete }: Props) => {
-    const handleApply = async () => {
+export const ApplyButtonDelete = ({ jobOfferId, onDelete, variant = 'default' }: Props) => {
+    const handleApply = async (e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
         try {
             await deleteApplication(jobOfferId)
             toast.success("Postulación retirada con éxito")
@@ -21,12 +25,16 @@ export const ApplyButtonDelete = ({ jobOfferId, onDelete }: Props) => {
         }
     }
 
-    return (
-        <button
-            onClick={handleApply}
-            className='text-xs md:text-sm font-semibold px-4 md:px-5 py-2 md:py-2.5 rounded-xl border border-red-200 bg-red-50 text-red-600 hover:bg-red-100 transition-colors cursor-pointer w-full md:w-auto text-center'
-        >
-            Retirar postulación
-        </button>
-    )
+    if (variant === 'icon') {
+        return (
+            <button
+                onClick={handleApply}
+                className="p-3 rounded-2xl bg-gray-50 text-gray-400 hover:bg-red-50 hover:text-red-500 transition-all border border-transparent hover:border-red-100 shadow-sm active:scale-90 cursor-pointer"
+                title="Retirar postulación"
+            >
+                <Trash2 size={20} />
+            </button>
+        )
+    }
+
 }

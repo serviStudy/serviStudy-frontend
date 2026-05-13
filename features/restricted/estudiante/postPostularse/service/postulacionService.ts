@@ -2,7 +2,7 @@ import { ActiveOffer } from "@/features/restricted/estudiante/ofertasActivas/typ
 import { getAuthHeaders } from "@/lib/api/authHeaders";
 import { ApplicationResponse } from "../types/applicationTypes";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const API_URL = "/api/proxy"
 const APPLICANTS_URL = `${API_URL}/applicants`;
 
 interface CreateApplicationDTO {
