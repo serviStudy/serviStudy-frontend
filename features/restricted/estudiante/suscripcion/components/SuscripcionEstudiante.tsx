@@ -8,11 +8,9 @@ import { useEpaycoCheckout } from "@/hooks/useEpaycoCheckout";
 import { usePlans } from "@/features/suscripcion/hooks/usePlans";
 import type { ExtendedPlan } from "@/features/suscripcion/hooks/usePlans";
 import { useSubscriptionStatus } from "@/features/suscripcion/hooks/useSubscriptionStatus";
-import { createPaymentSession } from "@/features/suscripcion/services/paymentService";
 import { ActiveSubscriptionCard } from "@/features/suscripcion/components/ActiveSubscriptionCard";
 import { Loader2, AlertCircle } from "lucide-react";
 
-/** Extrae el userId del JWT guardado en localStorage */
 function getUserIdFromToken(): string | null {
   const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
   if (!token) return null;
@@ -39,14 +37,12 @@ export function SuscripcionEstudiante() {
   const { openCheckout, isReady } = useEpaycoCheckout();
   const { plans, loading: plansLoading, error: plansError } = usePlans("STUDENT");
   const { status, loading: statusLoading, error: statusError } = useSubscriptionStatus();
-  const [isCreatingSession, setIsCreatingSession] = useState(false);
-  const [sessionError, setSessionError] = useState<string | null>(null);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  const handleSelectPlan = async (plan: PricingPlan) => {
+  const handleSelectPlan = (plan: PricingPlan) => {
     if (!isReady) {
       console.warn("ePayco SDK no está listo aún.");
       return;
@@ -57,40 +53,16 @@ export function SuscripcionEstudiante() {
     const planId = extendedPlan.planId;
     const rawPrice = extendedPlan.rawPrice;
 
-    if (!userId || !planId) {
-      setSessionError("No se pudo identificar al usuario o el plan. Por favor inicie sesión nuevamente.");
-      return;
-    }
+    const invoice = `EST-${userId ?? "anon"}-${planId ?? "0"}-${Date.now()}`;
 
-    try {
-      setIsCreatingSession(true);
-      setSessionError(null);
-
-      // 1. Crear sesión en el backend
-      const sessionResponse = await createPaymentSession({
-        userId,
-        planId,
-        amount: rawPrice,
-      });
-
-      // 2. Extraer invoiceId o sessionId de la respuesta (o fallback)
-      const invoice = sessionResponse.invoiceId || sessionResponse.sessionId || `EST-${userId}-${planId}-${Date.now()}`;
-
-      // 3. Abrir checkout de ePayco
-      openCheckout({
-        name: `Suscripción ${plan.tier} - Estudiante`,
-        description: plan.description,
-        invoice,
-        amount: String(rawPrice ?? plan.price.replace(/\./g, "")),
-        extra1: userId ?? "",        // userId para el webhook del backend
-        extra2: String(planId ?? ""), // planId para el webhook del backend
-      });
-    } catch (error: any) {
-      console.error("Error al crear sesión de pago:", error);
-      setSessionError(error.message || "Ocurrió un error al iniciar la transacción. Por favor, inténtelo nuevamente.");
-    } finally {
-      setIsCreatingSession(false);
-    }
+    openCheckout({
+      name: `Suscripción ${plan.tier} - Estudiante`,
+      description: plan.description,
+      invoice,
+      amount: String(rawPrice ?? plan.price.replace(/\./g, "")),
+      extra1: userId ?? "",
+      extra2: String(planId ?? ""),
+    });
   };
 
   if (!mounted) return null;
@@ -114,21 +86,11 @@ export function SuscripcionEstudiante() {
       </div>
 
       <div className="w-full relative mt-4">
-        {/* Estado de carga de status (o si no es activo y cargando planes, o creando sesión) */}
-        {(isStatusLoading || (!isActive && !isStatusLoading && isPlansLoading) || isCreatingSession) && (
-          <div className="flex flex-col items-center justify-center py-20 gap-4">
+        {/* Estado de carga de status (o si no es activo y cargando planes) */}
+        {(isStatusLoading || (!isActive && !isStatusLoading && isPlansLoading)) && (
+          <div className="flex items-center justify-center py-20">
             <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
-            <span className="text-slate-500 font-medium">
-              {isCreatingSession ? "Iniciando transacción segura..." : "Verificando estado..."}
-            </span>
-          </div>
-        )}
-
-        {/* Mostrar error de sesión si lo hay */}
-        {sessionError && (
-          <div className="flex items-center justify-center p-4 gap-3 text-red-600 bg-red-50 border border-red-200 rounded-lg max-w-2xl mx-auto mb-6">
-            <AlertCircle className="h-6 w-6 shrink-0" />
-            <span className="text-sm font-medium">{sessionError}</span>
+            <span className="ml-3 text-slate-500 font-medium">Verificando estado...</span>
           </div>
         )}
 
@@ -155,7 +117,7 @@ export function SuscripcionEstudiante() {
           </div>
         )}
 
-        {!isStatusLoading && !isActive && !isPlansLoading && !plansError && !statusError && !isCreatingSession && (
+        {!isStatusLoading && !isActive && !isPlansLoading && !plansError && !statusError && (
           <>
             <div className="md:hidden">
               <PricingCarousel
