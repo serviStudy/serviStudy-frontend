@@ -22,124 +22,102 @@ export const Postulacion = ({ data, onDelete }: Props) => {
 
     return (
         <motion.div 
-            initial={{ opacity: 0, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            whileHover={{ y: -8 }}
-            transition={{ duration: 0.4 }}
-            className="group bg-white rounded-lg border border-gray-100 p-6  flex flex-col md:flex-row gap-6 shadow-sm hover:shadow-md transition-all duration-300 relative overflow-hidden w-full"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            whileHover={{ y: -4 }}
+            transition={{ duration: 0.3 }}
+            className="group bg-white rounded-xl border border-gray-200 p-6 flex flex-col md:flex-row gap-6 shadow-sm hover:shadow-md transition-all duration-300 relative overflow-hidden w-full"
         >
-            {/* LATERAL LINE */}
-            <div className="absolute left-0 top-0 bottom-0 w-3 bg-blue-600 shadow-[4px_0_20px_rgba(37,99,235,0.3)] transition-all duration-700" />
-            
-            {/* BACKGROUND DECORATION */}
-            <div className="pointer-events-none absolute top-0 right-0 w-64 h-64 bg-blue-50/30 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-1000" />
+            {/* Indicator line */}
+            <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-            <div className='flex gap-2 md:hidden'>
-                <div className="relative shrink-0 flex md:block">
-                    <div className="w-26 h-26 md:w-36 md:h-36 bg-gray-50 rounded-[32px] overflow-hidden border border-gray-100 flex items-center justify-center shadow-inner group-hover:rotate-2 transition-all duration-700 px-4">
-                        <Image
-                            width={160}
-                            height={160}
-                            src={data.jobOffer.imageUrl || "/placeholder-job.png"}
-                            alt={data.jobOffer.title}
-                            className="object-contain w-full h-full group-hover:scale-110 transition-transform duration-1000"
-                        />
-                    </div>
-                </div>
-                <div>
-                    <h3 className="text-xl md:text-2xl font-bold text-blue-900 tracking-tight mb-1 truncate group-hover:text-blue-600 transition-colors duration-300">
-                        {data.jobOffer.title}
-                    </h3>
-                    <div className="flex items-center gap-2 text-blue-600 mb-4">
-                        <Briefcase className="h-4 w-4" />
-                        <span className="text-sm font-bold capitalize">{data.jobOffer.businessName}</span>
-                    </div>
-                </div>
-            </div>
-
-            {/* LOGO SECTION  hidden section in md devices*/} 
-            <div className="relative hidden md:block shrink-0 flex md:block">
-                <div className="w-26 h-26 md:w-36 md:h-36 bg-gray-50 rounded-[32px] overflow-hidden border border-gray-100 flex items-center justify-center shadow-inner group-hover:rotate-2 transition-all duration-700 px-4">
+            {/* Left: Avatar/Image */}
+            <div className="shrink-0 flex items-center justify-center md:items-start">
+                <div className="w-22 h-22 bg-gray-50 rounded-xl overflow-hidden border-2 border-gray-100 shadow-sm transition-transform group-hover:scale-105 flex items-center justify-center">
                     <Image
-                        width={160}
-                        height={160}
+                        width={80}
+                        height={80}
                         src={data.jobOffer.imageUrl || "/placeholder-job.png"}
                         alt={data.jobOffer.title}
-                        className="object-contain w-full h-full group-hover:scale-110 transition-transform duration-1000"
+                        className="object-contain rounded-xl w-full h-full p-2"
                     />
                 </div>
             </div>
 
-            {/* CONTENT SECTION */}
+            {/* Center: Info Section */}
             <div className="flex-1 flex flex-col min-w-0">
-                <div className="flex justify-between items-start gap-4">
-                    <div className="flex-1 min-w-0">
-
-                        {/* title and buisness name hidden in md devices */}
-                        <div className='hidden md:block'>
-                            <h3 className="text-xl md:text-2xl font-bold text-blue-900 tracking-tight mb-1 truncate group-hover:text-blue-600 transition-colors duration-300">
-                                {data.jobOffer.title}
-                            </h3>
-                            <div className="flex items-center gap-2 text-blue-600 mb-4">
-                                <Briefcase className="h-4 w-4" />
-                                <span className="text-sm font-bold capitalize">{data.jobOffer.businessName}</span>
-                            </div>
-                        </div>
-                        
-                        <div className="flex flex-wrap items-center gap-2">
-                            {/* LOCATION TAG */}
-                            <div className="flex items-center gap-2 px-4 py-1.5 rounded-lg bg-gray-50 border border-gray-100 text-gray-500 font-medium shadow-sm group-hover:bg-white transition-colors">
-                                <MapPin size={16} className="shrink-0 text-green-500" />
-                                <span className="truncate max-w-[150px] md:max-w-[250px] tracking-tight text-xs">{data.jobOffer.establishmentAddress}</span>
-                            </div>
-                            
-                            {/* SALARY TAG */}
-                            <div className="text-green-600 flex items-center gap-2 bg-green-50 px-4 py-1.5 rounded-lg border border-green-100 shadow-sm hover:bg-green-100 transition-colors">
-                                <span className="text-[10px] font-medium uppercase tracking-wider opacity-60">Sueldo</span>
-                                <span className="text-base md:text-lg font-bold tracking-tight">${salary.toLocaleString("es-CO")}</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* TOP RIGHT ACTIONS */}
-                    <div className="hidden md:flex gap-6 items-end gap-2">
-                        <div className="flex items-center gap-1.5 text-[10px] text-blue-600 bg-blue-50 border border-blue-100 px-3 py-1 rounded-lg font-bold uppercase tracking-wider mb-2">
-                            <Calendar className="h-3 w-3" />
-                            Postulado: {data.applicationDate}
-                        </div>
-                        <ApplyButtonDelete jobOfferId={data.jobOffer.jobOfferId} onDelete={onDelete} variant="icon" />
+                <div className="flex flex-col gap-1 mb-3">
+                    <h3 className="text-lg md:text-xl font-bold text-gray-900 truncate group-hover:text-blue-600 transition-colors duration-300 pr-32">
+                        {data.jobOffer.title}
+                    </h3>
+                    <div className="flex items-center gap-2 text-gray-600">
+                        <Briefcase className="h-4 w-4 text-blue-500" />
+                        <span className="text-sm font-semibold capitalize">{data.jobOffer.businessName}</span>
                     </div>
                 </div>
 
-                {/* DESCRIPTION */}
-                {description && (
-                    <p className="text-sm text-gray-600 leading-relaxed line-clamp-2 pt-4 mb-6">
-                        {description}
-                    </p>
-                )}
-
-                {/* FOOTER ACTIONS */}
-                <div className="mt-auto pt-2 flex flex-col md:flex-row justify-between items-center border-t border-gray-50 gap-4">
-                    <div className="hidden md:flex items-center gap-2 bg-gray-50 px-3 py-1.5 rounded-lg border border-gray-100">
-                        <FileText className="h-4 w-4 text-blue-500 shrink-0" />
-                        <span className="text-xs flex font-medium text-blue-900">
-                            <span className='font-semibold text-blue-600 pr-1'>Contrato:</span>
-                            {data.jobOffer.salaryDescription}
+                {/* Location and Salary Grid */}
+                <div className="flex flex-wrap gap-x-6 gap-y-3 mb-4">
+                    <div className="flex items-center gap-2.5">
+                        <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center shrink-0 border border-blue-100">
+                            <MapPin size={14} className="text-blue-600" />
+                        </div>
+                        <span className="text-sm text-gray-700 font-medium truncate max-w-[200px]" title={data.jobOffer.establishmentAddress}>
+                            {data.jobOffer.establishmentAddress}
                         </span>
                     </div>
                     
-                    <div className="flex justify-between md:items-center gap-3 w-full md:w-auto">
-                        <Link 
-                            href={`/estudiante/postulacion/${data.jobOffer.jobOfferId}`} 
-                            className="flex-1 md:flex-none bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl text-xs font-bold transition-all shadow-lg shadow-blue-600/20 hover:shadow-blue-600/30 hover:-translate-y-0.5 text-center tracking-wider flex items-center justify-center gap-2 active:scale-95 group/btn"
-                        >
-                            Ver Detalle Completo 
-                            <Sparkles size={16} className="group-hover:rotate-12 hidden md:block transition-transform" />
-                        </Link>
-                        <div className="md:hidden flex-1">
-                            <ApplyButtonDelete jobOfferId={data.jobOffer.jobOfferId} onDelete={onDelete} variant="icon" />
+                    <div className="flex items-center gap-2.5">
+                        <div className="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center shrink-0 border border-green-100">
+                            <Sparkles size={14} className="text-green-600" />
+                        </div>
+                        <div className="flex flex-col">
+                            <span className="text-[10px] text-gray-400 font-bold uppercase leading-none mb-0.5">Sueldo</span>
+                            <span className="text-sm text-green-700 font-bold">${salary.toLocaleString("es-CO")}</span>
                         </div>
                     </div>
+
+                    <div className="flex items-center gap-2.5">
+                        <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center shrink-0 border border-blue-100">
+                            <FileText size={14} className="text-blue-600" />
+                        </div>
+                        <span className="text-sm text-gray-700 font-medium">
+                            {data.jobOffer.salaryDescription}
+                        </span>
+                    </div>
+                </div>
+
+                {/* Description in Gray Box */}
+                {description && (
+                    <div className="bg-gray-50 p-4 rounded-xl border border-gray-100 mb-2">
+                        <p className="text-sm text-gray-600 italic leading-relaxed line-clamp-2">
+                            "{description}"
+                        </p>
+                    </div>
+                ) || (
+                    <div className="bg-gray-50 p-4 rounded-xl border border-gray-100 mb-2">
+                        <p className="text-sm text-gray-400 italic">Sin descripción proporcionada</p>
+                    </div>
+                )}
+            </div>
+
+            {/* Application Date stuck to the corner */}
+            <div className="absolute top-0 right-0 hidden md:flex items-center gap-1.5 text-[10px] font-bold text-blue-600 bg-blue-50 px-4 py-2 rounded-bl-2xl border-l border-b border-blue-100 shadow-sm z-20">
+                <Calendar size={12} />
+                POSTULADO EL {data.applicationDate}
+            </div>
+
+            {/* Right: Actions Area */}
+            <div className="shrink-0 flex flex-col justify-center items-end gap-3 mt-4 md:mt-0 border-t md:border-t-0 md:border-l border-gray-100 pt-4 md:pt-0 md:pl-6 min-w-[160px]">
+                <Link 
+                    href={`/estudiante/postulacion/${data.jobOffer.jobOfferId}`} 
+                    className="w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl shadow-sm transition-all hover:shadow-md active:scale-95 text-center uppercase tracking-wider flex items-center justify-center gap-2"
+                >
+                    Ver Detalle
+                    <ArrowUpRight size={14} />
+                </Link>
+                <div className="w-full flex justify-center">
+                    <ApplyButtonDelete jobOfferId={data.jobOffer.jobOfferId} onDelete={onDelete} variant="icon" />
                 </div>
             </div>
         </motion.div>

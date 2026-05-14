@@ -138,23 +138,23 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
         <div className="lg:col-span-7 space-y-8">
           <Card className="p-8 rounded-xl shadow-sm border border-gray-100 bg-white overflow-hidden">
             <SectionTitle title="Resumen profesional" icon={FileText} />
-            <DescriptionSection 
-              formData={formData} 
-              setters={setters} 
-              errors={errors} 
-            />
+              <DescriptionSection 
+                formData={formData} 
+                setters={setters} 
+                errors={errors} 
+              />
           </Card>
 
           <Card className="p-8 rounded-xl shadow-sm border border-gray-100 bg-white overflow-hidden">
             <SectionTitle title="Cualidades" icon={BadgeCheck} />
-            <SkillsSection 
-              formData={formData}
-              actions={actions}
-              errors={errors}
-              newSkill={newSkill}
-              setNewSkill={setNewSkill}
-              handleAddSkillClick={handleAddSkillClick}
-            />
+              <SkillsSection 
+                formData={formData}
+                actions={actions}
+                errors={errors}
+                newSkill={newSkill}
+                setNewSkill={setNewSkill}
+                handleAddSkillClick={handleAddSkillClick}
+              />
           </Card>
         </div>
       </div>

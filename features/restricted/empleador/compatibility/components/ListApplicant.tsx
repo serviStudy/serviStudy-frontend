@@ -1,16 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Loader2, AlertCircle, Users } from "lucide-react";
+import { Loader2, AlertCircle, Users, CheckCircle2 } from "lucide-react";
 import { PaginatedApplicants } from "../../applicantsEmployer/types/applicants.types";
 import { getApplicantsByOfferId } from "../../applicantsEmployer/services/applicants.service";
 import { Applicant } from "./Applicant";
 
     interface Props {
-    offerId: string;
+        offerId: string;
+        selectedIds: string[];
+        onToggleSelection: (id: string) => void;
     }
-
-    export const ListApplicant = ({ offerId }: Props) => {
+    
+    export const ListApplicant = ({ offerId, selectedIds, onToggleSelection }: Props) => {
     const [data, setData] = useState<PaginatedApplicants | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
@@ -45,6 +47,7 @@ import { Applicant } from "./Applicant";
         </div>
         );
     }
+
 
     if (error) {
         return (
@@ -87,15 +90,30 @@ import { Applicant } from "./Applicant";
             </div>
             <h2 className="text-xl font-semibold text-gray-900">Lista de Postulantes</h2>
             </div>
-            <span className="bg-green-50 text-green-600 px-3 py-1.5 rounded-lg font-bold text-xs border border-green-100">
-            {data.totalElements} en total
-            </span>
+            <div className="flex flex-col items-end gap-2">
+                {selectedIds.length > 0 && (
+                    <div className="flex items-center gap-2 px-3 py-1 bg-blue-50 border border-blue-100 rounded-lg animate-in fade-in slide-in-from-top-2 duration-300">
+                        <CheckCircle2 size={12} className="text-blue-600" />
+                        <span className="text-[10px] font-bold text-blue-700 uppercase tracking-wider">
+                            {selectedIds.length} {selectedIds.length === 1 ? "seleccionado" : "seleccionados"}
+                        </span>
+                    </div>
+                )}
+                <span className="bg-green-50 text-green-600 px-3 py-1.5 rounded-lg font-bold text-xs border border-green-100">
+                {data.totalElements} en total
+                </span>
+            </div>
         </div>
 
         {/* List */}
         <div className="space-y-4">
-            {data.content.map((applicant, idx) => (
-            <Applicant key={idx} applicant={applicant} />
+            {data.content.map((applicant) => (
+                <Applicant 
+                    key={applicant.applicantId} 
+                    applicant={applicant} 
+                    isSelected={selectedIds.includes(applicant.applicantId)}
+                    onSelect={onToggleSelection}
+                />
             ))}
         </div>
 

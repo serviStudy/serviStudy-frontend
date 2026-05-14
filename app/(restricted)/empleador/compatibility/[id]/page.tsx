@@ -1,15 +1,14 @@
 "use client";
 
-import { use } from "react";
+import { use, useState } from "react";
 import { useJobOffer } from "@/features/restricted/empleador/jobOffer/hooks/useJobOffer";
-import { OfferCard } from "@/features/restricted/empleador/jobOffer/components/OfferCard";
-import { ApplicantsList } from "@/features/restricted/empleador/applicantsEmployer/components/ApplicantsList";
 import Link from "next/link";
 import { ArrowLeft, Sparkles } from "lucide-react";
 import { LoadingScreen } from "@/components/shared/LoadingScreen";
-import { Button } from "@/components/ui/button";
 import { ListApplicant } from "@/features/restricted/empleador/compatibility/components/ListApplicant";
 import { Offer } from "@/features/restricted/empleador/compatibility/components/Offer";
+import { ApplyCompatibility } from "@/features/restricted/empleador/compatibility/components/ApplyCompatibility";
+import { toast } from "sonner";
 
 interface PageProps {
     params: Promise<{ id: string }>;
@@ -18,6 +17,20 @@ interface PageProps {
 export default function Page({ params }: PageProps) {
     const { id } = use(params);
     const { offer, loading, error } = useJobOffer(id);
+    const [selectedIds, setSelectedIds] = useState<string[]>([]);
+    
+    const handleToggleSelection = (applicantId: string) => {
+        setSelectedIds(prev => {
+            if (prev.includes(applicantId)) {
+                return prev.filter(id => id !== applicantId);
+            }
+            if (prev.length >= 5) {
+                toast.error("Solo puedes seleccionar hasta 5 postulantes.");
+                return prev;
+            }
+            return [...prev, applicantId];
+        });
+    };
 
     if (!id) {
         return (
@@ -47,24 +60,22 @@ export default function Page({ params }: PageProps) {
         );
     }
 
+
     return (
         <div className="min-h-screen max-w-6xl mx-auto py-4 px-4 md:px-0">
+            <div className="w-full py-4 mb-6 top-0 fixed z-20 bg-white/10 backdrop-blur-md">
+                <div className="max-w-6xl flex justify-between items-center">
+                    <Link 
+                        href="/empleador/ofertas"
+                        className="inline-flex items-center gap-2 text-green-600 font-bold text-sm hover:bg-green-50 px-4 py-2 rounded-xl transition-all"
+                    >
+                        <ArrowLeft size={18} />
+                        <span className="hidden sm:inline">Volver a mis ofertas</span>
+                        <span className="sm:hidden">Volver</span>
+                    </Link>
 
-            <div className="w-full p-4.5 flex align-middle mb-6 top-0 fixed z-20 justify-between bg-white/30 backdrop-blur-md">
-                <Link 
-                    href="/empleador/ofertas"
-                    className="inline-flex items-center gap-2 text-green-600 font-bold text-sm hover:bg-green-50 px-4 py-2 rounded-xl transition-all"
-                >
-                    <ArrowLeft size={18} />
-                    Volver a mis ofertas
-                </Link>
-
-                <Link href={`/empleador/compatibility/${id}/resultCompatibility`}>
-                    <Button className="flex gap-2 py-0.5 px-2 z-20 cursor-pointer -translate-x-88 text-white text-[15px] bg-linear-to-r from-green-500 to-blue-500">
-                        <Sparkles/>
-                        Realizar compatibilidad
-                    </Button>
-                </Link>
+                    <ApplyCompatibility offerId={id} selectedIds={selectedIds} />
+                </div>
             </div>
 
             {/* Sección superior: Previsualización de la oferta */}
@@ -74,12 +85,17 @@ export default function Page({ params }: PageProps) {
                 </div>
             </div>
 
-            <hr className="h-[1px] bg-linear-to-r from-green-300 to-blue-300"/>
+            <hr className="h-px bg-linear-to-r from-green-300 to-blue-300"/>
 
             {/* Sección inferior: Lista de Postulantes */}
-            <div className="mt-8">
-                <ListApplicant offerId={id} />
+            <div className="mt-10">
+                <ListApplicant 
+                    offerId={id} 
+                    selectedIds={selectedIds}
+                    onToggleSelection={handleToggleSelection}
+                />
             </div>
         </div>
     );
 }
+
