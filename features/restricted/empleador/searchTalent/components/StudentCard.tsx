@@ -1,8 +1,9 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Phone, Mail, UserCircle, CheckCircle2 } from "lucide-react";
+import { Phone, Mail, UserCircle, CheckCircle2, Sparkles } from "lucide-react";
 import { StudentProfile } from "../types/searchTalent.types";
+import { cn } from "@/lib/utils";
 
 interface Props {
   student: StudentProfile;
@@ -21,8 +22,23 @@ export const StudentCard = ({ student }: Props) => {
   return (
     <div className="bg-white rounded-xl border border-gray-200 p-6 flex flex-col md:flex-row gap-6 shadow-sm hover:shadow-md transition-all duration-300 relative overflow-hidden group w-full">
 
+      {/* Compatibility Badge - Top Right */}
+      {student.compatibilityScore !== undefined && (
+        <div className="absolute top-0 right-0">
+          <div className="bg-linear-to-r from-green-500 to-blue-500 text-white px-4 py-1.5 rounded-bl-xl flex items-center gap-2 shadow-sm">
+            <Sparkles size={12} className="text-white animate-pulse" />
+            <span className="text-[11px] font-black tracking-wider uppercase">
+              {Math.round((student.compatibilityScore <= 1 ? student.compatibilityScore * 100 : student.compatibilityScore))}% Compatible
+            </span>
+          </div>
+        </div>
+      )}
+
       {/* Indicator line */}
-      <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-green-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      <div className={cn(
+        "absolute left-0 top-0 bottom-0 w-1.5 transition-all duration-300",
+        student.compatibilityScore !== undefined ? "bg-linear-to-b from-green-500 to-blue-500" : "bg-green-600 opacity-0 group-hover:opacity-100"
+      )} />
 
       {/* Left: Avatar */}
       <div className="shrink-0 flex items-center justify-center md:justify-start">
@@ -75,9 +91,9 @@ export const StudentCard = ({ student }: Props) => {
 
         {student.studentSkills && student.studentSkills.length > 0 && (
           <div className="flex flex-wrap gap-2 mt-1">
-            {student.studentSkills.map((skill) => (
+            {student.studentSkills.map((skill, index) => (
               <span
-                key={skill.id}
+                key={skill.id || `skill-${index}`}
                 className="px-3 py-1 bg-green-50 text-green-700 text-xs font-medium rounded-lg border border-green-100"
               >
                 {skill.skillName}
