@@ -19,8 +19,7 @@ import { MobileProfileView } from '@/features/restricted/estudiante/perfil/compo
 
 // External Services & Types
 import { getApplications } from '@/features/restricted/estudiante/misPostulaciones/services/applicationService'
-import { ApplicationItem } from '@/features/restricted/estudiante/misPostulaciones/types/applicationTypes'
- 
+
 const containerVariants: Variants = {
     hidden: { opacity: 0 },
     show: {

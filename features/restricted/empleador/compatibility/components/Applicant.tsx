@@ -8,9 +8,11 @@ import { Checkbox } from "@/components/ui/checkbox"
 
 interface Props {
   applicant: ApplicantDTO;
+  isSelected: boolean;
+  onSelect: (id: string) => void;
 }
 
-export const Applicant = ({ applicant }: Props) => {
+export const Applicant = ({ applicant, isSelected, onSelect }: Props) => {
   const { student, applicationDate } = applicant;
   const router = useRouter();
 
@@ -23,16 +25,29 @@ export const Applicant = ({ applicant }: Props) => {
     router.push("/empleador/applicants/student");
   };
 
+  console.log(`[Applicant] Rendering ${applicant.student.name}:`, {
+    applicantId: applicant.applicantId,
+    isSelected
+  });
+
   return (
     <div className="bg-white rounded-xl border border-gray-200 p-6 flex flex-col md:flex-row gap-6 shadow-sm hover:shadow-md transition-all duration-300 relative overflow-hidden group w-full">
 
       {/* Indicator line */}
       <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-linear-to-b from-green-500 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-      <Checkbox className="border-2 ml-10 border-green-500 rounded-[2px] h-4.5 w-4.5"/>
+      <Checkbox 
+        id={`checkbox-${applicant.applicantId}`}
+        checked={isSelected}
+        onCheckedChange={() => {
+            console.log(`[Applicant] Toggling ${applicant.applicantId}`);
+            onSelect(applicant.applicantId);
+        }}
+        className="border-2 ml-6 border-green-500 rounded-[2px] h-4.5 w-4.5"
+      />
 
       {/* Left: Avatar */}
-      <div className="shrink-0 flex items-center justify-center md:justify-start">
+      <div className="shrink-0 pl-4 flex items-center justify-center md:items-start ">
         {student.imgUrl ? (
           <img
             src={student.imgUrl}
