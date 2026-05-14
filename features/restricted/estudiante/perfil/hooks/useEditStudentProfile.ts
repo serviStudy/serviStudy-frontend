@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { validateEditProfile } from '@/features/restricted/estudiante/utils/validator';
@@ -22,9 +22,9 @@ export const useEditStudentProfile = () => {
   const formHook = useProfileForm();
   const workDaysHook = useWorkDays();
   const imageHook = useImageUpload();
-  const skillsHook = useSkills(loadProfile);
+  const skillsHook = useSkills();
 
-  async function loadProfile(silent = false) {
+  const loadProfile = useCallback(async (silent = false) => {
     try {
       if (!silent) setLoading(true);
       const data = await getStudentProfile();
@@ -39,7 +39,10 @@ export const useEditStudentProfile = () => {
         workDaysHook.setDays(uniqueNormalizedDays);
         workDaysHook.setInitialDays(uniqueNormalizedDays);
         
-        skillsHook.setSkills(data.studentSkills ?? []);
+        const initialSkills = data.studentSkills ?? [];
+        skillsHook.setSkills(initialSkills);
+        skillsHook.setInitialSkills(initialSkills);
+        
         imageHook.setImageUrl(data.imgUrl ?? null);
       }
     } catch (error) {
@@ -48,13 +51,13 @@ export const useEditStudentProfile = () => {
     } finally {
       if (!silent) setLoading(false);
     }
-  }
+  }, [formHook, workDaysHook, imageHook, skillsHook]);
 
 
   useEffect(() => {
     setEmail(localStorage.getItem("user_email") ?? "");
     loadProfile();
-  }, []);
+  }, []); // Solo al montar
 
   const handleSave = async () => {
     const formErrors = validateEditProfile({
@@ -65,10 +68,16 @@ export const useEditStudentProfile = () => {
       days: workDaysHook.days.length > 0 ? workDaysHook.days[0] : null,
       jornada: workDaysHook.jornada
     });
-    setErrors(formErrors);
+    
+    if (Object.keys(formErrors).length > 0) {
+      setErrors(formErrors);
+      toast.error("Por favor, corrige los errores en el formulario");
+      return;
+    }
 
     setSaving(true);
     try {
+      // 1. Guardar Perfil Básico e Imagen
       await updateStudentProfile({
         name: formHook.name,
         contactNumber: formHook.contactNumber,
@@ -77,10 +86,19 @@ export const useEditStudentProfile = () => {
         imageFile: imageHook.imageFile ?? undefined
       });
 
+      // 2. Sincronizar Días
       await workDaysHook.syncDays();
 
+      // 3. Sincronizar Habilidades (Ahora es diferido hasta este punto)
+      await skillsHook.syncSkills();
+
       toast.success("Perfil actualizado correctamente");
-      router.push("/estudiante/perfil");
+      
+      // Pequeña espera para asegurar que el backend procesó todo antes de redirigir
+      setTimeout(() => {
+        router.push("/estudiante/perfil");
+      }, 500);
+      
     } catch (error: any) {
       console.error("Error al guardar:", error);
       toast.error(error.message || "Error al guardar los cambios");
@@ -89,39 +107,49 @@ export const useEditStudentProfile = () => {
     }
   };
 
-  const inicial = (formHook.name || email).charAt(0).toUpperCase() || "E";
+  const inicial = useMemo(() => 
+    (formHook.name || email).charAt(0).toUpperCase() || "E", 
+  [formHook.name, email]);
+
+  const formData = useMemo(() => ({
+    name: formHook.name,
+    contactNumber: formHook.contactNumber,
+    description: formHook.description,
+    jornada: workDaysHook.jornada,
+    days: workDaysHook.days,
+    skills: skillsHook.skills,
+    imageUrl: imageHook.imageUrl,
+    email
+  }), [formHook.name, formHook.contactNumber, formHook.description, workDaysHook.jornada, workDaysHook.days, skillsHook.skills, imageHook.imageUrl, email]);
+
+  const setters = useMemo(() => ({
+    setName: formHook.setName,
+    setContactNumber: formHook.setContactNumber,
+    setDescription: formHook.setDescription,
+    setJornada: workDaysHook.setJornada,
+    setDays: workDaysHook.setDays,
+  }), [formHook.setName, formHook.setContactNumber, formHook.setDescription, workDaysHook.setJornada, workDaysHook.setDays]);
+
+  const actions = useMemo(() => ({
+    handleImageChange: imageHook.handleImageChange,
+    handleAddSkill: skillsHook.handleAddSkill,
+    handleRemoveSkill: skillsHook.handleRemoveSkill,
+    handleToggleDay: workDaysHook.handleToggleDay,
+    handleSave,
+    triggerFileInput: imageHook.triggerFileInput
+  }), [imageHook.handleImageChange, skillsHook.handleAddSkill, skillsHook.handleRemoveSkill, workDaysHook.handleToggleDay, handleSave, imageHook.triggerFileInput]);
+
+  const refs = useMemo(() => ({
+    fileInputRef: imageHook.fileInputRef
+  }), [imageHook.fileInputRef]);
 
   return {
     loading,
     saving,
-    formData: {
-      name: formHook.name,
-      contactNumber: formHook.contactNumber,
-      description: formHook.description,
-      jornada: workDaysHook.jornada,
-      days: workDaysHook.days,
-      skills: skillsHook.skills,
-      imageUrl: imageHook.imageUrl,
-      email
-    },
-    setters: {
-      setName: formHook.setName,
-      setContactNumber: formHook.setContactNumber,
-      setDescription: formHook.setDescription,
-      setJornada: workDaysHook.setJornada,
-      setDays: workDaysHook.setDays,
-    },
-    actions: {
-      handleImageChange: imageHook.handleImageChange,
-      handleAddSkill: skillsHook.handleAddSkill,
-      handleRemoveSkill: skillsHook.handleRemoveSkill,
-      handleToggleDay: workDaysHook.handleToggleDay,
-      handleSave,
-      triggerFileInput: imageHook.triggerFileInput
-    },
-    refs: {
-      fileInputRef: imageHook.fileInputRef
-    },
+    formData,
+    setters,
+    actions,
+    refs,
     errors,
     inicial
   };

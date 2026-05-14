@@ -31,8 +31,11 @@ async function handleRequest(request: Request, context: { params: Promise<{ path
       
       if (contentType?.includes('multipart/form-data')) {
         // Para multipart (imágenes), clonamos el FormData
-        const formData = await request.formData();
-        fetchOptions.body = formData;
+        fetchOptions.body = request.body;
+
+        if (contentType){
+          (fetchOptions. headers as Record<string, string>)['Content-Type'] = contentType;
+        }
         // Nota: No establecemos Content-Type manualmente para multipart, 
         // el navegador lo hará con el boundary correcto.
       } else {
