@@ -17,7 +17,7 @@ async function handleRequest(request: Request, context: { params: Promise<{ path
     const authHeader = request.headers.get('Authorization');
     
     // Configuración de la petición al backend
-    const fetchOptions: RequestInit = {
+    const fetchOptions: RequestInit & { duplex?: string } = {
       method: request.method,
       headers: {
         'Authorization': authHeader || '',
@@ -30,16 +30,17 @@ async function handleRequest(request: Request, context: { params: Promise<{ path
       const contentType = request.headers.get('Content-Type');
       
       if (contentType?.includes('multipart/form-data')) {
-        // Para multipart (imágenes), clonamos el FormData
+        // Para multipart (imágenes), reenviamos el stream directamente
+        // IMPORTANTE: En Next.js/Node.js, al enviar un stream como body, 
+        // se requiere duplex: 'half'
         fetchOptions.body = request.body;
+        fetchOptions.duplex = 'half';
 
-        if (contentType){
-          (fetchOptions. headers as Record<string, string>)['Content-Type'] = contentType;
+        if (contentType) {
+          (fetchOptions.headers as Record<string, string>)['Content-Type'] = contentType;
         }
-        // Nota: No establecemos Content-Type manualmente para multipart, 
-        // el navegador lo hará con el boundary correcto.
       } else {
-        // Para JSON y otros
+        // Para JSON y otros, convertimos a blob para mayor compatibilidad
         const body = await request.blob();
         fetchOptions.body = body;
         if (contentType) {
