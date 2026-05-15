@@ -36,7 +36,7 @@ export function ActiveSubscriptionCard({ subscription, type }: ActiveSubscriptio
         ? "bg-gradient-to-br from-blue-600 via-blue-500 to-indigo-600" 
         : "bg-gradient-to-br from-green-600 via-green-500 to-teal-600"
     )}>
-      <CardHeader className="text-white p-8 pb-4">
+      <CardHeader className="text-white p-6 sm:p-8 pb-4">
         <div className="flex justify-between items-start mb-4">
           <Badge className="bg-white/20 text-white border-none backdrop-blur-md px-4 py-1 text-sm font-semibold">
             Suscripción Activa
@@ -53,9 +53,9 @@ export function ActiveSubscriptionCard({ subscription, type }: ActiveSubscriptio
         </CardDescription>
       </CardHeader>
 
-      <CardContent className="p-8 pt-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          <div className="bg-white/10 backdrop-blur-md rounded-2xl p-5 border border-white/10">
+      <CardContent className="p-6 sm:p-8 pt-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-8">
+          <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-5 border border-white/10">
             <div className="flex items-center gap-3 text-white/70 mb-2 text-sm font-medium">
               <Calendar className="h-4 w-4" />
               Válido hasta
@@ -65,7 +65,7 @@ export function ActiveSubscriptionCard({ subscription, type }: ActiveSubscriptio
             </div>
           </div>
           
-          <div className="bg-white/10 backdrop-blur-md rounded-2xl p-5 border border-white/10">
+          <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-5 border border-white/10">
             <div className="flex items-center gap-3 text-white/70 mb-2 text-sm font-medium">
               <Clock className="h-4 w-4" />
               Tiempo restante
