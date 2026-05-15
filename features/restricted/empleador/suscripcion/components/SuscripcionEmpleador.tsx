@@ -100,8 +100,8 @@ export function SuscripcionEmpleador() {
   const isActive = status?.status === "ACTIVE" && status.currentSubscription;
 
   return (
-    <div className="w-full flex flex-col gap-8 pb-12 animate-in fade-in zoom-in-95 duration-500">
-      <div className="flex flex-col gap-2">
+    <div className="w-full px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col gap-8 pb-12 animate-in fade-in zoom-in-95 duration-500">
+      <div className="flex flex-col gap-2 mt-4 sm:mt-0">
         <h1 className="text-3xl font-bold text-slate-900 tracking-tight">
           Suscripción y Planes
         </h1>
