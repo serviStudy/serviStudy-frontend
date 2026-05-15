@@ -8,6 +8,7 @@ import { useEpaycoCheckout } from "@/hooks/useEpaycoCheckout";
 import { usePlans } from "@/features/suscripcion/hooks/usePlans";
 import type { ExtendedPlan } from "@/features/suscripcion/hooks/usePlans";
 import { useSubscriptionStatus } from "@/features/suscripcion/hooks/useSubscriptionStatus";
+import { createPaymentSession } from "@/features/suscripcion/services/paymentService";
 import { ActiveSubscriptionCard } from "@/features/suscripcion/components/ActiveSubscriptionCard";
 import { Loader2, AlertCircle } from "lucide-react";
 
@@ -37,12 +38,14 @@ export function SuscripcionEstudiante() {
   const { openCheckout, isReady } = useEpaycoCheckout();
   const { plans, loading: plansLoading, error: plansError } = usePlans("STUDENT");
   const { status, loading: statusLoading, error: statusError } = useSubscriptionStatus();
+  const [isCreatingSession, setIsCreatingSession] = useState(false);
+  const [sessionError, setSessionError] = useState<string | null>(null);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  const handleSelectPlan = (plan: PricingPlan) => {
+  const handleSelectPlan = async (plan: PricingPlan) => {
     if (!isReady) {
       console.warn("ePayco SDK no está listo aún.");
       return;
@@ -53,16 +56,39 @@ export function SuscripcionEstudiante() {
     const planId = extendedPlan.planId;
     const rawPrice = extendedPlan.rawPrice;
 
-    const invoice = `EST-${userId ?? "anon"}-${planId ?? "0"}-${Date.now()}`;
+    if (!userId || !planId) {
+      setSessionError("No se pudo identificar al usuario o el plan. Por favor inicie sesión nuevamente.");
+      return;
+    }
 
-    openCheckout({
-      name: `Suscripción ${plan.tier} - Estudiante`,
-      description: plan.description,
-      invoice,
-      amount: String(rawPrice ?? plan.price.replace(/\./g, "")),
-      extra1: userId ?? "",
-      extra2: String(planId ?? ""),
-    });
+    try {
+      setIsCreatingSession(true);
+      setSessionError(null);
+
+      // 1. Crear sesión en el backend
+      const sessionResponse = await createPaymentSession({
+        userId,
+        planId,
+        amount: rawPrice || Number(plan.price.replace(/\./g, "")),
+      });
+
+      // 2. Extraer invoiceId
+      const invoice = sessionResponse.invoiceId || sessionResponse.sessionId || `EST-${userId}-${planId}-${Date.now()}`;
+
+      openCheckout({
+        name: `Suscripción ${plan.tier} - Estudiante`,
+        description: plan.description,
+        invoice,
+        amount: String(rawPrice ?? plan.price.replace(/\./g, "")),
+        extra1: userId ?? "",
+        extra2: String(planId ?? ""),
+      });
+    } catch (error: any) {
+      console.error("Error al crear sesión de pago:", error);
+      setSessionError(error.message || "Ocurrió un error al iniciar la transacción. Por favor, inténtelo nuevamente.");
+    } finally {
+      setIsCreatingSession(false);
+    }
   };
 
   if (!mounted) return null;
@@ -86,11 +112,21 @@ export function SuscripcionEstudiante() {
       </div>
 
       <div className="w-full relative mt-4">
-        {/* Estado de carga de status (o si no es activo y cargando planes) */}
-        {(isStatusLoading || (!isActive && !isStatusLoading && isPlansLoading)) && (
-          <div className="flex items-center justify-center py-20">
+        {/* Estado de carga de status (o si no es activo y cargando planes o creando sesión) */}
+        {(isStatusLoading || (!isActive && !isStatusLoading && isPlansLoading) || isCreatingSession) && (
+          <div className="flex flex-col items-center justify-center py-20 gap-4">
             <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
-            <span className="ml-3 text-slate-500 font-medium">Verificando estado...</span>
+            <span className="text-slate-500 font-medium">
+              {isCreatingSession ? "Iniciando transacción segura..." : "Verificando estado..."}
+            </span>
+          </div>
+        )}
+
+        {/* Mostrar error de sesión si lo hay */}
+        {sessionError && (
+          <div className="flex items-center justify-center p-4 gap-3 text-red-600 bg-red-50 border border-red-200 rounded-lg max-w-2xl mx-auto mb-6">
+            <AlertCircle className="h-6 w-6 shrink-0" />
+            <span className="text-sm font-medium">{sessionError}</span>
           </div>
         )}
 
@@ -117,7 +153,7 @@ export function SuscripcionEstudiante() {
           </div>
         )}
 
-        {!isStatusLoading && !isActive && !isPlansLoading && !plansError && !statusError && (
+        {!isStatusLoading && !isActive && !isPlansLoading && !plansError && !statusError && !isCreatingSession && (
           <>
             <div className="md:hidden">
               <PricingCarousel
