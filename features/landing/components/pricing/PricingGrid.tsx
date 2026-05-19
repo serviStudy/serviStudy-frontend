@@ -43,8 +43,8 @@ export function PricingGrid({ plans, activeType, onSelectPlan }: PricingGridProp
         animate="visible"
         exit={{ opacity: 0, scale: 0.98, transition: { duration: 0.2 } }}
         className={cn(
-          "hidden md:grid gap-8 items-stretch pt-4",
-          activeType === "empresa" ? "grid-cols-3" : "grid-cols-2 max-w-4xl mx-auto"
+          "hidden md:grid gap-6 lg:gap-8 items-stretch pt-4",
+          activeType === "empresa" ? "md:grid-cols-2 lg:grid-cols-3" : "grid-cols-2 max-w-4xl mx-auto"
         )}
       >
         {plans.map((plan, index) => (
