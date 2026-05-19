@@ -36,7 +36,7 @@ export const ApplyCompatibility = ({ offerId, selectedIds, onAnalisysComplete }:
         jobOfferId: offerId,
         ids: selectedIds
       });
-            console.log("🕵️‍♂️ RESPUESTA EXACTA DE LA IA:", responseData);
+      console.log("🕵️‍♂️ RESPUESTA EXACTA DE LA IA:", responseData);
 
       toast.success("Compatibilidad realizada con éxito.");
 
