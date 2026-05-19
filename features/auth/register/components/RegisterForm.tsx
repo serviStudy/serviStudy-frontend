@@ -144,6 +144,7 @@ export const RegisterForm = ({
                                     tipoUsuario === "estudiante" ? "data-[state=checked]:bg-primary" : "data-[state=checked]:bg-green-600"
                                 }`}
                             />
+                            
                             <div className="text-sm font-semibold text-gray-600 leading-tight">
                                 {tipoUsuario === "estudiante"
                                     ?

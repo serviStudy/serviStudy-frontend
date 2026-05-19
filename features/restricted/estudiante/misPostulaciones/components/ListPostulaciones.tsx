@@ -13,21 +13,21 @@ export const ListPostulaciones = ({ items, onDelete }: Props) => {
     return (
         <div className="flex flex-col gap-6 w-full">
         {items.length === 0 ? (
-            <div className="flex flex-col items-center justify-center bg-white rounded-3xl border border-gray-100 shadow-sm py-20 px-8 gap-5">
-                <div className="bg-blue-50 p-5 rounded-2xl">
-                    <ClipboardX className="h-10 w-10 text-[#2552d0]" />
+            <div className="flex flex-col items-center justify-center bg-white rounded-[2rem] border border-gray-200 shadow-sm py-20 px-8 gap-6">
+                <div className="bg-blue-50 p-6 rounded-2xl border border-blue-100">
+                    <ClipboardX className="h-12 w-12 text-blue-600" />
                 </div>
                 <div className="text-center">
-                    <h3 className="text-lg font-bold text-gray-800 mb-1">
+                    <h3 className="text-xl font-bold text-blue-900 mb-2">
                         Aún no tienes postulaciones
                     </h3>
-                    <p className="text-sm text-gray-500">
+                    <p className="text-base text-gray-500 max-w-xs mx-auto">
                         Explora las ofertas disponibles y postúlate a la que más se ajuste a ti
                     </p>
                 </div>
                 <Link
                     href={routes.estudiante.ofertas}
-                    className="px-7 py-2.5 bg-[#2552d0] hover:bg-blue-800 text-white text-sm font-semibold rounded-2xl transition-all shadow-md shadow-blue-900/20"
+                    className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold rounded-xl transition-all shadow-lg shadow-blue-600/20 active:scale-95"
                 >
                     Explorar ofertas
                 </Link>
