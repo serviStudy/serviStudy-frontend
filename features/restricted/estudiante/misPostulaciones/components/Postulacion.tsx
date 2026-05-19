@@ -47,7 +47,7 @@ export const Postulacion = ({ data, onDelete }: Props) => {
             {/* Center: Info Section */}
             <div className="flex-1 flex flex-col min-w-0">
                 <div className="flex flex-col gap-1 mb-3">
-                    <h3 className="text-lg md:text-xl font-bold text-gray-900 truncate group-hover:text-blue-600 transition-colors duration-300 pr-32">
+                    <h3 className="text-lg md:text-xl font-bold text-gray-900 truncate group-hover:text-blue-800 transition-colors duration-300 pr-32">
                         {data.jobOffer.title}
                     </h3>
                     <div className="flex items-center gap-2 text-gray-600">
@@ -57,7 +57,7 @@ export const Postulacion = ({ data, onDelete }: Props) => {
                 </div>
 
                 {/* Location and Salary Grid */}
-                <div className="flex flex-wrap gap-x-6 gap-y-3 mb-4">
+                <div className="flex flex-wrap gap-x-6 gap-y-3 mt-3 mb-4">
                     <div className="flex items-center gap-2.5">
                         <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center shrink-0 border border-blue-100">
                             <MapPin size={14} className="text-blue-600" />
@@ -102,13 +102,13 @@ export const Postulacion = ({ data, onDelete }: Props) => {
             </div>
 
             {/* Application Date stuck to the corner */}
-            <div className="absolute top-0 right-0 hidden md:flex items-center gap-1.5 text-[10px] font-bold text-blue-600 bg-blue-50 px-4 py-2 rounded-bl-2xl border-l border-b border-blue-100 shadow-sm z-20">
-                <Calendar size={12} />
-                POSTULADO EL {data.applicationDate}
+            <div className="absolute top-0 right-0 hidden md:flex items-center gap-2.5 text-[10px] font-bold text-blue-600 bg-blue-50 px-4 py-2 rounded-bl-2xl border-l border-b border-blue-100 shadow-sm z-20">
+                <Calendar size={14} />
+                {data.applicationDate}
             </div>
 
             {/* Right: Actions Area */}
-            <div className="shrink-0 flex flex-col justify-center items-end gap-3 mt-4 md:mt-0 border-t md:border-t-0 md:border-l border-gray-100 pt-4 md:pt-0 md:pl-6 min-w-[160px]">
+            <div className="shrink-0 flex flex-col justify-around items-end md:mt-0 border-t md:border-t-0 md:border-l border-gray-100 pt-4 md:pt-8}4 md:pl-6 min-w-[160px]">
                 <Link 
                     href={`/estudiante/postulacion/${data.jobOffer.jobOfferId}`} 
                     className="w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl shadow-sm transition-all hover:shadow-md active:scale-95 text-center uppercase tracking-wider flex items-center justify-center gap-2"
@@ -116,7 +116,7 @@ export const Postulacion = ({ data, onDelete }: Props) => {
                     Ver Detalle
                     <ArrowUpRight size={14} />
                 </Link>
-                <div className="w-full flex justify-center">
+                <div className="w-full flex justify-end">
                     <ApplyButtonDelete jobOfferId={data.jobOffer.jobOfferId} onDelete={onDelete} variant="icon" />
                 </div>
             </div>

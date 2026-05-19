@@ -27,7 +27,7 @@ export default function CreateJobOfferPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white relative overflow-hidden">
+    <div className="min-h-screen relative overflow-hidden">
       
       {/* --- PREMIUM BACKGROUND LAYER --- */}
       <div className="absolute inset-0 pointer-events-none">

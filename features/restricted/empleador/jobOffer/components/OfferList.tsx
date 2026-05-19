@@ -8,7 +8,11 @@ import { JobOfferStatus } from "../types/jobOffer.types";
 import { useEmployerProfile } from "@/features/restricted/empleador/perfil/hooks/useEmployerProfile";
 import { motion } from "framer-motion";
 
-export const OfferList = () => {
+interface OfferListProps {
+  subscriptionStatus?: "ACTIVE" | "INACTIVE"
+}
+
+export const OfferList = ({ subscriptionStatus = "INACTIVE" }: OfferListProps) => {
   const { offers, loading, refresh } = useJobOffers();
   const { profile } = useEmployerProfile();
   const [filter, setFilter] = useState<JobOfferStatus | "ALL">("ALL");
@@ -65,17 +69,18 @@ export const OfferList = () => {
         </div>
       )}
 
-      {/* Offers List */}
+      {/* lista de las ofertas */}
       <div className="grid grid-cols-1 gap-4 pb-20">
         {filteredOffers.map((offer) => {
           const offerId = offer.jobOfferId || offer.id;
           return (
-            <motion.div
-              key={offerId}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-            >
-              <OfferCard offer={offer} imageUrl={imageUrl} onRefresh={refresh} />
+            <motion.div key={offerId} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+              <OfferCard 
+                offer={offer} 
+                imageUrl={imageUrl}
+                onRefresh={refresh} 
+                subscriptionStatus={subscriptionStatus}
+              />
             </motion.div>
           );
         })}
