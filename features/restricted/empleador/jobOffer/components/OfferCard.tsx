@@ -22,10 +22,16 @@ interface Props {
   imageUrl?: string;
   onRefresh?: () => void;
   showActions?: boolean;
+  subscriptionStatus?: "ACTIVE" | "INACTIVE";
 }
 
-export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true }: Props) => {
+export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subscriptionStatus = "INACTIVE" }: Props) => {
   const offerId = offer.jobOfferId || offer.id || (offer as any).idJobOffer;
+
+  // página dependeiendo del estado de ls subscripcion
+  const rutaSubscription = subscriptionStatus === "ACTIVE"
+  ? `/empleador/compatibility/${offerId}`
+  : `/empleador/applicants/${offerId}`;
 
   const [isChanging, setIsChanging] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -94,10 +100,10 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true }: Pr
           {showActions && (
             <div className="flex items-center gap-1 ml-2">
               <Link href={`/empleador/ofertas/${offerId}/editar`} className="p-2 rounded-lg bg-gray-50 text-gray-400">
-                 <Pencil size={16} />
+                  <Pencil size={16} />
               </Link>
               <button onClick={() => setShowDeleteModal(true)} className="p-2 rounded-lg bg-gray-50 text-gray-400">
-                 <Trash2 size={16} />
+                  <Trash2 size={16} />
               </button>
             </div>
           )}
@@ -110,7 +116,7 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true }: Pr
           </div>
           <button onClick={handleToggleStatus} disabled={isChanging} className={`flex relative items-center h-8 w-24 rounded-full border transition-all px-1 ${isActive ? "bg-green-50 border-green-200" : "bg-orange-50 border-orange-200"}`}>
             <div className={`w-6 h-6 rounded-full shadow-md transition-all transform flex items-center justify-center ${isActive ? "bg-green-600 translate-x-[64px]" : "bg-orange-500 translate-x-0"}`}>
-               <div className="w-1 h-1 rounded-full bg-white animate-pulse" />
+                <div className="w-1 h-1 rounded-full bg-white animate-pulse" />
             </div>
             <span className={`absolute w-full text-center text-[8px] font-black uppercase tracking-wider z-10 ${isActive ? "text-green-700 left-[-8px]" : "text-orange-900 left-[8px]"}`}>
               {isActive ? "Activa" : "Pausa"}
@@ -130,7 +136,7 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true }: Pr
         {showActions && (
           <div className="flex gap-2">
             <Link 
-              href={`/empleador/applicants/${offerId}`} 
+              href={rutaSubscription} 
               className="flex-1 bg-white border-2 border-green-600 text-green-600 h-10 rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-2 active:scale-95 transition-all"
             >
               Postulantes <Users size={12} />
@@ -230,7 +236,7 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true }: Pr
             {showActions && (
               <div className="flex gap-3">
                 <Link 
-                  href={`/empleador/applicants/${offerId}`} 
+                  href={rutaSubscription} 
                   className="group/applicants flex items-center gap-3 px-6 py-3 rounded-xl text-xs font-bold transition-all border-2 border-green-600 text-green-600 hover:bg-green-50 active:scale-95 uppercase tracking-wider"
                 >
                   Ver Postulantes

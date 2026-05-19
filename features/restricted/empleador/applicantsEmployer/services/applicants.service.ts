@@ -54,43 +54,23 @@ export const getApplicantsByOfferId = async (
     const normalizeApplicant = (item: any, index: number): any => {
       const s = item.student || item;
       
-      // Búsqueda agresiva del ID del postulante/aplicación
-      const applicantId = 
-        item.applicantId || 
-        item.id || 
-        item.applicationId || 
-        item.idPostulacion || 
-        s.applicantId || 
-        s.id || 
-        item.id_applicant || 
-        item.idApplicant;
-
-      if (!applicantId) {
-        console.error(`%c [applicants.service] ERROR: No se encontró ID para el postulante [${index}].`, 'color: white; background: red; font-weight: bold; padding: 2px 5px;');
-        console.log("[applicants.service] Objeto problemático:", item);
-      }
-      
-      const finalId = applicantId ? String(applicantId) : (s.email ? `temp-${s.email}` : `temp-idx-${index}`);
+      const profileId = String(s.studentProfileId || s.profileId || item.studentProfileId || "");
+      const finalId = profileId || (s.email ? `temp-${s.email}` : `temp-idx-${index}`);
 
       const normalized = {
-        applicantId: finalId,
+        applicantId: finalId, // Usamos el profileId como identificador único para las keys de React
         applicationDate: item.applicationDate || item.application_date || "",
         student: {
           name: s.name || s.studentName || s.fullName || "",
           email: s.email || s.studentEmail || s.userEmail || item.email || item.studentEmail || "",
           imgUrl: s.imgUrl || s.imageUrl || s.img_url || s.profileImageUrl || "",
+          studentProfileId: profileId,
           contactNumber: s.contactNumber || s.contact_number || s.phone || item.contactNumber || "",
           description: s.description || s.bio || "",
           verificationStatus: s.verificationStatus || s.verified || false,
           studentSkills: s.studentSkills || s.skills || [],
         },
       };
-
-      console.log(`[applicants.service] Normalized applicant [${index}]:`, {
-        applicantId: normalized.applicantId,
-        name: normalized.student.name,
-        isTemp: !applicantId
-      });
 
       return normalized;
     };

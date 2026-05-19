@@ -7,6 +7,7 @@ export interface ApplicantStudent {
   imgUrl?: string;
   name: string;
   email: string;
+  studentProfileId: string;
   verificationStatus?: boolean;
   contactNumber?: string;
   description?: string;

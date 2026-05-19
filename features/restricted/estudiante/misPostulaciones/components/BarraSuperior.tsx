@@ -23,22 +23,12 @@ export const BarraSuperior = () => {
                 <div className="flex flex-col md:flex-row items-center gap-6 w-full justify-center">
                     <Link
                         href={routes.estudiante.ofertas}
-                        className="flex items-center gap-2 bg-white/10 backdrop-blur-xl border border-white/20 text-white px-8 py-3.5 rounded-xl text-xs font-bold transition-all hover:bg-white/20 active:scale-95 group"
+                        className="flex items-center gap-2 bg-white/40 backdrop-blur-xl border border-white/20 text-white px-8 py-3.5 rounded-xl text-sm font-bold transition-all hover:bg-white/20 active:scale-95 group"
                     >
                         <div className="bg-blue-600 p-1.5 rounded-lg text-white transition-transform duration-500">
-                           <Briefcase size={18} strokeWidth={3} />
+                            <Briefcase size={18} strokeWidth={3} />
                         </div>
                         Explorar más vacantes
-                    </Link>
-
-                    <Link
-                        href={routes.estudiante.ofertas}
-                        className="flex items-center gap-2 bg-white text-blue-700 px-8 py-3.5 rounded-xl text-xs font-bold transition-all shadow-sm hover:bg-gray-50 active:scale-95 group"
-                    >
-                        <div className="bg-blue-600 p-1.5 rounded-lg text-white group-hover:rotate-90 transition-transform duration-500">
-                           <Plus size={18} strokeWidth={3} />
-                        </div>
-                        Ver ofertas activas
                     </Link>
                 </div>
             </div>
