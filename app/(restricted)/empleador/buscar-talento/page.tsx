@@ -9,6 +9,7 @@ import { SemanticSearchOptions } from '@/features/restricted/empleador/searchTal
 import { getSemanticSearchByText, getSemanticSearchByOffer } from '@/features/restricted/empleador/searchTalent/services/searchTalent.service';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { useSubscriptionStatus } from '@/features/suscripcion/hooks/useSubscriptionStatus';
 
 export default function BuscarTalentoPage() {
   const [search, setSearch] = useState("");
@@ -24,9 +25,19 @@ export default function BuscarTalentoPage() {
 
   const { profile, loading: loadingProfile } = useEmployerProfile();
   const { offers, loading: loadingOffers } = useJobOffers();
+  const { status: subStatus, loading: loadingSub } = useSubscriptionStatus();
+
+  useEffect(() => {
+    if (profile) {
+      console.log("🔍 [DEBUG] Perfil del empleador cargado:", profile);
+    }
+    if (subStatus) {
+      console.log("🔍 [DEBUG] Estado de suscripción detectado:", subStatus.status);
+    }
+  }, [profile, subStatus]);
   
   // Solo se permite el modo IA si tiene suscripción activa
-  const hasSubscription = (profile as any)?.hasSubscription || (profile as any)?.subscriptionTier || false;
+  const hasSubscription = subStatus?.status === "ACTIVE";
 
 
   const handleSearch = (e?: React.FormEvent) => {
