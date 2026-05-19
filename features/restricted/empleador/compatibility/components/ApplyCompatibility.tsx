@@ -10,9 +10,10 @@ import { runCompatibilityAnalysis } from "../service/compatibilityService";
 interface Props {
   offerId: string;
   selectedIds: string[];
+  onAnalisysComplete: (daya: any) => void
 }
 
-export const ApplyCompatibility = ({ offerId, selectedIds }: Props) => {
+export const ApplyCompatibility = ({ offerId, selectedIds, onAnalisysComplete }: Props) => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const count = selectedIds.length;
@@ -29,11 +30,18 @@ export const ApplyCompatibility = ({ offerId, selectedIds }: Props) => {
         offerId,
         selectedIds
       });
-      await runCompatibilityAnalysis({
+
+      // se guarda la respuesta de la compatibilidad
+      const responseData = await runCompatibilityAnalysis({
         jobOfferId: offerId,
         ids: selectedIds
       });
+            console.log("🕵️‍♂️ RESPUESTA EXACTA DE LA IA:", responseData);
+
       toast.success("Compatibilidad realizada con éxito.");
+
+      // se pasa el resultado de la compatibilidad usando la prop
+      onAnalisysComplete(responseData.data)
       
       // Redirigir a la página de resultados
     } catch (error: any) {

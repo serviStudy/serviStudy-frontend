@@ -84,7 +84,7 @@ export const JobOfferForm: React.FC<JobOfferFormProps> = ({ initialData, isEditi
     <form onSubmit={handleSubmit} className="relative w-full max-w-4xl mx-auto">
       
       {/* Premium Form Container with Glassmorphism */}
-      <div className="bg-white/80 backdrop-blur-xl rounded-xl shadow-sm p-5 sm:p-8 lg:p-10 border border-white relative overflow-hidden">
+      <div className="bg-white/80 *backdrop-blur-xl rounded-xl shadow-sm p-5 sm:p-8 lg:p-10 border border-white relative overflow-hidden">
         
         {/* Subtle Decorative Glows inside the form */}
         <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-gradient-to-br from-green-100/40 to-transparent rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
