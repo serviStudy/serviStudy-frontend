@@ -10,9 +10,10 @@ import { Applicant } from "./Applicant";
         offerId: string;
         selectedIds: string[];
         onToggleSelection: (id: string) => void;
+        resultsIA?: any
     }
     
-    export const ListApplicant = ({ offerId, selectedIds, onToggleSelection }: Props) => {
+    export const ListApplicant = ({ offerId, selectedIds, onToggleSelection, resultsIA = []}: Props) => {
     const [data, setData] = useState<PaginatedApplicants | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
@@ -85,10 +86,10 @@ import { Applicant } from "./Applicant";
         {/* Header Info */}
         <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center text-green-600 border border-green-100">
+            <div className="w-10 h-10 bg-linear-to-br from-green-50 to-blue-50 rounded-xl flex items-center justify-center text-blue-600 border border-blue-100">
                 <Users size={20} />
             </div>
-            <h2 className="text-xl font-semibold text-gray-900">Lista de Postulantes</h2>
+            <h2 className="text-xl font-bold bg-linear-to-r to-blue-700  from-green-700 text-transparent bg-clip-text ">Lista de Postulantes</h2>
             </div>
             <div className="flex flex-col items-end gap-2">
                 {selectedIds.length > 0 && (
@@ -99,7 +100,7 @@ import { Applicant } from "./Applicant";
                         </span>
                     </div>
                 )}
-                <span className="bg-green-50 text-green-600 px-3 py-1.5 rounded-lg font-bold text-xs border border-green-100">
+                <span className="bg-linear-to-r from-green-50 to-blue-50 text-blue-700 px-3 py-1.5 rounded-lg font-bold text-xs border border-blue-100/50">
                 {data.totalElements} en total
                 </span>
             </div>
@@ -107,14 +108,21 @@ import { Applicant } from "./Applicant";
 
         {/* List */}
         <div className="space-y-4">
-            {data.content.map((applicant) => (
-                <Applicant 
-                    key={applicant.applicantId} 
-                    applicant={applicant} 
-                    isSelected={selectedIds.includes(applicant.applicantId)}
-                    onSelect={onToggleSelection}
-                />
-            ))}
+            {data.content.map((applicant) => {
+
+                // Se accede directamente al diccionario (Objeto) usando el ID del estudiante
+                const score = resultsIA[applicant.student.studentProfileId];
+
+                return (
+                    <Applicant 
+                        key={applicant.applicantId} 
+                        applicant={applicant} 
+                        isSelected={selectedIds.includes(applicant.student.studentProfileId)}
+                        onSelect={onToggleSelection}
+                        resultsIA={score}
+                    />
+                )
+            })}
         </div>
 
         {/* Pagination Controls */}
@@ -135,7 +143,7 @@ import { Applicant } from "./Applicant";
             <button
                 onClick={() => fetchApplicants(page + 1)}
                 disabled={data.last || loading}
-                className="px-5 py-2 rounded-lg font-bold text-sm bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="px-5 py-2 rounded-lg font-bold text-sm bg-linear-to-r from-green-600 to-blue-600 text-white hover:from-green-700 hover:to-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
                 Siguiente
             </button>
