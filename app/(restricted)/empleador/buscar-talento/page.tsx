@@ -82,17 +82,17 @@ export default function BuscarTalentoPage() {
   return (
     <div className="flex flex-col gap-8 pb-10">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-black text-black tracking-tight">Buscar Talento</h1>
-          <p className="text-gray-400 font-bold mt-1">
+          <h1 className="text-3xl font-black text-slate-900 tracking-tight">Buscar Talento</h1>
+          <p className="text-slate-500 font-bold mt-1 text-sm">
             Encuentra a los mejores estudiantes para tu empresa.
           </p>
         </div>
 
         {/* AI Toggle - Solo visible con suscripción */}
         {hasSubscription && (
-          <div className="flex items-center gap-3 bg-white p-1.5 rounded-2xl border border-gray-100 shadow-sm">
+          <div className="flex items-center bg-slate-100/80 p-1 rounded-full border border-slate-200/80 shadow-inner w-full sm:w-auto relative shrink-0">
             <button
               onClick={() => {
                 setIsAiMode(false);
@@ -101,8 +101,10 @@ export default function BuscarTalentoPage() {
                 setSearchQuery("");
               }}
               className={cn(
-                "px-4 py-2 rounded-xl text-xs font-bold transition-all",
-                !isAiMode ? "bg-gray-100 text-gray-900 shadow-sm" : "text-gray-400 hover:text-gray-600"
+                "flex-1 sm:flex-none px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-300 relative z-10",
+                !isAiMode 
+                  ? "bg-white text-slate-800 shadow-[0_2px_8px_rgba(0,0,0,0.08)] scale-[1.02]" 
+                  : "text-slate-500 hover:text-slate-700 hover:bg-slate-200/50"
               )}
             >
               Estándar
@@ -110,13 +112,13 @@ export default function BuscarTalentoPage() {
             <button
               onClick={() => setIsAiMode(true)}
               className={cn(
-                "px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition-all",
+                "flex-1 sm:flex-none px-4 py-1.5 rounded-full text-xs font-bold flex items-center justify-center gap-1.5 transition-all duration-300 relative z-10",
                 isAiMode 
-                  ? "bg-linear-to-r from-green-500 to-blue-500 text-white shadow-md shadow-green-500/20" 
-                  : "text-gray-400 hover:text-gray-600"
+                  ? "bg-gradient-to-r from-green-500 to-blue-500 text-white shadow-[0_4px_12px_rgba(16,185,129,0.3)] scale-[1.02]" 
+                  : "text-slate-500 hover:text-slate-700 hover:bg-slate-200/50"
               )}
             >
-              <Sparkles size={14} className={isAiMode ? "text-white" : "text-gray-400"} />
+              <Sparkles size={14} className={isAiMode ? "text-white" : "text-slate-400"} />
               Modo IA
             </button>
           </div>
