@@ -14,61 +14,6 @@ export const getStudents = async (
   search: string = ""
 ): Promise<PaginatedStudents> => {
   try {
-    // MOCK DATA para desarrollo (ya que el endpoint no está creado)
-    const mockStudents: StudentProfile[] = [
-      {
-        id: "1",
-        userId: "u1",
-        name: "Juan Pérez",
-        email: "juan.perez@edu.co",
-        imgUrl: "",
-        contactNumber: "3001234567",
-        description: "Estudiante de Ingeniería de Sistemas apasionado por el desarrollo web con React y Node.js.",
-        verificationStatus: true,
-        studentSkills: [
-          { id: 1, skillName: "React" },
-          { id: 2, skillName: "Node.js" },
-          { id: 3, skillName: "TypeScript" }
-        ],
-        workDays: ["Lunes", "Miércoles", "Viernes"],
-        workSchedule: "Mañana"
-      },
-      {
-        id: "2",
-        userId: "u2",
-        name: "María García",
-        email: "m.garcia@edu.co",
-        imgUrl: "",
-        contactNumber: "3109876543",
-        description: "Diseñadora UX/UI en formación. Enfocada en crear experiencias de usuario intuitivas y atractivas.",
-        verificationStatus: false,
-        studentSkills: [
-          { id: 4, skillName: "Figma" },
-          { id: 5, skillName: "Adobe XD" },
-          { id: 6, skillName: "UI Design" }
-        ],
-        workDays: ["Martes", "Jueves"],
-        workSchedule: "Tarde"
-      },
-      {
-        id: "3",
-        userId: "u3",
-        name: "Carlos Rodríguez",
-        email: "c.rodriguez@edu.co",
-        imgUrl: "",
-        contactNumber: "3201112233",
-        description: "Estudiante de Administración de Empresas con excelentes habilidades de comunicación y liderazgo.",
-        verificationStatus: true,
-        studentSkills: [
-          { id: 7, skillName: "Liderazgo" },
-          { id: 8, skillName: "Excel" },
-          { id: 9, skillName: "Marketing" }
-        ],
-        workDays: ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"],
-        workSchedule: "Flexible"
-      }
-    ];
-
     // Intentamos la llamada real al endpoint proporcionado
     try {
       const queryParams = new URLSearchParams({
@@ -92,8 +37,8 @@ export const getStudents = async (
         const responseData = await res.json();
         console.log("[searchTalent.service] API response:", responseData);
 
-        // El backend devuelve los estudiantes en responseData.data según la captura
-        const studentsList = responseData.data || (Array.isArray(responseData) ? responseData : []);
+        // El backend puede devolver los estudiantes en responseData.data o responseData.content
+        const studentsList = responseData.data || responseData.content || (Array.isArray(responseData) ? responseData : []);
 
         const normalizeStudent = (s: any): StudentProfile => ({
           id: s.id || s.studentId || "",
@@ -145,31 +90,23 @@ export const getStudents = async (
         }
       }
     } catch (e) {
-      console.log("[searchTalent.service] Error en API, usando mocks:", e);
+      console.log("[searchTalent.service] Error en API:", e);
+      throw e;
     }
 
-    // Retornar datos mock si la API falla o no devuelve contenido
-    // Aplicar filtro de búsqueda al mock para que sea funcional en desarrollo
-    const filteredMocks = search 
-      ? mockStudents.filter(s => 
-          s.name.toLowerCase().includes(search.toLowerCase()) || 
-          s.description?.toLowerCase().includes(search.toLowerCase()) ||
-          s.studentSkills.some(sk => sk.skillName.toLowerCase().includes(search.toLowerCase()))
-        )
-      : mockStudents;
-
+    // Si llegamos aquí sin retornar, la respuesta no fue array o no fue parseable
     return {
-      content: filteredMocks,
+      content: [],
       pageable: {},
       last: true,
-      totalPages: 1,
-      totalElements: filteredMocks.length,
+      totalPages: 0,
+      totalElements: 0,
       first: true,
       size,
       number: page,
       sort: {},
-      numberOfElements: filteredMocks.length,
-      empty: filteredMocks.length === 0,
+      numberOfElements: 0,
+      empty: true,
     } as PaginatedStudents;
 
   } catch (error: any) {
@@ -232,7 +169,7 @@ export const getSemanticSearchByOffer = async (offerId: string): Promise<Paginat
 const normalizeSemanticResponse = (responseData: any): PaginatedStudents => {
   console.log("🔍 [AI Search Service] Raw response:", responseData);
   
-  let studentsList = responseData.data || [];
+  let studentsList = responseData.data || responseData.content || (Array.isArray(responseData) ? responseData : []);
   if (typeof studentsList === "string") {
     try {
       studentsList = JSON.parse(studentsList);
@@ -244,14 +181,15 @@ const normalizeSemanticResponse = (responseData: any): PaginatedStudents => {
   }
 
   const normalizeStudent = (s: any): StudentProfile => {
-    console.log("👤 [AI Search Service] Processing student object:", s);
-    
     // La respuesta de la IA viene anidada en 'profile'
     const studentData = s.profile || s;
-    const score = s.compatibilityScore;
+    const rawScore = s.compatibilityScore;
     
-    if (score !== undefined) {
-      console.log(`🎯 Compatibilidad detectada: ${score}% para ${studentData.name || "estudiante"}`);
+    let compatibilityScore = rawScore;
+    if (rawScore !== undefined) {
+      // Solo normalizamos a 0-100 si viene en escala decimal
+      compatibilityScore = rawScore <= 1 ? Math.round(rawScore * 100) : Math.round(rawScore);
+      console.log(`🎯 Compatibilidad original: ${compatibilityScore}% para ${studentData.name}`);
     }
 
     return {
@@ -274,7 +212,7 @@ const normalizeSemanticResponse = (responseData: any): PaginatedStudents => {
       }),
       workDays: studentData.workDays || studentData.dias_laborales || [],
       workSchedule: studentData.workSchedule || studentData.horario || "",
-      compatibilityScore: score,
+      compatibilityScore: compatibilityScore,
     };
   };
 
