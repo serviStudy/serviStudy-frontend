@@ -157,9 +157,12 @@ export const createJobOffer = async (data: CreateJobOfferDTO) => {
     workSchedule: data.workSchedule,
     salary: Number(data.salary) || 0,
     salaryDescription: data.salaryDescription || String(data.salary),
-    description: data.contractDescription ? `${data.description}|||CONTRACT:${data.contractDescription}` : data.description,
+    // Seguimos usando el hack de la descripción para persistir el contrato y los requisitos
+    description: `${data.description}${data.contractDescription ? `|||CONTRACT:${data.contractDescription}` : ''}${data.requirements.length > 0 ? `|||REQ:${JSON.stringify(data.requirements.map((req: any) => typeof req === 'string' ? req : (req.requirementName || req.name)))}` : ''}`,
     requirements: data.requirements.length > 0 
-      ? data.requirements.map(req => ({ requirementName: req }))
+      ? data.requirements.map((req: any) => ({ 
+          requirementName: typeof req === 'string' ? req : (req.requirementName || req.name)
+        }))
       : [],
   };
 
@@ -198,10 +201,12 @@ export const updateJobOffer = async (id: string, data: CreateJobOfferDTO) => {
     workSchedule: data.workSchedule,
     salary: Number(data.salary) || 0,
     salaryDescription: data.salaryDescription || String(data.salary),
-    // Seguimos usando el hack de la descripción para persistir el contrato
-    description: data.contractDescription ? `${data.description}|||CONTRACT:${data.contractDescription}` : data.description,
+    // Seguimos usando el hack de la descripción para persistir el contrato y los requisitos
+    description: `${data.description}${data.contractDescription ? `|||CONTRACT:${data.contractDescription}` : ''}${data.requirements.length > 0 ? `|||REQ:${JSON.stringify(data.requirements.map((req: any) => typeof req === 'string' ? req : (req.requirementName || req.name)))}` : ''}`,
     requirements: data.requirements.length > 0 
-      ? data.requirements.map(req => ({ requirementName: req }))
+      ? data.requirements.map((req: any) => ({ 
+          requirementName: typeof req === 'string' ? req : (req.requirementName || req.name)
+        }))
       : []
   };
 
