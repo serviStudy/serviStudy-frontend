@@ -1,6 +1,6 @@
 "use client"
 import { InfoCard } from '@/features/restricted/estudiante/ofertasActivas/components/InfoCard'
-import SearchCard from '@/features/restricted/estudiante/ofertasActivas/components/SearchCard'
+import { HeaderOfertas } from '@/features/restricted/estudiante/ofertasActivas/components/HeaderOfertas'
 import { OfferList } from '@/features/restricted/estudiante/ofertasActivas/components/ui/OfferList'
 import { useActiveOffers } from '@/features/restricted/estudiante/ofertasActivas/hooks/useActiveOffers'
 import { useOfferFilter } from '@/features/restricted/estudiante/ofertasActivas/hooks/useOfferFilter'
@@ -88,37 +88,18 @@ const Page = () => {
 
 
     return (
-        <div className="flex flex-col  gap-8 pb-14 w-full">
-            <div className="flex flex-col">
-                {/* Title Section - Non-sticky */}
-                <div className="pb-4">
-                    <h1 className="text-2xl md:text-3xl font-bold text-blue-900 tracking-tight">
-                        Encuentra nuevas ofertas
-                    </h1>
-                    <p className="text-gray-500 mt-1 text-sm md:text-base font-normal">
-                        Explora cientos de oportunidades para estudiantes
-                    </p>
-                </div>
+        <div className="flex flex-col gap-8 pb-14 w-full">
+            <HeaderOfertas 
+                inputValue={inputValue} 
+                onInputChange={handleInputChange} 
+                onSearch={handleSearch}
+                selectedDays={selectedDays}
+                toggleDay={toggleDay}
+                selectedJornada={selectedJornada}
+                toggleJornada={toggleJornada}
+                onClearAll={handleClearAll}
+            />
 
-                {/* Search & Filters Header - Sticky with edge-to-edge blur */}
-                <div className="sticky top-0 z-30 w-full transition-all">
-                    {/* Full-width background layer - Safely extends without causing overflow */}
-                    <div className="absolute inset-y-0 left-[-4vw] right-[-3vw] backdrop-blur-xl bg-white/15" />
-                    
-                    {/* Centered content layer */}
-                    <div className="relative z-10 py-4 max-w-[1440px] mx-auto w-full px-4 md:px-0">
-                        <SearchCard 
-                            inputValue={inputValue} 
-                            onInputChange={handleInputChange} 
-                            onSearch={handleSearch}
-                            selectedDays={selectedDays}
-                            toggleDay={toggleDay}
-                            selectedJornada={selectedJornada}
-                            toggleJornada={toggleJornada}
-                            onClearAll={handleClearAll}
-                        />
-                    </div>
-                </div>
 
                 {/* Content Layout */}
                 <div className="grid grid-cols-1 pt-7 lg:pt-10 lg:grid-cols-[1fr_450px] xl:grid-cols-[1fr_500px] gap-16 items-start">
@@ -186,7 +167,6 @@ const Page = () => {
                             </div>
                         </div>
                     )}
-                </div>
             </div>
         </div>
     )

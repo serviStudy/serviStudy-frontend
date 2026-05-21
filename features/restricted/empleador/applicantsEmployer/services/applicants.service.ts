@@ -51,36 +51,47 @@ export const getApplicantsByOfferId = async (
     console.log("[applicants.service] RAW response:", JSON.stringify(data?.content?.[0] ?? data, null, 2));
 
     // Validar y asegurar que retornamos la estructura correcta
-    const normalizeApplicant = (item: any): any => {
-      const s = item.student ?? item;
-      return {
-        applicationDate: item.applicationDate ?? item.application_date ?? "",
+    const normalizeApplicant = (item: any, index: number): any => {
+      const s = item.student || item;
+      
+      const profileId = String(s.studentProfileId || s.profileId || item.studentProfileId || "");
+      const finalId = profileId || (s.email ? `temp-${s.email}` : `temp-idx-${index}`);
+
+      const normalized = {
+        applicantId: finalId, // Usamos el profileId como identificador único para las keys de React
+        applicationDate: item.applicationDate || item.application_date || "",
         student: {
-          name: s.name ?? s.studentName ?? s.fullName ?? "",
-          email: s.email ?? s.studentEmail ?? s.userEmail ?? item.email ?? item.studentEmail ?? "",
-          imgUrl: s.imgUrl ?? s.imageUrl ?? s.img_url ?? s.profileImageUrl ?? "",
-          contactNumber: s.contactNumber ?? s.contact_number ?? s.phone ?? item.contactNumber ?? "",
-          description: s.description ?? s.bio ?? "",
-          verificationStatus: s.verificationStatus ?? s.verified ?? false,
-          studentSkills: s.studentSkills ?? s.skills ?? [],
+          name: s.name || s.studentName || s.fullName || "",
+          email: s.email || s.studentEmail || s.userEmail || item.email || item.studentEmail || "",
+          imgUrl: s.imgUrl || s.imageUrl || s.img_url || s.profileImageUrl || "",
+          studentProfileId: profileId,
+          contactNumber: s.contactNumber || s.contact_number || s.phone || item.contactNumber || "",
+          description: s.description || s.bio || "",
+          verificationStatus: s.verificationStatus || s.verified || false,
+          studentSkills: s.studentSkills || s.skills || [],
         },
       };
+
+      return normalized;
     };
 
+    const mapContent = (content: any[]) => content.map((item: any, idx: number) => normalizeApplicant(item, idx));
+
     if (data && Array.isArray(data.content)) {
-      return { ...data, content: data.content.map(normalizeApplicant) } as PaginatedApplicants;
+      return { ...data, content: mapContent(data.content) } as PaginatedApplicants;
     }
 
     // Intentar buscar dentro de data.data en caso de envoltorios genéricos
     if (data.data && Array.isArray(data.data.content)) {
-      return data.data as PaginatedApplicants;
+      return { ...data.data, content: mapContent(data.data.content) } as PaginatedApplicants;
     }
 
     // Si por alguna razón el backend devuelve un arreglo crudo en lugar de paginado
     if (Array.isArray(data)) {
       console.warn("[applicants.service] Se esperaba objeto paginado, pero se recibió un array. Aplicando fallback.");
+      const mappedContent = mapContent(data);
       return {
-        content: data as ApplicantDTO[],
+        content: mappedContent,
         pageable: {},
         last: true,
         totalPages: 1,

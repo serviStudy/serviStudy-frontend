@@ -8,6 +8,7 @@ import Link from "next/link";
 import { ArrowLeft, Sparkles } from "lucide-react";
 import { LoadingScreen } from "@/components/shared/LoadingScreen";
 import { Button } from "@/components/ui/button";
+import { ModalRecomendation } from "@/features/restricted/empleador/applicantsEmployer/components/ModalRecomendation";
 
 interface PageProps {
     params: Promise<{ id: string }>;
@@ -66,12 +67,7 @@ export default function Page({ params }: PageProps) {
 
             <hr className="border-gray-200 h-1"/>
             
-            <Link href={`/empleador/compatibility/${offer.jobOfferId}`}>
-                <Button className="mt-5 flex gap-2 py-0.5 px-2 cursor-pointer text-white text-[15px] bg-linear-to-r from-green-500 to-blue-500">
-                    <Sparkles/>
-                    Realizar compatibilidad
-                </Button>
-            </Link>
+            <ModalRecomendation></ModalRecomendation>
 
             {/* Sección inferior: Lista de Postulantes */}
             <div className="mt-8">
