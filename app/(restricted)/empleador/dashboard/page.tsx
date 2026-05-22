@@ -37,16 +37,17 @@ export default function EmployerDashboard() {
 
   if (loading || loadingSub) return <DashboardSkeleton />;
 
-  const hasSubscription = subStatus?.status === "ACTIVE" && subStatus.currentSubscription;
+  const currentSub = subStatus?.currentSubscription;
+  const hasSubscription = subStatus?.status === "ACTIVE" && !!currentSub;
 
   let daysLeft = 0;
   let planName = '';
-  if (hasSubscription) {
+  if (hasSubscription && currentSub) {
     daysLeft = Math.ceil(
-      (new Date(subStatus.currentSubscription.endDate).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)
+      (new Date(currentSub.endDate).getTime() - Date.now()) / (1000 * 60 * 60 * 24)
     );
     if (daysLeft < 0) daysLeft = 0;
-    planName = subStatus.currentSubscription.plan.name || 'Premium';
+    planName = currentSub.plan?.name || 'Premium';
   }
 
   const displayStats = [
