@@ -67,7 +67,7 @@ export const ProfileOfferCard = ({ offer, imageUrl, businessName, onStatusChange
         {imageUrl ? (
           <img src={imageUrl} alt="Perfil" className="w-full h-full object-cover transition-transform group-hover:scale-110 duration-700" />
         ) : (
-          <div className="w-full h-full bg-green-600 flex items-center justify-center text-white text-3xl lg:text-4xl font-black">
+          <div className="w-full h-full bg-green-600 flex items-center capitalize justify-center text-white text-3xl lg:text-4xl font-black">
             {offer.title ? offer.title.charAt(0).toUpperCase() : "E"}
           </div>
         )}
@@ -77,12 +77,12 @@ export const ProfileOfferCard = ({ offer, imageUrl, businessName, onStatusChange
       <div className="flex flex-col flex-1 min-w-0">
         <div className="flex flex-col sm:flex-row justify-between items-start gap-4 sm:gap-0">
           <div className="flex-1 min-w-0">
-            <h3 className="font-semibold text-gray-900 text-base sm:text-lg lg:text-xl leading-tight line-clamp-1 transition-colors group-hover:text-green-600">{offer.title}</h3>
+            <h3 className="font-semibold text-gray-900 text-base sm:text-lg lg:text-xl leading-tight line-clamp-1 capitalize transition-colors group-hover:text-green-600">{offer.title}</h3>
             
             {/* Ubicación */}
             <div className="mt-2 flex items-center gap-2 text-gray-400 font-medium text-xs">
               <MapPin size={14} className="text-green-500 shrink-0" />
-              <span className="truncate tracking-tight">{offer.establishment_address || offer.establishmentAddress || "Ubicación no especificada"}</span>
+              <span className="truncate tracking-tight capitalize">{offer.establishment_address || offer.establishmentAddress || "Ubicación no especificada"}</span>
             </div>
           </div>
 

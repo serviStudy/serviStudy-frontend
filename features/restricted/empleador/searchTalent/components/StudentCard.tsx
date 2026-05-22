@@ -155,7 +155,7 @@ export const StudentCard = ({ student }: Props) => {
         </div>
 
         {student.description && (
-          <p className="text-sm text-gray-600 line-clamp-2 mt-1 bg-gray-50 p-3 rounded-xl border border-gray-100 italic leading-relaxed">
+          <p className="text-sm w-[50vw] text-gray-600 line-clamp-2 mt-1 bg-gray-50 p-3 rounded-xl border border-gray-100 italic leading-relaxed">
             "{student.description}"
           </p>
         )}
@@ -175,7 +175,7 @@ export const StudentCard = ({ student }: Props) => {
       </div>
 
       {/* Right: Action */}
-      <div className="shrink-0 flex flex-col justify-center items-end mt-4 md:mt-0 border-t md:border-t-0 md:border-l border-gray-100 pt-4 md:pt-0 md:pl-6">
+      <div className="shrink-0 flex flex-col justify-center items-end mt-2 md:mt-10 border-t md:border-t-0 md:border-l border-gray-100 pt-4 md:pt-0 md:pl-6">
         <button
           onClick={handleViewProfile}
           className="w-full md:w-auto px-6 py-2.5 bg-green-600 hover:bg-green-700 text-white text-sm font-bold rounded-xl shadow-sm transition-all hover:shadow-md active:scale-95 text-center uppercase tracking-wider cursor-pointer"
