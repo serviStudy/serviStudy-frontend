@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { Phone, Mail, UserCircle, CheckCircle2, Sparkles } from "lucide-react";
 import { StudentProfile } from "../types/searchTalent.types";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 interface Props {
   student: StudentProfile;
@@ -22,17 +23,87 @@ export const StudentCard = ({ student }: Props) => {
   return (
     <div className="bg-white rounded-xl border border-gray-200 p-6 flex flex-col md:flex-row gap-6 shadow-sm hover:shadow-md transition-all duration-300 relative overflow-hidden group w-full">
 
-      {/* Compatibility Badge - Top Right */}
-      {student.compatibilityScore !== undefined && (
-        <div className="absolute top-0 right-0">
-          <div className="bg-linear-to-r from-green-500 to-blue-500 text-white px-4 py-1.5 rounded-bl-xl flex items-center gap-2 shadow-sm">
-            <Sparkles size={12} className="text-white animate-pulse" />
-            <span className="text-[11px] font-black tracking-wider uppercase">
-              Compatible
-            </span>
+      {/* Compatibility Badge - Top Right Premium Widget */}
+      {student.compatibilityScore !== undefined && (() => {
+        const score = Math.round((student.compatibilityScore <= 1 ? student.compatibilityScore * 100 : student.compatibilityScore));
+        
+        // Circular progress parameters
+        const radius = 18;
+        const circumference = 2 * Math.PI * radius; // ~113.1
+        
+        return (
+          <div className="absolute top-0 right-0 z-10 select-none">
+            <div className="bg-linear-to-r from-green-500 to-blue-500 text-white rounded-bl-2xl px-4 py-2.5 flex items-center gap-3.5 shadow-md shadow-green-500/10 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-green-500/20 group-hover:scale-[1.02]">
+              
+              {/* Circular Gauge */}
+              <div className="relative w-11 h-11 flex items-center justify-center shrink-0">
+                <svg className="w-11 h-11 transform -rotate-90">
+                  {/* Background Track circle */}
+                  <circle
+                    cx="22"
+                    cy="22"
+                    r={radius}
+                    stroke="rgba(255,255,255,0.25)"
+                    strokeWidth="3"
+                    fill="transparent"
+                  />
+                  {/* Glowing shadow circle */}
+                  <motion.circle
+                    cx="22"
+                    cy="22"
+                    r={radius}
+                    stroke="rgba(255,255,255,0.3)"
+                    strokeWidth="4"
+                    fill="transparent"
+                    strokeLinecap="round"
+                    className="blur-[1px] opacity-35"
+                    initial={{ strokeDasharray: circumference, strokeDashoffset: circumference }}
+                    animate={{ strokeDashoffset: circumference - (circumference * score) / 100 }}
+                    transition={{ duration: 1.5, ease: "easeOut" }}
+                  />
+                  {/* Main Progress Circle using White */}
+                  <motion.circle
+                    cx="22"
+                    cy="22"
+                    r={radius}
+                    stroke="white"
+                    strokeWidth="3"
+                    fill="transparent"
+                    strokeLinecap="round"
+                    initial={{ strokeDasharray: circumference, strokeDashoffset: circumference }}
+                    animate={{ strokeDashoffset: circumference - (circumference * score) / 100 }}
+                    transition={{ duration: 1.2, ease: "easeOut", delay: 0.1 }}
+                  />
+                </svg>
+
+                {/* Score Number in Center */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="text-[12px] font-black text-white tracking-tighter leading-none mt-0.5">
+                    {score}
+                  </span>
+                  <span className="text-[8px] font-bold text-white/90 uppercase tracking-tighter leading-none ml-0.5">
+                    %
+                  </span>
+                </div>
+              </div>
+
+              {/* Text info and Sparkles */}
+              <div className="flex flex-col gap-0.5 pr-0.5 text-left">
+                <div className="flex items-center gap-1.5">
+                  <Sparkles size={11} className="text-yellow-300 fill-yellow-300 animate-pulse shrink-0" />
+                  <span className="text-[9px] font-black tracking-widest text-white/80 uppercase leading-none">
+                    IA Match
+                  </span>
+                </div>
+                <span className="text-[12px] font-extrabold text-white leading-tight">
+                  {score}% Compatible
+                </span>
+              </div>
+              
+            </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
 
       {/* Indicator line */}
       <div className={cn(
