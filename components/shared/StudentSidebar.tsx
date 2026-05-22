@@ -16,6 +16,7 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 
 import NavLink from '../ui/NavLink';
+import { Toaster } from '../ui/sonner';
 
 const sidebarItems = [
     { name: 'Buscar Ofertas', icon: Briefcase, href: '/estudiante/ofertasActivas' },
@@ -71,7 +72,7 @@ export const StudentSidebar = () => {
                     <Link href="/" className="flex items-center gap-2 group">
                         <div className="relative w-12 h-12 transition-transform group-hover:scale-110 duration-500">
                             <img
-                                src="/logo.jpg"
+                                src="/logoServer.png"
                                 alt="ServiStudy Logo"
                                 className="w-full h-full object-contain mix-blend-multiply"
                             />
@@ -92,6 +93,7 @@ export const StudentSidebar = () => {
                                 name={item.name}
                                 link={item.href}
                                 exact={item.href === '/estudiante/dashboard'}
+                                theme="blue"
                             />
                         </div>
                     ))}
@@ -115,6 +117,18 @@ export const StudentSidebar = () => {
                         <span className="font-bold text-[15px]">Cerrar Sesión</span>
                     </button>
                 </div>
+
+                <footer>
+                    <div className="w-full bg-white text-gray-400 p-5 text-center flex-col md:p-2.5">
+                        <p className="text-[12px]">
+                            &copy; {new Date().getFullYear()} ServiStudy. Todos los derechos reservados.
+                        </p>
+                        <p className="text-[10px]">
+                            Conectando talento estudiantil con oportunidades.
+                        </p>
+                    </div>
+                    <Toaster></Toaster>
+                </footer>
             </aside>
         </>
     );
