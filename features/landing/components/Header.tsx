@@ -39,7 +39,7 @@ export function Header() {
         <div className="flex items-center gap-2 md:gap-3 transition-transform duration-300 hover:scale-[1.02]">
           <Link href="/" className="flex items-center shrink-0">
             <Image
-              src="/logo.jpg"
+              src="/logoServer.png"
               alt="Logo ServiStudy"
               width={300}
               height={300}
