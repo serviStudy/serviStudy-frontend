@@ -14,9 +14,9 @@ export const Tag: React.FC<TagProps> = ({ label, variant = 'skill', onRemove }) 
         return 'border rounded-lg font-bold border-blue-100 bg-blue-50 text-blue-600 px-3 py-1.5 text-xs tracking-tight shadow-sm';
       case 'day':
       case 'specific_day':
-        return 'border rounded-lg border-green-200 bg-green-50 text-green-700 px-3 py-1 text-[11px] font-bold shadow-sm cepitalize tracking-wide';
+        return 'border rounded-lg border-green-200 bg-green-50 text-green-700 px-3 py-1 text-xs font-semibold shadow-sm cepitalize tracking-wide';
       case 'schedule':
-        return 'border rounded-lg border-orange-200 text-orange-700 bg-orange-50 px-3 py-1 text-sm font-semibold shadow-sm cepitalize tracking-wide';
+        return 'border rounded-lg border-orange-200 text-orange-700 bg-orange-50 px-3 py-1 text-xs font-semibold shadow-sm cepitalize tracking-wide';
       default:
         return 'bg-gray-50 border border-gray-100 rounded-lg text-gray-600 px-3 py-1 text-[11px] font-bold shadow-sm';
     }

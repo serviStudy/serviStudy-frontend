@@ -76,7 +76,7 @@ export const HeaderOfertas = ({
             </div>
 
             <Link
-              href={`/${routes.estudiante.postulaciones}`}
+              href={"/estudiante/misPostulaciones"}
               className="flex items-center gap-2 bg-white/40 text-white px-8 py-3.5 rounded-xl text-sm font-bold transition-all shadow-sm hover:bg-gray-50 hover:text-blue-900 active:scale-95 group whitespace-nowrap h-11"
             >
               <div className="bg-blue-600 p-1.5 rounded-lg text-white group-hover:bg-blue-700 transition-colors">

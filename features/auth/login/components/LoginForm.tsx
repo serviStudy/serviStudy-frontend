@@ -174,7 +174,7 @@ export const LoginForm = ({
                     ¿Aún no tienes cuenta?
                     <Link
                         href="/registro"
-                        className={`ml-2 font-extrabold hover:underline transition-all duration-500 underline-offset-4 ${
+                        className={`ml-2 font-bold hover:underline transition-all duration-500 underline-offset-4 ${
                             tipoUsuario === "estudiante" ? "text-primary" : "text-green-600"
                         }`}
                     >

@@ -1,17 +1,14 @@
-
 import React from 'react'
 import { Offer } from '@/features/restricted/estudiante/postPostularse/types/offer';
 import ResultCrad from '../ResultCrad';
 
 interface ResultCardProps {
     offers: Offer[];
-    selectedOffer: Offer | null;
-    onSelectOffer: (offer: Offer) => void
 }
 
-export const OfferList = ({offers, selectedOffer, onSelectOffer}: ResultCardProps) => {
+export const OfferList = ({ offers }: ResultCardProps) => {
     return (
-        <div className='flex flex-col gap-3 w-auto'>
+        <div className='flex flex-col gap-3 w-full'>
             {offers.length === 0 ? (
                 <div className='flex items-center justify-center rounded-[32px] w-full bg-white border border-dashed border-gray-200 min-h-[300px]'>
                     <div className='text-center px-6'>
@@ -25,18 +22,11 @@ export const OfferList = ({offers, selectedOffer, onSelectOffer}: ResultCardProp
                 </div>
             ) : (
 
-                offers.map((offer) => {
-                    const isSelected = selectedOffer?.id === offer.id;
-                    return (
-                        <div 
-                            key={offer.id}
-                            onClick={() => onSelectOffer(offer)}
-                            className="cursor-pointer"
-                        >
-                            <ResultCrad offer={offer} isSelected={isSelected}/>
-                        </div>
-                    )
-                })
+                offers.map((offer) => (
+                    <div key={offer.id}>
+                        <ResultCrad offer={offer} />
+                    </div>
+                ))
             )}
         </div>
     )

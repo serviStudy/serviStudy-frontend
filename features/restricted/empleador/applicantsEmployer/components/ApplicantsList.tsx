@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ApplicantDTO, PaginatedApplicants } from "../types/applicants.types";
+import { PaginatedApplicants } from "../types/applicants.types";
 import { getApplicantsByOfferId } from "../services/applicants.service";
 import { ApplicantCard } from "./ApplicantCard";
 import { Loader2, AlertCircle, Users } from "lucide-react";
