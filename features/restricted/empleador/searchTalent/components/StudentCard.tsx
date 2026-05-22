@@ -28,7 +28,7 @@ export const StudentCard = ({ student }: Props) => {
           <div className="bg-linear-to-r from-green-500 to-blue-500 text-white px-4 py-1.5 rounded-bl-xl flex items-center gap-2 shadow-sm">
             <Sparkles size={12} className="text-white animate-pulse" />
             <span className="text-[11px] font-black tracking-wider uppercase">
-              {Math.round((student.compatibilityScore <= 1 ? student.compatibilityScore * 100 : student.compatibilityScore))}% Compatible
+              Compatible
             </span>
           </div>
         </div>
@@ -84,7 +84,7 @@ export const StudentCard = ({ student }: Props) => {
         </div>
 
         {student.description && (
-          <p className="text-sm text-gray-600 line-clamp-2 mt-1 bg-gray-50 p-3 rounded-xl border border-gray-100 italic leading-relaxed">
+          <p className="text-sm w-[50vw] text-gray-600 line-clamp-2 mt-1 bg-gray-50 p-3 rounded-xl border border-gray-100 italic leading-relaxed">
             "{student.description}"
           </p>
         )}
@@ -104,7 +104,7 @@ export const StudentCard = ({ student }: Props) => {
       </div>
 
       {/* Right: Action */}
-      <div className="shrink-0 flex flex-col justify-center items-end mt-4 md:mt-0 border-t md:border-t-0 md:border-l border-gray-100 pt-4 md:pt-0 md:pl-6">
+      <div className="shrink-0 flex flex-col justify-center items-end mt-2 md:mt-10 border-t md:border-t-0 md:border-l border-gray-100 pt-4 md:pt-0 md:pl-6">
         <button
           onClick={handleViewProfile}
           className="w-full md:w-auto px-6 py-2.5 bg-green-600 hover:bg-green-700 text-white text-sm font-bold rounded-xl shadow-sm transition-all hover:shadow-md active:scale-95 text-center uppercase tracking-wider cursor-pointer"

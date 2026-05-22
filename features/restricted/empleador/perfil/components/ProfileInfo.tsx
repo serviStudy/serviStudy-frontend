@@ -31,7 +31,7 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
           
           {/* Action Buttons in Banner */}
           <div className="absolute top-5 right-5 sm:top-8 sm:right-10 flex gap-4">
-             <Link
+            <Link
               href="/empleador/perfil/editar"
               className="px-4 py-2.5 sm:px-6 sm:py-3 rounded-lg bg-white text-green-700 font-bold text-[10px] sm:text-xs flex items-center gap-2 shadow-sm hover:bg-gray-50 transition-all active:scale-95"
             >
@@ -87,19 +87,19 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
           
           {/* Contact Details Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-             {[
-               { label: "Correo Electrónico", value: email || "No disponible", icon: Mail, color: "text-green-600 bg-green-50" },
-               { label: "Teléfono", value: profile.contactNumber || profile.contact_number || "No disponible", icon: Phone, color: "text-green-600 bg-green-50" },
-               { label: "Dirección", value: profile.businessAddress || profile.business_address || "No disponible", icon: MapPin, color: "text-green-600 bg-green-50" },
-             ].map((item) => (
-               <div key={item.label} className="bg-white p-5 sm:p-6 rounded-xl border border-gray-100 shadow-sm">
-                  <div className={`w-10 h-10 rounded-lg ${item.color} flex items-center justify-center mb-4`}>
-                    <item.icon size={20} />
-                  </div>
-                  <p className="text-[10px] sm:text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">{item.label}</p>
-                  <p className="text-xs sm:text-sm font-semibold text-gray-800 break-words">{item.value}</p>
-               </div>
-             ))}
+              {[
+                { label: "Correo Electrónico", value: email || "No disponible", icon: Mail, color: "text-green-600 bg-green-50" },
+                { label: "Teléfono", value: profile.contactNumber || profile.contact_number || "No disponible", icon: Phone, color: "text-green-600 bg-green-50" },
+                { label: "Dirección", value: profile.businessAddress || profile.business_address || "No disponible", icon: MapPin, color: "text-green-600 bg-green-50" },
+              ].map((item) => (
+                <div key={item.label} className="bg-white p-5 sm:p-6 rounded-xl border border-gray-100 shadow-sm">
+                    <div className={`w-10 h-10 rounded-lg ${item.color} flex items-center justify-center mb-4`}>
+                      <item.icon size={20} />
+                    </div>
+                    <p className="text-[10px] sm:text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">{item.label}</p>
+                    <p className="text-xs sm:text-sm font-semibold text-gray-800 break-words">{item.value}</p>
+                </div>
+              ))}
           </div>
 
           {/* About Section */}
@@ -131,10 +131,10 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
             </div>
             
             <div className="flex flex-col gap-6">
-               <ProfileOffersList 
-                 imageUrl={profile.imageUrl || profile.image_url} 
-                 businessName={profile.businessName || profile.business_name}
-               />
+                <ProfileOffersList 
+                  imageUrl={profile.imageUrl || profile.image_url} 
+                  businessName={profile.businessName || profile.business_name}
+                />
             </div>
           </section>
 

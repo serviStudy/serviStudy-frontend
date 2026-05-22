@@ -38,8 +38,6 @@ export const ApplyCompatibility = ({ offerId, selectedIds, onAnalisysComplete }:
       });
       console.log("🕵️‍♂️ RESPUESTA EXACTA DE LA IA:", responseData);
 
-      toast.success("Compatibilidad realizada con éxito.");
-
       // se pasa el resultado de la compatibilidad usando la prop
       onAnalisysComplete(responseData.data)
       
