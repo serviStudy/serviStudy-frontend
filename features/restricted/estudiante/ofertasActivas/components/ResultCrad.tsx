@@ -61,12 +61,12 @@ const ResultCrad = ({ offer }: Props) => {
                             <div className='flex gap-4 flex-wrap mt-0.5'>
                                 <div className='flex gap-1.5 items-center bg-green-50 px-2.5 py-1 rounded-lg border border-green-100'>
                                     <MapPin className='text-green-600 h-3.5 w-3.5' />
-                                    <p className='text-green-700 text-xs font-medium capitalize tracking-wide truncate max-w-[150px] md:max-w-xs'>{offer.address}</p>
+                                    <p className='text-green-700 text-xs font-medium capitalize tracking-wide truncate max-w-37.5 md:max-w-xs'>{offer.address}</p>
                                 </div>
 
                                 
 
-                                <span className='px-2.5 py-1.5 border-orange-600 text-orange-700 bg-orange-100 rounded-lg text-xs font-medium border border-amber-100 flex items-center gap-1.5'>
+                                <span className='px-2.5 py-1.5 border-orange-600 text-orange-700 bg-orange-100 rounded-lg text-xs font-medium border flex items-center gap-1.5'>
                                     <div className="h-1.5 w-1.5 rounded-full bg-amber-500"></div>
                                     {jornadaTags}
                                 </span>
@@ -87,7 +87,7 @@ const ResultCrad = ({ offer }: Props) => {
 
                         {description && (
                             <div className="bg-gray-50 p-4 rounded-xl border border-gray-100 mb-2">
-                                <p className="text-sm text-gray-600 italic leading-relaxed line-clamp-2">
+                                <p className="text-sm text-gray-600 italic leading-relaxed line-clamp-2 capitalize">
                                     "{description}"
                                 </p>
                             </div>

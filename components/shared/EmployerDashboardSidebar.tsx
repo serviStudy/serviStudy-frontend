@@ -17,7 +17,6 @@ import {
 } from 'lucide-react';
 
 import NavLink from '../ui/NavLink';
-import { useSubscriptionStatus } from '@/features/suscripcion/hooks/useSubscriptionStatus';
 
 const sidebarItems = [
   { name: 'Dashboard', icon: LayoutDashboard, href: '/empleador/dashboard' },
@@ -30,10 +29,6 @@ const sidebarItems = [
 
 export const EmployerDashboardSidebar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { status: subStatus } = useSubscriptionStatus();
-  
-  const currentSub = subStatus?.currentSubscription;
-  const isPremium = subStatus?.status === "ACTIVE" && !!currentSub;
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -115,7 +110,6 @@ export const EmployerDashboardSidebar = () => {
                 name={item.name}
                 link={item.href}
                 exact={item.href === '/empleador/dashboard' || item.href === '/empleador/ofertas'}
-                isPremium={isPremium}
               />
             </div>
           ))}

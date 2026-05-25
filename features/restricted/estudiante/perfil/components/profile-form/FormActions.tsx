@@ -8,11 +8,13 @@ interface FormActionsProps {
   actions: {
     handleSave: () => void;
   };
+  isPremium?: boolean;
 }
 
 export const FormActions: React.FC<FormActionsProps> = ({
   saving,
-  actions
+  actions,
+  isPremium
 }) => {
   const router = useRouter();
 
@@ -28,7 +30,7 @@ export const FormActions: React.FC<FormActionsProps> = ({
         Cancelar
       </Button>
       <Button
-        className="bg-blue-600 text-white font-semibold px-6 rounded-lg hover:bg-blue-700 transition-all shadow-sm active:scale-95"
+        className={`${isPremium ? "bg-gradient-to-r from-green-500 to-blue-600 text-white shadow-md shadow-blue-500/20 hover:opacity-90 hover:from-green-400 hover:to-blue-500" : "bg-blue-600 text-white hover:bg-blue-700 shadow-sm"} font-semibold px-6 rounded-lg transition-all active:scale-95`}
         onClick={actions.handleSave}
         disabled={saving}
       >

@@ -9,6 +9,11 @@ import { useProfileForm } from './useProfileForm';
 import { useSkills } from './useSkills';
 import { useWorkDays } from './useWorkDays';
 import { useImageUpload } from './useImageUpload';
+import { decodeJwt, JWTPayload } from 'jose';
+
+interface TokenPayload extends JWTPayload {
+  subscriptionStatus?: "ACTIVE" | "INACTIVE";
+}
 
 export const useEditStudentProfile = () => {
   const router = useRouter();
@@ -23,6 +28,7 @@ export const useEditStudentProfile = () => {
   const workDaysHook = useWorkDays();
   const imageHook = useImageUpload();
   const skillsHook = useSkills();
+  const [isPremium, setIsPremium] = useState(false);
 
   const loadProfile = useCallback(async (silent = false) => {
     try {
@@ -56,6 +62,17 @@ export const useEditStudentProfile = () => {
 
   useEffect(() => {
     setEmail(localStorage.getItem("user_email") ?? "");
+    const token = localStorage.getItem("token");
+    if (token) {
+      try {
+        const decoded = decodeJwt(token) as TokenPayload;
+        if (decoded.subscriptionStatus === "ACTIVE") {
+          setIsPremium(true);
+        }
+      } catch (e) {
+        console.error("Error decodificando token", e);
+      }
+    }
     loadProfile();
   }, []); // Solo al montar
 
@@ -151,6 +168,7 @@ export const useEditStudentProfile = () => {
     actions,
     refs,
     errors,
-    inicial
+    inicial,
+    isPremium
   };
 };

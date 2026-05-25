@@ -20,9 +20,9 @@ export const DetailRequirementsPostulation = ({ requirements }: Props) => {
                 {requirements.map((req, index) => (
                     <span
                         key={req.requirementName || index}
-                        className="flex items-center gap-2 bg-[#DDEBFF] text-[#2552d0] text-sm font-semibold px-4 py-2 rounded-2xl"
+                        className="flex items-center gap-2 bg-[#DDEBFF] text-[#2552d0] text-sm font-semibold px-4 py-2 rounded-2xl capitalize"
                     >
-                        <span className="w-2 h-2 rounded-full bg-[#2552d0] flex-shrink-0" />
+                        <span className="w-2 h-2 rounded-full bg-[#2552d0] shrink-0" />
                         {req.requirementName || "Requisito"}
                     </span>
                 ))}
