@@ -7,6 +7,7 @@ interface PricingGridProps {
   plans: PricingPlan[];
   activeType: "estudiante" | "empresa";
   onSelectPlan?: (plan: PricingPlan) => void;
+  className?: string;
 }
 
 const containerVariants = {
@@ -33,7 +34,7 @@ const itemVariants = {
   },
 };
 
-export function PricingGrid({ plans, activeType, onSelectPlan }: PricingGridProps) {
+export function PricingGrid({ plans, activeType, onSelectPlan, className }: PricingGridProps) {
   return (
     <AnimatePresence mode="wait">
       <motion.div
@@ -43,8 +44,9 @@ export function PricingGrid({ plans, activeType, onSelectPlan }: PricingGridProp
         animate="visible"
         exit={{ opacity: 0, scale: 0.98, transition: { duration: 0.2 } }}
         className={cn(
-          "hidden md:grid gap-6 lg:gap-8 items-stretch pt-4",
-          activeType === "empresa" ? "md:grid-cols-2 lg:grid-cols-3" : "grid-cols-2 max-w-4xl mx-auto"
+          "grid gap-6 lg:gap-8 items-stretch pt-4",
+          activeType === "empresa" ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3" : "grid-cols-1 md:grid-cols-2 max-w-4xl mx-auto",
+          className
         )}
       >
         {plans.map((plan, index) => (
