@@ -81,7 +81,7 @@ export const ProfileOfferCard = ({ offer, imageUrl, businessName, onStatusChange
         {imageUrl ? (
           <img src={imageUrl} alt="Perfil" className="w-full h-full object-cover transition-transform group-hover:scale-110 duration-700" />
         ) : (
-          <div className={`w-full h-full flex items-center justify-center text-3xl lg:text-4xl font-black ${
+          <div className={`w-full h-full flex items-center justify-center capitalize text-3xl lg:text-4xl font-black ${
             isPremium
               ? 'bg-gradient-to-br from-blue-600 to-green-500 text-white'
               : 'bg-green-600 text-white'
@@ -95,7 +95,7 @@ export const ProfileOfferCard = ({ offer, imageUrl, businessName, onStatusChange
       <div className="relative z-10 flex flex-col flex-1 min-w-0">
         <div className="flex flex-col sm:flex-row justify-between items-start gap-4 sm:gap-0">
           <div className="flex-1 min-w-0">
-            <h3 className={`font-bold text-base sm:text-lg lg:text-xl leading-tight line-clamp-1 transition-colors ${
+            <h3 className={`font-bold text-base sm:text-lg lg:text-xl leading-tight line-clamp-1 capitalize transition-colors ${
               isPremium
                 ? 'text-gray-900 group-hover:text-blue-600'
                 : 'text-gray-900 group-hover:text-green-600'
@@ -104,7 +104,7 @@ export const ProfileOfferCard = ({ offer, imageUrl, businessName, onStatusChange
             {/* Ubicación */}
             <div className="mt-2.5 flex items-center gap-2 font-medium text-xs">
               <MapPin size={14} className={`shrink-0 ${isPremium ? 'text-blue-500' : 'text-green-500'}`} />
-              <span className="text-gray-500 truncate tracking-tight">{offer.establishment_address || offer.establishmentAddress || "Ubicación no especificada"}</span>
+              <span className="text-gray-500 truncate tracking-tight capitalize">{offer.establishment_address || offer.establishmentAddress || "Ubicación no especificada"}</span>
             </div>
           </div>
 
