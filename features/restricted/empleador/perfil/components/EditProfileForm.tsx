@@ -39,6 +39,7 @@ interface EditProfileFormProps {
   }
   saving: boolean
   inicial: string
+  isPremium?: boolean
 }
 
 export const EditProfileForm: React.FC<EditProfileFormProps> = ({
@@ -47,7 +48,8 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
   actions,
   refs,
   saving,
-  inicial
+  inicial,
+  isPremium = false
 }) => {
   const router = useRouter()
   const [isVerifyModalOpen, setIsVerifyModalOpen] = React.useState(false)
@@ -59,18 +61,22 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
         <div className="space-y-4">
           <button
             onClick={() => router.back()}
-            className="flex items-center gap-2 text-gray-400 hover:text-green-600 transition-all font-semibold group"
+            className={`flex items-center gap-2 transition-all font-semibold group ${
+              isPremium ? 'text-gray-400 hover:text-blue-600' : 'text-gray-400 hover:text-green-600'
+            }`}
           >
             <ChevronLeft className="h-5 w-5 transition-transform group-hover:-translate-x-1" />
             <span className="text-xs uppercase tracking-wider">Regresar al perfil</span>
           </button>
           <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 tracking-tight">
-            Editar <span className="text-green-600">Perfil</span>
+            Editar <span className={isPremium ? "text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-green-500" : "text-green-600"}>Perfil</span>
           </h1>
         </div>
-        <div className="flex items-center gap-2 px-3 py-1.5 bg-green-50 rounded-lg border border-green-100">
-          <ShieldCheck className="text-green-600 h-4 w-4" />
-          <span className="text-[10px] font-bold text-green-600 uppercase tracking-widest">Información Segura</span>
+        <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border ${
+          isPremium ? 'bg-gradient-to-r from-blue-50 to-green-50 border-blue-100/50' : 'bg-green-50 border-green-100'
+        }`}>
+          <ShieldCheck className={`h-4 w-4 ${isPremium ? 'text-blue-600' : 'text-green-600'}`} />
+          <span className={`text-[10px] font-bold uppercase tracking-widest ${isPremium ? 'text-blue-600' : 'text-green-600'}`}>Información Segura</span>
         </div>
       </div>
 
@@ -78,7 +84,11 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
       <motion.div 
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="mb-8 p-6 bg-gradient-to-r from-green-600 to-green-500 rounded-xl text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm shadow-green-900/10 relative overflow-hidden group"
+        className={`mb-8 p-6 rounded-xl text-white flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden group ${
+          isPremium 
+            ? 'bg-gradient-to-r from-green-500 to-blue-600 shadow-[0_8px_30px_rgba(59,130,246,0.15)]' 
+            : 'bg-gradient-to-r from-green-600 to-green-500 shadow-sm shadow-green-900/10'
+        }`}
       >
         <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:scale-110 transition-transform duration-1000"></div>
         <div className="flex items-center gap-6 relative z-10">
@@ -92,28 +102,46 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
         </div>
         <button 
           onClick={() => setIsVerifyModalOpen(true)}
-          className="px-8 h-12 bg-white text-green-600 rounded-lg font-bold text-xs uppercase tracking-widest shadow-sm hover:bg-gray-50 transition-all active:scale-95 relative z-10 whitespace-nowrap"
+          className={`px-8 h-12 bg-white rounded-lg font-bold text-xs uppercase tracking-widest shadow-sm hover:bg-gray-50 transition-all active:scale-95 relative z-10 whitespace-nowrap ${
+            isPremium ? 'text-blue-600 hover:shadow-lg' : 'text-green-600'
+          }`}
         >
           Verificar Ahora
         </button>
       </motion.div>
 
-      <Card className="overflow-hidden border border-gray-100 shadow-sm rounded-xl bg-white">
-        {/* Dynamic Header Banner - Green theme */}
-        <div className="h-44 w-full bg-gradient-to-br from-green-800 via-green-600 to-green-400 relative">
+      <Card className={`overflow-hidden rounded-xl ${
+        isPremium 
+          ? 'bg-white/70 backdrop-blur-xl border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)]' 
+          : 'bg-white border border-gray-100 shadow-sm'
+      }`}>
+        {/* Dynamic Header Banner */}
+        <div className={`h-44 w-full relative ${
+          isPremium 
+            ? 'bg-gradient-to-br from-green-500 via-blue-500 to-blue-600' 
+            : 'bg-gradient-to-br from-green-800 via-green-600 to-green-400'
+        }`}>
           <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
+          {isPremium && (
+            <>
+              <div className="absolute top-0 right-0 w-48 h-48 bg-white/15 blur-3xl rounded-full -translate-y-1/2 translate-x-1/2" />
+              <div className="absolute bottom-0 left-0 w-40 h-40 bg-green-300/25 blur-2xl rounded-full translate-y-1/2 -translate-x-1/4" />
+            </>
+          )}
         </div>
 
         <CardContent className="px-8 lg:px-16 pb-16">
           {/* Centered Avatar Upload */}
           <div className="relative -mt-20 mb-16 flex flex-col items-center">
             <div className="relative group">
-              <div className="flex h-40 w-40 items-center justify-center overflow-hidden rounded-xl border-8 border-white bg-white shadow-md transition-all duration-500 group-hover:scale-105">
+              <div className={`flex h-40 w-40 items-center justify-center overflow-hidden rounded-xl border-8 border-white bg-white shadow-md transition-all duration-500 group-hover:scale-105 ${
+                isPremium ? 'shadow-[0_8px_30px_rgba(0,0,0,0.08)]' : ''
+              }`}>
                 {formData.imageUrl ? (
                   <img src={formData.imageUrl} alt="Perfil" className="h-full w-full object-contain p-4" />
                 ) : (
                   <div className="h-full w-full bg-gray-50 flex items-center justify-center">
-                    <span className="text-[60px] font-black text-green-700/10">{inicial}</span>
+                    <span className={`text-[60px] font-black ${isPremium ? 'text-blue-600/10' : 'text-green-700/10'}`}>{inicial}</span>
                   </div>
                 )}
               </div>
@@ -139,7 +167,7 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
             {/* Section 1: Business Identity */}
             <div>
                <div className="flex items-center gap-3 mb-8">
-                 <div className="h-6 w-1 bg-green-600 rounded-full"></div>
+                 <div className={`h-6 w-1 rounded-full ${isPremium ? 'bg-blue-500' : 'bg-green-600'}`}></div>
                  <h2 className="text-lg font-bold text-gray-900 tracking-tight">Identidad Corporativa</h2>
                </div>
                
@@ -147,11 +175,15 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
                   <div className="space-y-3">
                     <Label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">Nombre Comercial</Label>
                     <div className="relative">
-                      <Building2 className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-300 h-4 w-4" />
+                      <Building2 className={`absolute left-5 top-1/2 -translate-y-1/2 h-4 w-4 ${isPremium ? 'text-blue-300' : 'text-gray-300'}`} />
                       <Input
                         value={formData.businessName}
                         onChange={(e) => setters.setBusinessName(e.target.value)}
-                        className="h-12 pl-12 rounded-lg border-gray-100 bg-gray-50/50 focus:bg-white focus:ring-green-500 transition-all font-medium text-gray-900 text-sm"
+                        className={`h-12 pl-12 rounded-xl transition-all font-medium text-gray-900 text-sm shadow-sm ${
+                          isPremium 
+                            ? 'border-blue-100/50 bg-blue-50/30 hover:bg-blue-50/50 focus:bg-white focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500' 
+                            : 'border-gray-200 bg-gray-50 hover:bg-gray-100/50 focus:bg-white focus:ring-2 focus:ring-green-500/50 focus:border-green-500'
+                        }`}
                         placeholder="Ej: ServiStudy Corp"
                       />
                     </div>
@@ -159,11 +191,15 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
                   <div className="space-y-3">
                     <Label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">Responsable</Label>
                     <div className="relative">
-                      <User className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-300 h-4 w-4" />
+                      <User className={`absolute left-5 top-1/2 -translate-y-1/2 h-4 w-4 ${isPremium ? 'text-blue-300' : 'text-gray-300'}`} />
                       <Input
                         value={formData.employerName}
                         onChange={(e) => setters.setEmployerName(e.target.value)}
-                        className="h-12 pl-12 rounded-lg border-gray-100 bg-gray-50/50 focus:bg-white focus:ring-green-500 transition-all font-medium text-gray-900 text-sm"
+                        className={`h-12 pl-12 rounded-xl transition-all font-medium text-gray-900 text-sm shadow-sm ${
+                          isPremium 
+                            ? 'border-blue-100/50 bg-blue-50/30 hover:bg-blue-50/50 focus:bg-white focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500' 
+                            : 'border-gray-200 bg-gray-50 hover:bg-gray-100/50 focus:bg-white focus:ring-2 focus:ring-green-500/50 focus:border-green-500'
+                        }`}
                         placeholder="Nombre completo"
                       />
                     </div>
@@ -174,7 +210,7 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
             {/* Section 2: Contact & Location */}
             <div>
                <div className="flex items-center gap-3 mb-8">
-                 <div className="h-6 w-1 bg-green-500 rounded-full"></div>
+                 <div className={`h-6 w-1 rounded-full ${isPremium ? 'bg-blue-400' : 'bg-green-500'}`}></div>
                  <h2 className="text-lg font-bold text-gray-900 tracking-tight">Contacto y Ubicación</h2>
                </div>
                
@@ -182,11 +218,15 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
                   <div className="space-y-3">
                     <Label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">Teléfono de Contacto</Label>
                     <div className="relative">
-                      <Phone className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-300 h-4 w-4" />
+                      <Phone className={`absolute left-5 top-1/2 -translate-y-1/2 h-4 w-4 ${isPremium ? 'text-blue-300' : 'text-gray-300'}`} />
                       <Input
                         value={formData.contactNumber}
                         onChange={(e) => setters.setContactNumber(e.target.value)}
-                        className="h-12 pl-12 rounded-lg border-gray-100 bg-gray-50/50 focus:bg-white focus:ring-green-500 transition-all font-medium text-gray-900 text-sm"
+                        className={`h-12 pl-12 rounded-xl transition-all font-medium text-gray-900 text-sm shadow-sm ${
+                          isPremium 
+                            ? 'border-blue-100/50 bg-blue-50/30 hover:bg-blue-50/50 focus:bg-white focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500' 
+                            : 'border-gray-200 bg-gray-50 hover:bg-gray-100/50 focus:bg-white focus:ring-2 focus:ring-green-500/50 focus:border-green-500'
+                        }`}
                         placeholder="+57 300 000 0000"
                       />
                     </div>
@@ -194,11 +234,15 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
                   <div className="space-y-3">
                     <Label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">Dirección Física</Label>
                     <div className="relative">
-                      <MapPin className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-300 h-4 w-4" />
+                      <MapPin className={`absolute left-5 top-1/2 -translate-y-1/2 h-4 w-4 ${isPremium ? 'text-blue-300' : 'text-gray-300'}`} />
                       <Input
                         value={formData.businessAddress}
                         onChange={(e) => setters.setBusinessAddress(e.target.value)}
-                        className="h-12 pl-12 rounded-lg border-gray-100 bg-gray-50/50 focus:bg-white focus:ring-green-500 transition-all font-medium text-gray-900 text-sm"
+                        className={`h-12 pl-12 rounded-xl transition-all font-medium text-gray-900 text-sm shadow-sm ${
+                          isPremium 
+                            ? 'border-blue-100/50 bg-blue-50/30 hover:bg-blue-50/50 focus:bg-white focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500' 
+                            : 'border-gray-200 bg-gray-50 hover:bg-gray-100/50 focus:bg-white focus:ring-2 focus:ring-green-500/50 focus:border-green-500'
+                        }`}
                         placeholder="Calle, Ciudad, País"
                       />
                     </div>
@@ -209,15 +253,19 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
             {/* Section 3: Summary */}
             <div className="space-y-4">
               <div className="flex items-center gap-3 mb-4">
-                 <div className="h-6 w-1 bg-green-400 rounded-full"></div>
+                 <div className={`h-6 w-1 rounded-full ${isPremium ? 'bg-blue-300' : 'bg-green-400'}`}></div>
                  <h2 className="text-lg font-bold text-gray-900 tracking-tight">Descripción de la Empresa</h2>
               </div>
               <div className="relative">
-                <AlignLeft className="absolute left-6 top-6 text-gray-300 h-4 w-4" />
+                <AlignLeft className={`absolute left-6 top-6 h-4 w-4 ${isPremium ? 'text-blue-300' : 'text-gray-300'}`} />
                 <Textarea
                   value={formData.businessSummary}
                   onChange={(e) => setters.setBusinessSummary(e.target.value)}
-                  className="min-h-[160px] pl-14 pt-5 rounded-xl border-gray-100 bg-gray-50/50 focus:bg-white focus:ring-green-500 transition-all font-medium text-gray-700 resize-none text-sm shadow-sm"
+                  className={`min-h-[160px] pl-14 pt-5 rounded-xl transition-all font-medium text-gray-700 resize-none text-sm shadow-sm ${
+                    isPremium 
+                      ? 'border-blue-100/50 bg-blue-50/30 hover:bg-blue-50/50 focus:bg-white focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500' 
+                      : 'border-gray-200 bg-gray-50 hover:bg-gray-100/50 focus:bg-white focus:ring-2 focus:ring-green-500/50 focus:border-green-500'
+                  }`}
                   placeholder="Describe la visión, misión y lo que hace única a tu empresa..."
                 />
               </div>
@@ -236,7 +284,11 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
             <button
               onClick={actions.handleSave}
               disabled={saving}
-              className="w-full sm:w-auto px-12 h-12 rounded-lg bg-green-600 text-white font-bold text-sm hover:bg-green-700 active:scale-95 transition-all shadow-md shadow-green-900/10 flex items-center justify-center disabled:opacity-70"
+              className={`w-full sm:w-auto px-12 h-12 rounded-lg text-white font-bold text-sm active:scale-95 transition-all flex items-center justify-center disabled:opacity-70 ${
+                isPremium 
+                  ? 'bg-gradient-to-r from-green-500 to-blue-600 shadow-md shadow-blue-500/20 hover:shadow-lg' 
+                  : 'bg-green-600 hover:bg-green-700 shadow-md shadow-green-900/10'
+              }`}
             >
               {saving ? (
                 <span className="flex items-center gap-3">
