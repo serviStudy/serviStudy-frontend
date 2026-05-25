@@ -163,6 +163,7 @@ export const LoginForm = ({
                             Registrate ahora
                         </Link>
                     </div>
+                </form>
             </CardContent>
         </Card>
     )
