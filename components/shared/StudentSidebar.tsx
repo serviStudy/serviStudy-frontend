@@ -97,7 +97,7 @@ export const StudentSidebar = ({ subscriptionStatus }: StudentSidebarProps) => {
                 </div>
 
                 {/* Navigation items */}
-                <nav className="flex-1 px-6 py-4 flex flex-col gap-3 overflow-y-auto">
+                <nav className="flex-1 px-4 py-4 flex flex-col gap-2 overflow-y-auto">
                     {sidebarItems.map((item) => (
                         <div key={item.name} onClick={() => setIsOpen(false)}>
                             <NavLink

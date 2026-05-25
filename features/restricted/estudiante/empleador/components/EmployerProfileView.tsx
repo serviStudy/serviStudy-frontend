@@ -99,7 +99,7 @@ export const EmployerProfileView = () => {
           {/* 1. Hero Section (Banner & Identity) */}
           <motion.div variants={itemVariants} className="relative w-full rounded-2xl overflow-hidden bg-white shadow-md border border-gray-100">
             {/* Background Banner - Green Gradient */}
-            <div className="h-50 lg:h-70 w-full bg-linear-to-br from-green-900 via-green-700 to-green-500 relative">
+            <div className="h-50 lg:h-60 w-full bg-linear-to-br from-green-900 via-green-700 to-green-500 relative">
               <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
               <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent"></div>
             </div>
@@ -109,9 +109,9 @@ export const EmployerProfileView = () => {
               <div className="flex flex-col lg:flex-row gap-6 sm:gap-10 items-center lg:items-end -mt-16 lg:-mt-20">
                 {/* Logo */}
                 <div className="relative shrink-0">
-                  <div className="h-32 w-32 sm:h-40 sm:w-40 lg:h-48 lg:w-48 rounded-lg bg-white p-5 sm:p-6 shadow-md border border-gray-100 flex items-center justify-center overflow-hidden z-10">
+                  <div className="h-32 w-32 sm:h-40 sm:w-40 lg:h-40 lg:w-40 rounded-lg bg-white p-5 sm:p-6 shadow-md border border-gray-100 flex items-center justify-center overflow-hidden z-10">
                     {displayImage ? (
-                      <Image width={200} height={200} src={displayImage} alt="Logo" className="h-full w-full object-contain" />
+                      <Image width={150} height={150} src={displayImage} alt="Logo" className="h-full w-full object-cover" />
                     ) : (
                       <span className="text-[60px] sm:text-[80px] lg:text-[100px] font-black text-green-700/10">
                         {inicial}
@@ -124,9 +124,9 @@ export const EmployerProfileView = () => {
                 </div>
 
                 {/* Basic Info */}
-                <div className="flex-1 text-center lg:text-left lg:pb-6 min-w-0 z-10">
+                <div className="flex-1 text-center lg:text-left lg:pb-2 min-w-0 z-10">
                   <div className="flex flex-col lg:flex-row lg:items-center gap-3 sm:gap-4 mb-2">
-                    <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 tracking-tight truncate">
+                    <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-green-900 tracking-tight truncate capitalize">
                       {displayName || "Nombre de Empresa"}
                     </h1>
                     {isVerified && (
@@ -136,7 +136,7 @@ export const EmployerProfileView = () => {
                     )}
                   </div>
                   
-                  <p className="text-sm lg:text-base font-normal text-gray-500">
+                  <p className="text-sm lg:text-base font-normal text-gray-500 capitalize">
                     {employerProfile?.employerName || employerProfile?.employer_name || "Empleador"}
                   </p>
                 </div>
@@ -149,7 +149,7 @@ export const EmployerProfileView = () => {
           ) : (
             <motion.div variants={itemVariants} className="flex flex-col gap-8 pb-10">
               {/* Contact Details Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 capitalize">
                 {[
                   { label: "Teléfono", value: displayContactNumber || "No disponible", icon: Phone, color: "text-green-600 bg-green-50" },
                   { label: "Dirección", value: displayAddress || "No disponible", icon: MapPin, color: "text-green-600 bg-green-50" },
@@ -175,7 +175,7 @@ export const EmployerProfileView = () => {
                   <h3 className="text-lg lg:text-xl font-bold text-gray-900 tracking-tight">Sobre nosotros</h3>
                 </div>
                 
-                <p className="text-base text-gray-600 leading-relaxed font-medium">
+                <p className="text-base text-gray-600 leading-relaxed font-medium capitalize">
                   {displaySummary || "Esta empresa aún no ha añadido una descripción sobre su visión y valores."}
                 </p>
               </section>

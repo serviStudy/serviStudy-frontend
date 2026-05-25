@@ -34,7 +34,7 @@ export default function NavLink({ icon: Icon, name, link, exact = false, theme =
     return (
         <Link href={link} className={`
             flex w-full justify-start items-center gap-4
-            rounded-xl transition-all duration-300 px-6 py-4 h-auto
+            rounded-xl transition-all duration-300 px-6 py-3 h-auto
             ${active ? activeClasses : inactiveClasses}`}>
             <Icon className={`w-5 h-5 transition-transform duration-300 ${active ? "scale-110" : ""}`} />
             <span className={`font-semibold text-base tracking-tight ${active ? "text-white" : "text-gray-600"}`}>{name}</span>
