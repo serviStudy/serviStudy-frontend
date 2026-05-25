@@ -158,25 +158,11 @@ export function SuscripcionEmpleador() {
 
         {/* Mostrar planes si NO hay suscripción activa */}
         {!isStatusLoading && !isActive && !isPlansLoading && !plansError && !statusError && !isCreatingSession && (
-          <>
-            {/* Vista móvil */}
-            <div className="md:hidden">
-              <PricingCarousel
-                plans={plans}
-                activeType={activeType}
-                onSelectPlan={handleSelectPlan}
-              />
-            </div>
-
-            {/* Vista escritorio */}
-            <div className="hidden md:block">
-              <PricingGrid
-                plans={plans}
-                activeType={activeType}
-                onSelectPlan={handleSelectPlan}
-              />
-            </div>
-          </>
+          <PricingGrid
+            plans={plans}
+            activeType={activeType}
+            onSelectPlan={handleSelectPlan}
+          />
         )}
 
         <div id="epayco-checkout-container" className="hidden" />
