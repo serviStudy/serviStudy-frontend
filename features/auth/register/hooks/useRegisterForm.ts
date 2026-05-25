@@ -5,7 +5,7 @@ import { TipoUsuario } from "@/type/auth";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { usePersistentRole } from "@/hooks/usePersistentRole";
-
+import { loginWithGoogle } from "@/features/auth/login/service/login.service";
 export function useRegisterForm() {
     const router = useRouter();
     const { tipoUsuario, setTipoUsuario } = usePersistentRole();
@@ -95,6 +95,46 @@ export function useRegisterForm() {
         }
     }
 
+    const processLoginData = (data: any) => {
+        if (!data.data) {
+            throw new Error("Respuesta del servidor inválida: falta el objeto 'data'")
+        }
+
+        document.cookie = `token=${data.data.token}; path=/; SameSite=Lax`
+        localStorage.setItem("token", data.data.token)
+        localStorage.setItem("user_email", data.data.email || formData.email)
+        localStorage.setItem("user_role", data.data.role || tipoUsuario)
+
+        if (data.data.role === "estudiante" || tipoUsuario === "estudiante") {
+            window.location.href = "/estudiante/perfil"
+        } else {
+            window.location.href = "/empleador/perfil"
+        }
+    }
+
+    const handleGoogleSuccess = async (credentialResponse: any) => {
+        const idToken = credentialResponse.credential;
+        if (!idToken) {
+            toast.error("No se recibió token de Google");
+            return;
+        }
+        setLoading(true);
+        try {
+            const data = await loginWithGoogle(idToken);
+            processLoginData(data);
+            toast.success("Registro exitoso con Google");
+        } catch (error: any) {
+            console.error("Error Google Login:", error.message);
+            toast.error(error.message || "No se pudo registrar con Google");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleGoogleError = () => {
+        toast.error("No se pudo iniciar sesión con Google");
+    };
+
     return {
         formData,
         errors,
@@ -103,6 +143,8 @@ export function useRegisterForm() {
         handleTipoUsuarioChange,
         handleCheckboxChange,
         handleSubmit,
-        loading
+        loading,
+        handleGoogleSuccess,
+        handleGoogleError
     };
 }

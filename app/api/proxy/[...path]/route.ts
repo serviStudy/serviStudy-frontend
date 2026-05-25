@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-const EXTERNAL_API_URL = 'https://api.servistudy.site/api/v1';
+const EXTERNAL_API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.servistudy.site/api/v1';
 
 /**
  * Proxy universal para evitar errores de CORS y problemas de Service Worker en despliegue.
