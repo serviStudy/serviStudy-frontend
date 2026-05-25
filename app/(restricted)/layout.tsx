@@ -6,6 +6,7 @@ import { StudentSidebar } from "@/components/shared/StudentSidebar";
 interface TokenPayload extends JWTPayload {
   role: "EMPLOYER" | "STUDENT";
   name: string;
+  subscriptionStatus?: "ACTIVE" | "INACTIVE";
 }
 
 export default async function RestrictedLayout({
@@ -46,7 +47,7 @@ export default async function RestrictedLayout({
       {/* Navegación Lateral (Sidebar) por Rol */}
       <div className="relative z-50">
         {isEmployer && <EmployerDashboardSidebar />}
-        {isStudent && <StudentSidebar />}
+        {isStudent && <StudentSidebar subscriptionStatus={safeUser.subscriptionStatus} />}
       </div>
 
       {/* Contenido Principal */}
