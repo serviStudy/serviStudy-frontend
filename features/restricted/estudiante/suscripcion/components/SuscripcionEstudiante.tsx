@@ -154,24 +154,11 @@ export function SuscripcionEstudiante() {
         )}
 
         {!isStatusLoading && !isActive && !isPlansLoading && !plansError && !statusError && !isCreatingSession && (
-          <>
-            <div className="md:hidden">
-              <PricingCarousel
-                plans={plans}
-                activeType={activeType}
-                onSelectPlan={handleSelectPlan}
-              />
-            </div>
-
-            {/* Vista escritorio */}
-            <div className="hidden md:block">
-              <PricingGrid
-                plans={plans}
-                activeType={activeType}
-                onSelectPlan={handleSelectPlan}
-              />
-            </div>
-          </>
+          <PricingGrid
+            plans={plans}
+            activeType={activeType}
+            onSelectPlan={handleSelectPlan}
+          />
         )}
 
         <div id="epayco-checkout-container" className="hidden" />
