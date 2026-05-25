@@ -18,6 +18,7 @@ interface Props {
     scheduleLabel: string | null;
     onOpenDaysModal: () => void;
     variants: any;
+    isPremium?: boolean;
 }
 
 export const MobileProfileView = ({ 
@@ -32,13 +33,18 @@ export const MobileProfileView = ({
     isEspecificos,
     scheduleLabel,
     onOpenDaysModal,
-    variants
+    variants,
+    isPremium
 }: Props) => {
     return (
         <div className="flex flex-col gap-6 pb-12 w-full">
             {/* Header Mobile - Restored Size */}
             <motion.div variants={variants} className="bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col items-center text-center relative overflow-hidden">
-                <div className="w-full h-32 bg-linear-to-br from-[#1e3a8a] via-[#1d4ed8] to-[#3b82f6] relative">
+                <div className={`w-full h-32 relative ${
+                    isPremium 
+                        ? "bg-linear-to-r from-[#00d15a] via-[#0088ff] to-[#004ee0]" 
+                        : "bg-linear-to-br from-[#1e3a8a] via-[#1d4ed8] to-[#3b82f6]"
+                }`}>
                     <div className="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMSIvPgo8L3N2Zz4=')]"></div>
                 </div>
                 
@@ -168,7 +174,8 @@ export const MobileProfileView = ({
                         postulaciones.map((app) => (
                             <div key={app.jobOffer.jobOfferId} className="relative flex flex-col gap-2 p-4 bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
                                 {/* Date Tag at the edge (top-right) */}
-                                <div className="absolute top-0 right-0 bg-blue-50 text-blue-600 px-3 py-1 text-[9px] font-bold rounded-bl-xl border-b border-l border-blue-100 uppercase tracking-wider">
+                                <div className="absolute flex items-center gap-1.5 top-0 right-0 bg-linear-to-r from-[#00d15a] to-[#0088ff] text-white px-3 py-1 text-[10px] font-bold rounded-bl-xl border-b border-l border-white/40 shadow-sm uppercase tracking-wider">
+                                    <Calendar className="h-3 w-3" />
                                     {app.applicationDate}
                                 </div>
 

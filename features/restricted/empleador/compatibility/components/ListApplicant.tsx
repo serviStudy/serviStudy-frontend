@@ -95,7 +95,7 @@ import { Applicant } from "./Applicant";
                 {selectedIds.length > 0 && (
                     <div className="flex items-center gap-2 px-3 py-1 bg-blue-50 border border-blue-100 rounded-lg animate-in fade-in slide-in-from-top-2 duration-300">
                         <CheckCircle2 size={12} className="text-blue-600" />
-                        <span className="text-[10px] font-bold text-blue-700 uppercase tracking-wider">
+                        <span className="text-xs font-bold text-blue-700  tracking-wider">
                             {selectedIds.length} {selectedIds.length === 1 ? "seleccionado" : "seleccionados"}
                         </span>
                     </div>
@@ -108,10 +108,14 @@ import { Applicant } from "./Applicant";
 
         {/* List */}
         <div className="space-y-4">
-            {data.content.map((applicant) => {
+            {[...data.content].sort((a, b) => {
+                const scoreA = resultsIA?.[a.student.studentProfileId] || 0;
+                const scoreB = resultsIA?.[b.student.studentProfileId] || 0;
+                return scoreB - scoreA;
+            }).map((applicant) => {
 
                 // Se accede directamente al diccionario (Objeto) usando el ID del estudiante
-                const score = resultsIA[applicant.student.studentProfileId];
+                const score = resultsIA?.[applicant.student.studentProfileId];
 
                 return (
                     <Applicant 
@@ -153,10 +157,10 @@ import { Applicant } from "./Applicant";
         {/* Loading overlay for pagination */}
         {loading && data && (
             <div className="fixed inset-0 bg-white/50 backdrop-blur-sm z-50 flex items-center justify-center">
-            <div className="bg-white p-6 rounded-xl shadow-lg flex items-center gap-4 border border-gray-200">
-                <Loader2 className="w-6 h-6 animate-spin text-green-600" />
-                <span className="font-semibold text-gray-800 text-base">Cargando...</span>
-            </div>
+                <div className="bg-white p-6 rounded-xl shadow-lg flex items-center gap-4 border border-gray-200">
+                    <Loader2 className="w-6 h-6 animate-spin text-green-600" />
+                    <span className="font-semibold text-gray-800 text-base">Cargando...</span>
+                </div>
             </div>
         )}
         </div>

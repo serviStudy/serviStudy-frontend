@@ -4,7 +4,7 @@ import {
     DialogContent,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import { Sparkles, Bot, PieChart, Zap, ShieldCheck, Lock, Check, BarChart3, Target } from "lucide-react"
+import { Sparkles, Bot, PieChart, Zap, ShieldCheck, Lock, Check, Target } from "lucide-react"
 import Link from "next/link"
 
 export function ModalRecomendation() {

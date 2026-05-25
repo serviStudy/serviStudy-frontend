@@ -14,7 +14,15 @@ interface ButtonNavProps {
 
 export default function NavLink({ icon: Icon, name, link, exact = false, isPremium = false }: ButtonNavProps) {
     const { isActive } = useActivePath();
-    const active = isActive(link, { exact })
+    const active = isActive(link, { exact });
+
+    const activeClasses = theme === "green" 
+        ? "bg-green-600 text-white shadow-lg shadow-green-600/20 hover:bg-green-700"
+        : "bg-blue-600 text-white shadow-lg shadow-blue-600/20 hover:bg-blue-700";
+
+    const inactiveClasses = theme === "green"
+        ? "bg-transparent text-gray-600 hover:bg-green-50 hover:text-green-600 border-transparent"
+        : "bg-transparent text-gray-600 hover:bg-blue-50 hover:text-blue-600 border-transparent";
 
     return (
         <Link 
