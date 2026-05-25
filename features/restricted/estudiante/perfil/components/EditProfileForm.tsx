@@ -46,6 +46,7 @@ interface EditProfileFormProps {
   errors: Record<string, string>;
   saving: boolean;
   inicial: string;
+  isPremium?: boolean;
 }
 
 export const EditProfileForm: React.FC<EditProfileFormProps> = ({
@@ -55,7 +56,8 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
   refs,
   errors,
   saving,
-  inicial
+  inicial,
+  isPremium
 }) => {
   const [newSkill, setNewSkill] = useState("");
   const [isDaysModalOpen, setIsDaysModalOpen] = useState(false);
@@ -90,15 +92,24 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
   };
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 md:px-0">
-      {/* Page Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
-        <div>
-          <h1 className="text-3xl font-bold text-blue-900 tracking-tight">Editar Perfil</h1>
-          <p className="text-gray-500 font-medium mt-1">Gestiona tu identidad profesional y disponibilidad.</p>
+    <div className="w-full relative z-0">
+      {isPremium && (
+          <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden bg-linear-to-br from-green-50/60 via-blue-50/50 to-emerald-50/40">
+              <div className="absolute top-[-5%] left-[-5%] w-125 h-125 bg-green-400/10 rounded-full mix-blend-multiply filter blur-[120px] opacity-70"></div>
+              <div className="absolute bottom-[-10%] right-[-5%] w-150 h-150 bg-blue-500/10 rounded-full mix-blend-multiply filter blur-[120px] opacity-70"></div>
+          </div>
+      )}
+      <div className="mx-auto w-full max-w-6xl px-4 md:px-0 pt-8 pb-12">
+        {/* Page Header */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
+          <div>
+            <h1 className={`text-3xl font-bold tracking-tight ${isPremium ? "bg-linear-to-r from-green-600 to-blue-600 bg-clip-text text-transparent" : "text-blue-900"}`}>
+              Editar Perfil
+            </h1>
+            <p className="text-gray-500 font-medium mt-1">Gestiona tu identidad profesional y disponibilidad.</p>
+          </div>
+          <FormActions saving={saving} actions={actions} isPremium={isPremium} />
         </div>
-        <FormActions saving={saving} actions={actions} />
-      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Left Column: Avatar, Personal Info & Availability */}
@@ -165,6 +176,7 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
         selectedDays={normalizedDays}
         onToggleDay={actions.handleToggleDay}
       />
+      </div>
     </div>
   );
 };
