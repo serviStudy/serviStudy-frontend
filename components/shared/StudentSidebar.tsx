@@ -18,14 +18,19 @@ import { motion, AnimatePresence } from 'framer-motion';
 import NavLink from '../ui/NavLink';
 import { Toaster } from '../ui/sonner';
 
-const sidebarItems = [
+const allSidebarItems = [
+    { name: 'Dashboard', icon: LayoutDashboard, href: '/estudiante/dashboardStudent' },
     { name: 'Buscar Ofertas', icon: Briefcase, href: '/estudiante/ofertasActivas' },
     { name: 'Mis Postulaciones', icon: LayoutDashboard, href: '/estudiante/misPostulaciones' },
     { name: 'Suscripción', icon: CreditCard, href: '/estudiante/suscripcion' },
     { name: 'Perfil estudiante', icon: User, href: '/estudiante/perfil' },
 ];
 
-export const StudentSidebar = () => {
+interface StudentSidebarProps {
+    subscriptionStatus?: "ACTIVE" | "INACTIVE";
+}
+
+export const StudentSidebar = ({ subscriptionStatus }: StudentSidebarProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const pathname = usePathname();
 
@@ -38,6 +43,13 @@ export const StudentSidebar = () => {
         document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC; SameSite=Lax";
         window.location.href = "/";
     };
+
+    const sidebarItems = allSidebarItems.filter(item => {
+        if (item.name === 'Dashboard' && subscriptionStatus !== 'ACTIVE') {
+            return false;
+        }
+        return true;
+    });
 
     return (
         <>
@@ -85,15 +97,15 @@ export const StudentSidebar = () => {
                 </div>
 
                 {/* Navigation items */}
-                <nav className="flex-1 px-6 py-4 flex flex-col gap-3 overflow-y-auto">
+                <nav className="flex-1 px-4 py-4 flex flex-col gap-2 overflow-y-auto">
                     {sidebarItems.map((item) => (
                         <div key={item.name} onClick={() => setIsOpen(false)}>
                             <NavLink
                                 icon={item.icon}
                                 name={item.name}
                                 link={item.href}
-                                exact={item.href === '/estudiante/dashboard'}
-                                theme="blue"
+                                exact={item.href === '/estudiante/dashboardStudent'}
+                                theme={subscriptionStatus === 'ACTIVE' ? 'gradient' : 'blue'}
                             />
                         </div>
                     ))}

@@ -83,7 +83,7 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subs
               >
                 <div
                   className={`w-3.5 h-3.5 rounded-full transition-all duration-500 shadow-sm ${
-                    isActive ? "bg-green-500 translate-x-[24px]" : "bg-orange-500 translate-x-0"
+                    isActive ? "bg-green-500 translate-x-6" : "bg-orange-500 translate-x-0"
                   }`}
                 />
               </button>
@@ -136,7 +136,7 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subs
         animate={{ opacity: 1, scale: 1 }}
         whileHover={{ y: -8 }}
         transition={{ duration: 0.4 }}
-        className="hidden lg:flex group bg-white rounded-2xl border border-gray-100 border-l-[4px] border-l-green-500 p-6 gap-8 shadow-sm hover:shadow-md transition-all duration-300 relative overflow-hidden w-full"
+        className="hidden lg:flex group bg-white rounded-2xl border border-gray-100 border-l-4 border-l-green-500 p-6 gap-8 shadow-sm hover:shadow-md transition-all duration-300 relative overflow-hidden w-full"
       >
         <div className="pointer-events-none absolute top-0 right-0 w-64 h-64 bg-green-50/30 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-1000"></div>
 
@@ -145,7 +145,7 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subs
             {imageUrl ? (
               <img src={imageUrl} alt="Establecimiento" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
             ) : (
-              <div className="w-full h-full bg-gradient-to-br from-green-600 via-green-500 to-green-400 flex items-center justify-center text-white text-8xl font-black shadow-lg">
+              <div className="w-full h-full bg-linear-to-br from-green-600 via-green-500 to-green-400 flex items-center justify-center text-white text-8xl font-black shadow-lg">
                 {offer.title ? offer.title.charAt(0).toUpperCase() : "E"}
               </div>
             )}
@@ -169,16 +169,16 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subs
                 <button
                   onClick={handleToggleStatus}
                   disabled={isChanging}
-                  className={`relative flex items-center py-2 w-30 px-4 rounded-xl border-2 transition-all duration-500 px-1.5 ${
+                  className={`relative flex items-center py-2 w-30 px-4 rounded-xl border-2 transition-all duration-500 ${
                     isActive ? "bg-green-50 border-green-100" : "bg-orange-50 border-orange-100"
                   }`}
                 >
                   <div
                     className={`w-5 h-5 rounded-full transition-all duration-500 shadow-md ${
-                      isActive ? "bg-green-500 translate-x-[60px]" : "bg-orange-500 translate-x-0"
+                      isActive ? "bg-green-500 translate-x-15" : "bg-orange-500 translate-x-0"
                     }`}
                   />
-                  <span className={`absolute w-full text-center text-sm font-semibold tracking-[0.1em] transition-all duration-500 ${isActive ? "text-green-600 left-[-12px]" : "text-orange-600 left-[12px]"}`}>
+                  <span className={`absolute w-full text-center text-sm font-semibold tracking-widest transition-all duration-500 ${isActive ? "text-green-600 left-[-12px]" : "text-orange-600 left-[12px]"}`}>
                     {isActive ? "Activa" : "Inactiva"}
                   </span>
                 </button>

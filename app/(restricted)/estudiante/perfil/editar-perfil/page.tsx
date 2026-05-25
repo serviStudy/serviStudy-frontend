@@ -13,7 +13,8 @@ const EditProfilePage = () => {
         errors,
         saving,
         loading,
-        inicial
+        inicial,
+        isPremium
     } = useEditStudentProfile()
 
     if (loading) {
@@ -35,6 +36,7 @@ const EditProfilePage = () => {
                     errors={errors}
                     saving={saving}
                     inicial={inicial}
+                    isPremium={isPremium}
                 />
             </div>
         </div>

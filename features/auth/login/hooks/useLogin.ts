@@ -1,6 +1,11 @@
 import { useState } from "react"
 import { loginService } from "../service/login.service"
 import { usePersistentRole } from "@/hooks/usePersistentRole"
+import { decodeJwt, JWTPayload } from "jose"
+
+interface TokenPayload extends JWTPayload {
+  subscriptionStatus?: "ACTIVE" | "INACTIVE";
+}
 
 export const useLogin = () => {
   const { tipoUsuario, setTipoUsuario } = usePersistentRole()
@@ -39,7 +44,16 @@ export const useLogin = () => {
 
       // REDIRECCIÓN AL PERFIL SEGÚN TIPO DE USUARIO
       if (tipoUsuario === "estudiante") {
-        window.location.href = "/estudiante/perfil"
+        try {
+          const decoded = decodeJwt(data.data.token) as TokenPayload;
+          if (decoded.subscriptionStatus === "ACTIVE") {
+            window.location.href = "/estudiante/dashboardStudent";
+          } else {
+            window.location.href = "/estudiante/perfil";
+          }
+        } catch (e) {
+          window.location.href = "/estudiante/perfil";
+        }
       } else {
         window.location.href = "/empleador/perfil"
       }
