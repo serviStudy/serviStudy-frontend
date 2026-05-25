@@ -39,14 +39,14 @@ export const RecentApplicationsCard = ({ loading, applications, variants }: Prop
                     <Link href="/estudiante/ofertasActivas" className="text-blue-600 font-bold text-sm hover:underline mt-2 inline-block">Buscar ofertas</Link>
                 </div>
             ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-between">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 justify-between">
                     {applications.map((app) => {
                         return (
                             <div key={app.jobOffer.id} className="relative bg-white border border-gray-100 rounded-xl px-5 shadow-sm hover:shadow-md transition-all flex flex-col h-full">
                                 {/* Logo & Basic Info */}
 
-                                <div className="absolute flex gap-2 top-0 right-0 bg-blue-50 text-blue-600 px-2 py-1 text-[9px] font-bold rounded-bl-xl border-b border-l border-blue-100 tracking-wider">
-                                    <CalendarDays className="h-3.5 w-3.5" />
+                                <div className="absolute flex gap-1.5 items-center top-0 right-0 bg-linear-to-r from-[#00d15a] to-[#0088ff] text-white px-3 py-1 text-[10px] font-bold rounded-bl-xl border-b border-l border-white/40 shadow-sm tracking-wider">
+                                    <CalendarDays className="h-3 w-3" />
                                     {app.applicationDate}
                                 </div>
 
@@ -61,13 +61,13 @@ export const RecentApplicationsCard = ({ loading, applications, variants }: Prop
                                         />
                                     </div>
                                     <div className="min-w-0 flex-1">
-                                        <h4 className="text-sm font-bold text-blue-900 truncate mb-0.5">
+                                        <h4 className="text-sm font-bold text-blue-900 capitalize truncate mb-0.5">
                                             {app.jobOffer.title}
                                         </h4>
                                         <div className="flex flex-col gap-0.5">
                                             <div className="flex items-center gap-1 text-blue-600">
                                                 <Briefcase className="h-3 w-3" />
-                                                <span className="text-[11px] font-semibold truncate">{app.jobOffer.businessName}</span>
+                                                <span className="text-[11px] font-semibold capitalize truncate">{app.jobOffer.businessName}</span>
                                             </div>
                                         </div>
 
@@ -78,7 +78,7 @@ export const RecentApplicationsCard = ({ loading, applications, variants }: Prop
                                 <div className="flex flex-wrap items-center justify-between gap-3 pt-3 pb-4 border-t border-gray-50">
                                     <div className="flex items-center gap-1.5 text-gray-600">
                                         <MapPin className="h-3.5 w-3.5 text-green-500" />
-                                        <span className="text-xs font-medium">{app.jobOffer.address}</span>
+                                        <span className="text-xs capitalize font-medium">{app.jobOffer.address}</span>
                                     </div>
                                     <div className="flex items-center gap-1.5 text-blue-900 bg-blue-50/50 px-2 py-0.5 rounded-lg">
                                         <CircleDollarSign className="h-3.5 w-3.5 text-blue-500" />

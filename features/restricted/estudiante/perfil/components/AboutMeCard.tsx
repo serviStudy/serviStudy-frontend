@@ -7,13 +7,14 @@ import Link from 'next/link'
 interface AboutMeCardProps {
     variants: any;
     description: string | null;
+    isPremium?: boolean;
 }
 
-export const AboutMeCard = ({ variants, description }: AboutMeCardProps) => {
+export const AboutMeCard = ({ variants, description, isPremium }: AboutMeCardProps) => {
     return (
         <motion.div variants={variants} className="bg-white rounded-xl p-8 shadow-sm border border-gray-200">
             <div className="flex items-center gap-3 mb-6">
-                <div className="bg-blue-600 p-2 rounded-lg text-white">
+                <div className={`${isPremium ? 'bg-linear-to-r from-[#00d15a] via-[#0088ff] to-[#004ee0]' : 'bg-blue-600'} p-2 rounded-lg text-white`}>
                     <FileText className="h-5 w-5" />
                 </div>
                 <h3 className="text-xl font-bold text-blue-900">Resumen profesional</h3>

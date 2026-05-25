@@ -47,7 +47,7 @@ export const Postulacion = ({ data, onDelete }: Props) => {
             {/* Center: Info Section */}
             <div className="flex-1 flex flex-col min-w-0">
                 <div className="flex flex-col gap-1 mb-3">
-                    <h3 className="text-lg md:text-xl font-bold text-gray-900 truncate group-hover:text-blue-800 transition-colors duration-300 pr-32">
+                    <h3 className="text-lg md:text-xl capitalize font-bold text-gray-900 truncate group-hover:text-blue-800 transition-colors duration-300 pr-32">
                         {data.jobOffer.title}
                     </h3>
                     <div className="flex items-center gap-2 text-gray-600">
@@ -62,7 +62,7 @@ export const Postulacion = ({ data, onDelete }: Props) => {
                         <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center shrink-0 border border-blue-100">
                             <MapPin size={14} className="text-blue-600" />
                         </div>
-                        <span className="text-sm text-gray-700 font-medium truncate max-w-[200px]" title={data.jobOffer.establishmentAddress}>
+                        <span className="text-sm text-gray-700 font-medium truncate max-w-50 capitalize" title={data.jobOffer.establishmentAddress}>
                             {data.jobOffer.establishmentAddress}
                         </span>
                     </div>
@@ -90,7 +90,7 @@ export const Postulacion = ({ data, onDelete }: Props) => {
                 {/* Description in Gray Box */}
                 {description && (
                     <div className="bg-gray-50 p-4 rounded-xl border border-gray-100 mb-2">
-                        <p className="text-sm text-gray-600 italic leading-relaxed line-clamp-2">
+                        <p className="text-sm text-gray-600 italic capitalize leading-relaxed line-clamp-2">
                             "{description}"
                         </p>
                     </div>

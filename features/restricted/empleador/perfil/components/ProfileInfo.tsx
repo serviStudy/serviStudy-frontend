@@ -64,7 +64,7 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
           
           {/* Action Buttons in Banner */}
           <div className="absolute top-5 right-5 sm:top-8 sm:right-10 flex gap-4">
-             <Link
+            <Link
               href="/empleador/perfil/editar"
               className={`px-4 py-2.5 sm:px-6 sm:py-3 rounded-lg font-bold text-[10px] sm:text-xs flex items-center gap-2 shadow-sm transition-all active:scale-95 ${
                 isPremium

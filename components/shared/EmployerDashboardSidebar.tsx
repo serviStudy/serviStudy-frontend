@@ -1,5 +1,7 @@
 "use client";
 import React, { useState } from 'react';
+import { Toaster } from "@/components/ui/sonner";
+
 import Link from 'next/link';
 import { 
   LayoutDashboard, 
@@ -51,12 +53,12 @@ export const EmployerDashboardSidebar = () => {
 
           <div className="relative w-8 h-8 transition-transform group-hover:scale-110 duration-500">
             <img
-              src="/logo.jpg"
+              src="/logoServer.png"
               alt="ServiStudy Logo"
               className="w-full h-full object-contain mix-blend-multiply"
             />
           </div>
-          <span className="text-lg font-bold tracking-tighter">
+          <span className="text-2xl font-bold tracking-tighter">
             <span className="text-blue-900">Servi</span>
             <span className="text-blue-600">Study</span>
           </span>
@@ -92,14 +94,14 @@ export const EmployerDashboardSidebar = () => {
           <Link href="/" className="flex items-center gap-2 group" onClick={closeMobile}>
             <div className="relative w-10 h-10 transition-transform group-hover:scale-110 duration-500">
               <img
-                src="/logo.jpg"
+                src="/logoServer.png"
                 alt="ServiStudy Logo"
                 className="w-full h-full object-contain mix-blend-multiply"
               />
             </div>
             <span className="text-2xl font-bold tracking-tighter">
               <span className="text-blue-900">Servi</span>
-              <span className="text-blue-600">Study</span>
+              <span className="text-green-600">Study</span>
             </span>
           </Link>
         </div>
@@ -137,6 +139,18 @@ export const EmployerDashboardSidebar = () => {
             <span className="font-bold text-[14px]">Cerrar Sesión</span>
           </button>
         </div>
+
+        <footer>
+          <div className="w-full bg-white text-gray-400 p-5 text-center flex-col md:p-2.5">
+            <p className="text-[12px]">
+              &copy; {new Date().getFullYear()} ServiStudy. Todos los derechos reservados.
+            </p>
+            <p className="text-[10px]">
+              Conectando talento estudiantil con oportunidades.
+            </p>
+          </div>
+          <Toaster></Toaster>
+        </footer>
       </aside>
     </>
   );
