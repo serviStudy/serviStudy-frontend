@@ -13,7 +13,8 @@ const EditProfilePage = () => {
         errors,
         saving,
         loading,
-        inicial
+        inicial,
+        isPremium
     } = useEditStudentProfile()
 
     if (loading) {
@@ -25,8 +26,8 @@ const EditProfilePage = () => {
     }
 
     return (
-        <div className="flex flex-col min-h-screen items-center w-full">
-            <div className="w-full max-w-6xl pb-12 px-0 md:px-6">
+        <div className="flex flex-col min-h-screen w-full">
+            <div className="w-full pb-12">
                 <EditProfileForm
                     formData={formData}
                     setters={setters}
@@ -35,6 +36,7 @@ const EditProfilePage = () => {
                     errors={errors}
                     saving={saving}
                     inicial={inicial}
+                    isPremium={isPremium}
                 />
             </div>
         </div>

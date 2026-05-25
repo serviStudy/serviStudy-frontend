@@ -8,6 +8,7 @@ import Link from "next/link";
 import { ArrowLeft, Sparkles } from "lucide-react";
 import { LoadingScreen } from "@/components/shared/LoadingScreen";
 import { Button } from "@/components/ui/button";
+import { ModalRecomendation } from "@/features/restricted/empleador/applicantsEmployer/components/ModalRecomendation";
 
 interface PageProps {
     params: Promise<{ id: string }>;
@@ -46,19 +47,22 @@ export default function Page({ params }: PageProps) {
     }
 
     return (
-        <div className="min-h-screen max-w-6xl mx-auto py-8 px-4 md:px-0">
-            {/* Botón de volver */}
-            <Link 
-                href="/empleador/ofertas"
-                className="inline-flex items-center gap-2 text-green-600 font-bold text-sm mb-6 hover:bg-green-50 px-4 py-2 rounded-xl transition-all"
-            >
-                <ArrowLeft size={18} />
-                Volver a mis ofertas
-            </Link>
+        <div className="min-h-screen max-w-6xl mx-auto py-4 px-4 md:px-0 relative z-10">
+            <div className="w-full py-4 mb-6 top-0 fixed z-20 bg-white/10 backdrop-blur-md">
+                <div className="max-w-6xl flex justify-between items-center">
+                    <Link 
+                        href="/empleador/ofertas"
+                        className="inline-flex items-center gap-2 text-green-600 font-bold text-sm hover:bg-green-50 px-4 py-2 rounded-xl transition-all"
+                    >
+                        <ArrowLeft size={18} />
+                        <span className="hidden sm:inline">Volver a mis ofertas</span>
+                        <span className="sm:hidden">Volver</span>
+                    </Link>
+                </div>
+            </div>
 
             {/* Sección superior: Previsualización de la oferta */}
-            <div className="mb-8">
-                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">Detalle de la Oferta</h1>
+            <div className="my-8 pt-20">
                 <div className="pointer-events-none">
                     <OfferCard offer={offer} showActions={false} />
                 </div>
@@ -66,12 +70,7 @@ export default function Page({ params }: PageProps) {
 
             <hr className="border-gray-200 h-1"/>
             
-            <Link href={`/empleador/compatibility/${offer.jobOfferId}`}>
-                <Button className="mt-5 flex gap-2 py-0.5 px-2 cursor-pointer text-white text-[15px] bg-linear-to-r from-green-500 to-blue-500">
-                    <Sparkles/>
-                    Realizar compatibilidad
-                </Button>
-            </Link>
+            <ModalRecomendation></ModalRecomendation>
 
             {/* Sección inferior: Lista de Postulantes */}
             <div className="mt-8">

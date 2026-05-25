@@ -1,6 +1,11 @@
 import { useState } from "react"
 import { loginService } from "../service/login.service"
 import { usePersistentRole } from "@/hooks/usePersistentRole"
+import { decodeJwt, JWTPayload } from "jose"
+
+interface TokenPayload extends JWTPayload {
+  subscriptionStatus?: "ACTIVE" | "INACTIVE";
+}
 
 export const useLogin = () => {
   const { tipoUsuario, setTipoUsuario } = usePersistentRole()

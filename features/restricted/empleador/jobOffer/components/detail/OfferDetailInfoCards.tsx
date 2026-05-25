@@ -54,16 +54,16 @@ export const OfferDetailInfoCards = ({ offer }: Props) => {
       {cards.map((card) => (
         <div
           key={card.label}
-          className={`${card.bg} ${card.border} border rounded-[32px] p-8 flex flex-col gap-4 shadow-sm hover:-translate-y-1 transition-transform duration-300`}
+          className={`${card.bg} ${card.border} border rounded-2xl p-8 flex flex-col gap-4 shadow-sm hover:-translate-y-1 transition-transform duration-300`}
         >
-          <div className={`w-14 h-14 ${card.iconBg} rounded-[20px] flex items-center justify-center text-white shadow-lg`}>
+          <div className={`w-14 h-14 ${card.iconBg} rounded-xl flex items-center justify-center text-white shadow-lg`}>
             <card.icon size={26} strokeWidth={2.5} />
           </div>
           <div>
-            <p className={`text-[11px] font-black uppercase tracking-widest ${card.text} mb-2`}>
+            <p className={`text-[11px] font-bold uppercase tracking-widest ${card.text} mb-2`}>
               {card.label}
             </p>
-            <p className="text-gray-900 font-black text-2xl tracking-tighter leading-none">
+            <p className="text-gray-900 font-bold text-2xl tracking-tighter leading-none">
               {card.value}
             </p>
           </div>

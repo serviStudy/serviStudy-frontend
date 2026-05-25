@@ -6,9 +6,10 @@ import { OffersListSkeleton } from "./ProfileSkeletons";
 interface ProfileOffersListProps {
   imageUrl?: string;
   businessName?: string;
+  isPremium?: boolean;
 }
 
-export const ProfileOffersList = ({ imageUrl, businessName }: ProfileOffersListProps) => {
+export const ProfileOffersList = ({ imageUrl, businessName, isPremium = false }: ProfileOffersListProps) => {
   const { offers, loading, refresh } = useJobOffers();
 
   if (loading) return <OffersListSkeleton />;
@@ -20,7 +21,7 @@ export const ProfileOffersList = ({ imageUrl, businessName }: ProfileOffersListP
   }
 
   return (
-    <div className="flex flex-col gap-6 lg:gap-8 pb-10">
+    <div className="flex flex-col gap-6 lg:gap-4 pb-10">
       {activeOffers.map(offer => {
         const offerId = offer.jobOfferId || offer.id || (offer as any).idJobOffer;
         return (
@@ -30,6 +31,7 @@ export const ProfileOffersList = ({ imageUrl, businessName }: ProfileOffersListP
             imageUrl={imageUrl} 
             businessName={businessName}
             onStatusChange={refresh}
+            isPremium={isPremium}
           />
         );
       })}

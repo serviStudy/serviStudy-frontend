@@ -1,21 +1,37 @@
 import { routes } from '@/type/routes'
-import { ArrowRight, Briefcase } from 'lucide-react'
+import { ArrowRight, Briefcase, Plus } from 'lucide-react'
 import Link from 'next/link'
 
 export const BarraSuperior = () => {
     return (
-        <div className='bg-linear-to-r from-chart-1 to-blue-600 text-center p-9 flex flex-col w-[60vw] md:w-full gap-6 md:gap-9 items-center justify-between w-full rounded-3xl shadow-sm border border-gray-100'>
-            <div className='flex flex-col gap-2 md:gap-1'>
-                <h2 className='text-xl font-bold text-white'>Mis <span className='text-blue-300'>Postulaciones</span></h2>
-                <p className='text-sm text-white/80 font-bold'>Revisa y gestiona las ofertas a las que te has postulado</p>
+        <div className="bg-gradient-to-br from-blue-900 via-blue-700 to-blue-600 rounded-xl py-10 px-8 mb-8 overflow-hidden relative shadow-sm">
+            {/* Decorative background elements */}
+            <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-black/10 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2"></div>
+
+            {/* Content */}
+            <div className="relative z-10 flex flex-col items-center text-center">
+                <h2 className="text-2xl md:text-3xl font-bold text-white mb-3 tracking-tight">
+                    Mis <span className="text-blue-300">Postulaciones</span>
+                </h2>
+                <p className="text-white/80 font-medium text-sm md:text-base max-w-xl mb-8 leading-relaxed">
+                    Gestiona tus procesos de selección y realiza el seguimiento de tus candidaturas de manera eficiente.
+                </p>
+
+                {/* Action Buttons */}
+                <div className="flex flex-col md:flex-row items-center gap-6 w-full justify-center">
+                    <Link
+                        href={routes.estudiante.ofertas}
+                        className="flex items-center gap-2 bg-white/40 backdrop-blur-xl border border-white/20 text-white px-8 py-3.5 rounded-xl text-sm font-bold transition-all hover:bg-white/20 active:scale-95 group"
+                    >
+                        <div className="bg-blue-600 p-1.5 rounded-lg text-white transition-transform duration-500">
+                            <Briefcase size={18} strokeWidth={3} />
+                        </div>
+                        Explorar más vacantes
+                    </Link>
+                </div>
             </div>
-            <Link
-                href={routes.estudiante.ofertas}
-                className='flex items-center gap-2.5 px-6 py-3 bg-white text-blue-900 items-center justify-center text-sm font-semibold rounded-lg transition-all shadow-md shadow-blue-900/20'
-            >
-                Buscar más ofertas
-                <ArrowRight className='h-4 w-4' />
-            </Link>
         </div>
     )
 }

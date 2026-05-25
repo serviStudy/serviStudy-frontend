@@ -1,15 +1,15 @@
 "use client";
 
-import { use } from "react";
+import { use, useState } from "react";
 import { useJobOffer } from "@/features/restricted/empleador/jobOffer/hooks/useJobOffer";
-import { OfferCard } from "@/features/restricted/empleador/jobOffer/components/OfferCard";
-import { ApplicantsList } from "@/features/restricted/empleador/applicantsEmployer/components/ApplicantsList";
 import Link from "next/link";
 import { ArrowLeft, Sparkles } from "lucide-react";
 import { LoadingScreen } from "@/components/shared/LoadingScreen";
-import { Button } from "@/components/ui/button";
 import { ListApplicant } from "@/features/restricted/empleador/compatibility/components/ListApplicant";
 import { Offer } from "@/features/restricted/empleador/compatibility/components/Offer";
+import { ApplyCompatibility } from "@/features/restricted/empleador/compatibility/components/ApplyCompatibility";
+import { toast } from "sonner";
+import { useEmployerProfile } from "@/features/restricted/empleador/perfil/hooks/useEmployerProfile";
 
 interface PageProps {
     params: Promise<{ id: string }>;
@@ -18,6 +18,24 @@ interface PageProps {
 export default function Page({ params }: PageProps) {
     const { id } = use(params);
     const { offer, loading, error } = useJobOffer(id);
+    const [selectedIds, setSelectedIds] = useState<string[]>([]);
+    const [resultCompatibility, setResultCompatibility] = useState([])
+    
+    const { profile } = useEmployerProfile();
+    const imageUrl = profile?.imageUrl || (profile as any)?.image_url;
+    
+    const handleToggleSelection = (applicantId: string) => {
+        setSelectedIds(prev => {
+            if (prev.includes(applicantId)) {
+                return prev.filter(id => id !== applicantId);
+            }
+            if (prev.length >= 5) {
+                toast.error("Solo puedes seleccionar hasta 5 postulantes.");
+                return prev;
+            }
+            return [...prev, applicantId];
+        });
+    };
 
     if (!id) {
         return (
@@ -47,39 +65,60 @@ export default function Page({ params }: PageProps) {
         );
     }
 
+
     return (
-        <div className="min-h-screen max-w-6xl mx-auto py-4 px-4 md:px-0">
+        <div className="min-h-screen relative">
+            {/* Premium Background Elements */}
+            <div className="fixed inset-0 bg-linear-to-br from-green-50/60 via-white to-blue-50/60 -z-10 pointer-events-none" />
+            <div className="fixed top-[-10%] right-[-5%] w-125 h-125 bg-blue-400/10 blur-[120px] rounded-full -z-10 pointer-events-none" />
+            <div className="fixed bottom-[-10%] left-[-5%] w-125 h-125 bg-green-400/10 blur-[120px] rounded-full -z-10 pointer-events-none" />
 
-            <div className="w-full p-4.5 flex align-middle mb-6 top-0 fixed z-20 justify-between bg-white/30 backdrop-blur-md">
-                <Link 
-                    href="/empleador/ofertas"
-                    className="inline-flex items-center gap-2 text-green-600 font-bold text-sm hover:bg-green-50 px-4 py-2 rounded-xl transition-all"
-                >
-                    <ArrowLeft size={18} />
-                    Volver a mis ofertas
-                </Link>
+            {/* Edge-to-edge sticky top bar */}
+            <div className="sticky top-[64px] lg:top-[72px] z-50 w-auto bg-white/80 backdrop-blur-xl border-b border-gray-200/60 -mx-4 md:-mx-8 lg:-mx-10 -mt-4 md:-mt-8 lg:-mt-10 px-4 md:px-8 lg:px-10 py-3 mb-8 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.1)] transition-all">
+                <div className="max-w-6xl mx-auto flex justify-between items-center">
+                    <Link 
+                        href="/empleador/ofertas"
+                        className="inline-flex items-center gap-2 text-green-700 font-bold text-sm hover:bg-white/50 px-4 py-2 rounded-xl transition-all"
+                    >
+                        <ArrowLeft size={18} />
+                        <span className="hidden sm:inline">Volver a mis ofertas</span>
+                        <span className="sm:hidden">Volver</span>
+                    </Link>
 
-                <Link href={`/empleador/compatibility/${id}/resultCompatibility`}>
-                    <Button className="flex gap-2 py-0.5 px-2 z-20 cursor-pointer -translate-x-88 text-white text-[15px] bg-linear-to-r from-green-500 to-blue-500">
-                        <Sparkles/>
-                        Realizar compatibilidad
-                    </Button>
-                </Link>
-            </div>
-
-            {/* Sección superior: Previsualización de la oferta */}
-            <div className="my-8 pt-6">
-                <div className="pointer-events-none">
-                    <Offer offer={offer} showActions={false} />
+                    <ApplyCompatibility offerId={id} selectedIds={selectedIds} onAnalisysComplete={setResultCompatibility}/>
                 </div>
             </div>
 
-            <hr className="h-[1px] bg-linear-to-r from-green-300 to-blue-300"/>
+            <div className="max-w-6xl mx-auto py-4 px-4 md:px-0 relative z-10">
+                {/* Sección superior: Previsualización de la oferta */}
+                <div className="my-8">
+                    <div className="pointer-events-none capitalize p-[2px] rounded-3xl shadow-xl shadow-blue-900/5">
+                        <div className="bg-white/80 backdrop-blur-md rounded-[22px]">
+                            <Offer offer={offer} showActions={false} imageUrl={imageUrl} />
+                        </div>
+                    </div>
+                </div>
 
-            {/* Sección inferior: Lista de Postulantes */}
-            <div className="mt-8">
-                <ListApplicant offerId={id} />
+                <div className="flex items-center justify-center my-5 md:my-10 relative">
+                    <hr className="absolute w-full h-px border-0 bg-linear-to-r from-transparent via-blue-300 to-transparent opacity-50"/>
+                    <div className="bg-white/80 backdrop-blur-sm px-4 relative z-10 rounded-full border border-blue-100 shadow-sm flex items-center gap-2 text-blue-800 text-xs font-bold py-1.5">
+                        <Sparkles size={12} className="text-blue-500" />
+                        Análisis de Compatibilidad
+                        <Sparkles size={12} className="text-green-500" />
+                    </div>
+                </div>
+
+                {/* Sección inferior: Lista de Postulantes */}
+                <div className="mt-6 mb-20">
+                    <ListApplicant 
+                        offerId={id} 
+                        selectedIds={selectedIds}
+                        onToggleSelection={handleToggleSelection}
+                        resultsIA={resultCompatibility}
+                    />
+                </div>
             </div>
         </div>
     );
 }
+

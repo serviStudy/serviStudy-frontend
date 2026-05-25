@@ -6,41 +6,83 @@ const EXTERNAL_API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.servist
  * Proxy universal para evitar errores de CORS y problemas de Service Worker en despliegue.
  * Reenvía todas las peticiones a la API externa desde el servidor de Next.js.
  */
-async function handleRequest(request: Request, context: { params: Promise<{ path: string[] }> }) {
+async function handleRequest(
+  request: Request,
+  context: { params: Promise<{ path: string[] }> }
+) {
   try {
     const { path: pathSegments } = await context.params;
+
     const path = pathSegments.join('/');
+
     const { searchParams } = new URL(request.url);
+
     const queryString = searchParams.toString();
-    const targetUrl = `${EXTERNAL_API_URL}/${path}${queryString ? `?${queryString}` : ''}`;
+
+    const targetUrl =
+      `${EXTERNAL_API_URL}/${path}${queryString ? `?${queryString}` : ''}`;
 
     const authHeader = request.headers.get('Authorization');
-    
+
+    const xUserId = request.headers.get('X-User-Id');
+
     // Configuración de la petición al backend
-    const fetchOptions: RequestInit = {
+    const fetchOptions: RequestInit & { duplex?: 'half' } = {
       method: request.method,
+
       headers: {
         'Authorization': authHeader || '',
+        ...(xUserId ? { 'X-User-Id': xUserId } : {}),
       },
+
       cache: 'no-store',
     };
 
     // Manejar el cuerpo de la petición si no es GET o HEAD
     if (request.method !== 'GET' && request.method !== 'HEAD') {
+
       const contentType = request.headers.get('Content-Type');
-      
+
       if (contentType?.includes('multipart/form-data')) {
-        // Para multipart (imágenes), clonamos el FormData
-        const formData = await request.formData();
-        fetchOptions.body = formData;
-        // Nota: No establecemos Content-Type manualmente para multipart, 
-        // el navegador lo hará con el boundary correcto.
-      } else {
-        // Para JSON y otros
-        const body = await request.blob();
-        fetchOptions.body = body;
+
+        /**
+         * Multipart/form-data:
+         * reenviar el stream RAW directamente.
+         *
+         * IMPORTANTE:
+         * NO usar request.formData()
+         * porque reconstruye el multipart y puede romper
+         * el boundary que Spring Boot necesita.
+         */
+
+        fetchOptions.body = request.body;
+
+        // Requerido por Node.js/undici al enviar streams
+        fetchOptions.duplex = 'half';
+
+        // Mantener el Content-Type ORIGINAL
+        // con su boundary intacto
         if (contentType) {
-          (fetchOptions.headers as Record<string, string>)['Content-Type'] = contentType;
+          (fetchOptions.headers as Record<string, string>)['Content-Type'] =
+            contentType;
+        }
+
+      } else {
+
+        /**
+         * JSON y otros tipos:
+         * usar blob por compatibilidad.
+         */
+
+        const body = await request.blob().catch(() => null);
+
+        if (body) {
+          fetchOptions.body = body;
+        }
+
+        if (contentType) {
+          (fetchOptions.headers as Record<string, string>)['Content-Type'] =
+            contentType;
         }
       }
     }
@@ -51,26 +93,48 @@ async function handleRequest(request: Request, context: { params: Promise<{ path
 
     console.log(`[Proxy Universal] Respuesta: ${response.status}`);
 
-    // Si la respuesta es 204 (No Content), retornamos una respuesta vacía
+    // Si la respuesta es 204 (No Content)
     if (response.status === 204) {
       return new Response(null, { status: 204 });
     }
 
-    // Para otros tipos de respuesta, intentamos obtener el JSON o el texto
-    const data = await response.json().catch(() => null);
-    
-    if (data) {
-      return NextResponse.json(data, { status: response.status });
-    } else {
-      const text = await response.text().catch(() => '');
-      return new Response(text, { status: response.status, headers: { 'Content-Type': 'text/plain' } });
+    /**
+     * Leer respuesta UNA SOLA VEZ
+     * para evitar "body already consumed"
+     */
+    const responseText = await response.text();
+
+    try {
+
+      const json = JSON.parse(responseText);
+
+      return NextResponse.json(json, {
+        status: response.status,
+      });
+
+    } catch {
+
+      return new Response(responseText, {
+        status: response.status,
+
+        headers: {
+          'Content-Type': 'text/plain',
+        },
+      });
     }
 
   } catch (error: any) {
-    console.error('[Proxy Universal] Error:', error.message);
+
+    console.error('[Proxy Universal] Error:', error);
+
     return NextResponse.json(
-      { message: 'Error en el proxy universal', error: error.message },
-      { status: 500 }
+      {
+        message: 'Error en el proxy universal',
+        error: error?.message || 'Unknown error',
+      },
+      {
+        status: 500,
+      }
     );
   }
 }

@@ -7,6 +7,7 @@ export interface ApplicantStudent {
   imgUrl?: string;
   name: string;
   email: string;
+  studentProfileId: string;
   verificationStatus?: boolean;
   contactNumber?: string;
   description?: string;
@@ -14,8 +15,18 @@ export interface ApplicantStudent {
 }
 
 export interface ApplicantDTO {
+  applicantId: string;
   applicationDate: string;
   student: ApplicantStudent;
+}
+
+// interfaz que se va a utilizar en compatibilidad
+export interface ApplicantIds {
+  applicantId: string
+}
+
+export interface ApplicantsList {
+  applicants: ApplicantIds[]
 }
 
 export interface PaginatedApplicants {
