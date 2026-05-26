@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { loginService } from "../service/login.service"
 import { usePersistentRole } from "@/hooks/usePersistentRole"
 import { decodeJwt, JWTPayload } from "jose"
@@ -13,6 +13,21 @@ export const useLogin = () => {
   const [password, setPassword] = useState("")
   const [errorCorreo, setErrorCorreo] = useState("")
   const [loading, setLoading] = useState(false)
+  const [recordarme, setRecordarme] = useState(false)
+
+  // Cargar credenciales guardadas al montar
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const savedRemember = localStorage.getItem("remember_me") === "true"
+      if (savedRemember) {
+        const savedEmail = localStorage.getItem("remembered_email")
+        const savedRole = localStorage.getItem("remembered_role")
+        if (savedEmail) setCorreo(savedEmail)
+        if (savedRole) setTipoUsuario(savedRole as any)
+        setRecordarme(true)
+      }
+    }
+  }, [setTipoUsuario])
 
   const processLoginData = (data: any) => {
     // GUARDAR TOKEN Y DATOS DE SESIÓN
@@ -24,7 +39,10 @@ export const useLogin = () => {
     }
 
     const token = data.data.token
-    document.cookie = `token=${token}; path=/; SameSite=Lax` //Guarda el token como cookie al hacer login para usarlo en el Sidebar employer/student
+    
+    // Si 'recordarme' es true, establecemos max-age para 30 días, si no, es cookie de sesión
+    const maxAge = recordarme ? "; max-age=2592000" : ""
+    document.cookie = `token=${token}; path=/; SameSite=Lax${maxAge}`
     localStorage.setItem("token", token)
 
     let email = correo
@@ -40,6 +58,17 @@ export const useLogin = () => {
 
     localStorage.setItem("user_email", email)
     localStorage.setItem("user_role", role)
+
+    // Manejar localStorage para pre-llenar en visitas futuras
+    if (recordarme) {
+      localStorage.setItem("remembered_email", email)
+      localStorage.setItem("remembered_role", role)
+      localStorage.setItem("remember_me", "true")
+    } else {
+      localStorage.removeItem("remembered_email")
+      localStorage.removeItem("remembered_role")
+      localStorage.removeItem("remember_me")
+    }
 
     console.log("Sesión guardada (Token + Info Básica)")
 
@@ -106,6 +135,8 @@ export const useLogin = () => {
     loading,
     handleLogin,
     handleGoogleSuccess,
-    handleGoogleError
+    handleGoogleError,
+    recordarme,
+    setRecordarme
   }
 }

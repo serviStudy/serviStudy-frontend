@@ -20,7 +20,9 @@ export const LoginForm = ({
     loading,
     handleLogin,
     handleGoogleSuccess,
-    handleGoogleError
+    handleGoogleError,
+    recordarme,
+    setRecordarme
 }: any) => {
     return (
         <Card className={`w-full max-w-md mx-auto p-5 md:p-6 shadow-2xl transition-all duration-500 ${tipoUsuario === "estudiante" ? "border-primary/10" : "border-green-600/20"
@@ -125,8 +127,13 @@ export const LoginForm = ({
 
                     {/* RECORDAR */}
                     <div className="flex items-center space-x-2.5 ml-1 pt-1">
-                        <Checkbox id="remember" className={`rounded-md h-5 w-5 transition-colors duration-500 ${tipoUsuario === "estudiante" ? "data-[state=checked]:bg-primary" : "data-[state=checked]:bg-green-600"
-                            }`} />
+                        <Checkbox 
+                            id="remember" 
+                            checked={recordarme}
+                            onCheckedChange={(checked) => setRecordarme(!!checked)}
+                            className={`rounded-md h-5 w-5 transition-colors duration-500 ${tipoUsuario === "estudiante" ? "data-[state=checked]:bg-primary" : "data-[state=checked]:bg-green-600"
+                            }`} 
+                        />
                         <label htmlFor="remember" className="text-sm font-semibold text-gray-600 cursor-pointer select-none">
                             Recordarme en este dispositivo
                         </label>
