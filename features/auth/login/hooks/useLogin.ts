@@ -23,15 +23,28 @@ export const useLogin = () => {
       throw new Error("Respuesta del servidor inválida: falta el objeto 'data'")
     }
 
-    document.cookie = `token=${data.data.token}; path=/; SameSite=Lax` //Guarda el token como cookie al hacer login para usarlo en el Sidebar employer/student
-    localStorage.setItem("token", data.data.token)
-    localStorage.setItem("user_email", data.data.email || correo)
-    localStorage.setItem("user_role", data.data.role || tipoUsuario)
+    const token = data.data.token
+    document.cookie = `token=${token}; path=/; SameSite=Lax` //Guarda el token como cookie al hacer login para usarlo en el Sidebar employer/student
+    localStorage.setItem("token", token)
+
+    let email = correo
+    let role = tipoUsuario
+
+    try {
+      const decoded = decodeJwt(token)
+      if (decoded.sub) email = decoded.sub
+      if (decoded.role) role = decoded.role as any
+    } catch (e) {
+      console.error("Error decodificando JWT:", e)
+    }
+
+    localStorage.setItem("user_email", email)
+    localStorage.setItem("user_role", role)
 
     console.log("Sesión guardada (Token + Info Básica)")
 
     // REDIRECCIÓN AL PERFIL SEGÚN TIPO DE USUARIO
-    if (data.data.role === "estudiante" || tipoUsuario === "estudiante") {
+    if (role === "estudiante") {
       window.location.href = "/estudiante/perfil"
     } else {
       window.location.href = "/empleador/perfil"

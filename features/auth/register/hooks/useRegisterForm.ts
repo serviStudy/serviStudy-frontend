@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { usePersistentRole } from "@/hooks/usePersistentRole";
 import { loginWithGoogle } from "@/features/auth/login/service/login.service";
+import { decodeJwt } from "jose";
 export function useRegisterForm() {
     const router = useRouter();
     const { tipoUsuario, setTipoUsuario } = usePersistentRole();
@@ -100,12 +101,25 @@ export function useRegisterForm() {
             throw new Error("Respuesta del servidor inválida: falta el objeto 'data'")
         }
 
-        document.cookie = `token=${data.data.token}; path=/; SameSite=Lax`
-        localStorage.setItem("token", data.data.token)
-        localStorage.setItem("user_email", data.data.email || formData.email)
-        localStorage.setItem("user_role", data.data.role || tipoUsuario)
+        const token = data.data.token;
+        document.cookie = `token=${token}; path=/; SameSite=Lax`
+        localStorage.setItem("token", token)
 
-        if (data.data.role === "estudiante" || tipoUsuario === "estudiante") {
+        let email = formData.email;
+        let role = tipoUsuario;
+
+        try {
+            const decoded = decodeJwt(token);
+            if (decoded.sub) email = decoded.sub;
+            if (decoded.role) role = decoded.role as TipoUsuario;
+        } catch (e) {
+            console.error("Error decodificando JWT:", e);
+        }
+
+        localStorage.setItem("user_email", email)
+        localStorage.setItem("user_role", role)
+
+        if (role === "estudiante") {
             window.location.href = "/estudiante/perfil"
         } else {
             window.location.href = "/empleador/perfil"
