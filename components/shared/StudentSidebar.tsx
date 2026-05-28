@@ -16,7 +16,6 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 
 import NavLink from '../ui/NavLink';
-import { Toaster } from '../ui/sonner';
 
 const allSidebarItems = [
     { name: 'Dashboard', icon: LayoutDashboard, href: '/estudiante/dashboardStudent' },
@@ -76,7 +75,11 @@ export const StudentSidebar = ({ subscriptionStatus }: StudentSidebarProps) => {
 
             {/* Sidebar Container */}
             <aside className={`
-                fixed left-0 top-0 h-screen bg-white border-r border-gray-100 z-58 flex flex-col transition-all duration-300 ease-in-out
+                fixed left-0 top-0 h-screen z-58 flex flex-col transition-all duration-300 ease-in-out
+                ${subscriptionStatus === 'ACTIVE'
+                    ? "bg-white/80 backdrop-blur-xl border-r border-white/60 shadow-[4px_0_30px_rgba(0,0,0,0.02)]"
+                    : "bg-white border-r border-gray-100"
+                }
                 ${isOpen ? 'w-72 translate-x-0' : 'w-72 -translate-x-full lg:translate-x-0 lg:w-72'}
             `}>
                 {/* Logo Area */}
@@ -106,6 +109,7 @@ export const StudentSidebar = ({ subscriptionStatus }: StudentSidebarProps) => {
                                 link={item.href}
                                 exact={item.href === '/estudiante/dashboardStudent'}
                                 theme={subscriptionStatus === 'ACTIVE' ? 'gradient' : 'blue'}
+                                isPremium={subscriptionStatus === 'ACTIVE'}
                             />
                         </div>
                     ))}
@@ -139,7 +143,6 @@ export const StudentSidebar = ({ subscriptionStatus }: StudentSidebarProps) => {
                             Conectando talento estudiantil con oportunidades.
                         </p>
                     </div>
-                    <Toaster></Toaster>
                 </footer>
             </aside>
         </>
