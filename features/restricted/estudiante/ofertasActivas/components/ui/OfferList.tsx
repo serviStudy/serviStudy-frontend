@@ -1,6 +1,7 @@
 import React from 'react'
 import { Offer } from '@/features/restricted/estudiante/postPostularse/types/offer';
 import ResultCrad from '../ResultCrad';
+import { MobileOfferCard } from '../MobileOfferCard';
 
 interface ResultCardProps {
     offers: Offer[];
@@ -21,10 +22,14 @@ export const OfferList = ({ offers }: ResultCardProps) => {
                     </div>
                 </div>
             ) : (
-
                 offers.map((offer) => (
                     <div key={offer.id}>
-                        <ResultCrad offer={offer} />
+                        <div className="md:hidden">
+                            <MobileOfferCard offer={offer} />
+                        </div>
+                        <div className="hidden md:block">
+                            <ResultCrad offer={offer} />
+                        </div>
                     </div>
                 ))
             )}

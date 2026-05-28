@@ -52,18 +52,18 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subs
         className={`lg:hidden group rounded-2xl p-6 relative overflow-hidden mb-4 transition-all duration-300 ${
           subscriptionStatus === "ACTIVE"
             ? "bg-white/70 backdrop-blur-xl border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
-            : "bg-white border border-gray-100 border-l-[4px] border-l-green-500 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
+            : "bg-white border border-gray-100 border-l-4 border-l-green-500 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
         }`}
       >
         {subscriptionStatus === "ACTIVE" && (
-          <div className="pointer-events-none absolute -top-10 -right-10 w-32 h-32 bg-gradient-to-br from-blue-500/5 via-emerald-500/5 to-transparent rounded-full blur-2xl"></div>
+          <div className="pointer-events-none absolute -top-10 -right-10 w-32 h-32 bg-linear-to-br from-blue-500/5 via-emerald-500/5 to-transparent rounded-full blur-2xl"></div>
         )}
         
         <div className="flex items-start justify-between mb-4">
           <div className="flex items-center gap-3 flex-1 min-w-0">
             <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 overflow-hidden transition-all ${
               subscriptionStatus === "ACTIVE"
-                ? "bg-gradient-to-br from-white to-gray-50/50 border border-white/85 shadow-md shadow-black/5"
+                ? "bg-linear-to-br from-white to-gray-50/50 border border-white/85 shadow-md shadow-black/5"
                 : "bg-gray-50 border border-gray-100 shadow-inner"
             }`}>
               {imageUrl ? (
@@ -71,8 +71,8 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subs
               ) : (
                 <div className={`w-full h-full flex items-center justify-center text-white text-xl font-black ${
                   subscriptionStatus === "ACTIVE"
-                    ? "bg-gradient-to-br from-green-500 to-blue-600 shadow-md shadow-blue-500/10"
-                    : "bg-gradient-to-br from-green-500 to-green-600"
+                    ? "bg-linear-to-br from-green-500 to-blue-600 shadow-md shadow-blue-500/10"
+                    : "bg-linear-to-br from-green-500 to-green-600"
                 }`}>
                   {offer.title?.charAt(0).toUpperCase()}
                 </div>
@@ -100,7 +100,7 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subs
                 className={`relative flex items-center h-6 w-14 rounded-full border transition-all duration-500 px-1 shadow-sm ${
                   isActive 
                     ? subscriptionStatus === "ACTIVE"
-                      ? "bg-gradient-to-r from-green-50 to-blue-50 border-blue-100"
+                      ? "bg-linear-to-r from-green-50 to-blue-50 border-blue-100"
                       : "bg-green-50 border-green-100" 
                     : "bg-orange-50 border-orange-100"
                 }`}
@@ -109,7 +109,7 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subs
                   className={`w-3.5 h-3.5 rounded-full transition-all duration-500 shadow-sm ${
                     isActive 
                       ? subscriptionStatus === "ACTIVE"
-                        ? "bg-gradient-to-r from-green-500 to-blue-600 translate-x-6"
+                        ? "bg-linear-to-r from-green-500 to-blue-600 translate-x-6"
                         : "bg-green-500 translate-x-6" 
                       : "bg-orange-500 translate-x-0"
                   }`}
@@ -121,13 +121,13 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subs
 
         <div className={`flex gap-1.5 items-center px-2.5 py-1.5 rounded-lg shadow-sm mb-4 w-fit border ${
           subscriptionStatus === "ACTIVE"
-            ? "bg-gradient-to-r from-blue-50/50 to-green-50/50 border-blue-100/50"
+            ? "bg-linear-to-r from-blue-50/50 to-green-50/50 border-blue-100/50"
             : "bg-green-50 border-green-100"
         }`}>
             <CircleDollarSign className={`${subscriptionStatus === "ACTIVE" ? "text-blue-600" : "text-green-600"} h-3.5 w-3.5`} />
             <p className={`text-xs font-black uppercase tracking-wide ${
               subscriptionStatus === "ACTIVE"
-                ? "text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-green-600"
+                ? "text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-green-600"
                 : "text-green-700"
             }`}>
               ${Number(offer.salary).toLocaleString('es-CO')}
@@ -160,7 +160,7 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subs
                 href={rutaSubscription} 
                 className={`flex-1 h-10 rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-1 active:scale-95 transition-all border shadow-sm ${
                   subscriptionStatus === "ACTIVE"
-                    ? "bg-gradient-to-r from-green-50 to-blue-50 text-blue-600 border-blue-200/50 hover:from-green-100 hover:to-blue-100"
+                    ? "bg-linear-to-r from-green-50 to-blue-50 text-blue-600 border-blue-200/50 hover:from-green-100 hover:to-blue-100"
                     : "bg-white border border-green-600 text-green-600 hover:bg-green-50"
                 }`}
               >
@@ -170,7 +170,7 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subs
                 href={`/empleador/ofertas/${offerId}`} 
                 className={`flex-1 h-10 rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-1 active:scale-95 transition-all ${
                   subscriptionStatus === "ACTIVE"
-                    ? "bg-gradient-to-r from-green-500 to-blue-600 text-white shadow-lg shadow-blue-500/10"
+                    ? "bg-linear-to-r from-green-500 to-blue-600 text-white shadow-lg shadow-blue-500/10"
                     : "bg-green-600 text-white shadow-lg shadow-green-600/20"
                 }`}
               >
@@ -186,6 +186,29 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subs
             </button>
           </div>
         )}
+
+        <div className="pt-4 flex gap-1 justify-end">
+          <button className="p-2.5 rounded-xl bg-red-50 text-red-500 border border-red-100 hover:bg-red-500 hover:text-white transition-all shrink-0">
+            <Trash2 size={18} />
+          </button>
+          {showActions && (
+            <div className="flex items-end gap-2 ml-2">
+              <button
+                onClick={handleToggleStatus}
+                disabled={isChanging}
+                className={`relative flex items-center h-9 w-16 rounded-full border-2 transition-all duration-500 px-3 ${
+                  isActive ? "bg-green-50 border-green-100" : "bg-orange-50 border-orange-100"
+                }`}
+              >
+                <div
+                  className={`w-3.5 h-3.5 rounded-full transition-all duration-500 shadow-sm ${
+                    isActive ? "bg-green-500 translate-x-6" : "bg-orange-500 translate-x-0"
+                  }`}
+                />
+              </button>
+            </div>
+          )}
+        </div>
       </motion.div>
 
       {/* DESKTOP VERSION (hidden lg:flex) */}
@@ -201,7 +224,7 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subs
         }`}
       >
         {subscriptionStatus === "ACTIVE" ? (
-          <div className="pointer-events-none absolute -top-20 -right-20 w-80 h-80 bg-gradient-to-br from-blue-500/5 via-emerald-500/5 to-transparent rounded-full blur-3xl group-hover:scale-125 transition-transform duration-1000"></div>
+          <div className="pointer-events-none absolute -top-20 -right-20 w-80 h-80 bg-linear-to-br from-blue-500/5 via-emerald-500/5 to-transparent rounded-full blur-3xl group-hover:scale-125 transition-transform duration-1000"></div>
         ) : (
           <div className="pointer-events-none absolute top-0 right-0 w-64 h-64 bg-green-50/30 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-1000"></div>
         )}
@@ -209,7 +232,7 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subs
         <div className="relative shrink-0">
           <div className={`w-36 h-36 rounded-2xl overflow-hidden flex items-center justify-center shadow-inner group-hover:rotate-2 transition-all duration-700 border ${
             subscriptionStatus === "ACTIVE"
-              ? "bg-gradient-to-br from-white to-gray-50/50 border-white/80 shadow-lg shadow-black/5"
+              ? "bg-linear-to-br from-white to-gray-50/50 border-white/80 shadow-lg shadow-black/5"
               : "bg-gray-50 border-gray-100"
           }`}>
             {imageUrl ? (
@@ -217,7 +240,7 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subs
             ) : (
               <div className={`w-full h-full flex items-center justify-center text-white text-8xl font-black shadow-lg ${
                 subscriptionStatus === "ACTIVE"
-                  ? "bg-gradient-to-br from-green-500 to-blue-600"
+                  ? "bg-linear-to-br from-green-500 to-blue-600"
                   : "bg-linear-to-br from-green-600 via-green-500 to-green-400"
               }`}>
                 {offer.title ? offer.title.charAt(0).toUpperCase() : "E"}
@@ -231,20 +254,20 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subs
             <div className="flex-1 min-w-0">
               <h3 className={`text-xl font-bold capitalize text-gray-900 tracking-tight mb-3 truncate transition-colors duration-300 ${
                 subscriptionStatus === "ACTIVE"
-                  ? "group-hover:bg-gradient-to-r group-hover:from-green-600 group-hover:to-blue-600 group-hover:bg-clip-text group-hover:text-transparent"
+                  ? "group-hover:bg-linear-to-r group-hover:from-green-600 group-hover:to-blue-600 group-hover:bg-clip-text group-hover:text-transparent"
                   : "group-hover:text-green-600"
               }`}>
                 {offer.title}
               </h3>
               <div className={`flex gap-1.5 items-center px-3 py-1.5 rounded-xl shadow-sm w-fit mt-1 border ${
                 subscriptionStatus === "ACTIVE"
-                  ? "bg-gradient-to-r from-blue-50/50 to-green-50/50 border-blue-100/50"
+                  ? "bg-linear-to-r from-blue-50/50 to-green-50/50 border-blue-100/50"
                   : "bg-green-50 border-green-100"
               }`}>
                   <CircleDollarSign className={`${subscriptionStatus === "ACTIVE" ? "text-blue-600" : "text-green-600"} h-4 w-4`} />
                   <p className={`text-xs font-black uppercase tracking-wider ${
                     subscriptionStatus === "ACTIVE"
-                      ? "text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-green-600"
+                      ? "text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-green-600"
                       : "text-green-700"
                   }`}>
                     ${Number(offer.salary).toLocaleString('es-CO')}
@@ -260,7 +283,7 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subs
                   className={`relative flex items-center py-2 w-30 px-4 rounded-xl border transition-all duration-500 shadow-sm ${
                     isActive 
                       ? subscriptionStatus === "ACTIVE"
-                        ? "bg-gradient-to-r from-green-50 to-blue-50 border-blue-100"
+                        ? "bg-linear-to-r from-green-50 to-blue-50 border-blue-100"
                         : "bg-green-50 border-green-100"
                       : "bg-orange-50 border-orange-100"
                   }`}
@@ -269,7 +292,7 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subs
                     className={`w-5 h-5 rounded-full transition-all duration-500 shadow-md ${
                       isActive 
                         ? subscriptionStatus === "ACTIVE"
-                          ? "bg-gradient-to-r from-green-500 to-blue-600 translate-x-15"
+                          ? "bg-linear-to-r from-green-500 to-blue-600 translate-x-15"
                           : "bg-green-500 translate-x-15"
                         : "bg-orange-500 translate-x-0"
                     }`}
@@ -277,9 +300,9 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subs
                   <span className={`absolute w-full text-center text-xs font-black tracking-widest transition-all duration-500 ${
                     isActive 
                       ? subscriptionStatus === "ACTIVE"
-                        ? "text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-blue-600 left-[-12px]"
-                        : "text-green-600 left-[-12px]" 
-                      : "text-orange-600 left-[12px]"
+                        ? "text-transparent bg-clip-text bg-linear-to-r from-green-600 to-blue-600 -left-3"
+                        : "text-green-600 -left-3" 
+                      : "text-orange-600 left-3"
                   }`}>
                     {isActive ? "Activa" : "Inactiva"}
                   </span>
@@ -300,23 +323,23 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subs
           </div>
 
           <div className="flex flex-wrap gap-2 my-6">
-             {[
-               { 
-                 label: (offer.work_schedule || offer.workSchedule) === "FULL_TIME" ? "Jornada Completa" : (offer.work_schedule || offer.workSchedule) === "PART_TIME" ? "Media Jornada" : "Flexible", 
-                 color: subscriptionStatus === "ACTIVE" ? "text-orange-700 bg-orange-50/50 border-orange-100/60" : "text-orange-700 bg-orange-50 border-orange-100", 
-                 dot: "bg-orange-500" 
-               },
-               { 
-                 label: (offer.work_days || offer.workDays)?.length > 2 ? "Entre semana" : "Fines de semana", 
-                 color: subscriptionStatus === "ACTIVE" ? "text-blue-700 bg-blue-50/50 border-blue-100/60" : "text-green-700 bg-green-50 border-green-100", 
-                 dot: subscriptionStatus === "ACTIVE" ? "bg-blue-500" : "bg-green-500" 
-               }
-             ].map((tag, i) => (
-               <div key={i} className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium border shadow-sm ${tag.color}`}>
-                  <div className={`h-1.5 w-1.5 rounded-full ${tag.dot}`}></div>
-                  {tag.label}
-               </div>
-             ))}
+              {[
+                { 
+                  label: (offer.work_schedule || offer.workSchedule) === "FULL_TIME" ? "Jornada Completa" : (offer.work_schedule || offer.workSchedule) === "PART_TIME" ? "Media Jornada" : "Flexible", 
+                  color: subscriptionStatus === "ACTIVE" ? "text-orange-700 bg-orange-50/50 border-orange-100/60" : "text-orange-700 bg-orange-50 border-orange-100", 
+                  dot: "bg-orange-500" 
+                },
+                { 
+                  label: (offer.work_days || offer.workDays)?.length > 2 ? "Entre semana" : "Fines de semana", 
+                  color: subscriptionStatus === "ACTIVE" ? "text-blue-700 bg-blue-50/50 border-blue-100/60" : "text-green-700 bg-green-50 border-green-100", 
+                  dot: subscriptionStatus === "ACTIVE" ? "bg-blue-500" : "bg-green-500" 
+                }
+              ].map((tag, i) => (
+                <div key={i} className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium border shadow-sm ${tag.color}`}>
+                    <div className={`h-1.5 w-1.5 rounded-full ${tag.dot}`}></div>
+                    {tag.label}
+                </div>
+              ))}
           </div>
 
           <div className="mt-auto pt-8 flex justify-between items-center border-t border-gray-50">
@@ -329,18 +352,20 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subs
                     href={rutaSubscription} 
                     className={`group/applicants flex items-center justify-center gap-3 px-8 py-3 rounded-xl text-xs font-black transition-all border active:scale-95 uppercase tracking-wider shadow-sm hover:shadow-md hover:-translate-y-0.5 ${
                       subscriptionStatus === "ACTIVE"
-                        ? "bg-gradient-to-r from-green-50 to-blue-50 text-blue-600 border-blue-200/50 hover:from-green-100 hover:to-blue-100"
+                        ? "bg-linear-to-r from-green-50 to-blue-50 text-blue-600 border-blue-200/50 hover:from-green-100 hover:to-blue-100"
                         : "bg-white border border-green-600 text-green-600 hover:bg-green-50"
                     }`}
                   >
-                    Ver Postulantes
-                    <Users size={16} className="group-hover/applicants:scale-110 transition-transform" />
+                    <Button className="flex-1 w-full bg-white border-2 border-green-600 text-green-600 h-10 rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-1 active:scale-95 transition-all">
+                      Postulantes 
+                      <Users size={12} />
+                    </Button>
                   </Link>
                   <Link 
                     href={`/empleador/ofertas/${offerId}`} 
                     className={`text-white px-8 py-3 rounded-xl text-xs font-black transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5 text-center uppercase tracking-wider flex items-center justify-center gap-2 active:scale-95 group/btn ${
                       subscriptionStatus === "ACTIVE"
-                        ? "bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-400 hover:to-blue-500 shadow-green-500/20"
+                        ? "bg-linear-to-r from-green-500 to-blue-600 hover:from-green-400 hover:to-blue-500 shadow-green-500/20"
                         : "bg-green-600 hover:bg-green-700 shadow-green-600/20"
                     }`}
                   >
