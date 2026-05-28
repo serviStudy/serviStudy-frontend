@@ -39,27 +39,35 @@ export const RecentApplicationsCard = ({ loading, applications, variants }: Prop
                     <Link href="/estudiante/ofertasActivas" className="text-blue-600 font-bold text-sm hover:underline mt-2 inline-block">Buscar ofertas</Link>
                 </div>
             ) : (
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 justify-between">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 justify-between">
                     {applications.map((app) => {
                         return (
                             <div key={app.jobOffer.id} className="relative bg-white border border-gray-100 rounded-xl px-5 shadow-sm hover:shadow-md transition-all flex flex-col h-full">
                                 {/* Logo & Basic Info */}
 
-                                <div className="absolute flex gap-1.5 items-center top-0 right-0 bg-linear-to-r from-[#00d15a] to-[#0088ff] text-white px-3 py-1 text-[10px] font-bold rounded-bl-xl border-b border-l border-white/40 shadow-sm tracking-wider">
+                                <div className="absolute flex gap-1.5 items-center top-0 right-0 bg-linear-to-r from-[#00d15a] to-[#0088ff] text-white px-3 py-1 text-[10px] font-bold rounded-bl-xl rounded-tr-xl border-b border-l border-white/40 shadow-sm tracking-wider">
                                     <CalendarDays className="h-3 w-3" />
                                     {app.applicationDate}
                                 </div>
 
                                 <div className="flex items-start gap-3 mb-4 pt-8">
-                                    <div className="w-12 h-12 rounded-lg bg-gray-50 flex items-center justify-center overflow-hidden shrink-0 border border-gray-100">
-                                        <Image
-                                            width={48}
-                                            height={48}
-                                            src={app.jobOffer.imageUrl || '/placeholder-job.png'}
-                                            alt={app.jobOffer.title}
-                                            className="object-contain w-full h-full p-1"
-                                        />
-                                    </div>
+                                    {app.jobOffer.imageUrl ? (
+                                        <div className="w-12 h-12 rounded-lg bg-gray-50 flex items-center justify-center overflow-hidden shrink-0 border border-gray-100">
+                                            <Image
+                                                width={48}
+                                                height={48}
+                                                src={app.jobOffer.imageUrl || '/placeholder-job.png'}
+                                                alt={app.jobOffer.title}
+                                                className="object-contain w-full h-full p-1"
+                                            />
+                                        </div>
+                                    ) : (
+                                        <div className="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center font-bold text-emerald-600 text-xl uppercase">
+                                            {app.jobOffer?.title?.charAt(0) || "P"}
+                                        </div>
+                                    )
+                                    }
+                                    
                                     <div className="min-w-0 flex-1">
                                         <h4 className="text-sm font-bold text-blue-900 capitalize truncate mb-0.5">
                                             {app.jobOffer.title}

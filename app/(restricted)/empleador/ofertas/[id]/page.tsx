@@ -1,10 +1,31 @@
 import { OfferDetailView } from "@/features/restricted/empleador/jobOffer/components/detail/OfferDetailView";
+import { decodeJwt, JWTPayload } from "jose";
+import { cookies } from "next/headers";
+
+interface TokenPayload extends JWTPayload {
+  subscriptionStatus?: "ACTIVE" | "INACTIVE";
+}
 
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
+  
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token")?.value;
+
+  let subscriptionStatus: "ACTIVE" | "INACTIVE" = "INACTIVE";
+
+  if (token) {
+    try {
+      const decoded = decodeJwt(token) as TokenPayload;
+      subscriptionStatus = decoded.subscriptionStatus || "INACTIVE";
+    } catch (e) {
+      console.error("Error decodificando token");
+    }
+  }
+
   return (
     <div className="min-h-screen">
-      <OfferDetailView id={id} />
+      <OfferDetailView id={id} subscriptionStatus={subscriptionStatus} />
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { ActiveOffer } from "@/features/restricted/estudiante/ofertasActivas/types/ofertasActivas.types";
-import { DollarSign, Clock, Calendar } from "lucide-react";
+import { DollarSign, Clock, Calendar, FileText } from "lucide-react";
 
 interface Props {
     offer: ActiveOffer;
@@ -20,44 +20,59 @@ export const OfferDetailInfoPostulation = ({ offer }: Props) => {
     };
 
     return (
-        <div className="flex flex-wrap md:flex-nowrap gap-4 mt-6 mb-6">
+        <div className="flex flex-col mt-6">
 
             {/* Salario */}
-            <div className="bg-green-50 rounded-xl p-5 flex-1 min-w-[140px] border border-green-100">
+            <div className="bg-blue-50 rounded-t-xl p-5 flex flex-col min-w-35 border border-blue-100">
                 <div className="flex items-center gap-2 mb-3">
                     <div className="bg-green-500 p-2 rounded-xl">
                         <DollarSign size={18} className="text-white" strokeWidth={2.5} />
                     </div>
+                        <p className="font-semibold text-lg capitalize tracking-wider mb-1 text-green-600">Salario</p>
                 </div>
-                <p className="text-xs font-medium text-green-600 uppercase tracking-widest mb-1">Salario</p>
-                <p className="text-gray-900 font-semibold text-lg leading-tight">
+                <p className="text-gray-600 leading-tight text-[17px] font-medium">
                     ${offer.salary?.toLocaleString("es-CO")}
                 </p>
             </div>
 
             {/* Jornada */}
-            <div className="bg-orange-50 rounded-xl p-5 flex-1 min-w-[140px] border border-orange-100">
+            <div className="bg-blue-50 p-5 flex flex-col min-w-35 border border-blue-100">
                 <div className="flex items-center gap-2 mb-3">
                     <div className="bg-orange-500 p-2 rounded-xl">
                         <Clock size={18} className="text-white" strokeWidth={2.5} />
                     </div>
+                    <div>
+                        <p className="font-semibold text-lg capitalize tracking-wider mb-1 text-orange-600">Tipo de Jornada</p>
+                    </div>
                 </div>
-                <p className="text-xs font-medium text-orange-500 uppercase tracking-widest mb-1">Tipo de Jornada</p>
-                <p className="text-gray-900 font-semibold text-lg leading-tight">
+                <p className="text-gray-600 font-semibold text-[17px] leading-tight">
                     {scheduleMap[offer.workSchedule] ?? offer.workSchedule}
                 </p>
             </div>
 
             {/* Días laborales */}
-            <div className="bg-gray-50 rounded-xl p-5 flex-1 min-w-[140px] border border-gray-200">
+            <div className="bg-blue-50 p-5 flex flex-col min-w-35 border border-blue-100">
                 <div className="flex items-center gap-2 mb-3">
-                    <div className="bg-[#1a3683] p-2 rounded-xl">
+                    <div className="bg-blue-700 p-2 rounded-xl">
                         <Calendar size={18} className="text-white" strokeWidth={2} />
                     </div>
+                    <p className="font-semibold text-lg capitalize tracking-wider mb-1 text-blue-600">Días Laborales</p>
                 </div>
-                <p className="text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">Días Laborales</p>
-                <p className="text-gray-900 font-semibold text-lg leading-tight">
+                <p className="text-gray-600 font-semibold text-[17px] leading-tight">
                     {formatDays(offer.workDays)}
+                </p>
+            </div>
+
+            {/* Días laborales */}
+            <div className="bg-blue-50 p-5 flex flex-col min-w-35 border rounded-b-xl  border-blue-100">
+                <div className="flex items-center gap-2 mb-3">
+                    <div className="bg-gray-700 p-2 rounded-xl">
+                        <FileText size={18} className="text-white" strokeWidth={2} />
+                    </div>
+                    <p className="font-semibold text-lg capitalize tracking-wider mb-1 text-gray-600">Detalles de contratación</p>
+                </div>
+                <p className="text-gray-600 font-semibold text-[17px] leading-tight">
+                    {offer.salaryDescription}
                 </p>
             </div>
 

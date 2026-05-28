@@ -34,9 +34,17 @@ export const useOfferFilter = (offers: Offer[]) => {
 
             const matchesJornada =
                 selectedJornada.length === 0 ||
-                selectedJornada.includes(
-                    convertedJornada
-                );
+                selectedJornada.some((jornada) => {
+                    if (jornada === "Remoto") {
+                        return /remoto/i.test(
+                            `${offer.address} ${offer.description ?? ""}`
+                        );
+                    }
+                    if (jornada === "Por horas") {
+                        return convertedJornada === "Medio tiempo";
+                    }
+                    return jornada === convertedJornada;
+                });
 
             return (
                 matchesSearch &&

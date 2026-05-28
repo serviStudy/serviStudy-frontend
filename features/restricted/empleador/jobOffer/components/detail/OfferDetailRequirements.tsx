@@ -9,21 +9,20 @@ export const OfferDetailRequirements = ({ requirements }: Props) => {
   if (!requirements || requirements.length === 0) return null;
 
   return (
-    <div>
-      <div className="flex items-center gap-4 mb-8">
-        <div className="w-12 h-12 rounded-xl bg-gray-900 flex items-center justify-center text-white shadow-lg">
-          <CheckCircle2 size={22} />
+    <div className="my-7">
+      <div className="flex items-center gap-3 mb-3">
+        <div className="bg-gray-900 p-2 rounded-xl">
+          <CheckCircle2 size={20} className="text-white" />
         </div>
-        <h2 className="text-2xl font-bold text-gray-900 tracking-tight">Habilidades y Requisitos</h2>
+        <h2 className="text-green-900 font-semibold text-lg">Habilidades y Requisitos</h2>
       </div>
-
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap gap-2.5">
         {requirements.map((req, index) => (
           <span
             key={req.id_requirement || req.idRequirement || index}
-            className="flex items-center gap-2 bg-white border border-gray-100 text-gray-700 px-6 py-3 rounded-2xl text-sm font-bold uppercase tracking-wider shadow-sm hover:border-green-200 hover:text-green-700 hover:bg-green-50 transition-all cursor-default"
+            className="flex items-center gap-2 bg-[#e6f4ea] text-[#1e7e34] text-sm font-semibold px-4 py-2 rounded-2xl capitalize"
           >
-            <div className="w-1.5 h-1.5 rounded-full bg-green-500"></div>
+            <span className="w-3 h-3 rounded-full bg-[#1e7e34] shrink-0" />
             {req.requirementName || req.name || "Requisito"}
           </span>
         ))}

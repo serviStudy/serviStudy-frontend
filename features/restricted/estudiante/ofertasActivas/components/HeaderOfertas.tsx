@@ -37,7 +37,7 @@ export const HeaderOfertas = ({
   };
 
   return (
-    <div className="bg-gradient-to-br from-blue-900 via-blue-700 to-blue-600 rounded-xl py-10 px-8 mb-8 overflow-hidden relative shadow-sm">
+    <div className="bg-linear-to-br from-blue-900 via-blue-700 to-blue-600 rounded-xl py-10 px-8 mb-8 overflow-hidden relative shadow-sm">
       {/* Decorative background elements */}
       <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
       <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
