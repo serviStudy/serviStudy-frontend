@@ -11,6 +11,10 @@ export const ListPostulacionesClient = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
 
+    const handleDelete = (jobOfferId: string) => {
+        setItems((prev) => prev.filter((app) => app.jobOffer.jobOfferId !== jobOfferId));
+    };
+
     useEffect(() => {
         const fetchApplications = async () => {
             try {
@@ -26,10 +30,6 @@ export const ListPostulacionesClient = () => {
 
         fetchApplications();
     }, []);
-
-    const handleDelete = (jobOfferId: string) => {
-        setItems((prev) => prev.filter((app) => app.jobOffer.jobOfferId !== jobOfferId));
-    };
 
     if (loading) {
         return (

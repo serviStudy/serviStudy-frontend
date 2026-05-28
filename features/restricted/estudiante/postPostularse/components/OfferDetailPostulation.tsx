@@ -28,42 +28,39 @@ export const OfferDetailPostulation = ({ id }: Props) => {
     const cleanDescription = (raw: string) => raw.split("|||")[0].trim();
 
     return (
-        <div className="w-full max-w-4xl mx-auto py-8 px-4">
-            <div className="bg-white rounded-3xl shadow-[0_4px_24px_-4px_rgba(0,0,0,0.1)] w-full max-w-3xl mx-auto overflow-hidden">
+        <div className="w-full max-w-7xl mx-auto py-5 px-4">
+            <div className="bg-white rounded-3xl shadow-[0_4px_24px_-4px_rgba(0,0,0,0.1)] w-full max-w-5xl mx-auto overflow-hidden">
 
                 <OfferDetailPostulationHeader offer={offer} />
 
-                <div className="p-6 pt-2 md:p-10 md:pt-6">
-                    {/* Tarjetas de info: salario, jornada, días */}
-                    <OfferDetailInfoPostulation offer={offer} />
+                <div className="p-6 pt-2 md:p-10 md:pt-6 flex justify-between">
+                    <div>
+                        {/* Tarjetas de info: salario, jornada, días */}
+                        <OfferDetailInfoPostulation offer={offer} />
+                    </div>
 
-                    {/* Detalles de contratación */}
-                    <DetailSectionPostulation
-                        title="Detalles de Contratación"
-                        icon={<FileText size={20} />}
-                        iconBg="bg-[#2552d0]"
-                    >
-                        {offer.salaryDescription}
-                    </DetailSectionPostulation>
+                    <div className="w-[65%]">
+                        {/* Habilidades y Requisitos */}
+                        <DetailRequirementsPostulation requirements={offer.requirements}/>
 
-                    {/* Descripción / Labores del puesto */}
-                    <DetailSectionPostulation
-                        title="Descripción del Puesto"
-                        icon={<ClipboardList size={20} />}
-                        iconBg="bg-orange-500"
-                    >
-                        {cleanDescription(offer.description)}
-                    </DetailSectionPostulation>
+                        <hr className="mb-8"/>
 
-                    {/* Habilidades y Requisitos */}
-                    <DetailRequirementsPostulation requirements={offer.requirements} />
+                        {/* Descripción / Labores del puesto */}
+                        <DetailSectionPostulation
+                            title="Descripción del Puesto"
+                            icon={<ClipboardList size={20} />}
+                            iconBg="bg-orange-700"
+                        >
+                            {cleanDescription(offer.description)}
+                        </DetailSectionPostulation>
 
-                    {/* Botón postularse */}
-                    {offer.jobOfferId && (
-                        <div className="mt-8 pb-2">
-                            <ApplyButton offerId={offer.jobOfferId} />
-                        </div>
-                    )}
+                        {/* Botón postularse */}
+                        {offer.jobOfferId && (
+                            <div className="mt-8 pb-2">
+                                <ApplyButton offerId={offer.jobOfferId} />
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>

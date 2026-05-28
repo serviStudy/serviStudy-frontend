@@ -1,20 +1,24 @@
-import { FileText } from "lucide-react";
 import { ReactNode } from "react";
 
 interface Props {
   title: string;
   icon?: ReactNode;
+  iconBg?: string;
   children: ReactNode;
 }
 
-export const OfferDetailSection = ({ title, icon, children }: Props) => {
+export const OfferDetailSection = ({ title, icon, iconBg = "bg-green-700", children }: Props) => {
   return (
-    <div className="mt-8">
-      <h2 className="text-[#1a3683] font-bold text-lg mb-4 flex items-center gap-2">
-        {icon && <span className="text-[#1a3683]">{icon}</span>}
-        {title}
-      </h2>
-      <div className="bg-[#eff4ff] border border-[#d6e4ff] rounded-xl p-5 text-[#3b528b] font-medium leading-relaxed whitespace-pre-line text-sm">
+    <div>
+      <div className="bg-green-50 border border-green-100 rounded-xl p-5 text-gray-700 leading-relaxed whitespace-pre-line text-sm md:text-base">
+        <div className="flex items-center gap-3 mb-3">
+          {icon && (
+            <div className={`${iconBg} p-2 rounded-xl`}>
+              <span className="text-white [&>svg]:h-5 [&>svg]:w-5">{icon}</span>
+            </div>
+          )}
+          <h2 className="text-lg font-medium text-green-800 mb-1">{title}</h2>
+        </div>
         {children}
       </div>
     </div>

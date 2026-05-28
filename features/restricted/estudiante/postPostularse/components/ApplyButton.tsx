@@ -72,15 +72,15 @@ export const ApplyButton = ({ offerId }: Props) => {
     // Ya postulado
     if (hasApplied) {
         return (
-            <div className="flex flex-col gap-2">
-                <div className="w-full flex items-center justify-center gap-2.5 bg-emerald-500 text-white font-semibold py-2 leading-tight px-4 rounded-2xl text-base cursor-default select-none">
+            <div className="flex gap-3">
+                <div className="w-full flex items-center justify-center gap-2.5 bg-emerald-500 text-white font-semibold py-2 leading-tight px-4 rounded-xl text-base cursor-default select-none">
                     <CheckCircle2 size={20} />
                     Ya estás postulado a esta oferta
                 </div>
                 <button
                     onClick={handleWithdraw}
                     disabled={submitting}
-                    className="w-full flex items-center justify-center gap-2 text-sm text-red-500 hover:text-red-700 bg-red-50 hover:bg-red-100 border border-red-200 font-semibold py-2.5 px-6 rounded-2xl transition-all cursor-pointer disabled:opacity-60"
+                    className="w-full flex items-center justify-center gap-2 text-sm text-red-500 hover:text-red-700 bg-red-50 hover:bg-red-100 border border-red-200 font-semibold py-2.5 px-6 rounded-xl transition-all cursor-pointer disabled:opacity-60"
                 >
                     {submitting ? (
                         <Loader2 size={16} className="animate-spin" />
