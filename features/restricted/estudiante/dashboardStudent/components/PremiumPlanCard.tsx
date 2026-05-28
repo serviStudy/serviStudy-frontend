@@ -47,7 +47,6 @@ export const PremiumPlanCard = ({
           {/* Benefits list */}
           <div className="p-5 space-y-3 flex-1">
             {[
-              { icon: Sparkles, text: "Análisis de compatibilidad IA" },
               { icon: Star, text: "Mayor visibilidad ante empresas" },
               { icon: Briefcase, text: "Postulaciones ilimitadas" },
               { icon: CheckCircle2, text: "Soporte prioritario" },

@@ -34,15 +34,23 @@ const ResultCrad = ({ offer }: Props) => {
                 <div className='flex gap-5 items-start flex-1 min-w-0'>
                     {/* foto de la oferta */}
                     <div className='flex flex-col gap-4'>
-                        <div className='w-16 h-16 md:w-28 md:h-28 shrink-0 bg-white border border-gray-100 rounded-xl overflow-hidden flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform duration-300 p-2'>
-                            <Image
-                                width={80}
-                                height={80}
-                                src={offer.imageUrl || "/placeholder-job.png"}
-                                alt={offer.title}
-                                className='object-contain w-full h-full'
-                            />
-                        </div>
+                        
+                        {offer.imageUrl ? (
+                            <div className='w-16 h-16 md:w-28 md:h-28 shrink-0 bg-white border border-gray-100 rounded-xl overflow-hidden flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform duration-300 p-2'>
+                                <Image
+                                    width={80}
+                                    height={80}
+                                    src={offer.imageUrl || "/placeholder-job.png"}
+                                    alt={offer.title}
+                                    className='object-contain w-full h-full'
+                                />
+                            </div>
+                        ) : (
+                            <div className="w-16 h-16 md:w-28 md:h-28 bg-emerald-50 rounded-xl flex items-center justify-center font-bold text-emerald-600 text-3xl uppercase">
+                                {offer?.title?.charAt(0) || "P"}
+                            </div>
+                        )
+                        }
 
                         <div className='flex gap-1.5 items-center bg-blue-50 px-2.5 py-1 rounded-lg border border-blue-100'>
                             <CircleDollarSign className='text-blue-600 h-3.5 w-3.5' />
@@ -54,36 +62,32 @@ const ResultCrad = ({ offer }: Props) => {
                     <div className='flex flex-col pl-4 gap-3 flex-1 min-w-0'>
 
                         <div className='flex flex-col gap-1'>
-                            <h3 className="text-lg md:text-xl capitalize font-bold text-gray-900 truncate group-hover:text-blue-800 transition-colors duration-300 pr-32">
+                            <h3 className="text-lg md:text-xl capitalize font-bold text-blue-900 truncate transition-colors duration-300 pr-32">
                                 {offer.title}
                             </h3>
 
                             <div className='flex gap-4 flex-wrap mt-0.5'>
-                                <div className='flex gap-1.5 items-center bg-green-50 px-2.5 py-1 rounded-lg border border-green-100'>
-                                    <MapPin className='text-green-600 h-3.5 w-3.5' />
+                                <div className='flex gap-1.5 items-center bg-green-100 px-2.5 py-1 rounded-lg border-none'>
+                                    <MapPin className='text-green-500 h-3.5 w-3.5' strokeWidth={2.5} />
                                     <p className='text-green-700 text-xs font-medium capitalize tracking-wide truncate max-w-37.5 md:max-w-xs'>{offer.address}</p>
                                 </div>
 
-                                
-
-                                <span className='px-2.5 py-1.5 border-orange-600 text-orange-700 bg-orange-100 rounded-lg text-xs font-medium border flex items-center gap-1.5'>
-                                    <div className="h-1.5 w-1.5 rounded-full bg-amber-500"></div>
+                                <span className='px-2.5 py-1.5 border-none text-orange-700 bg-orange-100 rounded-lg text-xs font-medium border flex items-center gap-1.5'>
+                                    <div className="h-2 w-2 rounded-full bg-amber-500"></div>
                                     {jornadaTags}
                                 </span>
 
                                 {dayTags.map((tag) => (
                                     <span
                                         key={tag}
-                                        className="px-2.5 py-1.5 border-green-600 bg-green-100 text-green-700 rounded-lg text-xs font-medium border flex items-center gap-1.5"
+                                        className="px-2.5 py-1.5  bg-green-100 text-green-700 rounded-lg text-xs font-medium border-no flex items-center gap-1.5"
                                     >
-                                        <div className="h-1.5 w-1.5 rounded-full bg-emerald-500"></div>
+                                        <div className="h-2 w-2 rounded-full bg-emerald-500"></div>
                                         {tag}
                                     </span>
                                 ))}
                             </div>
                         </div>
-
-                        
 
                         {description && (
                             <div className="bg-gray-50 p-4 rounded-xl border border-gray-100 mb-2">

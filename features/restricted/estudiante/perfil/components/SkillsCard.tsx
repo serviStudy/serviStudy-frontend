@@ -26,7 +26,7 @@ export const SkillsCard = ({ variants, skills, isPremium }: SkillsCardProps) => 
             {skills && skills.length > 0 ? (
                 <div className="flex flex-wrap gap-3">
                     {skills.map((s, idx) => (
-                        <div key={idx} className="bg-blue-50 text-blue-700 px-4 py-2 rounded-lg text-sm font-semibold border border-blue-100 transition-colors hover:bg-blue-100">
+                        <div key={idx} className="bg-blue-50 text-blue-700 px-4 py-2 rounded-lg text-sm font-semibold border border-blue-100 transition-colors hover:bg-blue-100 capitalize">
                             {s.skillName}
                         </div>
                     ))}

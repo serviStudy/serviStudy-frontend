@@ -1,10 +1,10 @@
 import { routes } from '@/type/routes'
-import { ArrowRight, Briefcase, Plus } from 'lucide-react'
+import { ArrowRight, Briefcase } from 'lucide-react'
 import Link from 'next/link'
 
 export const BarraSuperior = () => {
     return (
-        <div className="bg-gradient-to-br from-blue-900 via-blue-700 to-blue-600 rounded-xl py-10 px-8 mb-8 overflow-hidden relative shadow-sm">
+        <div className="bg-gradient-to-br from-blue-900 via-blue-700 to-blue-600 rounded-xl py-8 px-5 md:py-10 md:px-8 mb-4 md:mb-8 overflow-hidden relative shadow-sm">
             {/* Decorative background elements */}
             <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
@@ -20,15 +20,19 @@ export const BarraSuperior = () => {
                 </p>
 
                 {/* Action Buttons */}
-                <div className="flex flex-col md:flex-row items-center gap-6 w-full justify-center">
+                <div className="flex flex-col items-center gap-4 w-full justify-center">
+                    <p className="text-white text-sm md:text-base font-semibold">
+                        ¿Te gustaría explorar más ofertas?
+                    </p>
                     <Link
                         href={routes.estudiante.ofertas}
-                        className="flex items-center gap-2 bg-white/40 backdrop-blur-xl border border-white/20 text-white px-8 py-3.5 rounded-xl text-sm font-bold transition-all hover:bg-white/20 active:scale-95 group"
+                        className="flex items-center gap-2 bg-white/40 backdrop-blur-xl border border-white/20 text-white px-7 py-3 rounded-xl text-sm font-bold transition-all hover:bg-white/20 active:scale-95 group"
                     >
                         <div className="bg-blue-600 p-1.5 rounded-lg text-white transition-transform duration-500">
                             <Briefcase size={18} strokeWidth={3} />
                         </div>
-                        Explorar más vacantes
+                        Ir a ofertas activas
+                        <ArrowRight size={16} />
                     </Link>
                 </div>
             </div>

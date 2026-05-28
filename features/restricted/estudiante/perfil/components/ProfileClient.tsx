@@ -2,9 +2,6 @@
 import React, { useState, useEffect } from 'react'
 import { motion, Variants } from 'framer-motion'
 
-// Shared UI Components
-import { ProfileVerification } from '@/components/shared/ProfileVerification'
-
 // Perfil Features & Modular Components
 import { useStudentProfile } from '@/features/restricted/estudiante/perfil/hooks/useStudentProfile'
 import { normalizeDays, isWeekDays, isWeekend, isSpecificDays } from '@/features/restricted/estudiante/perfil/utils/workDays.utils'
@@ -93,9 +90,9 @@ export const ProfileClient = ({ subscriptionStatus }: ProfileClientProps) => {
             {isPremium && (
                 <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden bg-slate-50/50">
                     {/* Glowing orbs for soft background gradient */}
-                    <div className="absolute top-[-5%] left-[-5%] w-[500px] h-[500px] bg-green-400/20 rounded-full mix-blend-multiply filter blur-[120px] opacity-70"></div>
-                    <div className="absolute bottom-[-10%] right-[-5%] w-[600px] h-[600px] bg-blue-500/15 rounded-full mix-blend-multiply filter blur-[120px] opacity-70"></div>
-                    <div className="absolute top-[30%] left-[20%] w-[400px] h-[400px] bg-cyan-300/20 rounded-full mix-blend-multiply filter blur-[100px] opacity-50"></div>
+                    <div className="absolute top-[-5%] left-[-5%] w-125 h-125 bg-green-400/20 rounded-full mix-blend-multiply filter blur-[120px] opacity-70"></div>
+                    <div className="absolute bottom-[-10%] right-[-5%] w-150 h-150 bg-blue-500/15 rounded-full mix-blend-multiply filter blur-[120px] opacity-70"></div>
+                    <div className="absolute top-[30%] left-[20%] w-100 h-100 bg-cyan-300/20 rounded-full mix-blend-multiply filter blur-[100px] opacity-50"></div>
                 </div>
             )}
             

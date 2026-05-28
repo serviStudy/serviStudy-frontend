@@ -3,6 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import Image from "next/image";
 import { ChevronRight } from 'lucide-react';
 import { ApplicationItem } from '@/features/restricted/estudiante/misPostulaciones/types/applicationTypes';
 
@@ -39,15 +40,30 @@ export const RecentActivity = ({ itemVariants, loadingPosts, recentApplications 
           <div className="text-center text-slate-500 py-4">Cargando actividad...</div>
         ) : recentApplications.length > 0 ? (
           recentApplications.map((app, index) => (
-            <Link href={`/estudiante/postulacion/${app.jobOffer?.jobOfferId}`} key={app.applicantId || index}>
+            <Link href={app.jobOffer?.jobOfferId ? `/estudiante/postulacion/${app.jobOffer.jobOfferId}` : '/estudiante/misPostulaciones'} key={app.applicantId || index}>
               <div className="flex items-center justify-between p-4 bg-slate-50/50 hover:bg-slate-50 rounded-xl transition-colors cursor-pointer border border-slate-100">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center font-bold text-emerald-600 text-lg uppercase">
-                    {app.jobOffer?.title?.charAt(0) || "P"}
-                  </div>
+
+                  {app.jobOffer?.imageUrl ? (
+                    <div className='w-16 h-16 md:w-14 md:h-14 shrink-0 bg-white border border-gray-100 rounded-xl overflow-hidden flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform duration-300 p-2'>
+                      <Image
+                        width={80}
+                        height={80}
+                        src={app.jobOffer.imageUrl || "/placeholder-job.png"}
+                        alt={app.jobOffer.title || "Oferta de trabajo"}
+                        className='object-contain w-full h-full'
+                      />
+                    </div>
+                  ) : (
+                      <div className="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center font-bold text-emerald-600 text-lg uppercase">
+                        {app.jobOffer?.title?.charAt(0) || "P"}
+                      </div>
+                  )
+                  }
+
                   <div className="flex flex-col">
                     <span className="text-slate-800 font-semibold text-[15px]">
-                      Postulación enviada: <span className="text-emerald-600">{app.jobOffer?.title}</span>
+                      Postulación enviada: <span className="text-emerald-600">{app.jobOffer?.title || "Oferta no disponible"}</span>
                     </span>
                     <span className="text-slate-400 text-xs font-medium uppercase tracking-wider">
                       {getRelativeTime(app.applicationDate)}
