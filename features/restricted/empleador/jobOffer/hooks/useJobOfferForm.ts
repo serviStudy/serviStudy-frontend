@@ -7,7 +7,7 @@ export const useJobOfferForm = (initialData?: Partial<CreateJobOfferDTO>) => {
     title: initialData?.title || "",
     establishmentAddress: initialData?.establishmentAddress || "",
     workDays: initialData?.workDays || [],
-    workSchedule: initialData?.workSchedule || "FULL_TIME",
+    workSchedule: initialData?.workSchedule || "" as any,
     salary: initialData?.salary || 0,
     salaryDescription: initialData?.salaryDescription || "",
     contractDescription: initialData?.contractDescription || "",
