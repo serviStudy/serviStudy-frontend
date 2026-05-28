@@ -35,7 +35,7 @@ export const ListPostulaciones = ({ items, onDelete }: Props) => {
         ) : (
             items.map((application) => (
                 <Postulacion
-                    key={application.jobOffer.jobOfferId}
+                    key={application.jobOffer?.jobOfferId}
                     data={application}
                     onDelete={onDelete}
                 />
