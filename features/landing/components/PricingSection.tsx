@@ -33,7 +33,7 @@ export function PricingSection() {
           <PricingCarousel plans={plans} activeType={activeType} />
 
           {/* Desktop View */}
-          <PricingGrid plans={plans} activeType={activeType} />
+          <PricingGrid plans={plans} activeType={activeType} className="hidden md:grid" />
         </div>
       </div>
     </section>

@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from 'react';
-import { Toaster } from "@/components/ui/sonner";
 
 import Link from 'next/link';
 import { 
@@ -17,6 +16,7 @@ import {
 } from 'lucide-react';
 
 import NavLink from '../ui/NavLink';
+import { useSubscriptionStatus } from '@/features/suscripcion/hooks/useSubscriptionStatus';
 
 const sidebarItems = [
   { name: 'Dashboard', icon: LayoutDashboard, href: '/empleador/dashboard' },
@@ -29,6 +29,10 @@ const sidebarItems = [
 
 export const EmployerDashboardSidebar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { status: subStatus } = useSubscriptionStatus();
+  
+  const currentSub = subStatus?.currentSubscription;
+  const isPremium = subStatus?.status === "ACTIVE" && !!currentSub;
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -75,7 +79,11 @@ export const EmployerDashboardSidebar = () => {
       )}
 
       {/* Sidebar */}
-      <aside className={`fixed left-0 top-0 h-screen w-72 bg-white border-r border-gray-100 z-50 flex flex-col transition-transform duration-300 ease-in-out ${mobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}>
+      <aside className={`fixed left-0 top-0 h-screen w-72 z-50 flex flex-col transition-transform duration-300 ease-in-out ${
+        isPremium
+          ? "bg-white/80 backdrop-blur-xl border-r border-white/60 shadow-[4px_0_30px_rgba(0,0,0,0.02)]"
+          : "bg-white border-r border-gray-100"
+      } ${mobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}>
         {/* Mobile Close Button */}
         <button
           onClick={closeMobile}
@@ -110,6 +118,7 @@ export const EmployerDashboardSidebar = () => {
                 name={item.name}
                 link={item.href}
                 exact={item.href === '/empleador/dashboard' || item.href === '/empleador/ofertas'}
+                isPremium={isPremium}
               />
             </div>
           ))}
@@ -143,7 +152,6 @@ export const EmployerDashboardSidebar = () => {
               Conectando talento estudiantil con oportunidades.
             </p>
           </div>
-          <Toaster></Toaster>
         </footer>
       </aside>
     </>

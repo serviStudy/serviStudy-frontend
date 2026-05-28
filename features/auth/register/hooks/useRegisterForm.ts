@@ -5,7 +5,8 @@ import { TipoUsuario } from "@/type/auth";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { usePersistentRole } from "@/hooks/usePersistentRole";
-
+import { loginWithGoogle } from "@/features/auth/login/service/login.service";
+import { decodeJwt } from "jose";
 export function useRegisterForm() {
     const router = useRouter();
     const { tipoUsuario, setTipoUsuario } = usePersistentRole();
@@ -95,6 +96,59 @@ export function useRegisterForm() {
         }
     }
 
+    const processLoginData = (data: any) => {
+        if (!data.data) {
+            throw new Error("Respuesta del servidor inválida: falta el objeto 'data'")
+        }
+
+        const token = data.data.token;
+        document.cookie = `token=${token}; path=/; SameSite=Lax`
+        localStorage.setItem("token", token)
+
+        let email = formData.email;
+        let role = tipoUsuario;
+
+        try {
+            const decoded = decodeJwt(token);
+            if (decoded.sub) email = decoded.sub;
+            if (decoded.role) role = decoded.role as TipoUsuario;
+        } catch (e) {
+            console.error("Error decodificando JWT:", e);
+        }
+
+        localStorage.setItem("user_email", email)
+        localStorage.setItem("user_role", role)
+
+        if (role === "estudiante") {
+            window.location.href = "/estudiante/perfil"
+        } else {
+            window.location.href = "/empleador/perfil"
+        }
+    }
+
+    const handleGoogleSuccess = async (credentialResponse: any) => {
+        const idToken = credentialResponse.credential;
+        if (!idToken) {
+            toast.error("No se recibió token de Google");
+            return;
+        }
+        setLoading(true);
+        try {
+            const data = await loginWithGoogle(idToken);
+            processLoginData(data);
+            toast.success("Registro exitoso con Google");
+        } catch (error: any) {
+            console.error("Error Google Login:", error.message);
+            toast.error(error.message || "No se pudo registrar con Google");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleGoogleError = () => {
+        toast.error("No se pudo iniciar sesión con Google");
+    };
+
     return {
         formData,
         errors,
@@ -103,6 +157,8 @@ export function useRegisterForm() {
         handleTipoUsuarioChange,
         handleCheckboxChange,
         handleSubmit,
-        loading
+        loading,
+        handleGoogleSuccess,
+        handleGoogleError
     };
 }
