@@ -43,7 +43,7 @@ export function useEpaycoCheckout() {
     if (window.ePayco) {
       const handler = window.ePayco.checkout.configure({
         key: publicKey,
-        test: process.env.NEXT_PUBLIC_EPAYCO_TEST_MODE === "true" || true, // true para modo de pruebas
+        test: process.env.NEXT_PUBLIC_EPAYCO_TEST_MODE === "true",
       });
       setEPaycoHandler(handler);
       setIsReady(true);
