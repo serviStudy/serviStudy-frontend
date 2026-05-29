@@ -15,7 +15,7 @@ export const useLogin = () => {
   const [loading, setLoading] = useState(false)
   const [recordarme, setRecordarme] = useState(false)
 
-  // Cargar credenciales guardadas al montar
+  // Cargar credenciales guardadas al montar y auto-login si token está activo
   useEffect(() => {
     if (typeof window !== "undefined") {
       const savedRemember = localStorage.getItem("remember_me") === "true"
@@ -25,6 +25,30 @@ export const useLogin = () => {
         if (savedEmail) setCorreo(savedEmail)
         if (savedRole) setTipoUsuario(savedRole as any)
         setRecordarme(true)
+
+        // Verificar token activo para auto-login
+        const token = localStorage.getItem("token")
+        if (token) {
+          try {
+            const decoded = decodeJwt(token)
+            const isExpired = decoded.exp ? decoded.exp * 1000 < Date.now() : false
+            if (!isExpired) {
+              // Asegurar que la cookie esté presente para SSR
+              document.cookie = `token=${token}; path=/; SameSite=Lax; max-age=2592000`
+              const role = decoded.role || savedRole || localStorage.getItem("user_role")
+              if (role) {
+                const normalizedRole = (role as string).toUpperCase()
+                if (normalizedRole === "STUDENT" || role === "estudiante") {
+                  window.location.href = "/estudiante/perfil"
+                } else {
+                  window.location.href = "/empleador/perfil"
+                }
+              }
+            }
+          } catch (e) {
+            console.error("Error al procesar el token para auto-login:", e)
+          }
+        }
       }
     }
   }, [setTipoUsuario])
@@ -73,7 +97,9 @@ export const useLogin = () => {
     console.log("Sesión guardada (Token + Info Básica)")
 
     // REDIRECCIÓN AL PERFIL SEGÚN TIPO DE USUARIO
-    if (role === "estudiante") {
+    // El backend envía "STUDENT" o "EMPLOYER" en el JWT
+    const normalizedRole = (role as string).toUpperCase()
+    if (normalizedRole === "STUDENT" || role === "estudiante") {
       window.location.href = "/estudiante/perfil"
     } else {
       window.location.href = "/empleador/perfil"
