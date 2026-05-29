@@ -155,7 +155,7 @@ export const StudentCard = ({ student }: Props) => {
         </div>
 
         {student.description && (
-          <p className="text-sm w-[50vw] text-gray-600 line-clamp-2 mt-1 bg-gray-50 p-3 rounded-xl border border-gray-100 italic leading-relaxed">
+          <p className="text-sm w-full max-w-full lg:max-w-[50vw] text-gray-600 line-clamp-2 mt-1 bg-gray-50 p-3 rounded-xl border border-gray-100 italic leading-relaxed">
             "{student.description}"
           </p>
         )}

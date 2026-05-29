@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { validateRegisterForm } from "../utils/registerValidator";
 import { registerUser } from "@/features/auth/register/service/register";
 import { TipoUsuario } from "@/type/auth";
@@ -10,6 +10,37 @@ import { decodeJwt } from "jose";
 export function useRegisterForm() {
     const router = useRouter();
     const { tipoUsuario, setTipoUsuario } = usePersistentRole();
+
+    // Auto-login si el token está activo y "remember me" está habilitado
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            const savedRemember = localStorage.getItem("remember_me") === "true";
+            if (savedRemember) {
+                const token = localStorage.getItem("token");
+                if (token) {
+                    try {
+                        const decoded = decodeJwt(token);
+                        const isExpired = decoded.exp ? decoded.exp * 1000 < Date.now() : false;
+                        if (!isExpired) {
+                            // Asegurar que la cookie esté presente para SSR
+                            document.cookie = `token=${token}; path=/; SameSite=Lax; max-age=2592000`;
+                            const role = decoded.role || localStorage.getItem("remembered_role") || localStorage.getItem("user_role");
+                            if (role) {
+                                const normalizedRole = (role as string).toUpperCase();
+                                if (normalizedRole === "STUDENT" || role === "estudiante") {
+                                    window.location.href = "/estudiante/perfil";
+                                } else {
+                                    window.location.href = "/empleador/perfil";
+                                }
+                            }
+                        }
+                    } catch (e) {
+                        console.error("Error al procesar el token para auto-login:", e);
+                    }
+                }
+            }
+        }
+    }, []);
 
     const [formData, setFormData] = useState({
         email: '',
@@ -119,7 +150,9 @@ export function useRegisterForm() {
         localStorage.setItem("user_email", email)
         localStorage.setItem("user_role", role)
 
-        if (role === "estudiante") {
+        // El backend envía "STUDENT" o "EMPLOYER" en el JWT
+        const normalizedRole = (role as string).toUpperCase()
+        if (normalizedRole === "STUDENT" || role === "estudiante") {
             window.location.href = "/estudiante/perfil"
         } else {
             window.location.href = "/empleador/perfil"
