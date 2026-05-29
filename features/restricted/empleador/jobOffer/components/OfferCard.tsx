@@ -97,7 +97,7 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subs
         </div>
 
         <div className="flex flex-wrap gap-2 mb-4">
-          <div className="px-2.5  bg-orange-50 text-orange-700 rounded-lg text-xs font-medium border border-orange-100 flex items-center gap-1.5 shadow-sm">
+          <div className="px-2.5 py-1.5 bg-orange-50 text-orange-700 rounded-lg text-xs font-medium border border-orange-100 flex items-center gap-1.5 shadow-sm">
             <div className="h-1.5 w-1.5 rounded-full bg-orange-500"></div>
             {(offer.work_schedule || offer.workSchedule) === "FULL_TIME" ? "Jornada Completa" : (offer.work_schedule || offer.workSchedule) === "PART_TIME" ? "Media Jornada" : "Flexible"}
           </div>

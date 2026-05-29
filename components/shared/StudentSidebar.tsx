@@ -81,7 +81,7 @@ export const StudentSidebar = ({ subscriptionStatus }: StudentSidebarProps) => {
             `}>
                 {/* Logo Area */}
                 <div className="p-6">
-                    <Link href="/" className="flex items-center gap-2 group">
+                    <div className="flex items-center gap-2 group">
                         <div className="relative w-12 h-12 transition-transform group-hover:scale-110 duration-500">
                             <img
                                 src="/logoServer.png"
@@ -93,7 +93,7 @@ export const StudentSidebar = ({ subscriptionStatus }: StudentSidebarProps) => {
                             <span className="text-blue-900">Servi</span>
                             <span className="text-blue-600">Study</span>
                         </span>
-                    </Link>
+                    </div>
                 </div>
 
                 {/* Navigation items */}
