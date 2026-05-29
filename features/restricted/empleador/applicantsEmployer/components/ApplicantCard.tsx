@@ -59,7 +59,7 @@ export const ApplicantCard = ({ applicant }: Props) => {
             <div className="w-7 h-7 rounded-lg bg-green-50 flex items-center justify-center shrink-0">
               <Mail size={14} className="text-green-600" />
             </div>
-            <span className="truncate max-w-[200px] text-sm" title={student.email}>{student.email || "No provisto"}</span>
+            <span className="truncate max-w-50 text-sm" title={student.email}>{student.email || "No provisto"}</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-7 h-7 rounded-lg bg-green-50 flex items-center justify-center shrink-0">

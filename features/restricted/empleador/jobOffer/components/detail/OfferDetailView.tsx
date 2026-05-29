@@ -4,16 +4,25 @@ import { useJobOffer } from "../../hooks/useJobOffer";
 import { OfferDetailHeader } from "./OfferDetailHeader";
 import { OfferDetailInfoCards } from "./OfferDetailInfoCards";
 import { OfferDetailRequirements } from "./OfferDetailRequirements";
-import { FileText, ClipboardList, ArrowLeft } from "lucide-react";
+import { OfferDetailSection } from "./OfferDetailSection";
+import { ClipboardList, ArrowLeft, Users } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { JobOfferDTO } from "../../types/jobOffer.types";
 
 interface Props {
   id: string;
+  subscriptionStatus?: "ACTIVE" | "INACTIVE";
 }
 
-export const OfferDetailView = ({ id }: Props) => {
+export const OfferDetailView = ({ id, subscriptionStatus = "INACTIVE" }: Props) => {
   const { offer, loading, error } = useJobOffer(id);
+  const offerId = offer?.jobOfferId || offer?.id || (offer as any)?.idJobOffer;
+
+  const rutaSubscription = subscriptionStatus === "ACTIVE"
+  ? `/empleador/compatibility/${offerId}`
+  : `/empleador/applicants/${offerId}`;
 
   if (loading) {
     return (
@@ -36,8 +45,10 @@ export const OfferDetailView = ({ id }: Props) => {
     );
   }
 
+  const cleanDescription = (raw: string) => raw ? raw.split("|||")[0].trim() : "";
+
   return (
-    <div className="max-w-4xl mx-auto py-6 sm:py-8 px-4 sm:px-6 lg:px-0">
+    <div className="w-full max-w-6xl mx-auto py-6 sm:py-8 px-4 sm:px-6 lg:px-4">
       {/* Back Link */}
       <Link
         href="/empleador/ofertas"
@@ -53,40 +64,42 @@ export const OfferDetailView = ({ id }: Props) => {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="bg-white rounded-3xl shadow-2xl shadow-gray-200/50 border border-gray-50 overflow-hidden"
+        className="bg-white rounded-3xl shadow-[0_4px_24px_-4px_rgba(0,0,0,0.1)] w-full overflow-hidden"
       >
         <OfferDetailHeader offer={offer} />
 
-        <div className="p-6 sm:p-8 lg:p-10 flex flex-col gap-6 sm:gap-8">
-          <OfferDetailInfoCards offer={offer} />
-
-          {/* Contract Details */}
-          <div>
-            <div className="flex items-center gap-4 mb-5 sm:mb-6">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-green-50 border border-green-100 flex items-center justify-center text-green-600 shadow-inner">
-                <FileText size={20} className="sm:w-[22px] sm:h-[22px]" />
-              </div>
-              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">Detalles de Contratación</h2>
-            </div>
-            <div className="bg-gray-50 border border-gray-100 rounded-2xl p-5 sm:p-8 text-sm sm:text-base text-gray-600 font-medium leading-relaxed whitespace-pre-line shadow-inner">
-              {offer.contract_description || (offer as any).contractDescription || <span className="text-gray-300 italic">No especificado</span>}
-            </div>
+        <div className="p-6 pt-2 md:p-10 md:pt-6 flex flex-col lg:flex-row justify-between gap-8">
+          <div className="lg:w-[32%] shrink-0">
+            <OfferDetailInfoCards offer={offer} />
           </div>
 
-          {/* Description */}
-          <div>
-            <div className="flex items-center gap-4 mb-5 sm:mb-6">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-[18px] bg-orange-50 border border-orange-100 flex items-center justify-center text-orange-500 shadow-inner">
-                <ClipboardList size={20} className="sm:w-[22px] sm:h-[22px]" />
-              </div>
-              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">Descripción del Puesto</h2>
-            </div>
-            <div className="bg-green-50/40 border border-green-100 rounded-2xl p-5 sm:p-8 text-sm sm:text-base text-gray-700 font-medium leading-relaxed whitespace-pre-line">
-              {offer.description || (offer as any).dutiesDescription || (offer as any).duties_description || "Sin descripción adicional."}
-            </div>
+          <div className="lg:w-[65%]">
+            <OfferDetailRequirements requirements={offer.requirements} />
+
+            <hr className="mb-8 border-gray-100" />
+
+            {/* Descripción del puesto */}
+            <OfferDetailSection
+              title="Descripción del Puesto"
+              icon={<ClipboardList size={20} />}
+              iconBg="bg-orange-600"
+            >
+              {cleanDescription(offer.description || (offer as any).dutiesDescription || (offer as any).duties_description || "Sin descripción adicional.")}
+            </OfferDetailSection>
           </div>
 
-          <OfferDetailRequirements requirements={offer.requirements} />
+          <div className="md:hidden w-full">
+            <Button className="flex bg-whit items-center gap-3 px-8 py-1 rounded-xl text-xs font-bold transition-all border-2 border-green-600 text-green-600 hover:bg-green-50 active:scale-95 uppercase tracking-wider">
+              <Link 
+                href={rutaSubscription} 
+              >
+                <div className="flex gap-2">
+                  <Users size={16} className="group-hover/applicants:scale-110 transition-transform" />
+                  Ver Postulantes
+                </div>
+              </Link>
+            </Button>
+          </div>
         </div>
       </motion.div>
     </div>

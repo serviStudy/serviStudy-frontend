@@ -68,7 +68,7 @@ export function RespuestaPago() {
       );
       const decoded = JSON.parse(jsonPayload);
       const role = decoded.role || decoded.X_User_Role || "";
-      
+
       if (role.includes("EMPLOYER")) return "/empleador/dashboard";
       if (role.includes("STUDENT")) return "/estudiante/dashboard";
       return "/dashboard";

@@ -1,74 +1,82 @@
 import { JobOfferDTO } from "../../types/jobOffer.types";
-import { DollarSign, Clock, Calendar } from "lucide-react";
+import { DollarSign, Clock, Calendar, FileText } from "lucide-react";
 
 interface Props {
   offer: JobOfferDTO;
 }
 
 export const OfferDetailInfoCards = ({ offer }: Props) => {
+  const formatDays = (days: string[]) => {
+    if (!days || days.length === 0) return "No especificado";
+    if (days.length >= 5 && days.includes("MONDAY") && days.includes("FRIDAY")) return "Lunes a Viernes";
+    if (days.length === 2 && days.includes("SATURDAY") && days.includes("SUNDAY")) return "Fines de semana";
+    return days.length > 2 ? "Lunes a Viernes" : "Fines de semana";
+  };
+
   const scheduleMap: Record<string, string> = {
-    FULL_TIME: "Jornada Completa",
-    PART_TIME: "Media Jornada",
+    FULL_TIME: "Tiempo Completo",
+    PART_TIME: "Medio tiempo",
     FLEXIBLE: "Flexible",
   };
 
   const workDays = offer.work_days || (offer as any).workDays || [];
   const workSchedule = offer.work_schedule || (offer as any).workSchedule;
-  const daysLabel = workDays.length > 2 ? "Lunes a Viernes" : "Fines de semana";
-
-  const cards = [
-    {
-      icon: DollarSign,
-      label: "Salario",
-      value: `$${Number(offer.salary).toLocaleString("es-CO")}`,
-      accent: "green",
-      bg: "bg-green-50",
-      border: "border-green-100",
-      iconBg: "bg-green-600",
-      text: "text-green-600",
-    },
-    {
-      icon: Clock,
-      label: "Tipo de Jornada",
-      value: scheduleMap[workSchedule] || "Flexible",
-      accent: "orange",
-      bg: "bg-orange-50",
-      border: "border-orange-100",
-      iconBg: "bg-orange-500",
-      text: "text-orange-500",
-    },
-    {
-      icon: Calendar,
-      label: "Días Laborales",
-      value: daysLabel,
-      accent: "gray",
-      bg: "bg-gray-50",
-      border: "border-gray-100",
-      iconBg: "bg-gray-800",
-      text: "text-gray-600",
-    },
-  ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-      {cards.map((card) => (
-        <div
-          key={card.label}
-          className={`${card.bg} ${card.border} border rounded-2xl p-8 flex flex-col gap-4 shadow-sm hover:-translate-y-1 transition-transform duration-300`}
-        >
-          <div className={`w-14 h-14 ${card.iconBg} rounded-xl flex items-center justify-center text-white shadow-lg`}>
-            <card.icon size={26} strokeWidth={2.5} />
+    <div className="flex flex-col mt-6">
+      {/* Salario */}
+      <div className="bg-green-50 rounded-t-xl p-5 flex flex-col min-w-35 border border-green-100">
+        <div className="flex items-center gap-2 mb-3">
+          <div className="bg-green-500 p-2 rounded-xl">
+            <DollarSign size={18} className="text-white" strokeWidth={2.5} />
+          </div>
+          <p className="font-semibold text-lg capitalize tracking-wider mb-1 text-green-600">Salario</p>
+        </div>
+        <p className="text-gray-600 leading-tight text-[17px] font-medium">
+          ${Number(offer.salary).toLocaleString("es-CO")}
+        </p>
+      </div>
+
+      {/* Jornada */}
+      <div className="bg-green-50 p-5 flex flex-col min-w-35 border border-green-100">
+        <div className="flex items-center gap-2 mb-3">
+          <div className="bg-orange-500 p-2 rounded-xl">
+            <Clock size={18} className="text-white" strokeWidth={2.5} />
           </div>
           <div>
-            <p className={`text-[11px] font-bold uppercase tracking-widest ${card.text} mb-2`}>
-              {card.label}
-            </p>
-            <p className="text-gray-900 font-bold text-2xl tracking-tighter leading-none">
-              {card.value}
-            </p>
+            <p className="font-semibold text-lg capitalize tracking-wider mb-1 text-orange-600">Tipo de Jornada</p>
           </div>
         </div>
-      ))}
+        <p className="text-gray-600 font-semibold text-[17px] leading-tight">
+          {scheduleMap[workSchedule] || workSchedule || "Flexible"}
+        </p>
+      </div>
+
+      {/* Días laborales */}
+      <div className="bg-green-50 p-5 flex flex-col min-w-35 border border-green-100">
+        <div className="flex items-center gap-2 mb-3">
+          <div className="bg-green-700 p-2 rounded-xl">
+            <Calendar size={18} className="text-white" strokeWidth={2} />
+          </div>
+          <p className="font-semibold text-lg capitalize tracking-wider mb-1 text-green-700">Días Laborales</p>
+        </div>
+        <p className="text-gray-600 font-semibold text-[17px] leading-tight">
+          {formatDays(workDays)}
+        </p>
+      </div>
+
+      {/* Detalles de contratación */}
+      <div className="bg-green-50 p-5 flex flex-col min-w-35 border rounded-b-xl border-green-100">
+        <div className="flex items-center gap-2 mb-3">
+          <div className="bg-gray-700 p-2 rounded-xl">
+            <FileText size={18} className="text-white" strokeWidth={2} />
+          </div>
+          <p className="font-semibold text-lg capitalize tracking-wider mb-1 text-gray-600">Detalles de contratación</p>
+        </div>
+        <p className="text-gray-600 font-semibold text-[17px] leading-tight whitespace-pre-line">
+          {offer.contract_description || (offer as any).contractDescription || "No especificado"}
+        </p>
+      </div>
     </div>
   );
 };

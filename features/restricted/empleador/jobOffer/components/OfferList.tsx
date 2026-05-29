@@ -24,9 +24,19 @@ export const OfferList = ({ subscriptionStatus = "INACTIVE" }: OfferListProps) =
       ? offers
       : offers.filter((o) => String(o.status).toUpperCase() === filter);
 
+  const isPremium = subscriptionStatus === "ACTIVE";
+
   return (
-    <div className="max-w-6xl mx-auto py-8 px-4 lg:px-0 flex flex-col gap-8">
-      <OfferHeader onFilterChange={setFilter} />
+    <div className="max-w-6xl mx-auto py-8 px-4 lg:px-0 flex flex-col gap-8 relative">
+      {/* Premium background glows */}
+      {isPremium && (
+        <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
+          <div className="absolute -top-[15%] -right-[10%] w-[55%] h-[50%] bg-blue-300/10 blur-[100px] rounded-full" />
+          <div className="absolute top-[30%] -left-[10%] w-[50%] h-[50%] bg-green-300/10 blur-[120px] rounded-full" />
+          <div className="absolute -bottom-[15%] right-[20%] w-[40%] h-[40%] bg-emerald-300/8 blur-[100px] rounded-full" />
+        </div>
+      )}
+      <OfferHeader onFilterChange={setFilter} subscriptionStatus={subscriptionStatus} />
 
       {/* Header Section */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 px-4 md:px-0">
