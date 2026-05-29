@@ -8,13 +8,14 @@ export const usePersistentRole = () => {
         useState<TipoUsuario>("estudiante")
 
     useEffect(() => {
-        const savedRole = localStorage.getItem("user_role") as TipoUsuario
-
-        if (
-        savedRole &&
-        (savedRole === "estudiante" || savedRole === "empresa")
-        ) {
-        setTipoUsuarioState(savedRole)
+        const savedRole = localStorage.getItem("user_role")
+        if (savedRole) {
+            const normalized = savedRole.toUpperCase()
+            if (normalized === "STUDENT" || normalized === "ESTUDIANTE") {
+                setTipoUsuarioState("estudiante")
+            } else if (normalized === "EMPLOYER" || normalized === "EMPRESA") {
+                setTipoUsuarioState("empresa")
+            }
         }
     }, [])
 
@@ -26,30 +27,29 @@ export const usePersistentRole = () => {
 
     useEffect(() => {
         const handleRoleChange = () => {
-        const savedRole = localStorage.getItem(
-            "user_role"
-        ) as TipoUsuario
-
-        if (
-            savedRole &&
-            (savedRole === "estudiante" || savedRole === "empresa")
-        ) {
-            setTipoUsuarioState(savedRole)
-        }
+            const savedRole = localStorage.getItem("user_role")
+            if (savedRole) {
+                const normalized = savedRole.toUpperCase()
+                if (normalized === "STUDENT" || normalized === "ESTUDIANTE") {
+                    setTipoUsuarioState("estudiante")
+                } else if (normalized === "EMPLOYER" || normalized === "EMPRESA") {
+                    setTipoUsuarioState("empresa")
+                }
+            }
         }
 
         window.addEventListener("userRoleChanged", handleRoleChange)
         window.addEventListener("storage", handleRoleChange)
 
         return () => {
-        window.removeEventListener(
-            "userRoleChanged",
-            handleRoleChange
-        )
-        window.removeEventListener(
-            "storage",
-            handleRoleChange
-        )
+            window.removeEventListener(
+                "userRoleChanged",
+                handleRoleChange
+            )
+            window.removeEventListener(
+                "storage",
+                handleRoleChange
+            )
         }
     }, [])
 

@@ -217,9 +217,8 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
             </div>
           </section>
 
-          {/* Vacancies Section */}
           <section className="flex flex-col gap-6">
-            <div className="flex items-center justify-between px-2">
+            <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4 px-2">
               <div className="flex items-center gap-4">
                 <div className={`w-12 h-12 rounded-lg flex items-center justify-center border ${
                   isPremium
@@ -230,7 +229,7 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
                 </div>
                 <h3 className="text-lg lg:text-xl font-semibold text-gray-900 tracking-tight">Vacantes Activas</h3>
               </div>
-              <Link href="/empleador/ofertas" className={`px-6 py-3 rounded-xl font-bold text-xs transition-all flex items-center gap-2 shadow-sm ${
+              <Link href="/empleador/ofertas" className={`px-6 py-3 rounded-xl font-bold text-xs transition-all flex items-center gap-2 shadow-sm justify-center sm:justify-start ${
                 isPremium
                   ? 'bg-gradient-to-r from-green-50 to-blue-50 text-blue-600 hover:from-green-100 hover:to-blue-100 border border-blue-200/50'
                   : 'bg-green-50 text-green-600 hover:bg-green-100'

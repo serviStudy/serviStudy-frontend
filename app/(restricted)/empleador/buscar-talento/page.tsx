@@ -129,32 +129,34 @@ export default function BuscarTalentoPage() {
         /* Standard Search Bar */
         <form 
           onSubmit={handleSearch}
-          className="bg-white p-2 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-3 focus-within:ring-2 focus-within:ring-green-600/10 focus-within:border-green-600/30 transition-all duration-300"
+          className="bg-white p-2 rounded-2xl border border-gray-100 shadow-sm flex flex-col sm:flex-row sm:items-center gap-3 focus-within:ring-2 focus-within:ring-green-600/10 focus-within:border-green-600/30 transition-all duration-300"
         >
-          <div className="bg-green-50 p-3 rounded-xl text-green-600">
-            <Search size={20} />
+          <div className="flex items-center gap-3 flex-1 w-full">
+            <div className="bg-green-50 p-3 rounded-xl text-green-600 shrink-0">
+              <Search size={20} />
+            </div>
+            <input 
+              type="text" 
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder="Buscar por nombre, habilidades o descripción..."
+              className="flex-1 min-w-0 bg-transparent border-none outline-none text-sm font-medium text-gray-700 placeholder:text-gray-300 h-full py-2"
+            />
           </div>
-          <input 
-            type="text" 
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder="Buscar por nombre, habilidades o descripción..."
-            className="flex-1 bg-transparent border-none outline-none text-sm font-medium text-gray-700 placeholder:text-gray-300 h-full py-2"
-          />
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 w-full sm:w-auto shrink-0 justify-end sm:justify-start">
             {(search || searchQuery) && (
               <button 
                 type="button"
                 onClick={handleClearSearch}
-                className="bg-gray-50 text-gray-600 px-6 py-2.5 rounded-xl font-bold text-sm transition-all hover:bg-gray-100 active:scale-95 text-center cursor-pointer whitespace-nowrap"
+                className="flex-1 sm:flex-none bg-gray-50 text-gray-600 px-4 sm:px-6 py-2.5 rounded-xl font-bold text-sm transition-all hover:bg-gray-100 active:scale-95 text-center cursor-pointer whitespace-nowrap"
               >
                 Ver todos
               </button>
             )}
             <button 
               type="submit"
-              className="bg-green-600 text-white px-8 py-2.5 rounded-xl font-bold text-sm shadow-sm transition-all hover:bg-green-700 hover:shadow-md active:scale-95 text-center cursor-pointer"
+              className="flex-1 sm:flex-none bg-green-600 text-white px-6 sm:px-8 py-2.5 rounded-xl font-bold text-sm shadow-sm transition-all hover:bg-green-700 hover:shadow-md active:scale-95 text-center cursor-pointer"
             >
               Buscar
             </button>
