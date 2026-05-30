@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 
 export type TipoUsuario = "estudiante" | "empresa"
 
@@ -19,11 +19,11 @@ export const usePersistentRole = () => {
         }
     }, [])
 
-    const setTipoUsuario = (newRole: TipoUsuario) => {
+    const setTipoUsuario = useCallback((newRole: TipoUsuario) => {
         setTipoUsuarioState(newRole)
         localStorage.setItem("user_role", newRole)
         window.dispatchEvent(new Event("userRoleChanged"))
-    }
+    }, [])
 
     useEffect(() => {
         const handleRoleChange = () => {
