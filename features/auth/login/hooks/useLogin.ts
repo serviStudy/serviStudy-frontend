@@ -51,7 +51,7 @@ export const useLogin = () => {
         }
       }
     }
-  }, [setTipoUsuario])
+  }, [])
 
   const processLoginData = (data: any) => {
     // GUARDAR TOKEN Y DATOS DE SESIÓN
