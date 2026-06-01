@@ -72,7 +72,7 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
                   : 'bg-white text-green-700 hover:bg-gray-50'
               }`}
             >
-              <Pencil size={14} className="sm:w-4 sm:h-4" /> Editar Perfil
+              <Pencil size={14} className="sm:w-4 sm:h-4" /> <p className='hidden md:block'>Editar Perfil</p>
             </Link>
           </div>
         </div>
@@ -239,11 +239,11 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
             </div>
             
             <div className="flex flex-col gap-6">
-               <ProfileOffersList 
-                 imageUrl={profile.imageUrl || profile.image_url} 
-                 businessName={profile.businessName || profile.business_name}
-                 isPremium={isPremium}
-               />
+                <ProfileOffersList 
+                  imageUrl={profile.imageUrl || profile.image_url} 
+                  businessName={profile.businessName || profile.business_name}
+                  isPremium={isPremium}
+                />
             </div>
           </section>
 

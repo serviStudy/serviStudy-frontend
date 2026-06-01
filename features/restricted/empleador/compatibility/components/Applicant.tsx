@@ -4,8 +4,6 @@ import { useRouter } from "next/navigation";
 import { Phone, Mail, Calendar, UserCircle, Sparkles } from "lucide-react";
 import { ApplicantDTO } from "../../applicantsEmployer/types/applicants.types";
 import { Checkbox } from "@/components/ui/checkbox"
-import { div } from "framer-motion/client";
-import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 
 
@@ -47,9 +45,9 @@ const AnimatedMatchTag = ({ score }: { score: number }) => {
   const strokeDashoffset = circumference - (progress / 100) * circumference;
 
   return (
-    <div className="absolute top-0 right-0 flex items-center gap-3 pl-2 pr-4 py-2 bg-linear-to-r from-emerald-500 to-blue-500 text-white rounded-bl-2xl rounded-tr-xl shadow-md animate-in slide-in-from-top-4 duration-500 z-10">
+    <div className="absolute  top-0 right-0 flex items-center gap-3 pl-2 pr-4 py-2 bg-linear-to-r from-emerald-500 to-blue-500 text-white rounded-bl-2xl rounded-tr-xl shadow-md animate-in slide-in-from-top-4 duration-500 z-10">
       {/* Circular Progress */}
-      <div className="relative flex items-center justify-center w-10 h-10">
+      <div className="relative flex items-center justify-center w-10 h-8">
         <svg className="transform -rotate-90 w-10 h-10">
           <circle
             cx="20"
@@ -78,11 +76,11 @@ const AnimatedMatchTag = ({ score }: { score: number }) => {
       <div className="flex flex-col justify-center">
         <div className="flex items-center gap-1.5 mb-0.5">
           <Sparkles size={11} className="text-yellow-300 animate-pulse" />
-          <span className="text-[10px] uppercase font-black tracking-widest text-white/90">
+          <span className="md:text-[10px] text-[9px] uppercase font-black tracking-widest text-white/90">
             IA Match
           </span>
         </div>
-        <span className="text-[14px] font-extrabold leading-none">
+        <span className="md:text-[14px] text-[12px] font-bold leading-none">
           Compatible
         </span>
       </div>
@@ -119,6 +117,71 @@ export const Applicant = ({ applicant, isSelected, onSelect, resultsIA }: Props)
         <AnimatedMatchTag score={resultsIA} />
       )}
 
+      {/* MOBILE LAYOUT (< md) */}
+      <div className={`md:hidden flex flex-col gap-4 w-full ${resultsIA !== undefined ? 'pt-14' : 'pt-1'}`}>
+        {/* Mobile Top Row: Checkbox, Avatar, Name & Phone */}
+        <div className="flex items-center gap-3.5 w-full pr-2">
+          <Checkbox
+            id={`checkbox-${applicant.applicantId}-mobile`}
+            checked={isSelected}
+            onCheckedChange={() => {
+              console.log(`[Applicant] Toggling studentProfileId: ${applicant.student.studentProfileId}`);
+              onSelect(applicant.student.studentProfileId);
+            }}
+            className="border-2 border-green-500 rounded-[2px] h-4.5 w-4.5 cursor-pointer shrink-0"
+          />
+
+          <div className="shrink-0">
+            {student.imgUrl ? (
+              <img
+                src={student.imgUrl}
+                alt={student.name || "Estudiante"}
+                className="w-14 h-14 rounded-xl object-cover border border-gray-100 shadow-xs"
+              />
+            ) : (
+              <div className="w-14 h-14 rounded-xl bg-linear-to-br from-green-50 to-blue-50 flex items-center justify-center border border-gray-100 shadow-xs text-blue-500">
+                <UserCircle size={28} strokeWidth={1.5} />
+              </div>
+            )}
+          </div>
+
+          <div className="flex-1 min-w-0 flex flex-col justify-center gap-0.5">
+            <h3 className="text-sm font-bold text-gray-900 truncate capitalize leading-snug">
+              {student.name || "Sin nombre"}
+            </h3>
+            <div className="flex items-center gap-1.5 text-xs text-gray-500 font-medium">
+              <Phone size={11} className="text-blue-500 shrink-0" />
+              <span>{student.contactNumber || "Sin teléfono"}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Bottom Section: Date, Description, Skills, Ver perfil */}
+        <div className="flex flex-col gap-3 w-full">
+          {/* Postulado el date label positioned above description */}
+          <p className="text-[10px] text-gray-400 font-semibold flex items-center gap-1.5 bg-gray-50 w-fit px-2 py-0.5 rounded-md">
+            <Calendar size={11} className="text-gray-400 shrink-0" />
+            <span>Postulado el {formattedDate}</span>
+          </p>
+
+          {student.description && (
+            <div className="bg-gray-50/70 p-3 rounded-xl border border-gray-100/60">
+              <p className="text-xs text-gray-600 line-clamp-3 italic leading-relaxed">
+                "{student.description}"
+              </p>
+            </div>
+          )}
+
+          <button
+            onClick={handleViewProfile}
+            className="w-full mt-1 py-2.5 bg-linear-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white text-xs font-black uppercase tracking-wider rounded-xl shadow-xs transition-all active:scale-95 text-center cursor-pointer"
+          >
+            Ver perfil
+          </button>
+        </div>
+      </div>
+
+      {/* DESKTOP LAYOUT (>= md) */}
       <Checkbox
         id={`checkbox-${applicant.applicantId}`}
         checked={isSelected}
@@ -126,10 +189,10 @@ export const Applicant = ({ applicant, isSelected, onSelect, resultsIA }: Props)
           console.log(`[Applicant] Toggling studentProfileId: ${applicant.student.studentProfileId}`);
           onSelect(applicant.student.studentProfileId);
         }}
-        className="border-2 ml-6 border-green-500 rounded-[2px] h-4.5 w-4.5 cursor-pointer"
+        className="hidden md:inline-flex border-2 ml-6 border-green-500 rounded-[2px] h-4.5 w-4.5 cursor-pointer shrink-0"
       />
 
-      <div className="flex flex-col md:flex-row gap-6 w-full">
+      <div className="hidden md:flex flex-col md:flex-row gap-6 w-full">
         {/* Left Section (Avatar, Info, and bottom content) */}
         <div className="flex-1 flex flex-col gap-4">
           
