@@ -23,57 +23,55 @@ export const OfferDetailInfoCards = ({ offer }: Props) => {
   const workSchedule = offer.work_schedule || (offer as any).workSchedule;
 
   return (
-    <div className="flex flex-col mt-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 mt-6">
       {/* Salario */}
-      <div className="bg-green-50 rounded-t-xl p-5 flex flex-col min-w-35 border border-green-100">
-        <div className="flex items-center gap-2 mb-3">
-          <div className="bg-green-500 p-2 rounded-xl">
-            <DollarSign size={18} className="text-white" strokeWidth={2.5} />
+      <div className="bg-green-50/50 rounded-2xl p-5 flex flex-col border border-green-100/80 shadow-xs hover:shadow-sm transition-all">
+        <div className="flex items-center gap-2.5 mb-2.5">
+          <div className="bg-green-500 p-2 rounded-xl text-white">
+            <DollarSign size={18} strokeWidth={2.5} />
           </div>
-          <p className="font-semibold text-lg capitalize tracking-wider mb-1 text-green-600">Salario</p>
+          <p className="font-bold text-xs uppercase tracking-wider text-green-600">Salario</p>
         </div>
-        <p className="text-gray-600 leading-tight text-[17px] font-medium">
+        <p className="text-gray-800 font-extrabold text-xl tracking-tight mt-1">
           ${Number(offer.salary).toLocaleString("es-CO")}
         </p>
       </div>
 
       {/* Jornada */}
-      <div className="bg-green-50 p-5 flex flex-col min-w-35 border border-green-100">
-        <div className="flex items-center gap-2 mb-3">
-          <div className="bg-orange-500 p-2 rounded-xl">
-            <Clock size={18} className="text-white" strokeWidth={2.5} />
+      <div className="bg-orange-50/40 rounded-2xl p-5 flex flex-col border border-orange-100/60 shadow-xs hover:shadow-sm transition-all">
+        <div className="flex items-center gap-2.5 mb-2.5">
+          <div className="bg-orange-500 p-2 rounded-xl text-white">
+            <Clock size={18} strokeWidth={2.5} />
           </div>
-          <div>
-            <p className="font-semibold text-lg capitalize tracking-wider mb-1 text-orange-600">Tipo de Jornada</p>
-          </div>
+          <p className="font-bold text-xs uppercase tracking-wider text-orange-600">Tipo de Jornada</p>
         </div>
-        <p className="text-gray-600 font-semibold text-[17px] leading-tight">
+        <p className="text-gray-800 font-bold text-[17px] leading-tight mt-1">
           {scheduleMap[workSchedule] || workSchedule || "Flexible"}
         </p>
       </div>
 
       {/* Días laborales */}
-      <div className="bg-green-50 p-5 flex flex-col min-w-35 border border-green-100">
-        <div className="flex items-center gap-2 mb-3">
-          <div className="bg-green-700 p-2 rounded-xl">
-            <Calendar size={18} className="text-white" strokeWidth={2} />
+      <div className="bg-emerald-50/40 rounded-2xl p-5 flex flex-col border border-emerald-100/60 shadow-xs hover:shadow-sm transition-all">
+        <div className="flex items-center gap-2.5 mb-2.5">
+          <div className="bg-emerald-600 p-2 rounded-xl text-white">
+            <Calendar size={18} strokeWidth={2} />
           </div>
-          <p className="font-semibold text-lg capitalize tracking-wider mb-1 text-green-700">Días Laborales</p>
+          <p className="font-bold text-xs uppercase tracking-wider text-emerald-700">Días Laborales</p>
         </div>
-        <p className="text-gray-600 font-semibold text-[17px] leading-tight">
+        <p className="text-gray-800 font-bold text-[17px] leading-tight mt-1">
           {formatDays(workDays)}
         </p>
       </div>
 
       {/* Detalles de contratación */}
-      <div className="bg-green-50 p-5 flex flex-col min-w-35 border rounded-b-xl border-green-100">
-        <div className="flex items-center gap-2 mb-3">
-          <div className="bg-gray-700 p-2 rounded-xl">
-            <FileText size={18} className="text-white" strokeWidth={2} />
+      <div className="bg-slate-50/50 rounded-2xl p-5 flex flex-col border border-slate-200/60 shadow-xs hover:shadow-sm transition-all sm:col-span-2 lg:col-span-1">
+        <div className="flex items-center gap-2.5 mb-2.5">
+          <div className="bg-slate-700 p-2 rounded-xl text-white">
+            <FileText size={18} strokeWidth={2} />
           </div>
-          <p className="font-semibold text-lg capitalize tracking-wider mb-1 text-gray-600">Detalles de contratación</p>
+          <p className="font-bold text-xs uppercase tracking-wider text-slate-600">Detalles de contratación</p>
         </div>
-        <p className="text-gray-600 font-semibold text-[17px] leading-tight whitespace-pre-line">
+        <p className="text-gray-700 font-medium text-sm leading-relaxed mt-1 whitespace-pre-line">
           {offer.contract_description || (offer as any).contractDescription || "No especificado"}
         </p>
       </div>

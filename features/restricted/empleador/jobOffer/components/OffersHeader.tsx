@@ -48,7 +48,7 @@ export const OfferHeader = ({ onFilterChange, subscriptionStatus = "INACTIVE" }:
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center text-center">
         {isPremium && (
-          <div className="mb-6 bg-white/15 backdrop-blur-md border border-white/25 text-white text-[10px] sm:text-xs font-black px-4 py-2 rounded-xl uppercase tracking-widest flex items-center gap-2 shadow-inner w-fit">
+          <div className="mb-6 bg-white/15 backdrop-blur-md border md:flex hidden  border-white/25 text-white text-[10px] sm:text-xs font-black px-4 py-2 rounded-xl uppercase tracking-widest items-center gap-2 shadow-inner w-fit">
             <Crown size={14} className="text-yellow-300" />
             Suscripción Premium Activa
           </div>
@@ -56,17 +56,17 @@ export const OfferHeader = ({ onFilterChange, subscriptionStatus = "INACTIVE" }:
         <h2 className="text-2xl md:text-4xl font-black text-white mb-4 tracking-tight leading-tight">
           Gestión de <span className="underline decoration-white/20 underline-offset-4">Ofertas</span>
         </h2>
-        <p className="text-white/90 font-medium text-sm md:text-base max-w-xl mb-8 leading-relaxed">
+        <p className="text-white/90 font-medium text-sm md:text-base max-w-xl mb-8 leading-relaxed hidden md:block">
           Administra tus vacantes activas y encuentra al candidato ideal para tu empresa de manera eficiente.
         </p>
 
         {/* Action Buttons */}
-        <div className="flex flex-col md:flex-row items-center gap-6 w-full justify-center">
+        <div className="flex flex-col items-center gap-4 w-full justify-center">
           
           {/* Filter Container */}
           <motion.div 
             layout
-            className={`backdrop-blur-md border p-1.5 rounded-xl flex ${showFilters ? 'flex-col sm:flex-row' : 'items-center'} shadow-md transition-all ${
+            className={`backdrop-blur-md border rounded-xl flex ${showFilters ? 'flex-col sm:flex-row' : 'items-center'} shadow-md transition-all ${
               isPremium
                 ? "bg-white/20 border-white/30"
                 : "bg-white/10 border-white/20"
@@ -83,8 +83,8 @@ export const OfferHeader = ({ onFilterChange, subscriptionStatus = "INACTIVE" }:
                   : "text-white hover:bg-white/10"
               }`}
             >
-              <Filter size={20} className={showFilters ? isPremium ? "text-blue-600" : "text-green-700" : "text-white/80"} />
-              {showFilters ? "Cerrar Filtros" : "Filtrar Resultados"}
+              <Filter size={20} className={showFilters ? isPremium ? "text-blue-600" : "text-green-700" : "text-white/80 whitespace-pre-line"} />
+              {showFilters ? "Cerrar Filtros" : "Filtrar Ofertas"}
             </motion.button>
             
             <AnimatePresence>
@@ -123,7 +123,7 @@ export const OfferHeader = ({ onFilterChange, subscriptionStatus = "INACTIVE" }:
           {/* Create Button */}
           <Link
             href="/empleador/ofertas/crear"
-            className={`flex items-center gap-3 px-8 py-3.5 rounded-xl text-xs font-black transition-all shadow-md active:scale-95 group uppercase tracking-wider ${
+            className={`flex items-center gap-3 md:px-8 px-4 py-2 rounded-xl text-xs font-black transition-all shadow-md active:scale-95 group tracking-wider ${
               isPremium
                 ? "bg-white hover:bg-white/95 text-gray-900 shadow-lg shadow-black/5 hover:-translate-y-0.5"
                 : "bg-white text-green-700 hover:bg-gray-50"
@@ -134,10 +134,10 @@ export const OfferHeader = ({ onFilterChange, subscriptionStatus = "INACTIVE" }:
                 ? "bg-gradient-to-br from-green-500 to-blue-600 text-white"
                 : "bg-green-600 text-white"
             }`}>
-               <Plus size={18} strokeWidth={3} />
+              <Plus size={18} strokeWidth={3} />
             </div>
-            <span className={isPremium ? "group-hover:text-blue-600 transition-colors" : ""}>
-              Publicar Nueva Oferta
+            <span className={isPremium ? "group-hover:text-blue-600 transition-colors" : "whitespace-pre-line"}>
+              Publicar Oferta
             </span>
           </Link>
         </div>
