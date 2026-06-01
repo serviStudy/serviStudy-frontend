@@ -1,21 +1,9 @@
 "use client";
 
 import { Pencil, Trash2, MapPin, Sparkles, Clock, Calendar, Users, CircleDollarSign } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
-import { useState } from "react";
-import { toast } from "sonner";
-    import {
-    Dialog,
-    DialogContent,
-    DialogHeader,
-    DialogTitle,
-    DialogDescription,
-    DialogFooter,
-    } from "@/components/ui/dialog";
-    import { Button } from "@/components/ui/button";
 import { JobOfferDTO } from "../../jobOffer/types/jobOffer.types";
-import { updateJobOfferStatus } from "../../jobOffer/service/jobOffer.service";
 
     interface Props {
     offer: JobOfferDTO;
@@ -24,43 +12,12 @@ import { updateJobOfferStatus } from "../../jobOffer/service/jobOffer.service";
     showActions?: boolean;
     }
 
-    export const Offer = ({ offer, imageUrl, onRefresh, showActions = true }: Props) => {
+    export const Offer = ({ offer, imageUrl, showActions = true }: Props) => {
     const offerId = offer.jobOfferId || offer.id || (offer as any).idJobOffer;
 
-    const [isChanging, setIsChanging] = useState(false);
-    const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const [isDeleting, setIsDeleting] = useState(false);
     const isActive = offer.status === "ACTIVE";
 
-    const confirmDelete = async () => {
-        if (!offerId) return;
-        setIsDeleting(true);
-        try {
-        await updateJobOfferStatus(offerId, "DELETED");
-        toast.success("Oferta eliminada correctamente");
-        if (onRefresh) onRefresh(); else window.location.reload();
-        } catch (error: any) {
-        toast.error(error.message || "No se pudo eliminar la oferta");
-        } finally {
-        setIsDeleting(false);
-        setShowDeleteModal(false);
-        }
-    };
 
-    const handleToggleStatus = async () => {
-        if (!offerId || isChanging) return;
-        setIsChanging(true);
-        const newStatus = isActive ? "DISABLED" : "ACTIVE";
-        try {
-        await updateJobOfferStatus(offerId, newStatus);
-        toast.success(`Oferta ${isActive ? "desactivada" : "activada"} correctamente`);
-        if (onRefresh) onRefresh(); else window.location.reload();
-        } catch (error: any) {
-        toast.error(error.message || "Error al cambiar estado");
-        } finally {
-        setIsChanging(false);
-        }
-    };
 
     return (
         <div className="w-full">
@@ -89,7 +46,7 @@ import { updateJobOfferStatus } from "../../jobOffer/service/jobOffer.service";
                             <MapPin size={12} className="text-green-500" />
                             <span className="truncate">{offer.establishment_address || offer.establishmentAddress}</span>
                         </div>
-                        <div className="flex flex-wrap gap-2 mb-2">
+                        <div className="hidden md:flex flex-wrap gap-2 mb-2">
                             <div className="px-2.5 py-1.5 bg-orange-50 text-orange-700 rounded-lg text-xs font-medium border border-orange-100 flex items-center gap-1.5 shadow-sm">
                                 <div className="h-1.5 w-1.5 rounded-full bg-orange-500"></div>
                                 {(offer.work_schedule || offer.workSchedule) === "FULL_TIME" ? "Jornada Completa" : (offer.work_schedule || offer.workSchedule) === "PART_TIME" ? "Media Jornada" : "Flexible"}
@@ -106,9 +63,6 @@ import { updateJobOfferStatus } from "../../jobOffer/service/jobOffer.service";
                         <Link href={`/empleador/ofertas/${offerId}/editar`} className="p-2 rounded-lg bg-white/50 text-gray-500 hover:bg-white transition-colors">
                             <Pencil size={16} />
                         </Link>
-                        <button onClick={() => setShowDeleteModal(true)} className="p-2 rounded-lg bg-white/50 text-gray-500 hover:bg-white transition-colors">
-                            <Trash2 size={16} />
-                        </button>
                     </div>
                 )}
             </div>
@@ -137,7 +91,7 @@ import { updateJobOfferStatus } from "../../jobOffer/service/jobOffer.service";
                 <div className="flex gap-2 mt-4">
                     <Link 
                         href={`/empleador/applicants/${offerId}`} 
-                        className="flex-1 bg-white border-2 border-green-600 text-green-600 h-10 rounded-xl text-[10px] md:text-xs font-black uppercase tracking-widest flex items-center justify-center gap-2 active:scale-95 transition-all"
+                        className="flex-1 bg-white border-2  border-green-600 text-green-600 h-10 rounded-xl text-[10px] md:text-xs font-black uppercase tracking-widest flex items-center justify-center gap-2 active:scale-95 transition-all"
                     >
                         Postulantes <Users size={12} />
                     </Link>

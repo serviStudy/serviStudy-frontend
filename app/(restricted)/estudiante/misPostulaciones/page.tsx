@@ -4,7 +4,7 @@ import React from 'react'
 
 const page = () => {
     return (
-        <div className='flex flex-col w-full pb-16'>
+        <div className='flex flex-col w-[90vw] pb-16'>
             <div className='flex flex-col gap-12 w-full'>
                 <BarraSuperior/>
                 <ListPostulacionesClient/>

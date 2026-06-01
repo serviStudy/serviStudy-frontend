@@ -62,20 +62,20 @@ export const ProfileOfferCard = ({ offer, imageUrl, businessName, onStatusChange
   };
 
   return (
-    <div className={`group relative rounded-2xl p-4 sm:p-5 lg:p-6 flex flex-col sm:flex-row gap-5 lg:gap-6 w-full transition-all duration-300 overflow-hidden ${
+    <div className={`group relative rounded-2xl p-4 sm:p-5 lg:p-6 flex sm:flex-row gap-5 lg:gap-6 w-full transition-all duration-300 overflow-hidden ${
       isPremium
         ? 'bg-white/70 backdrop-blur-xl border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgb(0,0,0,0.1)] hover:-translate-y-1'
         : 'bg-white border border-gray-100 shadow-sm hover:shadow-md'
     }`}>
       {/* Background Glow (solo premium) */}
       {isPremium && (
-        <div className="absolute -top-10 -right-10 w-40 h-40 bg-gradient-to-br from-blue-500/10 to-green-500/10 blur-3xl rounded-full pointer-events-none transition-opacity duration-500 opacity-0 group-hover:opacity-100" />
+        <div className="absolute -top-10 -right-10 w-40 h-40 bg-linear-to-br from-blue-500/10 to-green-500/10 blur-3xl rounded-full pointer-events-none transition-opacity duration-500 opacity-0 group-hover:opacity-100" />
       )}
 
       {/* Imagen / Siglas */}
       <div className={`relative z-10 w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 rounded-2xl shrink-0 overflow-hidden flex items-center justify-center transition-transform duration-500 mx-auto sm:mx-0 group-hover:scale-105 ${
         isPremium
-          ? 'bg-gradient-to-br from-white to-gray-50/50 shadow-lg shadow-black/5 border border-white/80'
+          ? 'bg-linear-to-br from-white to-gray-50/50 shadow-lg shadow-black/5 border border-white/80'
           : 'bg-gray-50 border border-gray-100 shadow-inner'
       }`}>
         {imageUrl ? (
@@ -83,7 +83,7 @@ export const ProfileOfferCard = ({ offer, imageUrl, businessName, onStatusChange
         ) : (
           <div className={`w-full h-full flex items-center justify-center capitalize text-3xl lg:text-4xl font-black ${
             isPremium
-              ? 'bg-gradient-to-br from-blue-600 to-green-500 text-white'
+              ? 'bg-linear-to-br from-blue-600 to-green-500 text-white'
               : 'bg-green-600 text-white'
           }`}>
             {offer.title ? offer.title.charAt(0).toUpperCase() : "E"}
@@ -114,7 +114,7 @@ export const ProfileOfferCard = ({ offer, imageUrl, businessName, onStatusChange
                 ? 'bg-white/80 border border-gray-100 text-gray-400 hover:text-blue-600 hover:border-blue-200 hover:shadow-md'
                 : 'bg-gray-50 text-gray-400 hover:bg-green-50 hover:text-green-600 shadow-sm'
             }`}>
-              <Edit size={16} className="sm:w-[18px] sm:h-[18px]" />
+              <Edit size={16} className="sm:w-4.5 sm:h-4.5" />
             </Link>
             <button 
               onClick={() => setShowDeleteModal(true)}
@@ -146,7 +146,7 @@ export const ProfileOfferCard = ({ offer, imageUrl, businessName, onStatusChange
             <div
               className={`w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 rounded-full transition-all duration-500 shadow-md ${
                 isActive 
-                  ? (isPremium ? "bg-blue-500 translate-x-[72px] sm:translate-x-[84px] lg:translate-x-[96px]" : "bg-green-500 translate-x-[72px] sm:translate-x-[84px] lg:translate-x-[96px]")
+                  ? (isPremium ? "bg-blue-500 translate-x-18 sm:translate-x-21 lg:translate-x-[96px]" : "bg-green-500 translate-x-[72px] sm:translate-x-[84px] lg:translate-x-[96px]")
                   : "bg-orange-500 translate-x-0"
               }`}
             />
