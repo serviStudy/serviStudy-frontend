@@ -112,7 +112,8 @@ export const StudentCard = ({ student }: Props) => {
       )} />
 
       {/* Left: Avatar */}
-      <div className="shrink-0 flex items-center justify-center md:justify-start">
+      <div></div>
+      <div className="shrink-0 items-center flex gap-4 md:justify-start">
         {student.imgUrl ? (
           <img
             src={student.imgUrl}
@@ -124,54 +125,67 @@ export const StudentCard = ({ student }: Props) => {
             <UserCircle size={40} strokeWidth={1.5} />
           </div>
         )}
-      </div>
 
-      {/* Center: Info */}
-      <div className="flex-1 flex flex-col gap-2.5 justify-center min-w-0">
-        <div className="flex items-center gap-2">
-          <h3 className="text-lg font-semibold text-gray-900 truncate group-hover:text-green-600 transition-colors">
-            {student.name || "Sin nombre"}
-          </h3>
-          {student.verificationStatus && (
-            <div className="bg-green-50 text-green-600 p-0.5 rounded-full" title="Perfil verificado">
-              <CheckCircle2 size={14} />
-            </div>
-          )}
-        </div>
-
-        <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-gray-700 font-medium">
-          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-green-50 flex items-center justify-center shrink-0">
-              <Mail size={14} className="text-green-600" />
-            </div>
-            <span className="truncate max-w-[200px] text-sm" title={student.email}>{student.email || "No provisto"}</span>
+        <div className="flex flex-col gap-2 md:hidden">
+          <div className="flex items-center gap-1.5">
+            <h3 className="text-lg font-semibold text-gray-900 truncate capitalize group-hover:text-green-600 transition-colors">
+              {student.name || "Sin nombre"}
+            </h3>
+            {student.verificationStatus && (
+              <div className="bg-green-50 text-green-600 p-0.5 rounded-full" title="Perfil verificado">
+                <CheckCircle2 size={14} />
+              </div>
+            )}
           </div>
+
           <div className="flex items-center gap-2">
             <div className="w-7 h-7 rounded-lg bg-green-50 flex items-center justify-center shrink-0">
               <Phone size={14} className="text-green-600" />
             </div>
-            <span className="text-sm">{student.contactNumber || "Sin teléfono"}</span>
+            <span className="text-sm font-semibold text-gray-700">{student.contactNumber || "Sin teléfono"}</span>
+          </div>
+        </div>
+      </div>
+
+
+      {/* Center: Info */}
+      <div className="flex-1 flex flex-col gap-2.5 justify-center min-w-0">
+        <div className="md:flex flex-col gap-2 hidden ">
+          <div className="flex items-center gap-1.5">
+            <h3 className="text-lg font-semibold text-gray-900 truncate capitalize group-hover:text-green-600 transition-colors">
+              {student.name || "Sin nombre"}
+            </h3>
+            {student.verificationStatus && (
+              <div className="bg-green-50 text-green-600 p-0.5 rounded-full" title="Perfil verificado">
+                <CheckCircle2 size={14} />
+              </div>
+            )}
+          </div>
+
+          <div className="flex gap-6">
+            <div className="flex items-center gap-2">
+              <div className="w-7 h-7 rounded-lg bg-green-50 flex items-center justify-center shrink-0">
+                <Phone size={14} className="text-green-600" />
+              </div>
+              <span className="text-sm font-semibold text-gray-700">{student.contactNumber || "Sin teléfono"}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-7 h-7 rounded-lg bg-green-50 flex items-center justify-center shrink-0">
+                <Mail size={14} className="text-green-600" />
+              </div>
+              <span className="truncate max-w-50 text-sm" title={student.email}>{student.email || "No provisto"}</span>
+            </div>
           </div>
         </div>
 
         {student.description && (
-          <p className="text-sm w-full max-w-full lg:max-w-[50vw] text-gray-600 line-clamp-2 mt-1 bg-gray-50 p-3 rounded-xl border border-gray-100 italic leading-relaxed">
-            "{student.description}"
-          </p>
-        )}
-
-        {student.studentSkills && student.studentSkills.length > 0 && (
-          <div className="flex flex-wrap gap-2 mt-1">
-            {student.studentSkills.map((skill, index) => (
-              <span
-                key={skill.id || `skill-${index}`}
-                className="px-3 py-1 bg-green-50 text-green-700 text-xs font-medium rounded-lg border border-green-100"
-              >
-                {skill.skillName}
-              </span>
-            ))}
+          <div className="bg-gray-50 p-3.5 rounded-xl border border-gray-100">
+            <p className="text-sm w-full text-gray-600 line-clamp-3 italic leading-relaxed">
+              "{student.description}"
+            </p>
           </div>
         )}
+
       </div>
 
       {/* Right: Action */}

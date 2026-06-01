@@ -67,7 +67,7 @@ export default function Page({ params }: PageProps) {
 
 
     return (
-        <div className="min-h-screen relative">
+        <div className="min-h-screen relative w-[92vw]">
             {/* Premium Background Elements */}
             <div className="fixed inset-0 bg-linear-to-br from-green-50/60 via-white to-blue-50/60 -z-10 pointer-events-none" />
             <div className="fixed top-[-10%] right-[-5%] w-125 h-125 bg-blue-400/10 blur-[120px] rounded-full -z-10 pointer-events-none" />

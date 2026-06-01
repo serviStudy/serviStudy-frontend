@@ -64,7 +64,7 @@ export const Postulacion = ({ data, onDelete }: Props) => {
                         {/* Avatar/Image */}
                         <div className="shrink-0 flex items-center justify-center">
                             {data.jobOffer.imageUrl ? (
-                                <div className="w-20 h-20 bg-gray-50 rounded-xl overflow-hidden border border-gray-100 shadow-sm flex items-center justify-center">
+                                <div className="w-16 h-16 bg-gray-50 rounded-xl overflow-hidden border border-gray-100 shadow-sm flex items-center justify-center">
                                     <Image
                                         width={64}
                                         height={64}
