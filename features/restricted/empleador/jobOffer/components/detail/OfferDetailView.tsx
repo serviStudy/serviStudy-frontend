@@ -66,9 +66,9 @@ export const OfferDetailView = ({ id, subscriptionStatus = "INACTIVE" }: Props) 
         transition={{ duration: 0.5 }}
         className="bg-white rounded-3xl shadow-[0_4px_24px_-4px_rgba(0,0,0,0.1)] w-full overflow-hidden"
       >
-        <OfferDetailHeader offer={offer} />
+        <OfferDetailHeader offer={offer} rutaSubscription={rutaSubscription} />
 
-        <div className="p-6 pt-2 md:p-10 md:pt-6 flex flex-col lg:flex-row justify-between gap-8">
+        <div className="p-6 pt-4 sm:p-8 sm:pt-6 md:p-10 md:pt-6 flex flex-col lg:flex-row justify-between gap-8">
           <div className="lg:w-[32%] shrink-0">
             <OfferDetailInfoCards offer={offer} />
           </div>
@@ -86,19 +86,6 @@ export const OfferDetailView = ({ id, subscriptionStatus = "INACTIVE" }: Props) 
             >
               {cleanDescription(offer.description || (offer as any).dutiesDescription || (offer as any).duties_description || "Sin descripción adicional.")}
             </OfferDetailSection>
-          </div>
-
-          <div className="md:hidden w-full">
-            <Button className="flex bg-whit items-center gap-3 px-8 py-1 rounded-xl text-xs font-bold transition-all border-2 border-green-600 text-green-600 hover:bg-green-50 active:scale-95 uppercase tracking-wider">
-              <Link 
-                href={rutaSubscription} 
-              >
-                <div className="flex gap-2">
-                  <Users size={16} className="group-hover/applicants:scale-110 transition-transform" />
-                  Ver Postulantes
-                </div>
-              </Link>
-            </Button>
           </div>
         </div>
       </motion.div>
