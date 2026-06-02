@@ -307,7 +307,7 @@ export default function EmployerDashboard() {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
         {displayStats.map((stat, i) => (
           <motion.div 
             key={stat.label}

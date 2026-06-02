@@ -31,11 +31,11 @@ export default function EditJobOfferPage() {
   if (loading) return <LoadingScreen />;
 
   return (
-    <div className="min-h-screen bg-white relative overflow-hidden">
+    <div className="min-h-screen relative overflow-hidden">
       
       {/* --- PREMIUM BACKGROUND LAYER --- */}
       <div className="absolute inset-0 pointer-events-none">
-         <motion.div 
+        <motion.div 
             animate={{ 
               x: [0, -100, 0], 
               y: [0, 60, 0],
@@ -43,8 +43,8 @@ export default function EditJobOfferPage() {
             }}
             transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
             className="absolute -top-40 -left-40 w-[800px] h-[800px] bg-green-50/40 rounded-full blur-[140px]"
-         />
-         <div className="absolute inset-0 bg-dot-pattern opacity-[0.3]" />
+        />
+        <div className="absolute inset-0 bg-dot-pattern opacity-[0.3]" />
       </div>
 
 
