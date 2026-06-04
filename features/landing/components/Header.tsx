@@ -48,19 +48,23 @@ export function Header() {
             />
           </Link>
 
-          <Link href="/" className="flex items-center">
+          <Link href="/" className="flex items-center hidden sm:flex">
             <h1 className="text-blue-900 font-extrabold text-[18px] md:text-[22px] lg:text-[22px] tracking-tight">
               Servi<span className={`transition-colors duration-500 ${tipoUsuario === 'estudiante' ? 'text-blue-500' : 'text-green-600'}`}>Study</span>
             </h1>
           </Link>
         </div>
 
-        <div className="flex items-center gap-3 sm:gap-6">
+        <div className="flex items-center justify-center">
+          <RoleSwitch tipoUsuario={tipoUsuario} setTipoUsuario={setTipoUsuario} />
+        </div>
+
+        <div className="flex items-center gap-1 sm:gap-6">
           <Button
             variant="ghost"
             asChild
             size="sm"
-            className={`text-sm font-bold transition-colors rounded-xl px-4 ${tipoUsuario === 'estudiante'
+            className={`text-xs md:text-sm font-bold transition-colors rounded-xl px-2 md:px-4 ${tipoUsuario === 'estudiante'
                 ? 'text-blue-800 hover:bg-blue-50'
                 : 'text-green-700 hover:bg-green-50'
               }`}>

@@ -23,7 +23,7 @@ export default async function Page() {
   }
 
   return(
-    <div className="min-h-screen ">
+    <div className="min-h-screen">
       {/* se inyecta al componente cliente */}
       <OfferList subscriptionStatus={subscriptionStatus}/>
     </div>

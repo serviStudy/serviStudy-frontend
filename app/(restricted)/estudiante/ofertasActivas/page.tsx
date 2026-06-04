@@ -78,9 +78,7 @@ const Page = () => {
     }
 
     return (
-        <div className="flex flex-col w-full pb-14 md:gap-8 md:bg-transparent">
-
-            
+        <div className="flex flex-col w-full pb-14 md:gap-8 md:bg-transparent min-w-[20vw]">
             <div>
                 <MobileHeaderOfertas
                 inputValue={inputValue}
