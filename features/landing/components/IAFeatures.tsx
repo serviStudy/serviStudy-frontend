@@ -1,11 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Sparkles, Mail,Zap } from "lucide-react";
+import { Sparkles, Mail, Zap } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
+import { usePersistentRole } from "@/hooks/usePersistentRole";
+import { motion } from "framer-motion";
 
 export function AIFeatures() {
   const [progress, setProgress] = useState(0);
+  const { tipoUsuario } = usePersistentRole();
+  const isEstudiante = tipoUsuario === "estudiante";
 
   // Animación suave para la barra de compatibilidad
   useEffect(() => {
@@ -13,11 +17,20 @@ export function AIFeatures() {
     return () => clearTimeout(timer);
   }, []);
 
-
   return (
     <section className="w-full py-12 px-4">
-      <div className="container mx-auto max-w-6xl">
-        <div className="relative overflow-hidden rounded-[40px] bg-linear-to-br from-blue-600 to-indigo-800 p-6 lg:p-8 md:p-12 shadow-2xl">
+      <motion.div 
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7 }}
+        className="container mx-auto max-w-6xl"
+      >
+        <div className={`relative overflow-hidden rounded-[40px] p-6 lg:p-8 md:p-12 shadow-2xl transition-all duration-1000 bg-linear-to-br ${
+          isEstudiante 
+            ? "from-blue-600 to-indigo-800" 
+            : "from-green-600 to-emerald-800"
+        }`}>
           {/* Adorno visual de fondo */}
           <div className="absolute top-0 right-0 -mt-20 -mr-20 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
           
@@ -25,7 +38,9 @@ export function AIFeatures() {
             {/* Columna Izquierda: Texto e Info */}
             <div className="lg:space-y-8 space-y-5 z-10">
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-yellow-400 text-blue-900 shadow-lg">
+                <div className={`flex h-10 w-10 items-center justify-center rounded-lg text-blue-900 shadow-lg transition-colors duration-1000 ${
+                  isEstudiante ? "bg-yellow-400" : "bg-emerald-300"
+                }`}>
                   <Sparkles className="h-6 w-6" />
                 </div>
                 <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight text-white italic">
@@ -62,7 +77,9 @@ export function AIFeatures() {
             <div className="relative z-10 flex justify-center lg:justify-end">
               <div className="w-full max-w-md rounded-3xl border border-white/20 bg-white/10 p-4 md:p-6 backdrop-blur-md shadow-2xl">
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-yellow-400 text-yellow-900 font-black text-xl shadow-inner">
+                  <div className={`flex h-14 w-14 items-center justify-center rounded-full font-black text-xl shadow-inner transition-colors duration-1000 ${
+                    isEstudiante ? "bg-yellow-400 text-yellow-900" : "bg-emerald-300 text-emerald-950"
+                  }`}>
                     AI
                   </div>
                   <p className="text-white italic font-medium">
@@ -73,8 +90,9 @@ export function AIFeatures() {
                 <div className="md:space-y-4 space-y-2.5">
                   <Progress 
                     value={progress} 
-                    className="h-3 bg-[#1e40af]" 
-  
+                    className={`h-3 transition-colors duration-1000 ${
+                      isEstudiante ? "bg-blue-800/80" : "bg-emerald-900/80"
+                    }`}
                   />
                   <div className="flex justify-between items-center">
                     <p className="text-[10px] md:text-xs font-black uppercase tracking-widest text-white/90">
@@ -86,7 +104,7 @@ export function AIFeatures() {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
