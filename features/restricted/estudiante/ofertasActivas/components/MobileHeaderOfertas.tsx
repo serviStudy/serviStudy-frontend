@@ -72,18 +72,22 @@ export function MobileHeaderOfertas({
             : selectedJornada.join(", ");
 
     return (
-        <div className="sticky top-0 z-30 -mx-4 px-4 py-3 mb-4 overflow-hidden md:hidden w-[95%]">
+        <div className="bg-linear-to-br from-blue-900 via-blue-700 to-blue-600 sticky top-0 z-30 rounded-xl px-4 py-4 mb-4 overflow-hidden md:hidden shadow-sm">
+            {/* Decorative background elements */}
+            <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] pointer-events-none"></div>
+            <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+
             <div
-                className="overflow-hidden relative z-10  transition-[max-height,opacity] duration-300 ease-out"
+                className="overflow-hidden relative z-10 transition-[max-height,opacity] duration-300 ease-out"
                 style={{
                     maxHeight: `${introMaxHeight}px`,
                     opacity: introOpacity,
                 }}
             >
-                <h1 className="pt-2 text-2xl font-bold leading-tight tracking-tight text-blue-900">
-                    Encuentra nuevas  <span className="text-blue-300">oportunidades</span>
+                <h1 className="pt-2 text-2xl font-bold leading-tight tracking-tight text-white">
+                    Encuentra nuevas <span className="text-blue-300 font-extrabold">oportunidades</span>
                 </h1>
-                <p className="mt-2 text-sm leading-relaxed text-gray-500">
+                <p className="mt-2 text-sm leading-relaxed text-white/80 font-medium">
                     Explora cientos de oportunidades para estudiantes <br /> y da el siguiente paso en tu
                     carrera profesional.
                 </p>

@@ -67,14 +67,14 @@ export default function Page({ params }: PageProps) {
 
 
     return (
-        <div className="min-h-screen relative w-[92vw]">
+        <div className="min-h-screen relative w-[92vw] lg:w-[65vw] xl:w-auto">
             {/* Premium Background Elements */}
             <div className="fixed inset-0 bg-linear-to-br from-green-50/60 via-white to-blue-50/60 -z-10 pointer-events-none" />
             <div className="fixed top-[-10%] right-[-5%] w-125 h-125 bg-blue-400/10 blur-[120px] rounded-full -z-10 pointer-events-none" />
             <div className="fixed bottom-[-10%] left-[-5%] w-125 h-125 bg-green-400/10 blur-[120px] rounded-full -z-10 pointer-events-none" />
 
             {/* Edge-to-edge sticky top bar */}
-            <div className="sticky top-[64px] lg:top-[72px] z-50 w-auto bg-white/80 backdrop-blur-xl border-b border-gray-200/60 -mx-4 md:-mx-8 lg:-mx-10 -mt-4 md:-mt-8 lg:-mt-10 px-4 md:px-8 lg:px-10 py-3 mb-8 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.1)] transition-all">
+            <div className="sticky top-16 lg:top-0 z-50 w-auto bg-white/20 backdrop-blur-xl border-b border-gray-200/60 -mx-4 md:-mx-8 lg:-mx-10 -mt-4 md:-mt-8 lg:-mt-10 px-4 md:px-8 lg:px-10 py-3 mb-8 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.1)] transition-all">
                 <div className="max-w-6xl mx-auto flex justify-between items-center">
                     <Link 
                         href="/empleador/ofertas"
@@ -92,7 +92,7 @@ export default function Page({ params }: PageProps) {
             <div className="max-w-6xl mx-auto py-4 px-4 md:px-0 relative z-10">
                 {/* Sección superior: Previsualización de la oferta */}
                 <div className="my-8">
-                    <div className="pointer-events-none capitalize p-[2px] rounded-3xl shadow-xl shadow-blue-900/5">
+                    <div className="pointer-events-none capitalize p-0.5 rounded-3xl shadow-xl shadow-blue-900/5">
                         <div className="bg-white/80 backdrop-blur-md rounded-[22px]">
                             <Offer offer={offer} showActions={false} imageUrl={imageUrl} />
                         </div>

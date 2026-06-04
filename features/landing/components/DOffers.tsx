@@ -1,5 +1,8 @@
+"use client"
 import React from 'react'
 import { MiniOffer } from '../../../components/ui/MiniOffer'
+import { usePersistentRole } from "@/hooks/usePersistentRole"
+import { motion } from "framer-motion"
 import {
     Carousel,
     CarouselContent,
@@ -17,21 +20,40 @@ const MOCK_OFFERS = [
 ]
 
 export const DOffers = () => {
+    const { tipoUsuario } = usePersistentRole()
+    const isEstudiante = tipoUsuario === "estudiante"
+
     return (
         <section className="w-full py-24 px-6 flex flex-col items-center gap-16 bg-gray-50/30 relative overflow-hidden">
             {/* DECORATIVE BACKGROUND */}
-            <div className="absolute top-0 right-0 w-96 h-96 bg-blue-100/20 rounded-full blur-[100px] -mr-48 -mt-48" />
+            <div className={`absolute top-0 right-0 w-96 h-96 rounded-full blur-[100px] -mr-48 -mt-48 transition-colors duration-1000 ${
+                isEstudiante ? "bg-blue-100/25" : "bg-green-100/25"
+            }`} />
 
-            <div className="text-center space-y-4 relative z-10">
+            <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="text-center space-y-4 relative z-10"
+            >
                 <h2 className="text-3xl md:text-5xl font-black text-blue-950 tracking-tight">
-                    Ofertas <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-green-500">Destacadas</span>
+                    Ofertas <span className={`text-transparent bg-clip-text bg-linear-to-r transition-all duration-1000 ${
+                        isEstudiante ? "from-blue-600 to-blue-400" : "from-green-600 to-green-400"
+                    }`}>Destacadas</span>
                 </h2>
                 <p className="text-gray-500 font-bold text-lg max-w-2xl mx-auto opacity-80">
                     Las mejores oportunidades seleccionadas especialmente para potenciar tu crecimiento.
                 </p>
-            </div>
+            </motion.div>
 
-            <div className="w-full max-w-6xl relative z-10 px-12">
+            <motion.div 
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="w-full max-w-6xl relative z-10 px-12"
+            >
                 <Carousel
                     opts={{
                         align: "start",
@@ -48,10 +70,18 @@ export const DOffers = () => {
                             </CarouselItem>
                         ))}
                     </CarouselContent>
-                    <CarouselPrevious className="hidden md:flex -left-4 border-blue-100 text-blue-600 hover:bg-blue-600 hover:text-white transition-all shadow-lg" />
-                    <CarouselNext className="hidden md:flex -right-4 border-blue-100 text-blue-600 hover:bg-blue-600 hover:text-white transition-all shadow-lg" />
+                    <CarouselPrevious className={`hidden md:flex -left-4 transition-all shadow-lg border hover:text-white ${
+                        isEstudiante 
+                            ? "border-blue-100 text-blue-600 hover:bg-blue-600" 
+                            : "border-green-100 text-green-600 hover:bg-green-600"
+                    }`} />
+                    <CarouselNext className={`hidden md:flex -right-4 transition-all shadow-lg border hover:text-white ${
+                        isEstudiante 
+                            ? "border-blue-100 text-blue-600 hover:bg-blue-600" 
+                            : "border-green-100 text-green-600 hover:bg-green-600"
+                    }`} />
                 </Carousel>
-            </div>
+            </motion.div>
         </section>
     )
 }
