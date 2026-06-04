@@ -68,7 +68,7 @@ export default function Audience() {
             </p>
           </div>
 
-          <Link href="/registro-empresa" className="w-full mt-auto z-10">
+          <Link href="/registro" className="w-full mt-auto z-10">
             <Button className="w-full bg-white text-green-700 hover:bg-green-50 h-14 rounded-xl font-black text-lg shadow-xl transition-all duration-300 hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-3 group/btn border-none">
               Registrar Empresa
               <ArrowRight size={22} className="transition-transform group-hover/btn:translate-x-2" />

@@ -37,7 +37,7 @@ export default async function RestrictedLayout({
   const isStudent = safeUser.role === "STUDENT";
 
   return (
-    <div className="min-h-screen flex relative bg-blue-50 selection:bg-blue-100 selection:text-blue-900 overflow-x-hidden">
+    <div className="min-h-screen flex relative bg-blue-50 selection:bg-blue-100 selection:text-blue-900 overflow-x-clip">
       {/* Background Premium */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-white to-transparent" />

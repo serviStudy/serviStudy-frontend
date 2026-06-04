@@ -36,9 +36,7 @@ export default function StudentProfilePage() {
 
     const { student, applicationDate } = data;
     const inicial = student.name?.charAt(0)?.toUpperCase() || "?";
-    const formattedDate = applicationDate
-        ? new Intl.DateTimeFormat("es-ES", { day: "2-digit", month: "short", year: "numeric" }).format(new Date(applicationDate))
-        : "Fecha desconocida";
+    
 
     return (
         <div className="flex flex-col min-h-screen w-full pb-16">
@@ -89,14 +87,6 @@ export default function StudentProfilePage() {
                             </h1>
                             <h2 className="text-blue-600 font-semibold mt-1">Estudiante</h2>
 
-                            {/* Badge de verificación */}
-                            <div className="mt-4">
-                                <span className={`flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-bold shadow-sm ${student.verificationStatus ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-gray-50 text-gray-500 border border-gray-200'}`}>
-                                    <CheckCircle2 className="h-4 w-4" />
-                                    {student.verificationStatus ? "Perfil verificado" : "No verificado"}
-                                </span>
-                            </div>
-
                             <hr className="w-full border-gray-100 my-6" />
 
                             {/* Contacto */}
@@ -113,13 +103,6 @@ export default function StudentProfilePage() {
                                 )}
                             </div>
 
-                            {/* Fecha de postulación */}
-                            <div className="mt-6 w-full flex items-center gap-2 bg-gray-50 rounded-2xl px-4 py-3 border border-gray-100">
-                                <Calendar className="h-4 w-4 text-[#1a4b9e] shrink-0" />
-                                <p className="text-xs text-gray-600 font-medium">
-                                    Postulado el <span className="font-bold text-gray-900">{formattedDate}</span>
-                                </p>
-                            </div>
                         </motion.div>
                     </div>
 

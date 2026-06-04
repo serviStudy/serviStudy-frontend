@@ -127,10 +127,10 @@ export const JobOfferForm: React.FC<JobOfferFormProps> = ({ initialData, isEditi
     <form onSubmit={handleSubmit} className="relative w-full max-w-4xl mx-auto">
       
       {/* 3D Glassmorphism Premium Form Container */}
-      <div className={isPremium ? "bg-white/70 backdrop-blur-2xl rounded-[2rem] border border-white shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,1)] p-6 sm:p-8 relative" : "bg-white rounded-2xl shadow-md p-6 sm:p-8 relative"}>
+      <div className={isPremium ? "bg-white/70 backdrop-blur-2xl rounded-[1.75rem] sm:rounded-[2rem] border border-white shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,1)] p-5 sm:p-8 relative" : "bg-white rounded-2xl shadow-md p-4 sm:p-8 relative"}>
         
         {/* Header */}
-        <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-10 pb-8 border-b border-slate-200/50">
+        <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-6 pb-6 md:mb-10 md:pb-8 border-b border-slate-200/50">
           <div className="flex items-center gap-6">
             <div className={`w-12 h-12 rounded-xl flex items-center justify-center transform -rotate-3 hover:rotate-0 transition-transform ${isPremium ? 'bg-gradient-to-br from-green-500 to-blue-600 shadow-[0_15px_30px_-5px_rgba(59,130,246,0.5),inset_0_1px_0_rgba(255,255,255,0.5)]' : 'bg-green-600 shadow-md'}`}>
               <Briefcase className="h-6 w-6 text-white drop-shadow-md" />
@@ -158,7 +158,7 @@ export const JobOfferForm: React.FC<JobOfferFormProps> = ({ initialData, isEditi
           )}
         </div>
 
-        <div className="relative z-10 flex flex-col gap-8">
+        <div className="relative z-10 flex flex-col gap-6 md:gap-8">
           
           {/* Section 1: Información General */}
           <section className={sectionClass}>
@@ -201,7 +201,7 @@ export const JobOfferForm: React.FC<JobOfferFormProps> = ({ initialData, isEditi
           </section>
 
           {/* Section 2: Días y Horarios */}
-          <section className={`${sectionClass} grid grid-cols-1 md:grid-cols-2 gap-10`}>
+          <section className={`${sectionClass} grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10`}>
             
             <div className="space-y-5 relative z-10">
               <div className="flex items-center gap-4 mb-2">
@@ -221,7 +221,7 @@ export const JobOfferForm: React.FC<JobOfferFormProps> = ({ initialData, isEditi
                     key={p.id}
                     type="button" 
                     onClick={() => handleDaysPresetToggle(p.id as any)} 
-                    className={`flex-1 py-2.5 rounded-xl text-[13px] font-semibold transition-all ${
+                    className={`flex-1 py-2.5 rounded-xl text-xs sm:text-[13px] font-semibold transition-all ${
                       activeDaysPreset === p.id 
                       ? (isPremium ? "bg-white text-orange-600 shadow-[0_4px_12px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,1)] border border-white" : "bg-white text-orange-600 shadow-sm border border-gray-100/50")
                       : "text-slate-500 hover:text-slate-700 hover:bg-white/60"
@@ -238,7 +238,7 @@ export const JobOfferForm: React.FC<JobOfferFormProps> = ({ initialData, isEditi
                     initial={{ opacity: 0, height: 0, scale: 0.95 }}
                     animate={{ opacity: 1, height: 'auto', scale: 1 }}
                     exit={{ opacity: 0, height: 0, scale: 0.95 }}
-                    className={`flex justify-between mt-4 p-4 rounded-2xl border ${isPremium ? 'bg-white/60 border-white/80 shadow-[inset_0_1px_0_rgba(255,255,255,1)]' : 'bg-orange-50/50 border-orange-100/50'}`}
+                    className={`flex flex-wrap gap-2 justify-center sm:justify-between mt-4 p-4 rounded-2xl border ${isPremium ? 'bg-white/60 border-white/80 shadow-[inset_0_1px_0_rgba(255,255,255,1)]' : 'bg-orange-50/50 border-orange-100/50'}`}
                   >
                     {ALL_DAYS.map(day => (
                       <button 
@@ -267,7 +267,7 @@ export const JobOfferForm: React.FC<JobOfferFormProps> = ({ initialData, isEditi
                 <h3 className="text-slate-900 font-bold text-lg tracking-tight drop-shadow-sm">Tipo de Horario</h3>
               </div>
               
-              <div className="grid grid-cols-3 gap-3 h-[52px]">
+              <div className="grid grid-cols-3 gap-3">
                 {[
                   { id: "FULL_TIME", label: "Completa", icon: "☀️" },
                   { id: "PART_TIME", label: "Media", icon: "🌓" },
@@ -277,13 +277,13 @@ export const JobOfferForm: React.FC<JobOfferFormProps> = ({ initialData, isEditi
                     key={s.id}
                     type="button" 
                     onClick={() => handleChange("workSchedule", s.id)} 
-                    className={`flex flex-col items-center justify-center rounded-[1.25rem] border transition-all ${
+                    className={`flex flex-col items-center justify-center h-11 sm:h-12 py-2 sm:py-0 rounded-[1.25rem] border transition-all ${
                       formData.workSchedule === s.id 
                       ? (isPremium ? "border-blue-400 bg-blue-50/80 text-blue-700 shadow-[0_8px_20px_-5px_rgba(59,130,246,0.3),inset_0_1px_0_rgba(255,255,255,1)] ring-2 ring-blue-400/50" : "border-blue-500 bg-blue-50 text-blue-700 shadow-inner")
                       : "border-white/60 bg-white/40 text-slate-500 hover:bg-white/80 hover:shadow-sm"
                     }`}
                   >
-                    <span className="text-[13px] font-semibold">{s.label}</span>
+                    <span className="text-xs sm:text-[13px] font-semibold">{s.label}</span>
                   </button>
                 ))}
               </div>
@@ -340,8 +340,8 @@ export const JobOfferForm: React.FC<JobOfferFormProps> = ({ initialData, isEditi
                   <Sparkles size={16} className={isPremium ? "text-amber-500 drop-shadow-sm" : "text-green-500"} /> Habilidades requeridas
                </label>
                
-               <div className="flex gap-4">
-                 <div className="relative flex-1">
+               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                 <div className="relative flex-1 w-full">
                    <Plus size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 drop-shadow-sm" />
                     <Input 
                       value={skillsInput}
@@ -354,7 +354,7 @@ export const JobOfferForm: React.FC<JobOfferFormProps> = ({ initialData, isEditi
                   <button 
                     type="button"
                     onClick={onAddSkill}
-                    className={`px-6 h-11 rounded-xl font-bold text-[12px] uppercase tracking-widest transition-all active:scale-95 text-white flex items-center justify-center gap-2 ${
+                    className={`w-full sm:w-auto px-6 h-11 rounded-xl font-bold text-[12px] uppercase tracking-widest transition-all active:scale-95 text-white flex items-center justify-center gap-2 ${
                       isPremium 
                       ? "bg-gradient-to-r from-green-500 to-blue-600 shadow-[0_15px_30px_-10px_rgba(59,130,246,0.6),inset_0_2px_0_rgba(255,255,255,0.4)] hover:shadow-[0_20px_40px_-10px_rgba(59,130,246,0.7),inset_0_2px_0_rgba(255,255,255,0.5)] hover:-translate-y-0.5" 
                       : "bg-green-600 hover:bg-green-700 shadow-sm"
