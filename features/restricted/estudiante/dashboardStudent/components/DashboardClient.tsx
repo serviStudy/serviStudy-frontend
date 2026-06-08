@@ -81,7 +81,7 @@ export const DashboardClient = ({ userName }: DashboardClientProps) => {
     <div className="flex flex-col min-h-screen relative z-0 pb-10">
       {/* Background Glow */}
       <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden bg-slate-50/50">
-        <div className="absolute top-[-5%] left-[-5%] w-125 h-125 bg-emerald-400/20 rounded-full mix-blend-multiply filter blur-[120px] opacity-70"></div>
+        <div className="absolute top-[-5%] left-[-5%] w-125 h-12 bg-emerald-400/20 rounded-full mix-blend-multiply filter blur-[120px] opacity-70"></div>
         <div className="absolute bottom-[-10%] right-[-5%] w-150 h-150 bg-blue-500/15 rounded-full mix-blend-multiply filter blur-[120px] opacity-70"></div>
       </div>
 

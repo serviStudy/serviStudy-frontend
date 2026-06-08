@@ -28,7 +28,7 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
   receivedLikesCount = 0,
 }) => {
   return (
-    <div className="flex w-full flex-col gap-8 pb-20">
+    <div className="flex w-full lg:w-min-[62vw] flex-col gap-8 pb-20">
 
       {/* 1. Hero Section (Banner & Identity) */}
       <div className={`relative w-full rounded-xl overflow-hidden shadow-sm ${isPremium
@@ -144,7 +144,7 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
       )}
 
       {/* 2. Main Content Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-10">
 
         {/* Left Column (Core Details) */}
         <div className="lg:col-span-2 flex flex-col gap-10">
@@ -220,7 +220,8 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
                   }`}>
                   <BriefcaseBusiness size={24} />
                 </div>
-                <h3 className="text-lg lg:text-xl font-semibold text-gray-900 tracking-tight">Vacantes Activas</h3>
+                <h3 className="text-lg lg:text-xl font-semibold text-gray-900 tracking-tight">
+                  Vacantes Activas</h3>
               </div>
               <Link href="/empleador/ofertas" className={`px-6 py-3 rounded-xl font-bold text-xs transition-all flex items-center gap-2 shadow-sm justify-center sm:justify-start ${isPremium
                   ? 'bg-gradient-to-r from-green-50 to-blue-50 text-blue-600 hover:from-green-100 hover:to-blue-100 border border-blue-200/50'

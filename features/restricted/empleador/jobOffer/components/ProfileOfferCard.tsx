@@ -137,7 +137,7 @@ export const ProfileOfferCard = ({ offer, imageUrl, businessName, onStatusChange
           <button
             onClick={handleToggleStatus}
             disabled={isChanging}
-            className={`relative flex items-center h-8 sm:h-9 lg:h-10 w-28 sm:w-32 lg:w-36 rounded-full border-2 transition-all duration-500 px-1.5 ${
+            className={`relative flex items-center h-8 sm:h-9 lg:h-10 w-24 sm:w-32 md:w-28 rounded-full border-2 transition-all duration-500 px-1.5 ${
               isActive 
                 ? (isPremium ? "bg-blue-50 border-blue-100" : "bg-green-50 border-green-100") 
                 : "bg-orange-50 border-orange-100"
@@ -146,14 +146,14 @@ export const ProfileOfferCard = ({ offer, imageUrl, businessName, onStatusChange
             <div
               className={`w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 rounded-full transition-all duration-500 shadow-md ${
                 isActive 
-                  ? (isPremium ? "bg-blue-500 translate-x-18 sm:translate-x-21 lg:translate-x-[96px]" : "bg-green-500 translate-x-[72px] sm:translate-x-[84px] lg:translate-x-[96px]")
+                  ? (isPremium ? "bg-blue-500 translate-x-14 sm:translate-x-21 md:translate-x-[68px]" : "bg-green-500 translate-x-[72px] sm:translate-x-[84px] md:translate-x-[86px]")
                   : "bg-orange-500 translate-x-0"
               }`}
             />
-            <span className={`absolute w-full text-center text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.1em] transition-all duration-500 ${
+            <span className={`absolute w-full text-center text-xs font-bold  tracking-widest transition-all duration-500 ${
               isActive 
-                ? (isPremium ? "text-blue-600 left-[-12px] sm:left-[-15px] lg:left-[-18px]" : "text-green-600 left-[-12px] sm:left-[-15px] lg:left-[-18px]") 
-                : "text-orange-600 left-[12px] sm:left-[15px] lg:left-[18px]"
+                ? (isPremium ? "text-blue-600 left-[-12px] sm:left-[-15px] md:left-[-18px]" : "text-green-600 left-[-12px] sm:left-[-15px] md:left-[-18px]") 
+                : "text-orange-600 left-[12px] sm:left-[15px] md:left-[18px]"
             }`}>
               {isActive ? "Activa" : "Inactiva"}
             </span>

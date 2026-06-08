@@ -98,7 +98,7 @@ export const ProfileClient = ({ subscriptionStatus }: ProfileClientProps) => {
 
     return (
         // w-[cal()] w- de sidebar y 1005 total de pantalla
-        <div className="flex flex-col min-h-screen relative z-0">
+        <div className="flex flex-col min-h-screen relative z-0 sm:min-w-[40vw] md:min-w-[60vw]">
             {isPremium && (
                 <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden bg-slate-50/50">
                     {/* Glowing orbs for soft background gradient */}
@@ -126,7 +126,7 @@ export const ProfileClient = ({ subscriptionStatus }: ProfileClientProps) => {
                         receivedLikesCount={receivedLikesCount}
                     />
 
-                    <div className="flex flex-col lg:flex-row gap-8">
+                    <div className="flex flex-col xl:flex-row gap-8">
                         {/* Left Column - Main Content (Wide) */}
                         <div className="flex-1 flex flex-col gap-6">
                             <AboutMeCard variants={itemVariants} description={profile.description || null} isPremium={isPremium} />

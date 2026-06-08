@@ -1,7 +1,7 @@
 "use client"
 import React from 'react'
 import { motion } from 'framer-motion'
-import { Mail, Phone, Briefcase, Calendar, SquarePen, MapPin, CircleDollarSign, FileText, Star, CalendarDays } from 'lucide-react'
+import { Mail, Phone, Briefcase, Calendar, SquarePen, MapPin, CircleDollarSign, FileText, Star, CalendarDays, CheckCircle2 } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Tag } from './ui/Tag'
@@ -20,7 +20,6 @@ interface Props {
     onOpenDaysModal: () => void;
     variants: any;
     isPremium?: boolean;
-    receivedLikesCount?: number;
 }
 
 export const MobileProfileView = ({ 
@@ -36,59 +35,63 @@ export const MobileProfileView = ({
     scheduleLabel,
     onOpenDaysModal,
     variants,
-    isPremium,
-    receivedLikesCount
+    isPremium
 }: Props) => {
     return (
-        <div className="flex flex-col gap-3 pb-8 w-[92vw]">
-            {/* Header */}
-            <motion.div variants={variants} className="rounded-xl shadow-sm border border-gray-100 relative overflow-hidden">
-                <div className={`w-full relative px-4 pt-4 pb-5 ${
+        <div className="flex flex-col gap-4 pb-8 w-full">
+            {/* Header - Rediseñado con fondo degradado como en Desktop */}
+            <motion.div 
+                variants={variants} 
+                className={`rounded-xl shadow-sm border p-6 relative overflow-hidden text-white ${
                     isPremium 
-                        ? "bg-linear-to-r from-[#00d15a] via-[#0088ff] to-[#004ee0]" 
-                        : "bg-linear-to-br from-[#1e3a8a] via-[#1d4ed8] to-[#3b82f6]"
-                }`}>
-                    <div className="absolute inset-0 opacity-10 pointer-events-none bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMSIvPgo8L3N2Zz4=')]"></div>
+                        ? "bg-linear-to-r from-[#00d15a] via-[#0088ff] to-[#004ee0] border-transparent shadow-[0_8px_30px_rgb(0,78,224,0.2)]" 
+                        : "bg-linear-to-br from-[#1e3a8a] via-[#1d4ed8] to-[#3b82f6] border-transparent"
+                }`}
+            >
+                <div className="absolute inset-0 opacity-15 pointer-events-none bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMSIvPgo8L3N2Zz4=')]"></div>
 
-                    <div className='flex gap-4 relative z-10'>
-                        <div className="h-20 w-20 shrink-0 rounded-full bg-blue-600 flex items-center justify-center text-white text-3xl font-bold shadow-lg">
+                <div className="flex flex-col items-center relative z-10 text-center">
+                    {/* Foto / Avatar */}
+                    <div className="relative shrink-0 mb-3">
+                        <div className="h-24 w-24 rounded-full flex items-center justify-center border-4 border-white/30 shadow-lg bg-blue-600/30 text-white">
                             {profile.imgUrl ? (
-                                <Image src={profile.imgUrl} alt="Perfil" width={80} height={80} className="h-full w-full object-cover rounded-full" />
+                                <Image src={profile.imgUrl} alt="Perfil" width={96} height={96} className="h-full w-full object-cover rounded-full" />
                             ) : (
-                                inicial
+                                <span className="text-3xl font-bold">{inicial}</span>
                             )}
                         </div>
-                        <div className="min-w-0 flex-1 pt-1">
-                            <div className="flex flex-wrap items-center gap-2">
-                                <h1 className="text-4.5 font-bold text-blue-50 leading-tight capitalize">
-                                    {profile.name || "Tu Nombre"}
-                                </h1>
-                                {typeof receivedLikesCount === 'number' && receivedLikesCount > 0 && (
-                                    <span className="px-2 py-0.5 rounded-full bg-white/20 text-white text-[10px] font-bold border border-white/25 shrink-0">
-                                        ❤️ {receivedLikesCount}
-                                    </span>
-                                )}
+                        {profile.verificationStatus && (
+                            <div className="absolute -bottom-1 -right-1 bg-white rounded-full p-1.5 border-2 border-blue-600 shadow-sm">
+                                <CheckCircle2 className="h-4 w-4 text-blue-600 fill-current" />
                             </div>
-                            <div className="mt-2 grid grid-cols-1 gap-2 w-full text-left">
-                                <div className="flex items-center gap-2.5 text-gray-50">
-                                    <Mail className="h-4 w-4" />
-                                    <span className="text-sm truncate font-medium">{email || "Sin correo"}</span>
-                                </div>
-                                {profile.contactNumber && (
-                                    <div className="flex items-center gap-2.5 text-gray-50">
-                                        <Phone className="h-4 w-4" />
-                                        <span className="text-sm font-medium">{profile.contactNumber}</span>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
+                        )}
                     </div>
 
+                    {/* Nombre */}
+                    <h1 className="text-xl font-bold text-white tracking-tight capitalize mb-1">
+                        {profile.name || "Tu Nombre"}
+                    </h1>
+
+                    {/* Detalles de Contacto */}
+                    <div className="mt-4 flex flex-col gap-2.5 w-full text-sm text-blue-50 font-medium">
+                        <div className="flex items-center justify-center gap-2 bg-white/10 backdrop-blur-md py-2.5 px-3 rounded-xl border border-white/10">
+                            <Mail className="h-4 w-4 text-blue-100 shrink-0" />
+                            <span className="truncate">{email || "Sin correo"}</span>
+                        </div>
+                        {profile.contactNumber && (
+                            <div className="flex items-center justify-center gap-2 bg-white/10 backdrop-blur-md py-2.5 px-3 rounded-xl border border-white/10">
+                                <Phone className="h-4 w-4 text-blue-100 shrink-0" />
+                                <span>{profile.contactNumber}</span>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Botón Editar Perfil */}
                     <Link
-                        href="/estudiante/perfil/editar-perfil"                
-                        className="mt-4 relative z-10 flex w-full items-center justify-center gap-2 bg-white rounded-xl text-blue-900 py-2.5 text-base font-semibold border border-white/10 shadow-md"
+                        href="/estudiante/perfil/editar-perfil"
+                        className="mt-5 w-full flex items-center justify-center gap-2 bg-white hover:bg-blue-50 text-blue-900 py-3 rounded-xl text-base font-bold shadow-md transition-all active:scale-95"
                     >
-                        <SquarePen className="h-4.5 w-4.5" />
+                        <SquarePen className="h-4.5 w-4.5 text-blue-900" />
                         Editar perfil
                     </Link>
                 </div>
@@ -186,7 +189,7 @@ export const MobileProfileView = ({
                                     {app.applicationDate}
                                 </div>
 
-                                <div className="flex items-start gap-3 pt-3">
+                                <div className="flex items-start gap-3 pt-7">
                                     {app.jobOffer.imageUrl ? (
                                         <div className="w-14 h-14 rounded-xl overflow-hidden bg-gray-50 shrink-0 flex">
                                             <Image
@@ -198,14 +201,12 @@ export const MobileProfileView = ({
                                             />
                                         </div>
                                     ) : (
-                                        <div className="w-16 h-16 md:w-28 md:h-28 bg-emerald-50 rounded-xl flex items-center justify-center font-bold text-emerald-600 text-2xl uppercase">
+                                        <div className="w-14 h-14 bg-emerald-50 rounded-xl flex items-center justify-center font-bold text-emerald-600 text-lg uppercase shrink-0">
                                             {app.jobOffer?.title?.charAt(0) || "P"}
                                         </div>
-                                    )
-                                    }
+                                    )}
 
-                                    
-                                    <div className="flex-1 min-w-0 pr-20">
+                                    <div className="flex-1 min-w-0">
                                         <p className="font-bold text-blue-900 truncate text-4.5 leading-tight mb-1 capitalize">{app.jobOffer.title}</p>
                                         <div className="flex pt-2 items-center gap-1.5 text-blue-600">
                                             <Briefcase className="h-3 w-3" />

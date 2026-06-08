@@ -23,10 +23,10 @@ export const OfferHeader = ({ onFilterChange, subscriptionStatus = "INACTIVE" }:
   const isPremium = subscriptionStatus === "ACTIVE";
 
   return (
-    <div className={`rounded-3xl py-12 px-8 mb-8 overflow-hidden relative shadow-md transition-all duration-500 ${
+    <div className={`rounded-3xl py-12 px-4 mb-8 overflow-hidden relative shadow-md transition-all duration-500 ${
       isPremium
-        ? "bg-gradient-to-br from-green-500 via-blue-500 to-blue-600 shadow-lg shadow-green-500/10"
-        : "bg-gradient-to-br from-green-900 via-green-700 to-green-600 shadow-sm"
+        ? "bg-linear-to-br from-green-500 via-blue-500 to-blue-600 shadow-lg shadow-green-500/10"
+        : "bg-linear-to-br from-green-900 via-green-700 to-green-600 shadow-sm"
     }`}>
       {/* Decorative background elements */}
       <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
@@ -61,8 +61,7 @@ export const OfferHeader = ({ onFilterChange, subscriptionStatus = "INACTIVE" }:
         </p>
 
         {/* Action Buttons */}
-        <div className="flex flex-col items-center gap-4 w-full justify-center">
-          
+        <div className="flex  items-center gap-4 w-full justify-center">
           {/* Filter Container */}
           <motion.div 
             layout
