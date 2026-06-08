@@ -4,10 +4,23 @@ import { ProfileInfo } from '@/features/restricted/empleador/perfil/components/P
 import { motion } from 'framer-motion'
 import { ProfileInfoSkeleton } from '@/features/restricted/empleador/perfil/components/ProfileSkeletons'
 import { useSubscriptionStatus } from '@/features/suscripcion/hooks/useSubscriptionStatus'
+import { getReceivedLikes } from '@/features/restricted/interactions/services/interactionService'
+import { useEffect, useState } from 'react'
 
 const ProfilePage = () => {
   const { loading, profile, email, inicial } = useEmployerProfile()
   const { status: subStatus, loading: loadingSub } = useSubscriptionStatus()
+  const [receivedLikesCount, setReceivedLikesCount] = useState<number>(0)
+
+  useEffect(() => {
+    getReceivedLikes(0, 1, "EMPLOYER")
+      .then(data => {
+        if (data) {
+          setReceivedLikesCount(data.totalElements || 0)
+        }
+      })
+      .catch(err => console.error("Error fetching received likes count:", err))
+  }, [])
 
   const currentSub = subStatus?.currentSubscription;
   const hasSubscription = subStatus?.status === "ACTIVE" && !!currentSub;
@@ -41,6 +54,7 @@ const ProfilePage = () => {
               isPremium={hasSubscription}
               planName={planName}
               daysLeft={daysLeft}
+              receivedLikesCount={receivedLikesCount}
             />
           )}
         </motion.div>

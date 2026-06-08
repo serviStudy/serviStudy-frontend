@@ -20,6 +20,7 @@ interface Props {
     onOpenDaysModal: () => void;
     variants: any;
     isPremium?: boolean;
+    receivedLikesCount?: number;
 }
 
 export const MobileProfileView = ({ 
@@ -35,7 +36,8 @@ export const MobileProfileView = ({
     scheduleLabel,
     onOpenDaysModal,
     variants,
-    isPremium
+    isPremium,
+    receivedLikesCount
 }: Props) => {
     return (
         <div className="flex flex-col gap-3 pb-8 w-[92vw]">
@@ -57,9 +59,16 @@ export const MobileProfileView = ({
                             )}
                         </div>
                         <div className="min-w-0 flex-1 pt-1">
-                            <h1 className="text-4.5 font-bold text-blue-50 leading-tight capitalize">
-                                {profile.name || "Tu Nombre"}
-                            </h1>
+                            <div className="flex flex-wrap items-center gap-2">
+                                <h1 className="text-4.5 font-bold text-blue-50 leading-tight capitalize">
+                                    {profile.name || "Tu Nombre"}
+                                </h1>
+                                {typeof receivedLikesCount === 'number' && receivedLikesCount > 0 && (
+                                    <span className="px-2 py-0.5 rounded-full bg-white/20 text-white text-[10px] font-bold border border-white/25 shrink-0">
+                                        ❤️ {receivedLikesCount}
+                                    </span>
+                                )}
+                            </div>
                             <div className="mt-2 grid grid-cols-1 gap-2 w-full text-left">
                                 <div className="flex items-center gap-2.5 text-gray-50">
                                     <Mail className="h-4 w-4" />

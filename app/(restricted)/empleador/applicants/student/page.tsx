@@ -4,9 +4,10 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, Variants } from "framer-motion";
 import {
-    Mail, Phone, CheckCircle2, User, Zap, Calendar, ArrowLeft
+    Mail, Phone, CheckCircle2, User, Zap, Calendar, ArrowLeft, ThumbsUp, Loader2
 } from "lucide-react";
 import { ApplicantStudent } from "@/features/restricted/empleador/applicantsEmployer/types/applicants.types";
+import { giveLike, removeLike, checkIfLiked } from "@/features/restricted/interactions/services/interactionService";
 
 const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -25,12 +26,26 @@ interface StoredData {
 export default function StudentProfilePage() {
     const router = useRouter();
     const [data, setData] = useState<StoredData | null>(null);
+    const [liked, setLiked] = useState(false);
+    const [likeLoading, setLikeLoading] = useState(false);
 
     useEffect(() => {
         const raw = sessionStorage.getItem("employer_student_view");
         if (!raw) { router.replace("/empleador/ofertas"); return; }
         try { setData(JSON.parse(raw)); } catch { router.replace("/empleador/ofertas"); }
     }, [router]);
+
+    useEffect(() => {
+        if (!data) return;
+        const checkStatus = async () => {
+            const profileId = (data.student as any).id || (data.student as any).userId || (data.student as any).studentProfileId;
+            if (profileId) {
+                const isLiked = await checkIfLiked(profileId, "EMPLOYER");
+                setLiked(isLiked);
+            }
+        };
+        checkStatus();
+    }, [data]);
 
     if (!data) return null;
 
@@ -96,6 +111,43 @@ export default function StudentProfilePage() {
                                     {student.verificationStatus ? "Perfil verificado" : "No verificado"}
                                 </span>
                             </div>
+
+                            {/* Like Button */}
+                            <motion.button
+                                whileTap={{ scale: 0.9 }}
+                                onClick={async () => {
+                                    if (likeLoading) return;
+                                    setLikeLoading(true);
+                                    try {
+                                        const profileId = (student as any).id || (student as any).userId || (student as any).studentProfileId;
+                                        if (liked) {
+                                            await removeLike(profileId);
+                                            setLiked(false);
+                                        } else {
+                                            await giveLike(profileId);
+                                            setLiked(true);
+                                        }
+                                    } catch (err) {
+                                        console.error("Error toggling like:", err);
+                                    } finally {
+                                        setLikeLoading(false);
+                                    }
+                                }}
+                                disabled={likeLoading}
+                                className={`mt-4 w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-bold transition-all duration-200 cursor-pointer shadow-sm ${
+                                    liked
+                                        ? "bg-green-600 text-white hover:bg-green-700"
+                                        : "bg-green-50 text-green-600 hover:bg-green-100 border border-green-200"
+                                } disabled:opacity-50`}
+                                title={liked ? "Quitar Like" : "Dar Like"}
+                            >
+                                {likeLoading ? (
+                                    <Loader2 size={16} className="animate-spin" />
+                                ) : (
+                                    <ThumbsUp size={16} className={liked ? "fill-white" : ""} />
+                                )}
+                                {liked ? "Like dado" : "Dar Like"}
+                            </motion.button>
 
                             <hr className="w-full border-gray-100 my-6" />
 

@@ -13,9 +13,11 @@ import { AboutMeCard } from '@/features/restricted/estudiante/perfil/components/
 import { SkillsCard } from '@/features/restricted/estudiante/perfil/components/SkillsCard'
 import { RecentApplicationsCard } from '@/features/restricted/estudiante/perfil/components/RecentApplicationsCard'
 import { MobileProfileView } from '@/features/restricted/estudiante/perfil/components/MobileProfileView'
+import { ProfileInteractions } from '@/features/restricted/interactions/components/ProfileInteractions'
 
 // External Services & Types
 import { getApplications } from '@/features/restricted/estudiante/misPostulaciones/services/applicationService'
+import { getReceivedLikes } from '@/features/restricted/interactions/services/interactionService'
 
 const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -41,10 +43,20 @@ export const ProfileClient = ({ subscriptionStatus }: ProfileClientProps) => {
     const [isDaysModalOpen, setIsDaysModalOpen] = useState(false);
     const [postulaciones, setPostulaciones] = useState<any>([]);
     const [loadingPosts, setLoadingPosts] = useState(true);
+    const [receivedLikesCount, setReceivedLikesCount] = useState<number>(0);
 
     const isPremium = subscriptionStatus === "ACTIVE";
 
     useEffect(() => {
+        // Fetch received likes count for student
+        getReceivedLikes(0, 1, "STUDENT")
+            .then(data => {
+                if (data) {
+                    setReceivedLikesCount(data.totalElements || 0);
+                }
+            })
+            .catch(err => console.error("Error fetching received likes count:", err));
+
         getApplications()
             .then(data => {
                 if (data && data.content) {
@@ -111,6 +123,7 @@ export const ProfileClient = ({ subscriptionStatus }: ProfileClientProps) => {
                         email={email || ''} 
                         inicial={inicial || ''} 
                         isPremium={isPremium}
+                        receivedLikesCount={receivedLikesCount}
                     />
 
                     <div className="flex flex-col lg:flex-row gap-8">
@@ -141,6 +154,11 @@ export const ProfileClient = ({ subscriptionStatus }: ProfileClientProps) => {
                             />
                         </div>
                     </div>
+
+                    {/* Interactions Section - Desktop */}
+                    <motion.div variants={itemVariants} className="w-full">
+                        <ProfileInteractions isPremium={isPremium} />
+                    </motion.div>
                 </div>
             </motion.div>
 
@@ -165,7 +183,12 @@ export const ProfileClient = ({ subscriptionStatus }: ProfileClientProps) => {
                     onOpenDaysModal={() => setIsDaysModalOpen(true)}
                     variants={itemVariants}
                     isPremium={isPremium}
+                    receivedLikesCount={receivedLikesCount}
                 />
+                {/* Interactions Section - Mobile */}
+                <motion.div variants={itemVariants} className="w-[92vw]">
+                    <ProfileInteractions isPremium={isPremium} />
+                </motion.div>
             </motion.div>
 
             <WorkDaysModal 

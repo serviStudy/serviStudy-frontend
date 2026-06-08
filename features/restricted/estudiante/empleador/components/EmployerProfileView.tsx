@@ -3,12 +3,13 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, Variants } from "framer-motion";
-import { Phone, MapPin, AlignLeft, CheckCircle2, ArrowLeft } from "lucide-react";
+import { Phone, MapPin, AlignLeft, CheckCircle2, ArrowLeft, ThumbsUp, Loader2 } from "lucide-react";
 import { ActiveOffer } from "@/features/restricted/estudiante/ofertasActivas/types/ofertasActivas.types";
 import { LoadingScreen } from "@/components/shared/LoadingScreen";
 import Image from "next/image";
 import { getAuthHeaders } from "@/lib/api/authHeaders";
 import { EmployerProfileResponse } from "@/features/restricted/empleador/perfil/services/profileService";
+import { giveLike, removeLike, checkIfLiked } from "@/features/restricted/interactions/services/interactionService";
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -24,6 +25,8 @@ export const EmployerProfileView = () => {
   const [offerData, setOfferData] = useState<ActiveOffer | null>(null);
   const [employerProfile, setEmployerProfile] = useState<EmployerProfileResponse | null>(null);
   const [loading, setLoading] = useState(true);
+  const [liked, setLiked] = useState(false);
+  const [likeLoading, setLikeLoading] = useState(false);
 
   useEffect(() => {
     // 1. Recuperar los datos del sessionStorage
@@ -48,7 +51,14 @@ export const EmployerProfileView = () => {
             });
             if (res.ok) {
               const data = await res.json();
-              setEmployerProfile(data.data ?? data);
+              const profile = data.data ?? data;
+              setEmployerProfile(profile);
+
+              const profileId = profile.id || profile.employerId || profile.employer_id;
+              if (profileId) {
+                const isLiked = await checkIfLiked(profileId, "STUDENT");
+                setLiked(isLiked);
+              }
             }
           }
         } catch (error) {
@@ -136,9 +146,52 @@ export const EmployerProfileView = () => {
                     )}
                   </div>
                   
-                  <p className="text-sm lg:text-base font-normal text-gray-500 capitalize">
-                    {employerProfile?.employerName || employerProfile?.employer_name || "Empleador"}
-                  </p>
+                  <div className="flex items-center gap-4 justify-center lg:justify-start">
+                    <p className="text-sm lg:text-base font-normal text-gray-500 capitalize">
+                      {employerProfile?.employerName || employerProfile?.employer_name || "Empleador"}
+                    </p>
+                    
+                    {/* Like Button */}
+                    {(employerProfile?.id || employerProfile?.employerId || employerProfile?.employer_id) && (
+                      <motion.button
+                        whileTap={{ scale: 0.9 }}
+                        onClick={async () => {
+                          if (likeLoading) return;
+                          setLikeLoading(true);
+                          try {
+                            const profileId = employerProfile.id || employerProfile.employerId || employerProfile.employer_id;
+                            if (profileId) {
+                              if (liked) {
+                                await removeLike(profileId);
+                                setLiked(false);
+                              } else {
+                                await giveLike(profileId);
+                                setLiked(true);
+                              }
+                            }
+                          } catch (err) {
+                            console.error("Error toggling like:", err);
+                          } finally {
+                            setLikeLoading(false);
+                          }
+                        }}
+                        disabled={likeLoading}
+                        className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold transition-all duration-200 cursor-pointer shadow-sm ${
+                          liked
+                            ? "bg-green-600 text-white hover:bg-green-700"
+                            : "bg-green-50 text-green-600 hover:bg-green-100 border border-green-200"
+                        } disabled:opacity-50`}
+                        title={liked ? "Quitar Like" : "Dar Like"}
+                      >
+                        {likeLoading ? (
+                          <Loader2 size={16} className="animate-spin" />
+                        ) : (
+                          <ThumbsUp size={16} className={liked ? "fill-white" : ""} />
+                        )}
+                        {liked ? "Like dado" : "Dar Like"}
+                      </motion.button>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>

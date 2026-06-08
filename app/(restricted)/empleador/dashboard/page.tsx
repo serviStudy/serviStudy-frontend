@@ -1,8 +1,8 @@
 "use client";
 import React from 'react';
-import { 
-  Briefcase, 
-  TrendingUp, 
+import {
+  Briefcase,
+  TrendingUp,
   ArrowUpRight,
   Plus,
   CheckCircle2,
@@ -16,6 +16,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useEmployerDashboard } from '@/features/restricted/empleador/dashboard/hooks/useEmployerDashboard';
 import { useSubscriptionStatus } from '@/features/suscripcion/hooks/useSubscriptionStatus';
+import { ProfileInteractions } from '@/features/restricted/interactions/components/ProfileInteractions';
 
 const DashboardSkeleton = () => (
   <div className="flex flex-col gap-8 pb-12 animate-pulse">
@@ -51,26 +52,26 @@ export default function EmployerDashboard() {
   }
 
   const displayStats = [
-    { 
-      label: 'Ofertas Activas', 
-      value: stats.activeOffers.toString(), 
-      icon: Briefcase, 
-      color: 'bg-green-50 text-green-600', 
-      trend: stats.activeOffers > 0 ? 'En línea' : 'Sin ofertas' 
+    {
+      label: 'Ofertas Activas',
+      value: stats.activeOffers.toString(),
+      icon: Briefcase,
+      color: 'bg-green-50 text-green-600',
+      trend: stats.activeOffers > 0 ? 'En línea' : 'Sin ofertas'
     },
-    { 
-      label: 'Perfil Completo', 
-      value: `${stats.profileCompletion}%`, 
-      icon: CheckCircle2, 
-      color: 'bg-purple-50 text-purple-600', 
-      trend: stats.profileCompletion === 100 ? 'Excelente' : 'Pendiente' 
+    {
+      label: 'Perfil Completo',
+      value: `${stats.profileCompletion}%`,
+      icon: CheckCircle2,
+      color: 'bg-purple-50 text-purple-600',
+      trend: stats.profileCompletion === 100 ? 'Excelente' : 'Pendiente'
     },
-    { 
-      label: 'Total de Ofertas', 
-      value: stats.totalOffers.toString(), 
-      icon: TrendingUp, 
-      color: 'bg-blue-50 text-blue-600', 
-      trend: 'Histórico' 
+    {
+      label: 'Total de Ofertas',
+      value: stats.totalOffers.toString(),
+      icon: TrendingUp,
+      color: 'bg-blue-50 text-blue-600',
+      trend: 'Histórico'
     },
   ];
 
@@ -113,7 +114,7 @@ export default function EmployerDashboard() {
                 </p>
               </div>
             </div>
-            <Link 
+            <Link
               href="/empleador/ofertas/crear"
               className="bg-white/20 hover:bg-white/30 backdrop-blur-md text-white px-6 py-3 rounded-xl font-bold text-sm shadow-sm transition-all active:scale-95 flex items-center gap-2 w-full sm:w-fit justify-center border border-white/30"
             >
@@ -126,7 +127,7 @@ export default function EmployerDashboard() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {/* Standard stat cards */}
           {displayStats.map((stat, i) => (
-            <motion.div 
+            <motion.div
               key={stat.label}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -137,11 +138,10 @@ export default function EmployerDashboard() {
                 <div className={`p-3 rounded-xl ${stat.color} transition-transform group-hover:scale-110`}>
                   <stat.icon size={20} />
                 </div>
-                <span className={`text-xs font-medium px-2.5 py-1 rounded-full ${
-                  stat.trend === 'Excelente' || stat.trend === 'En línea'
-                    ? 'bg-green-100 text-green-600'
-                    : 'bg-gray-100 text-gray-500'
-                }`}>
+                <span className={`text-xs font-medium px-2.5 py-1 rounded-full ${stat.trend === 'Excelente' || stat.trend === 'En línea'
+                  ? 'bg-green-100 text-green-600'
+                  : 'bg-gray-100 text-gray-500'
+                  }`}>
                   {stat.trend}
                 </span>
               </div>
@@ -153,7 +153,7 @@ export default function EmployerDashboard() {
           ))}
 
           {/* ── Premium Subscription Card ── */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.4 }}
@@ -194,16 +194,15 @@ export default function EmployerDashboard() {
                 Ver todo
               </Link>
             </div>
-            
+
             <div className="rounded-2xl overflow-hidden min-h-[200px] bg-white/70 backdrop-blur-xl border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
               {recentActivity.length > 0 ? (
                 recentActivity.map((offer, i) => (
-                  <Link 
+                  <Link
                     href={`/empleador/ofertas/${offer.jobOfferId || offer.id}`}
-                    key={offer.jobOfferId || offer.id || i} 
-                    className={`p-4 sm:p-5 flex items-center justify-between hover:bg-white/60 transition-all cursor-pointer ${
-                      i !== recentActivity.length - 1 ? 'border-b border-gray-100/80' : ''
-                    } group`}
+                    key={offer.jobOfferId || offer.id || i}
+                    className={`p-4 sm:p-5 flex items-center justify-between hover:bg-white/60 transition-all cursor-pointer ${i !== recentActivity.length - 1 ? 'border-b border-gray-100/80' : ''
+                      } group`}
                   >
                     <div className="flex items-center gap-3 sm:gap-4">
                       <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-green-50 to-blue-50 flex items-center justify-center font-bold text-green-600 text-sm border border-green-200/50 group-hover:from-green-100 group-hover:to-blue-100 transition-all uppercase shrink-0">
@@ -272,7 +271,7 @@ export default function EmployerDashboard() {
 
               {/* CTA */}
               <div className="px-5 pb-5">
-                <Link 
+                <Link
                   href="/empleador/buscar-talento"
                   className="w-full relative overflow-hidden group flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-sm transition-all duration-300 bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-400 hover:to-blue-500 text-white shadow-lg shadow-green-500/20 hover:shadow-blue-500/30 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-95"
                 >
@@ -284,6 +283,11 @@ export default function EmployerDashboard() {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* ── Interactions Section ── */}
+        <div className="w-full">
+          <ProfileInteractions />
         </div>
       </div>
     );
@@ -298,7 +302,7 @@ export default function EmployerDashboard() {
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight">¡Hola, {userName}! 👋</h1>
           <p className="text-gray-500 text-sm mt-1">Aquí tienes un resumen de lo que está pasando hoy.</p>
         </div>
-        <Link 
+        <Link
           href="/empleador/ofertas/crear"
           className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl font-bold text-sm shadow-sm transition-all active:scale-95 flex items-center gap-2 w-full sm:w-fit justify-center"
         >
@@ -309,7 +313,7 @@ export default function EmployerDashboard() {
       {/* Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {displayStats.map((stat, i) => (
-          <motion.div 
+          <motion.div
             key={stat.label}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -320,11 +324,10 @@ export default function EmployerDashboard() {
               <div className={`p-3 rounded-xl ${stat.color} transition-transform group-hover:scale-110`}>
                 <stat.icon size={20} />
               </div>
-              <span className={`text-xs font-medium px-2.5 py-1 rounded-full ${
-                stat.trend === 'Excelente' || stat.trend === 'En línea'
-                  ? 'bg-green-100 text-green-600'
-                  : 'bg-gray-100 text-gray-500'
-              }`}>
+              <span className={`text-xs font-medium px-2.5 py-1 rounded-full ${stat.trend === 'Excelente' || stat.trend === 'En línea'
+                ? 'bg-green-100 text-green-600'
+                : 'bg-gray-100 text-gray-500'
+                }`}>
                 {stat.trend}
               </span>
             </div>
@@ -336,7 +339,7 @@ export default function EmployerDashboard() {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 md:grid-cols-1 ">
         {/* Recent Activity */}
         <div className="lg:col-span-2 flex flex-col gap-4">
           <div className="flex items-center justify-between">
@@ -348,16 +351,15 @@ export default function EmployerDashboard() {
               Ver todo
             </Link>
           </div>
-          
+
           <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden min-h-[200px]">
             {recentActivity.length > 0 ? (
               recentActivity.map((offer, i) => (
-                <Link 
+                <Link
                   href={`/empleador/ofertas/${offer.jobOfferId || offer.id}`}
-                  key={offer.jobOfferId || offer.id || i} 
-                  className={`p-4 sm:p-5 flex items-center justify-between hover:bg-gray-50 transition-all cursor-pointer ${
-                    i !== recentActivity.length - 1 ? 'border-b border-gray-100' : ''
-                  } group`}
+                  key={offer.jobOfferId || offer.id || i}
+                  className={`p-4 sm:p-5 flex items-center justify-between hover:bg-gray-50 transition-all cursor-pointer ${i !== recentActivity.length - 1 ? 'border-b border-gray-100' : ''
+                    } group`}
                 >
                   <div className="flex items-center gap-3 sm:gap-4">
                     <div className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center font-bold text-gray-400 text-sm border border-gray-200 group-hover:bg-green-50 group-hover:text-green-600 transition-all uppercase shrink-0">
@@ -388,28 +390,10 @@ export default function EmployerDashboard() {
           </div>
         </div>
 
-        {/* Tips */}
-        <div className="flex flex-col gap-4">
-          <h2 className="text-xl font-semibold text-gray-900">Consejos Pro</h2>
-          <div className="bg-green-600 rounded-xl p-6 text-white relative overflow-hidden group shadow-sm">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-1000" />
-            <h3 className="text-lg font-semibold mb-2 relative z-10">
-              {stats.profileCompletion < 100 ? "Completa tu perfil" : "Consigue más talento"}
-            </h3>
-            <p className="text-sm font-medium opacity-90 leading-relaxed mb-6 relative z-10">
-              {stats.profileCompletion < 100
-                ? "Un perfil completo genera un 60% más de confianza en los candidatos."
-                : "Mantén tus ofertas actualizadas para atraer a los mejores estudiantes de la plataforma."}
-            </p>
-            {stats.profileCompletion < 100 && (
-              <Link 
-                href="/empleador/perfil/editar"
-                className="bg-white text-green-600 px-5 py-2.5 rounded-xl font-bold text-sm shadow-sm relative z-10 hover:bg-gray-50 transition-all active:scale-95 inline-block"
-              >
-                Completar Perfil
-              </Link>
-            )}
-          </div>
+        {/* interacciones */}
+
+        <div className="lg:col-span-2">
+          <ProfileInteractions />
         </div>
       </div>
     </div>

@@ -10,9 +10,10 @@ interface AvatarCardProps {
     email: string;
     inicial: string;
     isPremium?: boolean;
+    receivedLikesCount?: number;
 }
 
-export const AvatarCard = ({ variants, profile, email, inicial, isPremium }: AvatarCardProps) => {
+export const AvatarCard = ({ variants, profile, email, inicial, isPremium, receivedLikesCount }: AvatarCardProps) => {
     return (
         <motion.div variants={variants} className={`rounded-lg p-8 shadow-sm border flex flex-col md:flex-row items-center gap-8 relative overflow-hidden ${
             isPremium 
@@ -40,9 +41,16 @@ export const AvatarCard = ({ variants, profile, email, inicial, isPremium }: Ava
             
             {/* Center: Info */}
             <div className="flex-1 text-center md:text-left">
-                <h1 className="text-3xl font-bold text-white mb-2 capitalize">
-                    {profile.name || <span className="text-gray-400 italic">Sin nombre</span>}
-                </h1>
+                <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-4 mb-2 justify-center md:justify-start">
+                    <h1 className="text-3xl font-bold text-white capitalize">
+                        {profile.name || <span className="text-gray-400 italic">Sin nombre</span>}
+                    </h1>
+                    {typeof receivedLikesCount === 'number' && receivedLikesCount > 0 && (
+                        <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 text-white border border-white/25 backdrop-blur-xs text-xs font-bold w-fit mx-auto md:mx-0 shadow-inner">
+                            <span>❤️</span> {receivedLikesCount} {receivedLikesCount === 1 ? 'Like recibido' : 'Likes recibidos'}
+                        </div>
+                    )}
+                </div>
                 
                 <div className="flex flex-wrap justify-center md:justify-start gap-x-6 gap-y-3 text-sm text-gray-500 font-medium">
                     <div className="flex items-center gap-2">

@@ -1,10 +1,12 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Phone, Mail, UserCircle, CheckCircle2, Sparkles } from "lucide-react";
+import { Phone, Mail, UserCircle, CheckCircle2, Sparkles, ThumbsUp, Loader2 } from "lucide-react";
 import { StudentProfile } from "../types/searchTalent.types";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { giveLike, removeLike, checkIfLiked } from "@/features/restricted/interactions/services/interactionService";
 
 interface Props {
   student: StudentProfile;
@@ -12,6 +14,19 @@ interface Props {
 
 export const StudentCard = ({ student }: Props) => {
   const router = useRouter();
+  const [liked, setLiked] = useState(false);
+  const [likeLoading, setLikeLoading] = useState(false);
+
+  useEffect(() => {
+    const checkStatus = async () => {
+      const profileId = student.id || student.userId;
+      if (profileId) {
+        const isLiked = await checkIfLiked(profileId, "EMPLOYER");
+        setLiked(isLiked);
+      }
+    };
+    checkStatus();
+  }, [student]);
 
   const handleViewProfile = () => {
     // Reutilizamos el mecanismo de sessionStorage que ya usa la app para ver perfiles de estudiantes
@@ -189,13 +204,49 @@ export const StudentCard = ({ student }: Props) => {
       </div>
 
       {/* Right: Action */}
-      <div className="shrink-0 flex flex-col justify-center items-end mt-2 md:mt-10 border-t md:border-t-0 md:border-l border-gray-100 pt-4 md:pt-0 md:pl-6">
+      <div className="shrink-0 flex flex-col justify-center items-end gap-3 mt-2 md:mt-10 border-t md:border-t-0 md:border-l border-gray-100 pt-4 md:pt-0 md:pl-6">
         <button
           onClick={handleViewProfile}
           className="w-full md:w-auto px-6 py-2.5 bg-green-600 hover:bg-green-700 text-white text-sm font-bold rounded-xl shadow-sm transition-all hover:shadow-md active:scale-95 text-center uppercase tracking-wider cursor-pointer"
         >
           Ver perfil
         </button>
+        <motion.button
+          whileTap={{ scale: 0.9 }}
+          onClick={async (e) => {
+            e.stopPropagation();
+            if (likeLoading) return;
+            setLikeLoading(true);
+            try {
+              const profileId = student.id || student.userId;
+              if (liked) {
+                await removeLike(profileId);
+                setLiked(false);
+              } else {
+                await giveLike(profileId);
+                setLiked(true);
+              }
+            } catch (err) {
+              console.error("Error toggling like:", err);
+            } finally {
+              setLikeLoading(false);
+            }
+          }}
+          disabled={likeLoading}
+          className={`w-full md:w-auto flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl text-sm font-bold transition-all duration-200 cursor-pointer shadow-sm ${
+            liked
+              ? "bg-green-600 text-white hover:bg-green-700"
+              : "bg-green-50 text-green-600 hover:bg-green-100 border border-green-200"
+          } disabled:opacity-50`}
+          title={liked ? "Quitar Like" : "Dar Like"}
+        >
+          {likeLoading ? (
+            <Loader2 size={16} className="animate-spin" />
+          ) : (
+            <ThumbsUp size={16} className={liked ? "fill-white" : ""} />
+          )}
+          {liked ? "Like dado" : "Dar Like"}
+        </motion.button>
       </div>
     </div>
   );
