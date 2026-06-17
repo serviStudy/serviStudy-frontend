@@ -12,19 +12,21 @@ import {
   PlusCircle,
   Menu,
   X,
-  CreditCard
+  CreditCard,
+  Sparkles
 } from 'lucide-react';
 
 import NavLink from '../ui/NavLink';
 import { useSubscriptionStatus } from '@/features/suscripcion/hooks/useSubscriptionStatus';
 
-const sidebarItems = [
+const allSidebarItems = [
   { name: 'Dashboard', icon: LayoutDashboard, href: '/empleador/dashboard' },
   { name: 'Mis Ofertas', icon: Briefcase, href: '/empleador/ofertas' },
   { name: 'Crear Oferta', icon: PlusCircle, href: '/empleador/ofertas/crear' },
   { name: 'Buscar Talento', icon: Users, href: '/empleador/buscar-talento' },
   { name: 'Suscripción', icon: CreditCard, href: '/empleador/suscripcion' },
   { name: 'Perfil de Empresa', icon: User, href: '/empleador/perfil' },
+  { name: 'Agente IA', icon: Sparkles, href: '/empleador/agente' },
 ];
 
 export const EmployerDashboardSidebar = () => {
@@ -111,7 +113,10 @@ export const EmployerDashboardSidebar = () => {
 
         {/* Navigation items */}
         <nav className="flex-1 px-4 py-4 flex flex-col gap-2 overflow-y-auto">
-          {sidebarItems.map((item) => (
+          {allSidebarItems.filter(item => {
+              if (item.name === 'Agente IA' && !isPremium) return false;
+              return true;
+          }).map((item) => (
             <div key={item.name} onClick={closeMobile}>
               <NavLink
                 icon={item.icon}

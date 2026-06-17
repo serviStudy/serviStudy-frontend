@@ -11,7 +11,8 @@ import {
     HelpCircle,
     Menu,
     X,
-    CreditCard
+    CreditCard,
+    Sparkles
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -23,6 +24,7 @@ const allSidebarItems = [
     { name: 'Mis Postulaciones', icon: LayoutDashboard, href: '/estudiante/misPostulaciones' },
     { name: 'Suscripción', icon: CreditCard, href: '/estudiante/suscripcion' },
     { name: 'Perfil estudiante', icon: User, href: '/estudiante/perfil' },
+    { name: 'Agente IA', icon: Sparkles, href: '/estudiante/agente' },
 ];
 
 interface StudentSidebarProps {
@@ -44,7 +46,7 @@ export const StudentSidebar = ({ subscriptionStatus }: StudentSidebarProps) => {
     };
 
     const sidebarItems = allSidebarItems.filter(item => {
-        if (item.name === 'Dashboard' && subscriptionStatus !== 'ACTIVE') {
+        if ((item.name === 'Dashboard' || item.name === 'Agente IA') && subscriptionStatus !== 'ACTIVE') {
             return false;
         }
         return true;
