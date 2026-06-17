@@ -2,7 +2,8 @@ import React from 'react'
 import Link from 'next/link'
 import {
   BriefcaseBusiness, Building2, MapPin, Pencil, CheckCircle2,
-  Mail, Phone, AlignLeft, Globe, Zap, ArrowRight, Crown, Sparkles, Star
+  Mail, Phone, AlignLeft, Globe, Zap, ArrowRight, Crown, Sparkles, Star,
+  ThumbsUpIcon
 } from 'lucide-react'
 import { type EmployerProfileResponse } from '../services/profileService'
 import { ProfileOffersList } from './ProfileOffersList'
@@ -32,13 +33,13 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
 
       {/* 1. Hero Section (Banner & Identity) */}
       <div className={`relative w-full rounded-xl overflow-hidden shadow-sm ${isPremium
-          ? 'bg-white/70 backdrop-blur-xl border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)]'
-          : 'bg-white border border-gray-100'
+        ? 'bg-white/70 backdrop-blur-xl border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)]'
+        : 'bg-white border border-gray-100'
         }`}>
         {/* Background Banner */}
         <div className={`h-[200px] lg:h-[280px] w-full relative overflow-hidden ${isPremium
-            ? 'bg-gradient-to-br from-green-500 via-blue-500 to-blue-600'
-            : 'bg-gradient-to-br from-green-900 via-green-700 to-green-500'
+          ? 'bg-gradient-to-br from-green-500 via-blue-500 to-blue-600'
+          : 'bg-gradient-to-br from-green-900 via-green-700 to-green-500'
           }`}>
           {/* Pattern overlay */}
           <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
@@ -67,8 +68,8 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
             <Link
               href="/empleador/perfil/editar"
               className={`px-4 py-2.5 sm:px-6 sm:py-3 rounded-lg font-bold text-[10px] sm:text-xs flex items-center gap-2 shadow-sm transition-all active:scale-95 ${isPremium
-                  ? 'bg-white/20 backdrop-blur-md text-white border border-white/30 hover:bg-white/30'
-                  : 'bg-white text-green-700 hover:bg-gray-50'
+                ? 'bg-white/20 backdrop-blur-md text-white border border-white/30 hover:bg-white/30'
+                : 'bg-white text-green-700 hover:bg-gray-50'
                 }`}
             >
               <Pencil size={14} className="sm:w-4 sm:h-4" /> <p className='hidden md:block'>Editar Perfil</p>
@@ -82,8 +83,8 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
             {/* Logo */}
             <div className="relative shrink-0">
               <div className={`h-32 w-32 sm:h-40 sm:w-40 lg:h-48 lg:w-48 rounded-lg p-5 sm:p-6 flex items-center justify-center ${isPremium
-                  ? 'bg-white/90 backdrop-blur-xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-white/80'
-                  : 'bg-white shadow-sm border border-gray-100'
+                ? 'bg-white/90 backdrop-blur-xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-white/80'
+                : 'bg-white shadow-sm border border-gray-100'
                 }`}>
                 {(profile.imageUrl || profile.image_url) ? (
                   <img src={profile.imageUrl || profile.image_url} alt="Logo" className="h-full w-full object-contain" />
@@ -95,8 +96,8 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
                 )}
               </div>
               <div className={`absolute -bottom-2 -right-2 p-2.5 rounded-md shadow-sm border-4 border-white ${isPremium
-                  ? 'bg-gradient-to-br from-green-50 to-blue-600'
-                  : 'bg-green-50'
+                ? 'bg-gradient-to-br from-green-50 to-blue-600'
+                : 'bg-green-50'
                 }`}>
                 {isPremium ? (
                   <Sparkles className="h-5 w-5 text-white" />
@@ -113,13 +114,13 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
                   {profile.businessName || profile.business_name || "Nombre de Empresa"}
                 </h1>
                 {receivedLikesCount > 0 && (
-                  <div className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-red-50 text-red-600 border border-red-100 text-xs font-bold w-fit mx-auto lg:mx-0 shadow-xs">
-                    <span>❤️</span> {receivedLikesCount} {receivedLikesCount === 1 ? 'Like recibido' : 'Likes recibidos'}
+                  <div className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-purple-50 text-purple-600 border border-blue-100 text-xs font-bold w-fit mx-auto lg:mx-0 shadow-xs">
+                    <ThumbsUpIcon className="w-4 h-4" /> {receivedLikesCount} {receivedLikesCount === 1 ? 'Like recibido' : 'Likes recibidos'}
                   </div>
                 )}
                 <span className={`w-fit mx-auto lg:mx-0 px-3 py-1 rounded-lg text-xs font-medium uppercase tracking-wider border ${isPremium
-                    ? 'bg-gradient-to-r from-green-50 to-blue-50 text-blue-600 border-blue-200/50'
-                    : 'bg-green-50 text-green-600 border-green-100'
+                  ? 'bg-gradient-to-r from-green-50 to-blue-50 text-blue-600 border-blue-200/50'
+                  : 'bg-green-50 text-green-600 border-green-100'
                   }`}>
                   {isPremium ? '✦ Premium Verificada' : 'Empresa Verificada'}
                 </span>
@@ -157,16 +158,16 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
               { label: "Dirección", value: profile.businessAddress || profile.business_address || "No disponible", icon: MapPin, gradient: "from-violet-500 to-purple-600" },
             ].map((item) => (
               <div key={item.label} className={`group relative p-5 sm:p-6 rounded-2xl overflow-hidden transition-all duration-300 ${isPremium
-                  ? 'bg-white/70 backdrop-blur-xl border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgb(0,0,0,0.1)] hover:-translate-y-1.5'
-                  : 'bg-white border border-gray-100 shadow-sm'
+                ? 'bg-white/70 backdrop-blur-xl border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgb(0,0,0,0.1)] hover:-translate-y-1.5'
+                : 'bg-white border border-gray-100 shadow-sm'
                 }`}>
                 {/* Glow sutil en hover (solo premium) */}
                 {isPremium && (
                   <div className={`absolute -top-6 -right-6 w-24 h-24 bg-gradient-to-br ${item.gradient} opacity-0 group-hover:opacity-15 blur-2xl rounded-full transition-opacity duration-500`} />
                 )}
                 <div className={`relative z-10 w-11 h-11 rounded-xl flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-110 ${isPremium
-                    ? `bg-gradient-to-br ${item.gradient} text-white shadow-lg shadow-blue-500/10`
-                    : 'text-green-600 bg-green-50'
+                  ? `bg-gradient-to-br ${item.gradient} text-white shadow-lg shadow-blue-500/10`
+                  : 'text-green-600 bg-green-50'
                   }`}>
                   <item.icon size={20} />
                 </div>
@@ -179,8 +180,8 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
 
           {/* About Section */}
           <section className={`relative rounded-2xl overflow-hidden transition-all duration-300 ${isPremium
-              ? 'bg-white/70 backdrop-blur-xl border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)]'
-              : 'bg-white border border-gray-100 shadow-sm'
+            ? 'bg-white/70 backdrop-blur-xl border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)]'
+            : 'bg-white border border-gray-100 shadow-sm'
             }`}>
             {/* Barra decorativa superior (solo premium) */}
             {isPremium && (
@@ -189,8 +190,8 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
             <div className="p-6 lg:p-8">
               <div className="flex items-center gap-4 mb-6">
                 <div className={`w-12 h-12 rounded-xl flex items-center justify-center border transition-transform duration-300 group-hover:scale-110 ${isPremium
-                    ? 'bg-gradient-to-br from-green-500 to-blue-600 text-white shadow-lg shadow-green-500/15 border-transparent'
-                    : 'bg-green-50 text-green-600 border-green-100'
+                  ? 'bg-gradient-to-br from-green-500 to-blue-600 text-white shadow-lg shadow-green-500/15 border-transparent'
+                  : 'bg-green-50 text-green-600 border-green-100'
                   }`}>
                   <AlignLeft size={22} />
                 </div>
@@ -203,8 +204,8 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
               </div>
 
               <p className={`leading-relaxed ${isPremium
-                  ? 'text-[15px] text-gray-600'
-                  : 'text-base text-gray-500'
+                ? 'text-[15px] text-gray-600'
+                : 'text-base text-gray-500'
                 }`}>
                 {profile.businessSummary || profile.business_summary || "Esta empresa aún no ha añadido una descripción sobre su visión y valores."}
               </p>
@@ -215,8 +216,8 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
             <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4 px-2">
               <div className="flex items-center gap-4">
                 <div className={`w-12 h-12 rounded-lg flex items-center justify-center border ${isPremium
-                    ? 'bg-gradient-to-br from-green-50 to-blue-50 text-blue-600 border-blue-200/50'
-                    : 'bg-green-50 text-green-600 border-green-100'
+                  ? 'bg-gradient-to-br from-green-50 to-blue-50 text-blue-600 border-blue-200/50'
+                  : 'bg-green-50 text-green-600 border-green-100'
                   }`}>
                   <BriefcaseBusiness size={24} />
                 </div>
@@ -224,8 +225,8 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
                   Vacantes Activas</h3>
               </div>
               <Link href="/empleador/ofertas" className={`px-6 py-3 rounded-xl font-bold text-xs transition-all flex items-center gap-2 shadow-sm justify-center sm:justify-start ${isPremium
-                  ? 'bg-gradient-to-r from-green-50 to-blue-50 text-blue-600 hover:from-green-100 hover:to-blue-100 border border-blue-200/50'
-                  : 'bg-green-50 text-green-600 hover:bg-green-100'
+                ? 'bg-gradient-to-r from-green-50 to-blue-50 text-blue-600 hover:from-green-100 hover:to-blue-100 border border-blue-200/50'
+                : 'bg-green-50 text-green-600 hover:bg-green-100'
                 }`}>
                 Ver Todas <ArrowRight size={18} />
               </Link>
@@ -310,22 +311,22 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
 
           {/* Metrics - Profile Status */}
           <div className={`rounded-xl p-6 shadow-sm ${isPremium
-              ? 'bg-white/70 backdrop-blur-xl border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)]'
-              : 'bg-white border border-gray-100'
+            ? 'bg-white/70 backdrop-blur-xl border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)]'
+            : 'bg-white border border-gray-100'
             }`}>
             <h3 className="text-lg font-semibold text-gray-900 mb-6">Estado del Perfil</h3>
             <div className="flex flex-col gap-6">
               <div className="flex items-center gap-4">
                 <div className={`w-2.5 h-2.5 rounded-full animate-pulse ${isPremium
-                    ? 'bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]'
-                    : 'bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.5)]'
+                  ? 'bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]'
+                  : 'bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.5)]'
                   }`}></div>
                 <span className="text-sm font-medium text-gray-600">Perfil Visible</span>
               </div>
               <div className="flex items-center gap-4">
                 <div className={`w-2.5 h-2.5 rounded-full ${isPremium
-                    ? 'bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.3)]'
-                    : 'bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.3)]'
+                  ? 'bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.3)]'
+                  : 'bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.3)]'
                   }`}></div>
                 <span className="text-sm font-medium text-gray-600">Cuenta Verificada</span>
               </div>
@@ -339,8 +340,8 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
                 <p className="text-xs font-medium text-gray-400 uppercase tracking-wider mb-3">Completitud del Perfil</p>
                 <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
                   <div className={`w-[85%] h-full rounded-full ${isPremium
-                      ? 'bg-gradient-to-r from-green-500 to-blue-500'
-                      : 'bg-green-500'
+                    ? 'bg-gradient-to-r from-green-500 to-blue-500'
+                    : 'bg-green-500'
                     }`}></div>
                 </div>
               </div>

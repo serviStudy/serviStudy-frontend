@@ -35,7 +35,7 @@ export const EmployerProfileView = () => {
       router.back();
       return;
     }
-    
+
     try {
       const parsedOffer: ActiveOffer = JSON.parse(raw);
       setOfferData(parsedOffer);
@@ -44,7 +44,7 @@ export const EmployerProfileView = () => {
       const fetchEmployerProfile = async () => {
         setLoading(true);
         try {
-          const employerId = parsedOffer.employerId || (parsedOffer as any).employer_id;
+          const employerId = parsedOffer.employerId || (parsedOffer as any).employer_id || parsedOffer.id;
           if (employerId) {
             const res = await fetch(`/api/proxy/profiles/employer/${employerId}`, {
               headers: getAuthHeaders(),
@@ -105,7 +105,7 @@ export const EmployerProfileView = () => {
         className="w-full flex flex-col items-center mt-4 px-4"
       >
         <div className="w-full max-w-6xl flex flex-col gap-8">
-          
+
           {/* 1. Hero Section (Banner & Identity) */}
           <motion.div variants={itemVariants} className="relative w-full rounded-2xl overflow-hidden bg-white shadow-md border border-gray-100">
             {/* Background Banner - Green Gradient */}
@@ -145,12 +145,12 @@ export const EmployerProfileView = () => {
                       </span>
                     )}
                   </div>
-                  
+
                   <div className="flex items-center gap-4 justify-center lg:justify-start">
                     <p className="text-sm lg:text-base font-normal text-gray-500 capitalize">
                       {employerProfile?.employerName || employerProfile?.employer_name || "Empleador"}
                     </p>
-                    
+
                     {/* Like Button */}
                     {(employerProfile?.id || employerProfile?.employerId || employerProfile?.employer_id) && (
                       <motion.button
@@ -176,11 +176,10 @@ export const EmployerProfileView = () => {
                           }
                         }}
                         disabled={likeLoading}
-                        className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold transition-all duration-200 cursor-pointer shadow-sm ${
-                          liked
-                            ? "bg-green-600 text-white hover:bg-green-700"
-                            : "bg-green-50 text-green-600 hover:bg-green-100 border border-green-200"
-                        } disabled:opacity-50`}
+                        className={`flex items-center gap-2 px-4 py-1 rounded-xl text-sm font-bold transition-all duration-200 cursor-pointer shadow-sm ${liked
+                          ? "bg-green-600 text-white hover:bg-green-700"
+                          : "bg-green-50 text-green-600 hover:bg-green-100 border border-green-200"
+                          } disabled:opacity-50`}
                         title={liked ? "Quitar Like" : "Dar Like"}
                       >
                         {likeLoading ? (
@@ -227,7 +226,7 @@ export const EmployerProfileView = () => {
                   </div>
                   <h3 className="text-lg lg:text-xl font-bold text-gray-900 tracking-tight">Sobre nosotros</h3>
                 </div>
-                
+
                 <p className="text-base text-gray-600 leading-relaxed font-medium capitalize">
                   {displaySummary || "Esta empresa aún no ha añadido una descripción sobre su visión y valores."}
                 </p>

@@ -16,10 +16,12 @@ export interface LikeResponse {
     id: string;
     name: string;
     imageUrl: string;
+    imgUrl?: string;
     email?: string;
     contactNumber?: string;
     description?: string;
     skills?: string[];
+    studentSkills?: any[];
   };
 }
 
@@ -36,34 +38,37 @@ const studentCache = new Map<string, any>();
 const employerCache = new Map<string, any>();
 
 /**
- * Fetch profile details in batch for students
+ * Fetch profile details in batch for students by making concurrent individual requests
  */
 export const fetchStudentProfilesBatch = async (ids: string[]): Promise<any[]> => {
-  const uniqueIdsToFetch = ids.filter(id => !studentCache.has(id));
+  const uniqueIdsToFetch = ids.filter(id => !studentCache.has(id) && id != null);
   if (uniqueIdsToFetch.length === 0) {
-    return ids.map(id => studentCache.get(id));
+    return ids.map(id => studentCache.get(id)).filter(Boolean);
   }
 
   try {
-    const res = await fetch(`${API_URL}/profiles/student/info`, {
-      method: "POST",
-      headers: {
-        ...getAuthHeaders(),
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ ids: uniqueIdsToFetch })
-    });
-
-    if (res.ok) {
-      const result = await res.json();
-      const list = result.data || result || [];
-      list.forEach((s: any) => {
-        const profileId = s.studentProfileId || s.id || s.userId;
-        if (profileId) {
-          studentCache.set(profileId, s);
+    await Promise.all(uniqueIdsToFetch.map(async (id) => {
+      try {
+        const res = await fetch(`${API_URL}/profiles/student/${id}`, {
+          method: "GET",
+          headers: getAuthHeaders()
+        });
+        if (res.ok) {
+          const result = await res.json();
+          const s = result.data || result;
+          if (s) {
+            const profileId = s.studentProfileId || s.id || s.userId || id;
+            studentCache.set(profileId, s);
+            if (s.studentProfileId) studentCache.set(s.studentProfileId, s);
+            if (s.id) studentCache.set(s.id, s);
+            if (s.userId) studentCache.set(s.userId, s);
+            studentCache.set(id, s); // Ensure the requested ID is also cached
+          }
         }
-      });
-    }
+      } catch (err) {
+        console.error(`Error fetching student profile ${id}:`, err);
+      }
+    }));
   } catch (error) {
     console.error("Error fetching student batch info:", error);
   }
@@ -72,34 +77,37 @@ export const fetchStudentProfilesBatch = async (ids: string[]): Promise<any[]> =
 };
 
 /**
- * Fetch profile details in batch for employers
+ * Fetch profile details in batch for employers by making concurrent individual requests
  */
 export const fetchEmployerProfilesBatch = async (ids: string[]): Promise<any[]> => {
-  const uniqueIdsToFetch = ids.filter(id => !employerCache.has(id));
+  const uniqueIdsToFetch = ids.filter(id => !employerCache.has(id) && id != null);
   if (uniqueIdsToFetch.length === 0) {
-    return ids.map(id => employerCache.get(id));
+    return ids.map(id => employerCache.get(id)).filter(Boolean);
   }
 
   try {
-    const res = await fetch(`${API_URL}/profiles/employer/info`, {
-      method: "POST",
-      headers: {
-        ...getAuthHeaders(),
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ ids: uniqueIdsToFetch })
-    });
-
-    if (res.ok) {
-      const result = await res.json();
-      const list = result.data || result || [];
-      list.forEach((emp: any) => {
-        const profileId = emp.employerId || emp.id || emp.userId;
-        if (profileId) {
-          employerCache.set(profileId, emp);
+    await Promise.all(uniqueIdsToFetch.map(async (id) => {
+      try {
+        const res = await fetch(`${API_URL}/profiles/employer/${id}`, {
+          method: "GET",
+          headers: getAuthHeaders()
+        });
+        if (res.ok) {
+          const result = await res.json();
+          const emp = result.data || result;
+          if (emp) {
+            const profileId = emp.employerId || emp.id || emp.userId || id;
+            employerCache.set(profileId, emp);
+            if (emp.employerId) employerCache.set(emp.employerId, emp);
+            if (emp.id) employerCache.set(emp.id, emp);
+            if (emp.userId) employerCache.set(emp.userId, emp);
+            employerCache.set(id, emp); // Ensure requested ID is mapped
+          }
         }
-      });
-    }
+      } catch (err) {
+        console.error(`Error fetching employer profile ${id}:`, err);
+      }
+    }));
   } catch (error) {
     console.error("Error fetching employer batch info:", error);
   }
@@ -164,15 +172,15 @@ export const checkIfLiked = async (
   if (!targetProfileId) return false;
   try {
     const role = userRole || (localStorage.getItem("user_role") || "STUDENT").toUpperCase() as "STUDENT" | "EMPLOYER";
-    
+
     if (sentLikesCache) {
       return sentLikesCache.some(like => like.targetProfileId === targetProfileId);
     }
-    
+
     if (!sentLikesPromise) {
       sentLikesPromise = getSentLikes(0, 100, role);
     }
-    
+
     const data = await sentLikesPromise;
     sentLikesCache = data.content || [];
     return sentLikesCache.some(like => like.targetProfileId === targetProfileId);
@@ -216,9 +224,10 @@ export const getSentLikes = async (
       return {
         ...like,
         resolvedProfile: emp ? {
-          id: emp.employerId,
-          name: emp.businessName || "Empresa sin nombre",
-          imageUrl: emp.imageUrl || "",
+          ...emp,
+          id: emp.employerId || emp.id || emp.userId,
+          name: emp.businessName || emp.employerName || "Empresa sin nombre",
+          imageUrl: emp.imageUrl || emp.image_url || "",
           description: "Perfil de Empleador"
         } : undefined
       };
@@ -230,13 +239,15 @@ export const getSentLikes = async (
       return {
         ...like,
         resolvedProfile: stu ? {
-          id: stu.studentProfileId,
-          name: stu.name || "Estudiante sin nombre",
-          imageUrl: stu.imgUrl || "",
+          ...stu,
+          id: stu.studentProfileId || stu.id || stu.userId,
+          name: stu.name || stu.firstName || "Estudiante sin nombre",
+          imageUrl: stu.imgUrl || stu.imageUrl || stu.profilePictureUrl || "",
+          imgUrl: stu.imgUrl || stu.imageUrl || stu.profilePictureUrl || "",
           email: stu.email,
           contactNumber: stu.contactNumber,
           description: stu.description || "",
-          skills: (stu.studentSkills || []).map((sk: any) => sk.skillName)
+          studentSkills: stu.studentSkills || ((stu.skills && Array.isArray(stu.skills)) ? stu.skills.map((s: any) => ({ skillName: s })) : [])
         } : undefined
       };
     });
@@ -278,9 +289,10 @@ export const getReceivedLikes = async (
       return {
         ...like,
         resolvedProfile: emp ? {
-          id: emp.employerId,
-          name: emp.businessName || "Empresa sin nombre",
-          imageUrl: emp.imageUrl || "",
+          ...emp,
+          id: emp.employerId || emp.id || emp.userId,
+          name: emp.businessName || emp.employerName || "Empresa sin nombre",
+          imageUrl: emp.imageUrl || emp.image_url || "",
           description: "Perfil de Empleador"
         } : undefined
       };
@@ -292,13 +304,15 @@ export const getReceivedLikes = async (
       return {
         ...like,
         resolvedProfile: stu ? {
-          id: stu.studentProfileId,
-          name: stu.name || "Estudiante sin nombre",
-          imageUrl: stu.imgUrl || "",
+          ...stu,
+          id: stu.studentProfileId || stu.id || stu.userId,
+          name: stu.name || stu.firstName || "Estudiante sin nombre",
+          imageUrl: stu.imgUrl || stu.imageUrl || stu.profilePictureUrl || "",
+          imgUrl: stu.imgUrl || stu.imageUrl || stu.profilePictureUrl || "",
           email: stu.email,
           contactNumber: stu.contactNumber,
           description: stu.description || "",
-          skills: (stu.studentSkills || []).map((sk: any) => sk.skillName)
+          studentSkills: stu.studentSkills || ((stu.skills && Array.isArray(stu.skills)) ? stu.skills.map((s: any) => ({ skillName: s })) : [])
         } : undefined
       };
     });

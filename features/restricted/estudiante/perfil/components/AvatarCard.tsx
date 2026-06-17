@@ -2,7 +2,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { CheckCircle2, Mail, Phone, MapPin, SquarePen } from 'lucide-react'
+import { CheckCircle2, Mail, Phone, MapPin, SquarePen, ThumbsUpIcon } from 'lucide-react'
 
 interface AvatarCardProps {
     variants: any;
@@ -15,11 +15,10 @@ interface AvatarCardProps {
 
 export const AvatarCard = ({ variants, profile, email, inicial, isPremium, receivedLikesCount }: AvatarCardProps) => {
     return (
-        <motion.div variants={variants} className={`rounded-lg p-8 shadow-sm border flex flex-col md:flex-row items-center gap-8 relative overflow-hidden ${
-            isPremium 
-                ? "bg-linear-to-r from-[#00d15a] via-[#0088ff] to-[#004ee0] border-transparent shadow-[0_8px_30px_rgb(0,78,224,0.2)]" 
-                : "bg-linear-to-r from-chart-1 to-blue-600 border-gray-200"
-        }`}>
+        <motion.div variants={variants} className={`rounded-lg p-8 shadow-sm border flex flex-col md:flex-row items-center gap-8 relative overflow-hidden ${isPremium
+            ? "bg-linear-to-r from-[#00d15a] via-[#0088ff] to-[#004ee0] border-transparent shadow-[0_8px_30px_rgb(0,78,224,0.2)]"
+            : "bg-linear-to-r from-chart-1 to-blue-600 border-gray-200"
+            }`}>
             {isPremium && (
                 <div className="absolute inset-0 opacity-20 pointer-events-none bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMSIvPgo8L3N2Zz4=')]"></div>
             )}
@@ -38,7 +37,7 @@ export const AvatarCard = ({ variants, profile, email, inicial, isPremium, recei
                     </div>
                 )}
             </div>
-            
+
             {/* Center: Info */}
             <div className="flex-1 text-center md:text-left">
                 <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-4 mb-2 justify-center md:justify-start">
@@ -47,11 +46,11 @@ export const AvatarCard = ({ variants, profile, email, inicial, isPremium, recei
                     </h1>
                     {typeof receivedLikesCount === 'number' && receivedLikesCount > 0 && (
                         <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 text-white border border-white/25 backdrop-blur-xs text-xs font-bold w-fit mx-auto md:mx-0 shadow-inner">
-                            <span>❤️</span> {receivedLikesCount} {receivedLikesCount === 1 ? 'Like recibido' : 'Likes recibidos'}
+                            <ThumbsUpIcon className="w-4 h-4" /> {receivedLikesCount} {receivedLikesCount === 1 ? 'Like recibido' : 'Likes recibidos'}
                         </div>
                     )}
                 </div>
-                
+
                 <div className="flex flex-wrap justify-center md:justify-start gap-x-6 gap-y-3 text-sm text-gray-500 font-medium">
                     <div className="flex items-center gap-2">
                         <Mail className="h-4 w-4 text-blue-50" />

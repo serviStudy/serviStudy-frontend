@@ -11,6 +11,7 @@ import {
   Loader2,
   UserCircle,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 import {
   getSentLikes,
   getReceivedLikes,
@@ -28,6 +29,7 @@ interface ProfileInteractionsProps {
 export const ProfileInteractions = ({
   isPremium = false,
 }: ProfileInteractionsProps) => {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState<Tab>("received");
   const [receivedLikes, setReceivedLikes] = useState<LikeResponse[]>([]);
   const [sentLikes, setSentLikes] = useState<LikeResponse[]>([]);
@@ -91,6 +93,39 @@ export const ProfileInteractions = ({
       console.error("Error removing like:", err);
     } finally {
       setRemovingId(null);
+    }
+  };
+
+  const handleViewProfile = (like: LikeResponse) => {
+    if (!like.resolvedProfile) return;
+    const rp = like.resolvedProfile;
+    if (userRole === "STUDENT") {
+      // Un estudiante ve el perfil de un empleador
+      // EmployerProfileView reads from "student_employer_view" and expects employerId/id + businessName
+      const employerData = {
+        id: rp.id,
+        employerId: rp.id,
+        businessName: rp.name,
+        imageUrl: rp.imageUrl || rp.imgUrl || "",
+        description: rp.description || "",
+      };
+      sessionStorage.setItem("student_employer_view", JSON.stringify(employerData));
+      router.push("/estudiante/empleador");
+    } else {
+      // Un empleador ve el perfil de un estudiante
+      // StudentProfilePage reads { student: ApplicantStudent, applicationDate }
+      const studentData = {
+        studentProfileId: rp.id,
+        id: rp.id,
+        name: rp.name,
+        imgUrl: rp.imgUrl || rp.imageUrl || "",
+        email: rp.email || "",
+        contactNumber: rp.contactNumber || "",
+        description: rp.description || "",
+        studentSkills: (rp as any).studentSkills || [],
+      };
+      sessionStorage.setItem("employer_student_view", JSON.stringify({ student: studentData, applicationDate: "" }));
+      router.push("/empleador/applicants/student");
     }
   };
 
@@ -229,7 +264,8 @@ export const ProfileInteractions = ({
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: idx * 0.05 }}
-                  className={`flex items-center gap-4 p-4 rounded-xl border transition-all duration-200 hover:shadow-sm ${
+                  onClick={() => handleViewProfile(like)}
+                  className={`flex items-center gap-4 p-4 rounded-xl border transition-all duration-200 hover:shadow-sm cursor-pointer ${
                     isPremium
                       ? "bg-white/50 border-white/60 hover:bg-white/80"
                       : "bg-gray-50/50 border-gray-100 hover:bg-gray-50"
@@ -237,9 +273,9 @@ export const ProfileInteractions = ({
                 >
                   {/* Avatar */}
                   <div className="shrink-0">
-                    {like.resolvedProfile?.imageUrl ? (
+                    {(like.resolvedProfile?.imageUrl || like.resolvedProfile?.imgUrl) ? (
                       <img
-                        src={like.resolvedProfile.imageUrl}
+                        src={like.resolvedProfile.imageUrl || like.resolvedProfile.imgUrl}
                         alt={like.resolvedProfile.name}
                         className="w-12 h-12 rounded-xl object-cover border-2 border-gray-100"
                       />
@@ -272,9 +308,10 @@ export const ProfileInteractions = ({
                   {/* Action */}
                   {activeTab === "sent" && (
                     <button
-                      onClick={() =>
-                        handleRemoveLike(like.targetProfileId)
-                      }
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleRemoveLike(like.targetProfileId);
+                      }}
                       disabled={removingId === like.targetProfileId}
                       className="shrink-0 p-2.5 rounded-xl bg-red-50 text-red-500 hover:bg-red-100 transition-all duration-200 cursor-pointer disabled:opacity-50"
                       title="Quitar Like"

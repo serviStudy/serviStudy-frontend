@@ -12,6 +12,8 @@ export interface ApplicantStudent {
   contactNumber?: string;
   description?: string;
   studentSkills: StudentSkill[];
+  workDays?: string[];
+  workSchedule?: string;
 }
 
 export interface ApplicantDTO {
