@@ -78,7 +78,7 @@ export const ProfileOfferCard = ({ offer, imageUrl, businessName, onStatusChange
             }`}>{offer.title}</h3>
             
             {/* Ubicación */}
-            <div className="mt-2.5 flex items-center gap-2 font-medium text-xs">
+            <div className="my-2.5 flex items-center gap-2 font-medium text-xs">
               <MapPin size={14} className={`shrink-0 ${isPremium ? 'text-blue-500' : 'text-green-500'}`} />
               <span className="text-gray-500 truncate tracking-tight capitalize">{offer.establishment_address || offer.establishmentAddress || "Ubicación no especificada"}</span>
             </div>
@@ -98,29 +98,29 @@ export const ProfileOfferCard = ({ offer, imageUrl, businessName, onStatusChange
         </div>
 
         {/* Footer Area with Switch and Price */}
-        <div className={`mt-auto pt-4 lg:pt-5 flex flex-wrap justify-between items-center gap-4 border-t ${
+        <div className={`mt-auto pt-4 lg:pt-2 flex flex-wrap justify-between items-center gap-4 border-t ${
           isPremium ? 'border-gray-200/50' : 'border-gray-50'
         }`}>
           {/* Status Toggle */}
           <button
             onClick={handleToggleStatus}
             disabled={isChanging}
-            className={`relative flex items-center h-8 sm:h-9 lg:h-10 w-24 sm:w-32 md:w-28 rounded-full border-2 transition-all duration-500 px-1.5 ${
+            className={`relative flex items-center h-8 sm:h-9 lg:h-8 w-24 sm:w-32 md:w-28 rounded-full border-2 transition-all duration-500 px-1.5 ${
               isActive 
-                ? (isPremium ? "bg-blue-50 border-blue-100" : "bg-green-50 border-green-100") 
+                ? "bg-green-100 border-green-100" 
                 : "bg-orange-50 border-orange-100"
             }`}
           >
             <div
-              className={`w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 rounded-full transition-all duration-500 shadow-md ${
+              className={`w-5 h-5 sm:w-6 sm:h-6 lg:w-5 lg:h-5 rounded-full transition-all duration-500 shadow-md ${
                 isActive 
-                  ? (isPremium ? "bg-blue-500 translate-x-14 sm:translate-x-21 md:translate-x-17" : "bg-green-500 translate-x-18 sm:translate-x-[84px] md:translate-x-[86px]")
+                  ? "bg-green-500 translate-x-14 sm:translate-x-21 md:translate-x-17"
                   : "bg-orange-500 translate-x-0"
               }`}
             />
-            <span className={`absolute w-full text-center text-xs font-bold  tracking-widest transition-all duration-500 ${
+            <span className={`absolute w-full text-center text-xs font-bold tracking-widest transition-all duration-500 ${
               isActive 
-                ? (isPremium ? "text-blue-600 -left-3 sm:-left-3.75 md:left-[-18px]" : "text-green-600 left-[-12px] sm:left-[-15px] md:left-[-18px]") 
+                ? "text-green-600 left-3 sm:left-3.75 md:left-[-18px]" 
                 : "text-orange-600 left-3 sm:left-3.75 md:left-4.5"
             }`}>
               {isActive ? "Activa" : "Inactiva"}
@@ -129,9 +129,7 @@ export const ProfileOfferCard = ({ offer, imageUrl, businessName, onStatusChange
 
           <div className="text-right">
             <span className="text-[9px] sm:text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-0.5 lg:mb-1">Sueldo</span>
-            <span className={`font-black text-base sm:text-lg lg:text-xl tracking-tight ${
-              isPremium ? 'text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-green-500' : 'text-green-600'
-            }`}>
+            <span className={`font-black text-base sm:text-lg lg:text-xl tracking-tight text-gray-400`}>
               ${Number(offer.salary).toLocaleString()}
             </span>
           </div>

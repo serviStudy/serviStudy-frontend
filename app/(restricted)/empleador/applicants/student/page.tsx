@@ -1,237 +1,115 @@
 "use client";
-"use client";
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { motion, Variants } from "framer-motion";
-import { Mail, Phone, User, Zap, Calendar, ArrowLeft, Clock } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowLeft, Loader2 } from "lucide-react";
 import { ApplicantStudent } from "@/features/restricted/empleador/applicantsEmployer/types/applicants.types";
-
-const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    show: { opacity: 1, transition: { staggerChildren: 0.08 } },
-};
-const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
-};
+import { ProfileBanner } from "@/features/restricted/empleador/applicantsEmployer/components/studentProfile/ProfileBanner";
+import { StudentHeaderCard } from "@/features/restricted/empleador/applicantsEmployer/components/studentProfile/StudentHeaderCard";
+import { AboutMeCard } from "@/features/restricted/empleador/applicantsEmployer/components/studentProfile/AboutMeCard";
+import { SkillsCard } from "@/features/restricted/empleador/applicantsEmployer/components/studentProfile/SkillsCard";
+import { AvailabilityCard } from "@/features/restricted/empleador/applicantsEmployer/components/studentProfile/AvailabilityCard";
 
 interface StoredData {
-    student: ApplicantStudent;
-    applicationDate: string;
+  student: ApplicantStudent;
+  applicationDate: string;
 }
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 15 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
+};
+
 export default function StudentProfilePage() {
-    const router = useRouter();
-    const [data, setData] = useState<StoredData | null>(null);
-    const [loading, setLoading] = useState(true);
+  const router = useRouter();
+  const [data, setData] = useState<StoredData | null>(null);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const stored = sessionStorage.getItem("employer_student_view");
-        if (stored) {
-            try {
-                setData(JSON.parse(stored));
-            } catch (e) {
-                console.error("Error parsing employer_student_view:", e);
-            }
-        }
-        setLoading(false);
-    }, []);
-
-    if (loading) {
-        return (
-            <div className="flex items-center justify-center min-h-screen w-full bg-gray-50">
-                <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#1a4b9e]"></div>
-            </div>
-        );
+  useEffect(() => {
+    const stored = sessionStorage.getItem("employer_student_view");
+    if (stored) {
+      try {
+        setData(JSON.parse(stored));
+      } catch (e) {
+        console.error("Error parsing employer_student_view:", e);
+      }
     }
+    setLoading(false);
+  }, []);
 
-    if (!data) {
-        return (
-            <div className="flex flex-col items-center justify-center min-h-screen w-full bg-gray-50 gap-4">
-                <p className="text-gray-500 font-medium text-lg">No se encontró información del perfil.</p>
-                <button
-                    onClick={() => router.back()}
-                    className="flex items-center gap-2 text-white bg-[#1a4b9e] hover:bg-[#153b7c] font-bold px-5 py-2.5 rounded-xl shadow-sm transition-all"
-                >
-                    <ArrowLeft size={20} />
-                    Volver
-                </button>
-            </div>
-        );
-    }
-
-    const { student, applicationDate } = data;
-    const inicial = student.name?.charAt(0)?.toUpperCase() || "?";
-    
-
+  if (loading) {
     return (
-        <div className="flex flex-col min-h-screen w-full pb-16">
-
-            {/* Back button */}
-            <div className="pt-6 px-4 max-w-6xl mx-auto w-full">
-                <button
-                    onClick={() => router.back()}
-                    className="flex items-center gap-2 text-[#1a4b9e] font-bold hover:bg-blue-50 px-4 py-2 rounded-xl transition-all"
-                >
-                    <ArrowLeft size={20} />
-                    Volver a postulantes
-                </button>
-            </div>
-
-            <motion.div
-                variants={containerVariants}
-                initial="hidden"
-                animate="show"
-                className="w-full flex flex-col items-center mt-4"
-            >
-                {/* Cover Banner */}
-                <motion.div
-                    variants={itemVariants}
-                    className="w-full max-w-6xl mx-auto h-40 md:h-52 rounded-3xl bg-linear-to-br from-[#1e3a8a] via-[#1d4ed8] to-[#3b82f6] relative overflow-hidden shadow-lg"
-                >
-                    <div className="absolute inset-0 opacity-20 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMSIvPgo8L3N2Zz4=')]" />
-                </motion.div>
-
-                {/* Two-Column Layout */}
-                <div className="w-full max-w-6xl mx-auto px-4 md:px-8 flex flex-col md:flex-row gap-8 -mt-20 relative z-10">
-
-                    {/* Left Column */}
-                    <div className="w-full md:w-85 flex flex-col gap-6 shrink-0">
-
-                        {/* Avatar & Basic Info */}
-                        <motion.div variants={itemVariants} className="bg-white rounded-3xl p-6 shadow-xl border border-gray-100 flex flex-col items-center text-center">
-                            <div className="h-32 w-32 -mt-16 overflow-hidden rounded-full bg-[#2552d0] border-4 border-white flex items-center justify-center text-white text-[56px] font-bold shadow-lg ring-4 ring-blue-50">
-                                {student.imgUrl ? (
-                                    <img src={student.imgUrl} alt="Perfil" className="h-full w-full object-cover" />
-                                ) : (
-                                    inicial
-                                )}
-                            </div>
-
-                            <h1 className="text-2xl font-extrabold text-gray-900 mt-5">
-                                {student.name || <span className="text-gray-400 italic font-medium text-lg">Sin nombre</span>}
-                            </h1>
-                            <h2 className="text-blue-600 font-semibold mt-1">Estudiante</h2>
-
-                            <hr className="w-full border-gray-100 my-6" />
-
-                            {/* Contacto */}
-                            <div className="flex flex-col gap-4 w-full text-left text-sm text-gray-600 font-medium">
-                                <div className="flex items-center gap-3">
-                                    <div className="bg-blue-50 p-2 rounded-lg text-blue-600"><Mail className="h-4 w-4" /></div>
-                                    <span className="truncate">{student.email || "—"}</span>
-                                </div>
-                                {student.contactNumber && (
-                                    <div className="flex items-center gap-3">
-                                        <div className="bg-blue-50 p-2 rounded-lg text-blue-600"><Phone className="h-4 w-4" /></div>
-                                        <span>{student.contactNumber}</span>
-                                    </div>
-                                )}
-                            </div>
-
-                        </motion.div>
-                    </div>
-
-                    {/* Right Column */}
-                    <div className="w-full flex-1 flex flex-col gap-6 pt-4 md:pt-0">
-
-                        {/* Sobre mí */}
-                        <motion.div variants={itemVariants} className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
-                            <div className="flex items-center gap-3 mb-6">
-                                <div className="bg-blue-600 p-2.5 rounded-xl shadow-md shadow-blue-600/20 text-white">
-                                    <User className="h-5 w-5" strokeWidth={2.5} />
-                                </div>
-                                <h3 className="text-2xl font-bold text-gray-900">Sobre mí</h3>
-                            </div>
-                            {student.description ? (
-                                <p className="text-[15px] leading-relaxed text-gray-600 font-medium">
-                                    {student.description}
-                                </p>
-                            ) : (
-                                <div className="bg-gray-50 rounded-2xl p-6 border border-dashed border-gray-200 text-center">
-                                    <p className="text-sm text-gray-400 italic">El estudiante no ha añadido una descripción.</p>
-                                </div>
-                            )}
-                        </motion.div>
-
-                        {/* Habilidades */}
-                        <motion.div variants={itemVariants} className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
-                            <div className="flex items-center gap-3 mb-6">
-                                <div className="bg-blue-600 p-2.5 rounded-xl shadow-md shadow-blue-600/20 text-white">
-                                    <Zap className="h-5 w-5" strokeWidth={2.5} />
-                                </div>
-                                <h3 className="text-2xl font-bold text-gray-900">Cualidades destacadas</h3>
-                            </div>
-                            {student.studentSkills && student.studentSkills.length > 0 ? (
-                                <div className="flex flex-wrap gap-3">
-                                    {student.studentSkills.map((s) => (
-                                        <div key={s.id} className="bg-blue-50 text-blue-700 px-4 py-2 rounded-xl text-sm font-bold border border-blue-100 shadow-sm flex items-center gap-2">
-                                            <div className="h-1.5 w-1.5 rounded-full bg-blue-500" />
-                                            {s.skillName}
-                                        </div>
-                                    ))}
-                                </div>
-                            ) : (
-                                <div className="bg-gray-50 rounded-2xl p-6 border border-dashed border-gray-200 text-center">
-                                    <p className="text-sm text-gray-400 italic">El estudiante no ha añadido habilidades.</p>
-                                </div>
-                            )}
-                        </motion.div>
-
-                        {/* DISPONIBILIDAD HORARIA (Usando renderizado condicional seguro) */}
-                        <motion.div variants={itemVariants} className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
-                            <div className="flex items-center gap-3 mb-6">
-                                <div className="bg-blue-600 p-2.5 rounded-xl shadow-md shadow-blue-600/20 text-white">
-                                    <Calendar className="h-5 w-5" strokeWidth={2.5} />
-                                </div>
-                                <h3 className="text-2xl font-bold text-gray-900">Disponibilidad Horaria</h3>
-                            </div>
-                            {student.workSchedule && (
-                                <div className="mb-6 bg-blue-50/50 border border-blue-100/50 rounded-2xl p-4 flex items-center gap-3">
-                                    <Clock className="h-5 w-5 text-blue-600" />
-                                    <div>
-                                        <p className="text-xs text-gray-400 font-semibold uppercase tracking-wider">Jornada preferida</p>
-                                        <p className="text-sm font-bold text-gray-800 capitalize">
-                                            {student.workSchedule === "MORNING" ? "Mañana" : 
-                                            student.workSchedule === "AFTERNOON" ? "Tarde" : 
-                                            student.workSchedule === "FULL_TIME" ? "Jornada Completa" : 
-                                            student.workSchedule === "PART_TIME" ? "Media Jornada" : 
-                                            student.workSchedule === "FLEXIBLE" ? "Flexible" : student.workSchedule}
-                                        </p>
-                                    </div>
-                                </div>
-                            )}
-                            <div className="flex flex-col gap-2">
-                                <p className="text-sm font-semibold text-gray-500 mb-2">Días disponibles:</p>
-                                <div className="flex flex-wrap gap-2">
-                                    {["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"].map((day) => {
-                                        // Optional chaining seguro y normalización a mayúsculas para evitar diferencias de case
-                                        const normalizedWorkDays = student.workDays?.map(d => d.trim().toUpperCase()) || [];
-                                        const isAvailable = normalizedWorkDays.includes(day);
-                                        const dayLabels: Record<string, string> = {
-                                            MONDAY: "Lun", TUESDAY: "Mar", WEDNESDAY: "Mié", THURSDAY: "Jue", FRIDAY: "Vie", SATURDAY: "Sáb", SUNDAY: "Dom"
-                                        };
-                                        return (
-                                            <span
-                                                key={day}
-                                                className={`px-4 py-2 rounded-xl text-xs font-bold border transition-all ${
-                                                    isAvailable
-                                                        ? "bg-green-50 text-green-700 border-green-200 shadow-xs animate-pulse-once"
-                                                        : "bg-gray-50 text-gray-300 border-gray-100 opacity-50 line-through"
-                                                }`}
-                                            >
-                                                {dayLabels[day]}
-                                            </span>
-                                        );
-                                    })}
-                                </div>
-                            </div>
-                        </motion.div>
-
-                    </div>
-                </div>
-            </motion.div>
-        </div>
+      <div className="flex flex-col items-center justify-center min-h-screen w-full bg-gray-50/50">
+        <Loader2 className="animate-spin h-10 w-10 text-green-600 mb-2" />
+        <span className="text-sm font-semibold text-gray-500">Cargando perfil...</span>
+      </div>
     );
+  }
+
+  if (!data) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen w-full bg-gray-50/50 gap-4">
+        <p className="text-gray-500 font-bold text-lg">No se encontró información del perfil.</p>
+        <button
+          onClick={() => router.back()}
+          className="flex items-center gap-2 text-white bg-green-600 hover:bg-green-700 font-bold px-6 py-3 rounded-2xl shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer active:scale-95"
+        >
+          <ArrowLeft size={18} />
+          Volver
+        </button>
+      </div>
+    );
+  }
+
+  const { student, applicationDate } = data;
+
+  return (
+    <div className="flex flex-col min-h-screen w-full bg-gray-50/20 pb-20">
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="show"
+        className="w-full flex flex-col items-center"
+      >
+        {/* Banner Section */}
+        <ProfileBanner />
+
+        {/* Layout Grid (Left column: avatar & contact, Right column: info sections) */}
+        <div className="w-full max-w-6xl mx-auto px-4 flex flex-col md:flex-row gap-6 md:gap-8 -mt-12 md:-mt-16 relative z-10">
+          
+          {/* Left Side Column */}
+          <div className="w-full md:w-80 shrink-0">
+            <StudentHeaderCard student={student} applicationDate={applicationDate} />
+          </div>
+
+          {/* Right Side Column */}
+          <div className="w-full flex-1 flex flex-col gap-6 md:gap-8">
+            <motion.div variants={itemVariants}>
+              <AboutMeCard description={student.description} />
+            </motion.div>
+
+            <motion.div variants={itemVariants}>
+              <SkillsCard skills={student.studentSkills} />
+            </motion.div>
+
+            <motion.div variants={itemVariants}>
+              <AvailabilityCard workSchedule={student.workSchedule} workDays={student.workDays} />
+            </motion.div>
+          </div>
+
+        </div>
+      </motion.div>
+    </div>
+  );
 }
