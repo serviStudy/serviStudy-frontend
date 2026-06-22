@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { ArrowLeft, Loader2 } from "lucide-react";
 import { ApplicantStudent } from "@/features/restricted/empleador/applicantsEmployer/types/applicants.types";
 import { ProfileBanner } from "@/features/restricted/empleador/applicantsEmployer/components/studentProfile/ProfileBanner";
@@ -16,7 +16,7 @@ interface StoredData {
   applicationDate: string;
 }
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
@@ -26,7 +26,7 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 15 },
   show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
 };
