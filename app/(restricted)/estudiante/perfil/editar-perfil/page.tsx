@@ -1,10 +1,13 @@
 "use client"
 import React from 'react'
 import { Loader2 } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import { useEditStudentProfile } from '@/features/restricted/estudiante/perfil/hooks/useEditStudentProfile'
 import { EditProfileForm } from '@/features/restricted/estudiante/perfil/components/EditProfileForm'
+import { SuccessModal } from '@/components/shared/SuccessModal'
 
 const EditProfilePage = () => {
+    const router = useRouter()
     const {
         formData,
         setters,
@@ -13,6 +16,8 @@ const EditProfilePage = () => {
         errors,
         saving,
         loading,
+        showSuccess,
+        setShowSuccess,
         inicial,
         isPremium
     } = useEditStudentProfile()
@@ -39,6 +44,16 @@ const EditProfilePage = () => {
                     isPremium={isPremium}
                 />
             </div>
+
+            <SuccessModal
+                isOpen={showSuccess}
+                onClose={() => {
+                    setShowSuccess(false);
+                    router.push("/estudiante/perfil");
+                }}
+                title="Cambios guardados"
+                message="Cambios guardados exitosamente"
+            />
         </div>
     )
 }

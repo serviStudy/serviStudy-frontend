@@ -63,13 +63,13 @@ export const PremiumPlanCard = ({
           {/* CTA */}
           <div className="px-5 pb-5 mt-auto">
             <Link 
-              href="/estudiante/ofertasActivas"
+              href="/estudiante/suscripcion"
               className="w-full relative overflow-hidden group flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-sm transition-all duration-300 bg-linear-to-r from-green-500 to-blue-600 hover:from-green-400 hover:to-blue-500 text-white shadow-lg shadow-green-500/20 hover:shadow-blue-500/30 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-95"
             >
               {/* Shine effect */}
               <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out bg-linear-to-r from-transparent via-white/20 to-transparent skew-x-12" />
               <Sparkles size={16} className="relative z-10 group-hover:rotate-12 transition-transform duration-300" />
-              <span className="relative z-10">Buscar Vacantes con IA</span>
+              <span className="relative z-10">Ver más información</span>
             </Link>
           </div>
         </div>

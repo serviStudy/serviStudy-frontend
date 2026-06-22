@@ -83,7 +83,7 @@ export default function StudentProfilePreview() {
             </div>
             <div>
               <h3 className="font-black text-xl text-slate-900">Camila Restrepo</h3>
-              <p className="text-xs text-blue-600 font-extrabold mt-0.5">Ingeniería de Sistemas</p>
+              <p className="text-xs text-blue-600 font-extrabold mt-0.5">camilaRestrepo@uni.edu.co</p>
               <p className="text-[11px] text-slate-400 font-semibold">Universidad del Valle</p>
             </div>
           </div>

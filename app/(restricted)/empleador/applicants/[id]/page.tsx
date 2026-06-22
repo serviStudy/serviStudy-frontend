@@ -7,7 +7,6 @@ import { ApplicantsList } from "@/features/restricted/empleador/applicantsEmploy
 import Link from "next/link";
 import { ArrowLeft, Sparkles } from "lucide-react";
 import { LoadingScreen } from "@/components/shared/LoadingScreen";
-import { Button } from "@/components/ui/button";
 import { ModalRecomendation } from "@/features/restricted/empleador/applicantsEmployer/components/ModalRecomendation";
 
 interface PageProps {

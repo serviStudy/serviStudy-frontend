@@ -20,6 +20,7 @@ export const useEditStudentProfile = () => {
 
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
   const [userId, setUserId] = useState<string>("");
   const [email, setEmail] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -109,12 +110,7 @@ export const useEditStudentProfile = () => {
       // 3. Sincronizar Habilidades (Ahora es diferido hasta este punto)
       await skillsHook.syncSkills();
 
-      toast.success("Perfil actualizado correctamente");
-      
-      // Pequeña espera para asegurar que el backend procesó todo antes de redirigir
-      setTimeout(() => {
-        router.push("/estudiante/perfil");
-      }, 500);
+      setShowSuccess(true);
       
     } catch (error: any) {
       console.error("Error al guardar:", error);
@@ -163,6 +159,8 @@ export const useEditStudentProfile = () => {
   return {
     loading,
     saving,
+    showSuccess,
+    setShowSuccess,
     formData,
     setters,
     actions,

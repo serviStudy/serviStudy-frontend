@@ -1,11 +1,10 @@
 "use client";
+"use client";
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, Variants } from "framer-motion";
-import {
-    Mail, Phone, CheckCircle2, User, Zap, Calendar, ArrowLeft
-} from "lucide-react";
+import { Mail, Phone, User, Zap, Calendar, ArrowLeft, Clock } from "lucide-react";
 import { ApplicantStudent } from "@/features/restricted/empleador/applicantsEmployer/types/applicants.types";
 
 const containerVariants: Variants = {
@@ -25,14 +24,42 @@ interface StoredData {
 export default function StudentProfilePage() {
     const router = useRouter();
     const [data, setData] = useState<StoredData | null>(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const raw = sessionStorage.getItem("employer_student_view");
-        if (!raw) { router.replace("/empleador/ofertas"); return; }
-        try { setData(JSON.parse(raw)); } catch { router.replace("/empleador/ofertas"); }
-    }, [router]);
+        const stored = sessionStorage.getItem("employer_student_view");
+        if (stored) {
+            try {
+                setData(JSON.parse(stored));
+            } catch (e) {
+                console.error("Error parsing employer_student_view:", e);
+            }
+        }
+        setLoading(false);
+    }, []);
 
-    if (!data) return null;
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center min-h-screen w-full bg-gray-50">
+                <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#1a4b9e]"></div>
+            </div>
+        );
+    }
+
+    if (!data) {
+        return (
+            <div className="flex flex-col items-center justify-center min-h-screen w-full bg-gray-50 gap-4">
+                <p className="text-gray-500 font-medium text-lg">No se encontró información del perfil.</p>
+                <button
+                    onClick={() => router.back()}
+                    className="flex items-center gap-2 text-white bg-[#1a4b9e] hover:bg-[#153b7c] font-bold px-5 py-2.5 rounded-xl shadow-sm transition-all"
+                >
+                    <ArrowLeft size={20} />
+                    Volver
+                </button>
+            </div>
+        );
+    }
 
     const { student, applicationDate } = data;
     const inicial = student.name?.charAt(0)?.toUpperCase() || "?";
@@ -150,6 +177,56 @@ export default function StudentProfilePage() {
                                     <p className="text-sm text-gray-400 italic">El estudiante no ha añadido habilidades.</p>
                                 </div>
                             )}
+                        </motion.div>
+
+                        {/* DISPONIBILIDAD HORARIA (Usando renderizado condicional seguro) */}
+                        <motion.div variants={itemVariants} className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
+                            <div className="flex items-center gap-3 mb-6">
+                                <div className="bg-blue-600 p-2.5 rounded-xl shadow-md shadow-blue-600/20 text-white">
+                                    <Calendar className="h-5 w-5" strokeWidth={2.5} />
+                                </div>
+                                <h3 className="text-2xl font-bold text-gray-900">Disponibilidad Horaria</h3>
+                            </div>
+                            {student.workSchedule && (
+                                <div className="mb-6 bg-blue-50/50 border border-blue-100/50 rounded-2xl p-4 flex items-center gap-3">
+                                    <Clock className="h-5 w-5 text-blue-600" />
+                                    <div>
+                                        <p className="text-xs text-gray-400 font-semibold uppercase tracking-wider">Jornada preferida</p>
+                                        <p className="text-sm font-bold text-gray-800 capitalize">
+                                            {student.workSchedule === "MORNING" ? "Mañana" : 
+                                            student.workSchedule === "AFTERNOON" ? "Tarde" : 
+                                            student.workSchedule === "FULL_TIME" ? "Jornada Completa" : 
+                                            student.workSchedule === "PART_TIME" ? "Media Jornada" : 
+                                            student.workSchedule === "FLEXIBLE" ? "Flexible" : student.workSchedule}
+                                        </p>
+                                    </div>
+                                </div>
+                            )}
+                            <div className="flex flex-col gap-2">
+                                <p className="text-sm font-semibold text-gray-500 mb-2">Días disponibles:</p>
+                                <div className="flex flex-wrap gap-2">
+                                    {["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"].map((day) => {
+                                        // Optional chaining seguro y normalización a mayúsculas para evitar diferencias de case
+                                        const normalizedWorkDays = student.workDays?.map(d => d.trim().toUpperCase()) || [];
+                                        const isAvailable = normalizedWorkDays.includes(day);
+                                        const dayLabels: Record<string, string> = {
+                                            MONDAY: "Lun", TUESDAY: "Mar", WEDNESDAY: "Mié", THURSDAY: "Jue", FRIDAY: "Vie", SATURDAY: "Sáb", SUNDAY: "Dom"
+                                        };
+                                        return (
+                                            <span
+                                                key={day}
+                                                className={`px-4 py-2 rounded-xl text-xs font-bold border transition-all ${
+                                                    isAvailable
+                                                        ? "bg-green-50 text-green-700 border-green-200 shadow-xs animate-pulse-once"
+                                                        : "bg-gray-50 text-gray-300 border-gray-100 opacity-50 line-through"
+                                                }`}
+                                            >
+                                                {dayLabels[day]}
+                                            </span>
+                                        );
+                                    })}
+                                </div>
+                            </div>
                         </motion.div>
 
                     </div>
