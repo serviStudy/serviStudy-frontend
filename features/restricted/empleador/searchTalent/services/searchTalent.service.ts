@@ -41,7 +41,7 @@ export const getStudents = async (
         const studentsList = responseData.data || responseData.content || (Array.isArray(responseData) ? responseData : []);
 
         const normalizeStudent = (s: any): StudentProfile => ({
-          id: s.id || s.studentId || "",
+          id: s.id || s.studentId || s.studentId || "",
           userId: s.userId || s.user_id || s.id || "",
           name: s.name || s.fullName || s.studentName || "Sin nombre",
           email: s.email || "",
@@ -193,7 +193,7 @@ const normalizeSemanticResponse = (responseData: any): PaginatedStudents => {
     }
 
     return {
-      id: studentData.id || studentData.studentId || studentData.userId || studentData.id_estudiante || "",
+      id: studentData.studentProfileId || studentData.id || studentData.studentId || studentData.userId || studentData.id_estudiante || "",
       userId: studentData.userId || studentData.user_id || studentData.id || "",
       name: studentData.name || studentData.fullName || studentData.studentName || studentData.nombre || studentData.nombre_completo || "Sin nombre",
       email: studentData.email || studentData.userEmail || studentData.correo || studentData.email_address || "",

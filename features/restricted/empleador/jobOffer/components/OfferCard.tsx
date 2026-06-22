@@ -8,18 +8,22 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { updateJobOfferStatus } from "../service/jobOffer.service";
 import { Button } from "@/components/ui/button";
+import { DeleteModal } from "./DeleteModal";
+import { off } from "process";
 
 interface Props {
   offer: JobOfferDTO;
   imageUrl?: string;
+  isPremium?: boolean;
   onRefresh?: () => void;
   showActions?: boolean;
   subscriptionStatus?: "ACTIVE" | "INACTIVE";
 }
 
-export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subscriptionStatus = "INACTIVE" }: Props) => {
+export const OfferCard = ({ offer, imageUrl, isPremium, onRefresh, showActions = true, subscriptionStatus = "INACTIVE" }: Props) => {
   const offerId = offer.jobOfferId || offer.id || (offer as any).idJobOffer;
 
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [isChanging, setIsChanging] = useState(false);
   const isActive = offer.status === "ACTIVE";
 
@@ -156,9 +160,17 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subs
         )}
 
         <div className="pt-4 flex justify-between gap-1">
-          <button className="p-2.5 rounded-xl bg-red-50 text-red-500 border border-red-100 hover:bg-red-500 hover:text-white transition-all shrink-0">
-            <Trash2 size={18} />
+          <button 
+            onClick={() => setShowDeleteModal(true)}
+            className={`p-2 sm:p-2.5 lg:p-3 cursor-pointer rounded-xl transition-all ${
+              isPremium
+                ? 'bg-white/80 border border-gray-100 text-gray-400 hover:text-red-600 hover:border-red-200 hover:shadow-md'
+                : 'bg-gray-50 text-gray-400 hover:bg-red-50 hover:text-red-600 shadow-sm'
+            }`}
+          >
+            <Trash2 size={16} className="sm:w-4.5 sm:h-4.5" />
           </button>
+
           {showActions && (
             <div className="flex items-end gap-2 ml-2">
               <button
@@ -174,11 +186,12 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subs
                   }`}
                 />
               </button>
+
+              <DeleteModal offer={offer}></DeleteModal>
             </div>
           )}
         </div>
       </motion.div>
-
 
       {/* DESKTOP VERSION (hidden lg:flex) */}
       <motion.div 
@@ -188,7 +201,7 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subs
         transition={{ duration: 0.4 }}
         className={`hidden lg:flex group rounded-2xl p-6 gap-8 shadow-sm transition-all duration-300 relative overflow-hidden w-full ${
           subscriptionStatus === "ACTIVE"
-            ? "bg-white/70 backdrop-blur-xl border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(59,130,246,0.08)] hover:-translate-y-1.5 duration-500"
+            ? "bg-white/70 backdrop-blur-xl border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(59,130,246,0.08)] "
             : "bg-white border border-gray-100 border-l-4 border-l-green-500 hover:shadow-md"
         }`}
       >
@@ -199,7 +212,7 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subs
         )}
 
         <div className="relative shrink-0">
-          <div className={`w-36 h-36 rounded-2xl overflow-hidden flex items-center justify-center shadow-inner group-hover:rotate-2 transition-all duration-700 border ${
+          <div className={`w-32 h-32 rounded-2xl overflow-hidden flex items-center justify-center shadow-inner group-hover:rotate-2 transition-all duration-700 border ${
             subscriptionStatus === "ACTIVE"
               ? "bg-linear-to-br from-white to-gray-50/50 border-white/80 shadow-lg shadow-black/5"
               : "bg-gray-50 border-gray-100"
@@ -228,17 +241,10 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subs
               }`}>
                 {offer.title}
               </h3>
-              <div className={`flex gap-1.5 items-center px-3 py-1.5 rounded-xl shadow-sm w-fit mt-1 border ${
-                subscriptionStatus === "ACTIVE"
-                  ? "bg-linear-to-r from-blue-50/50 to-green-50/50 border-blue-100/50"
-                  : "bg-green-50 border-green-100"
-              }`}>
-                  <CircleDollarSign className={`${subscriptionStatus === "ACTIVE" ? "text-blue-600" : "text-green-600"} h-4 w-4`} />
-                  <p className={`text-xs font-black uppercase tracking-wider ${
-                    subscriptionStatus === "ACTIVE"
-                      ? "text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-green-600"
-                      : "text-green-700"
-                  }`}>
+
+              <div className={`flex text-gray-700 gap-1.5`}>
+                  <CircleDollarSign className={`h-4 w-4`} />
+                  <p className={`text-xs font-black uppercase tracking-wider`}>
                     ${Number(offer.salary).toLocaleString('es-CO')}
                   </p>
               </div>
@@ -287,6 +293,8 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subs
                 >
                   <Pencil size={18} />
                 </Link>
+
+                <DeleteModal offer={offer}></DeleteModal>
               </div>
             )}
           </div>
@@ -336,14 +344,7 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subs
                     Ver Detalle Completo 
                     <Sparkles size={16} className="group-hover:rotate-12 transition-transform animate-pulse" />
                   </Link>
-                </div>
-                <button className={`p-3 rounded-xl transition-all border flex items-center justify-center ${
-                  subscriptionStatus === "ACTIVE"
-                    ? "text-red-500 border-red-100 hover:border-red-600 bg-red-50/50 hover:bg-red-600 hover:text-white"
-                    : "text-red-500 border border-red-100 hover:border-red-600 bg-red-50 hover:bg-red-600 hover:text-white"
-                }`}>
-                  <Trash2 size={20} />
-                </button>
+                </div>   
               </>
             )}
           </div>

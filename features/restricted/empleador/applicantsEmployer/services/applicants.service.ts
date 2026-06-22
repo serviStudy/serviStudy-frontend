@@ -69,6 +69,8 @@ export const getApplicantsByOfferId = async (
           description: s.description || s.bio || "",
           verificationStatus: s.verificationStatus || s.verified || false,
           studentSkills: s.studentSkills || s.skills || [],
+          workDays: s.workDays || s.work_days || item.workDays || [],
+          workSchedule: s.workSchedule || s.work_schedule || item.workSchedule || "",
         },
       };
 
