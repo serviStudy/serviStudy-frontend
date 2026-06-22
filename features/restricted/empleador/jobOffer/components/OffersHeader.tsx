@@ -26,7 +26,7 @@ export const OfferHeader = ({ onFilterChange, subscriptionStatus = "INACTIVE" }:
   return (
     <div className={`rounded-xl py-4 px-4 mb-8 overflow-hidden relative shadow-md transition-all duration-500 ${
       isPremium
-        ? "bg-linear-to-br from-yellow-300 via-lime-400 to-green-600 shadow-lg shadow-green-500/10"
+        ? "bg-linear-to-br from-yellow-300 via-lime-300 to-green-500 shadow-lg shadow-green-500/10"
         : "bg-linear-to-br from-green-900 via-green-700 to-green-600 shadow-sm"
     }`}>
       {/* Decorative background elements */}
