@@ -5,6 +5,7 @@ export interface StudentSkill {
 
 export interface StudentProfileResponse {
   id?: string;
+  studentProfileId?: string;
   userId?: string;
   name?: string;
   email?: string;

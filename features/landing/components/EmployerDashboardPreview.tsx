@@ -76,14 +76,13 @@ export default function EmployerDashboardPreview() {
           {/* Stats row */}
           <div className="grid grid-cols-3 gap-4">
             {[
-              { label: "Ofertas Activas", val: "5", sub: "+12 esta sem." },
-              { label: "Perfil Completo", val: "88%", sub: "Match por IA" },
-              { label: "Total Ofertas", val: "4", sub: "3 activas" }
+              { label: "Ofertas Activas", val: "5" },
+              { label: "Perfil Completo", val: "88%"},
+              { label: "Total Ofertas", val: "4"}
             ].map((stat, sIdx) => (
               <div key={sIdx} className="bg-slate-900 border border-slate-800 p-4 rounded-xl">
-                <p className="text-[10px] text-slate-400 font-extrabold uppercase tracking-wider">{stat.label}</p>
+                <p className="text-[10px] text-slate-400 font-extrabold tracking-wider">{stat.label}</p>
                 <h4 className="text-xl md:text-2xl font-black text-white mt-1">{stat.val}</h4>
-                <p className="text-[9px] text-slate-500 font-semibold mt-0.5">{stat.sub}</p>
               </div>
             ))}
           </div>
@@ -129,7 +128,7 @@ export default function EmployerDashboardPreview() {
                   </div>
                   <span className="text-sm font-extrabold tracking-wider text-white">Beneficios Activos</span>
                 </div>
-                  <p className="font-bold pt-1 text-[10px] text-gray-50 pl-11">Plan de subscripción</p>
+                  <p className="font-bold text-[10px] text-gray-50 pl-11">Plan de subscripción</p>
               </div>
 
               <div className="p-4">
