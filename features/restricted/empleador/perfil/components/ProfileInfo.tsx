@@ -30,18 +30,11 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
       {/* 1. Hero Section (Banner & Identity) */}
       <div className={`relative w-full rounded-xl overflow-hidden shadow-sm ${
         isPremium 
-          ? 'bg-white/70 backdrop-blur-xl border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)]' 
+          ? 'bg-white/50 backdrop-blur-xl border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)]' 
           : 'bg-white border border-gray-100'
       }`}>
         {/* Background Banner */}
-        <div className={`h-[200px] lg:h-[280px] w-full relative overflow-hidden ${
-          isPremium
-            ? 'bg-gradient-to-br from-green-500 via-blue-500 to-blue-600'
-            : 'bg-gradient-to-br from-green-900 via-green-700 to-green-500'
-        }`}>
-          {/* Pattern overlay */}
-          <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+        <div className={`h-50 lg:h-60 w-full relative overflow-hidden bg-linear-to-r from-green-900 via-green-700 to-green-500`}>
           
           {/* Premium glows inside banner */}
           {isPremium && (
@@ -55,9 +48,9 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
           {/* Premium badge in banner */}
           {isPremium && (
             <div className="absolute top-5 left-5 sm:top-8 sm:left-10 flex items-center gap-2.5 px-4 py-2 rounded-xl bg-white/15 backdrop-blur-md border border-white/25 shadow-inner">
-              <Crown size={16} className="text-yellow-300" />
+              <Crown size={16} className="text-yellow-100" />
               <span className="text-[10px] sm:text-xs font-semibold text-white tracking-wider">{planName}</span>
-              <span className="text-[10px] text-white/70 font-medium">· {daysLeft} {daysLeft === 1 ? 'día' : 'días'}</span>
+              <span className="text-[12px] text-white font-medium">· {daysLeft} {daysLeft === 1 ? 'día' : 'días'}</span>
             </div>
           )}
           
@@ -94,17 +87,6 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
                   }`}>
                     {inicial}
                   </span>
-                )}
-              </div>
-              <div className={`absolute -bottom-2 -right-2 p-2.5 rounded-md shadow-sm border-4 border-white ${
-                isPremium
-                  ? 'bg-gradient-to-br from-green-500 to-blue-600'
-                  : 'bg-green-500'
-              }`}>
-                {isPremium ? (
-                  <Sparkles className="h-5 w-5 text-white" />
-                ) : (
-                  <CheckCircle2 className="h-5 w-5 text-white" />
                 )}
               </div>
             </div>
@@ -184,15 +166,11 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
             )}
             <div className="p-6 lg:p-8">
               <div className="flex items-center gap-4 mb-6">
-                <div className={`w-12 h-12 rounded-xl flex items-center justify-center border transition-transform duration-300 group-hover:scale-110 ${
-                  isPremium
-                    ? 'bg-gradient-to-br from-green-500 to-blue-600 text-white shadow-lg shadow-green-500/15 border-transparent'
-                    : 'bg-green-50 text-green-600 border-green-100'
-                }`}>
+                <div className={`w-12 h-12 rounded-xl flex items-center justify-center border transition-transform duration-300 group-hover:scale-110 bg-green-100 text-green-600 border-green-200`}>
                   <AlignLeft size={22} />
                 </div>
                 <div>
-                  <h3 className="text-lg lg:text-xl font-bold text-gray-900 tracking-tight">Sobre nosotros</h3>
+                  <h3 className="text-lg lg:text-xl font-bold text-gray-700 tracking-tight">Sobre nosotros</h3>
                   {isPremium && (
                     <p className="text-[11px] font-medium text-gray-400 mt-0.5">Visión y valores de la empresa</p>
                   )}
@@ -249,19 +227,19 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
               /* Premium Action Card — gradient glassmorphic */
               <div className="relative rounded-xl overflow-hidden shadow-[0_8px_30px_rgba(16,185,129,0.15)]">
                 {/* Gradient header */}
-                <div className="bg-gradient-to-r from-green-500 to-blue-600 p-6 text-white relative overflow-hidden">
+                <div className="bg-linear-to-r from-yellow-300 via-lime-300 to-green-500 p-6 text-white relative overflow-hidden">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-white/15 blur-2xl rounded-full -translate-y-1/2 translate-x-1/2" />
                   <div className="absolute bottom-0 left-0 w-20 h-20 bg-green-300/20 blur-xl rounded-full translate-y-1/2 -translate-x-1/4" />
                   <div className="relative z-10 flex items-center gap-3 mb-3">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-white/20 backdrop-blur-md border border-white/30 shadow-inner">
-                      <Crown size={20} className="text-yellow-300" />
+                    <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-white/40 backdrop-blur-md border border-white/30 shadow-inner">
+                      <Crown size={20} className="text-amber-400" />
                     </div>
                     <div>
                       <h3 className="text-lg font-bold text-white leading-tight">Plan {planName}</h3>
-                      <p className="text-[11px] text-green-100 font-medium mt-0.5">{daysLeft} {daysLeft === 1 ? 'día restante' : 'días restantes'}</p>
+                      <p className="text-[11px] text-white font-medium mt-0.5">{daysLeft} {daysLeft === 1 ? 'día restante' : 'días restantes'}</p>
                     </div>
                   </div>
-                  <p className="text-sm font-medium text-white/80 relative z-10 leading-relaxed">
+                  <p className="text-sm font-medium text-white relative z-10 leading-relaxed">
                     Aprovecha tus beneficios premium para encontrar al talento ideal.
                   </p>
                 </div>
@@ -274,7 +252,7 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
                   ].map((benefit, i) => (
                     <div key={i} className="flex items-center gap-3 text-sm">
                       <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-green-50 to-blue-50 flex items-center justify-center shrink-0 border border-blue-200/50">
-                        <benefit.icon size={14} className="text-blue-600" />
+                        <benefit.icon size={14} className="text-green-600" />
                       </div>
                       <span className="font-medium text-gray-700">{benefit.text}</span>
                     </div>
@@ -284,7 +262,7 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
                 <div className="bg-white/70 backdrop-blur-xl border-x border-b border-white/80 rounded-b-xl px-5 pb-5">
                   <Link 
                     href="/empleador/buscar-talento"
-                    className="w-full relative overflow-hidden group flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-bold text-sm transition-all duration-300 bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-400 hover:to-blue-500 text-white shadow-lg shadow-green-500/20 hover:shadow-blue-500/30 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-95"
+                    className="w-full relative overflow-hidden group flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-bold text-sm transition-all duration-300 bg-green-500 hover:bg-linear-to-r hover:from-yellow-300 hover:via-lime-300 hover:to-green-500 text-white shadow-lg shadow-green-500/20 hover:shadow-blue-500/30 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-95"
                   >
                     <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12" />
                     <Sparkles size={16} className="relative z-10 group-hover:rotate-12 transition-transform duration-300" />
@@ -343,7 +321,7 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
                       <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
                         <div className={`w-[85%] h-full rounded-full ${
                           isPremium
-                            ? 'bg-gradient-to-r from-green-500 to-blue-500'
+                            ? 'bg-linear-to-r from-yellow-300 via-lime-300 to-green-500'
                             : 'bg-green-500'
                         }`}></div>
                       </div>
