@@ -20,6 +20,7 @@ interface Props {
     onOpenDaysModal: () => void;
     variants: any;
     isPremium?: boolean;
+    receivedLikesCount?: number;
 }
 
 export const MobileProfileView = ({ 
@@ -35,7 +36,8 @@ export const MobileProfileView = ({
     scheduleLabel,
     onOpenDaysModal,
     variants,
-    isPremium
+    isPremium,
+    receivedLikesCount
 }: Props) => {
     return (
         <div className="flex flex-col gap-4 pb-8 w-full">
