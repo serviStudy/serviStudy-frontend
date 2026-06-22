@@ -23,6 +23,8 @@ export const useEditEmployerProfile = () => {
   const [employerId, setEmployerId]     = useState<string | null>(null)
   const [userId, setUserId]             = useState<string | null>(null)
 
+  const [showSuccess, setShowSuccess] = useState(false)
+
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -78,8 +80,7 @@ export const useEditEmployerProfile = () => {
         businessSummary,
         imageFile: imageFile ?? undefined
       })
-      toast.success("Perfil actualizado correctamente")
-      router.push("/empleador/perfil")
+      setShowSuccess(true)
     } catch (error: any) {
       console.error("Error al guardar:", error)
       toast.error(error.message || "Error al guardar los cambios")
@@ -93,6 +94,8 @@ export const useEditEmployerProfile = () => {
   return {
     loading,
     saving,
+    showSuccess,
+    setShowSuccess,
     formData: {
       employerName,
       businessName,

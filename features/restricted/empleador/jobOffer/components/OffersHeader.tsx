@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Plus, Filter, Crown } from "lucide-react";
+import { Plus, Filter, Crown, Briefcase } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { JobOfferStatus } from "../types/jobOffer.types";
+import { Button } from "@/components/ui/button";
 
 interface Props {
   onFilterChange: (status: JobOfferStatus | "ALL") => void;
@@ -23,13 +24,12 @@ export const OfferHeader = ({ onFilterChange, subscriptionStatus = "INACTIVE" }:
   const isPremium = subscriptionStatus === "ACTIVE";
 
   return (
-    <div className={`rounded-3xl py-12 px-4 mb-8 overflow-hidden relative shadow-md transition-all duration-500 ${
+    <div className={`rounded-xl py-4 px-4 mb-8 overflow-hidden relative shadow-md transition-all duration-500 ${
       isPremium
-        ? "bg-linear-to-br from-green-500 via-blue-500 to-blue-600 shadow-lg shadow-green-500/10"
+        ? "bg-linear-to-br from-yellow-300 via-lime-400 to-green-600 shadow-lg shadow-green-500/10"
         : "bg-linear-to-br from-green-900 via-green-700 to-green-600 shadow-sm"
     }`}>
       {/* Decorative background elements */}
-      <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
       
       {/* Premium glows inside banner */}
       {isPremium ? (
@@ -46,22 +46,42 @@ export const OfferHeader = ({ onFilterChange, subscriptionStatus = "INACTIVE" }:
       )}
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col items-center text-center">
-        {isPremium && (
-          <div className="mb-6 bg-white/15 backdrop-blur-md border md:flex hidden  border-white/25 text-white text-[10px] sm:text-xs font-black px-4 py-2 rounded-xl uppercase tracking-widest items-center gap-2 shadow-inner w-fit">
-            <Crown size={14} className="text-yellow-300" />
-            Suscripción Premium Activa
+      <div className="relative z-10 flex flex-col">
+        <div className="flex  justify-between">
+          <div>
+            <div className="flex gap-2 items-center">
+              <div className="bg-yellow-50/25 p-3.5 rounded-xl">
+                <Briefcase className="text-white"/>
+              </div>
+              <h2 className="text-2xl md:text-4xl font-black text-white mb-4 tracking-tight leading-tight">
+                Gestión de <span className="underline decoration-white/20 underline-offset-4">Ofertas</span>
+              </h2>
+            </div>
+            <p className="text-white/90 font-medium text-sm md:text-base max-w-xl mb-8 leading-relaxed hidden md:block">
+              Administra tus vacantes activas y encuentra al candidato ideal para tu empresa de manera eficiente.
+            </p>
           </div>
-        )}
-        <h2 className="text-2xl md:text-4xl font-black text-white mb-4 tracking-tight leading-tight">
-          Gestión de <span className="underline decoration-white/20 underline-offset-4">Ofertas</span>
-        </h2>
-        <p className="text-white/90 font-medium text-sm md:text-base max-w-xl mb-8 leading-relaxed hidden md:block">
-          Administra tus vacantes activas y encuentra al candidato ideal para tu empresa de manera eficiente.
-        </p>
+
+          {/* Create Button */}
+          <Button className={`flex items-center gap-3 rounded-xl text-xs font-black transition-all shadow-md active:scale-50 group tracking-wider ${
+              isPremium
+                ? "bg-white hover:bg-white/95 text-gray-700 shadow-lg shadow-black/5 hover:-translate-y-0.5"
+                : "bg-white text-green-700 hover:bg-gray-50"
+            }`}>
+            <div>
+              <Plus size={18} strokeWidth={3} />
+            </div>  
+            <Link href="/empleador/ofertas/crear">
+              <span className={isPremium ? "group-hover:text-blue-700 text-sm transition-colors" : "whitespace-pre-line"}>
+                Publicar Oferta
+              </span>
+            </Link>
+          </Button>
+        </div>
+
 
         {/* Action Buttons */}
-        <div className="flex  items-center gap-4 w-full justify-center">
+        <div className="flex gap-4 w-full ">
           {/* Filter Container */}
           <motion.div 
             layout
@@ -118,27 +138,6 @@ export const OfferHeader = ({ onFilterChange, subscriptionStatus = "INACTIVE" }:
               )}
             </AnimatePresence>
           </motion.div>
-
-          {/* Create Button */}
-          <Link
-            href="/empleador/ofertas/crear"
-            className={`flex items-center gap-3 md:px-8 px-4 py-2 rounded-xl text-xs font-black transition-all shadow-md active:scale-95 group tracking-wider ${
-              isPremium
-                ? "bg-white hover:bg-white/95 text-gray-900 shadow-lg shadow-black/5 hover:-translate-y-0.5"
-                : "bg-white text-green-700 hover:bg-gray-50"
-            }`}
-          >
-            <div className={`p-1.5 rounded-lg transition-transform duration-500 group-hover:rotate-90 ${
-              isPremium
-                ? "bg-gradient-to-br from-green-500 to-blue-600 text-white"
-                : "bg-green-600 text-white"
-            }`}>
-              <Plus size={18} strokeWidth={3} />
-            </div>
-            <span className={isPremium ? "group-hover:text-blue-600 transition-colors" : "whitespace-pre-line"}>
-              Publicar Oferta
-            </span>
-          </Link>
         </div>
       </div>
     </div>

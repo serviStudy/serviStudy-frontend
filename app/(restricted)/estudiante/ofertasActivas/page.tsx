@@ -5,7 +5,7 @@ import { OfferList } from '@/features/restricted/estudiante/ofertasActivas/compo
 import { useActiveOffers } from '@/features/restricted/estudiante/ofertasActivas/hooks/useActiveOffers'
 import { useOfferFilter } from '@/features/restricted/estudiante/ofertasActivas/hooks/useOfferFilter'
 import { Loader2, Inbox } from 'lucide-react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 const Page = () => {
     const { offers, loading } = useActiveOffers();

@@ -53,6 +53,8 @@ export const LoginForm = ({
                             setErrorCorreo("")
                         }}
                     />
+                    <p className='text-gray-500 text-[12px] font-semibold text-center'>Seleccionar el rol con el que desea ingresar a la página</p>
+
 
                     {/* GOOGLE SOLO EMPRESA */}
                     {tipoUsuario === "empresa" && (

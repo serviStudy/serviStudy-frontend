@@ -46,9 +46,9 @@ export default function CreateJobOfferPage() {
       {isPremium && (
         <div className="fixed inset-0 pointer-events-none bg-slate-50">
            {/* Huge colorful orbs using fast radial gradients instead of expensive CSS blurs */}
-           <div className="absolute top-[-20%] left-[-10%] w-[60vw] h-[60vw] rounded-full" style={{ background: 'radial-gradient(circle, rgba(74,222,128,0.15) 0%, rgba(74,222,128,0) 70%)' }} />
-           <div className="absolute top-[10%] right-[-20%] w-[70vw] h-[70vw] rounded-full" style={{ background: 'radial-gradient(circle, rgba(96,165,250,0.15) 0%, rgba(96,165,250,0) 70%)' }} />
-           <div className="absolute bottom-[-20%] left-[20%] w-[50vw] h-[50vw] rounded-full" style={{ background: 'radial-gradient(circle, rgba(110,231,183,0.15) 0%, rgba(110,231,183,0) 70%)' }} />
+            <div className="absolute top-[-20%] left-[-10%] w-[60vw] h-[60vw] rounded-full" style={{ background: 'radial-gradient(circle, rgba(74,222,128,0.15) 0%, rgba(74,222,128,0) 70%)' }} />
+            <div className="absolute top-[10%] right-[-20%] w-[70vw] h-[70vw] rounded-full" style={{ background: 'radial-gradient(circle, rgba(96,165,250,0.15) 0%, rgba(96,165,250,0) 70%)' }} />
+            <div className="absolute bottom-[-20%] left-[20%] w-[50vw] h-[50vw] rounded-full" style={{ background: 'radial-gradient(circle, rgba(110,231,183,0.15) 0%, rgba(110,231,183,0) 70%)' }} />
         </div>
       )}
 

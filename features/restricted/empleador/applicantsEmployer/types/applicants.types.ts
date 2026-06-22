@@ -11,7 +11,10 @@ export interface ApplicantStudent {
   verificationStatus?: boolean;
   contactNumber?: string;
   description?: string;
+  
   studentSkills: StudentSkill[];
+  workDays?: string[];
+  workSchedule?: string;
 }
 
 export interface ApplicantDTO {

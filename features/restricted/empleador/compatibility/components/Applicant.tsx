@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Phone, Mail, Calendar, UserCircle, Sparkles } from "lucide-react";
+import { Phone, Calendar, UserCircle, Sparkles } from "lucide-react";
 import { ApplicantDTO } from "../../applicantsEmployer/types/applicants.types";
 import { Checkbox } from "@/components/ui/checkbox"
 import { useState, useEffect } from "react";
