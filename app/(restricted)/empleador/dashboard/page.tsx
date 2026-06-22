@@ -1,5 +1,4 @@
 "use client";
-import React from 'react';
 import { 
   Briefcase, 
   TrendingUp, 
@@ -9,7 +8,6 @@ import {
   AlertCircle,
   Star,
   Sparkles,
-  Clock,
   Crown
 } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -92,7 +90,7 @@ export default function EmployerDashboard() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="relative w-full rounded-2xl bg-gradient-to-r from-green-500 to-blue-600 p-6 sm:p-8 text-white overflow-hidden shadow-[0_20px_60px_-15px_rgba(16,185,129,0.3)]"
+          className="relative w-full rounded-2xl bg-linear-to-r from-green-500 to-blue-600 p-6 sm:p-8 text-white overflow-hidden shadow-[0_20px_60px_-15px_rgba(16,185,129,0.3)]"
         >
           {/* Glows inside banner */}
           <div className="absolute top-0 right-0 w-40 h-40 bg-white/20 blur-3xl rounded-full -translate-y-1/2 translate-x-1/2" />
@@ -157,7 +155,7 @@ export default function EmployerDashboard() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.4 }}
-            className="relative p-6 rounded-2xl bg-gradient-to-br from-green-500 to-blue-600 text-white overflow-hidden group hover:-translate-y-1 transition-all duration-300 shadow-[0_8px_30px_rgba(16,185,129,0.15)] hover:shadow-[0_20px_50px_rgba(16,185,129,0.25)]"
+            className="relative p-6 rounded-2xl bg-linear-to-br from-green-500 to-blue-600 text-white overflow-hidden group hover:-translate-y-1 transition-all duration-300 shadow-[0_8px_30px_rgba(16,185,129,0.15)] hover:shadow-[0_20px_50px_rgba(16,185,129,0.25)]"
           >
             {/* Internal glows */}
             <div className="absolute top-0 right-0 w-24 h-24 bg-white/15 blur-2xl rounded-full -translate-y-1/2 translate-x-1/2" />
@@ -236,11 +234,11 @@ export default function EmployerDashboard() {
 
           {/* ── Premium Tips — dark premium card ── */}
           <div className="flex flex-col gap-4">
-            <h2 className="text-xl font-semibold text-gray-900">Tu Plan Premium</h2>
+            <h2 className="text-xl font-semibold text-green-600">Tu Plan Premium</h2>
             <div className="relative rounded-2xl overflow-hidden bg-white/70 backdrop-blur-xl border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
               {/* Premium gradient header inside card */}
-              <div className="bg-gradient-to-r from-green-500 to-blue-600 p-5 text-white relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-24 h-24 bg-white/15 blur-2xl rounded-full -translate-y-1/2 translate-x-1/2" />
+              <div className="bg-linear-to-r from-green-500 to-blue-600 p-5 text-white relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-24 h-24 bg-white/20 blur-2xl rounded-full -translate-y-1/2 translate-x-1/2" />
                 <div className="absolute bottom-0 left-0 w-16 h-16 bg-green-300/20 blur-xl rounded-full translate-y-1/2 -translate-x-1/4" />
                 <div className="relative z-10 flex items-center gap-3">
                   <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-white/20 backdrop-blur-md border border-white/30 shadow-inner">

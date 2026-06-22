@@ -50,17 +50,7 @@ export default function RootLayout({
         <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ""}>
           {children}
         </GoogleOAuthProvider>
-        <footer>
-          <div className="w-full bg-white text-[#6f6f6f] p-5 text-center flex-col md:p-2.5">
-            <p className="text-sm">
-              &copy; {new Date().getFullYear()} ServiStudy. Todos los derechos reservados.
-            </p>
-            <p className="text-xs">
-              Conectando talento estudiantil con oportunidades.
-            </p>
-          </div>
-          <Toaster></Toaster>
-        </footer>
+        
       </body>
     </html>
   );

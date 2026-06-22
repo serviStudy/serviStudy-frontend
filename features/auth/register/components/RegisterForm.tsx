@@ -68,7 +68,10 @@ export const RegisterForm = ({
                             text="continue_with"
                         />
                     </div>
+                    
                 )}
+                <p className='text-gray-500 text-[12px] font-semibold text-center'>Seleccionar el rol con el que desea ingresar a la página</p>
+
 
                 {/* SEPARADOR */}
                 <div className="text-xs font-semibold text-gray-500 flex justify-center items-center gap-3 py-2 uppercase tracking-wider">

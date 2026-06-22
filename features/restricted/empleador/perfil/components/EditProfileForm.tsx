@@ -69,46 +69,16 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
             <span className="text-xs uppercase tracking-wider">Regresar al perfil</span>
           </button>
           <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 tracking-tight">
-            Editar <span className={isPremium ? "text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-green-500" : "text-green-600"}>Perfil</span>
+            Editar <span className={isPremium ? "text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-green-500" : "text-green-600"}>Perfil</span>
           </h1>
         </div>
         <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border ${
-          isPremium ? 'bg-gradient-to-r from-blue-50 to-green-50 border-blue-100/50' : 'bg-green-50 border-green-100'
+          isPremium ? 'bg-linear-to-r from-blue-50 to-green-50 border-blue-100/50' : 'bg-green-50 border-green-100'
         }`}>
           <ShieldCheck className={`h-4 w-4 ${isPremium ? 'text-blue-600' : 'text-green-600'}`} />
           <span className={`text-[10px] font-bold uppercase tracking-widest ${isPremium ? 'text-blue-600' : 'text-green-600'}`}>Información Segura</span>
         </div>
       </div>
-
-      {/* Verification Banner */}
-      <motion.div 
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        className={`mb-8 p-6 rounded-xl text-white flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden group ${
-          isPremium 
-            ? 'bg-gradient-to-r from-green-500 to-blue-600 shadow-[0_8px_30px_rgba(59,130,246,0.15)]' 
-            : 'bg-gradient-to-r from-green-600 to-green-500 shadow-sm shadow-green-900/10'
-        }`}
-      >
-        <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:scale-110 transition-transform duration-1000"></div>
-        <div className="flex items-center gap-6 relative z-10">
-          <div className="w-14 h-14 rounded-lg bg-white/20 backdrop-blur-xl border border-white/30 flex items-center justify-center">
-            <ShieldCheck className="h-8 w-8 text-white" strokeWidth={1.5} />
-          </div>
-          <div>
-            <h3 className="text-xl font-bold tracking-tight">Verifica tu empresa</h3>
-            <p className="text-white/80 font-medium text-xs mt-0.5">Adjunta tus documentos legales para obtener el sello de confianza.</p>
-          </div>
-        </div>
-        <button 
-          onClick={() => setIsVerifyModalOpen(true)}
-          className={`px-8 h-12 bg-white rounded-lg font-bold text-xs uppercase tracking-widest shadow-sm hover:bg-gray-50 transition-all active:scale-95 relative z-10 whitespace-nowrap ${
-            isPremium ? 'text-blue-600 hover:shadow-lg' : 'text-green-600'
-          }`}
-        >
-          Verificar Ahora
-        </button>
-      </motion.div>
 
       <Card className={`overflow-hidden rounded-xl ${
         isPremium 
