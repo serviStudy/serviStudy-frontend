@@ -45,7 +45,7 @@ const AnimatedMatchTag = ({ score }: { score: number }) => {
   const strokeDashoffset = circumference - (progress / 100) * circumference;
 
   return (
-    <div className="absolute  top-0 right-0 flex items-center gap-3 pl-2 pr-4 py-2 bg-linear-to-r from-emerald-500 to-blue-500 text-white rounded-bl-2xl rounded-tr-xl shadow-md animate-in slide-in-from-top-4 duration-500 z-10">
+    <div className="absolute  top-0 right-0 flex items-center gap-3 pl-2 pr-4 py-2 bg-linear-to-r from-blue-400 via-lime-500 to-green-600 text-white rounded-bl-2xl rounded-tr-xl shadow-md animate-in slide-in-from-top-4 duration-500 z-10">
       {/* Circular Progress */}
       <div className="relative flex items-center justify-center w-10 h-8">
         <svg className="transform -rotate-90 w-10 h-10">
@@ -110,7 +110,7 @@ export const Applicant = ({ applicant, isSelected, onSelect, resultsIA }: Props)
     <div className="bg-white/80 backdrop-blur-xl rounded-xl border border-blue-100/50 p-6 flex flex-col md:flex-row gap-6 shadow-lg shadow-blue-900/5 hover:shadow-xl hover:shadow-blue-500/10 hover:border-blue-300/50 transition-all duration-300 relative overflow-hidden group w-full">
 
       {/* Indicator line */}
-      <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-linear-to-b from-green-400 to-blue-500 opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
+      <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-linear-to-b from-blue-400 via-lime-500 to-green-600 opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
 
       {/* AI Result Tag - Top Right Corner */}
       {resultsIA !== undefined && (
@@ -118,7 +118,7 @@ export const Applicant = ({ applicant, isSelected, onSelect, resultsIA }: Props)
       )}
 
       {/* MOBILE LAYOUT (< md) */}
-      <div className={`md:hidden flex flex-col gap-4 w-full ${resultsIA !== undefined ? 'pt-14' : 'pt-1'}`}>
+      <div onClick={handleViewProfile} className={`md:hidden cursor-pointer flex flex-col gap-4 w-full ${resultsIA !== undefined ? 'pt-14' : 'pt-1'}`}>
         {/* Mobile Top Row: Checkbox, Avatar, Name & Phone */}
         <div className="flex items-center gap-3.5 w-full pr-2">
           <Checkbox
@@ -172,12 +172,12 @@ export const Applicant = ({ applicant, isSelected, onSelect, resultsIA }: Props)
             </div>
           )}
 
-          <button
+          {/* <button
             onClick={handleViewProfile}
-            className="w-full mt-1 py-2.5 bg-linear-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white text-xs font-black uppercase tracking-wider rounded-xl shadow-xs transition-all active:scale-95 text-center cursor-pointer"
+            className="w-full mt-1 py-2.5 bg-green-600 text-white text-xs font-black uppercase tracking-wider rounded-xl shadow-xs transition-all active:scale-95 text-center cursor-pointer"
           >
             Ver perfil
-          </button>
+          </button> */}
         </div>
       </div>
 
@@ -264,7 +264,7 @@ export const Applicant = ({ applicant, isSelected, onSelect, resultsIA }: Props)
         <div className="shrink-0 flex flex-col justify-center items-end mt-4 md:mt-0 border-t md:border-t-0 md:border-l border-gray-100 pt-4 md:pt-0 md:pl-6 w-full md:w-auto">
           <button
             onClick={handleViewProfile}
-            className="w-full md:w-auto mx-3 px-6 py-2.5 bg-linear-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white text-sm font-bold rounded-xl shadow-sm transition-all hover:shadow-md active:scale-95 text-center tracking-wider cursor-pointer"
+            className="w-full md:w-auto mx-3 px-6 py-2.5 bg-green-600 text-white text-sm font-bold rounded-xl shadow-sm transition-all hover:shadow-md active:scale-95 text-center tracking-wider cursor-pointer"
           >
             Ver perfil
           </button>

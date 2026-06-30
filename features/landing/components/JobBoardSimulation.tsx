@@ -7,28 +7,28 @@ import { Badge } from "@/components/ui/badge"
 
 const MOCK_JOBS = [
   {
-    role: "Frontend Developer",
-    company: "Vercel",
-    location: "Remoto",
+    role: "Mesero",
+    company: "Turnito",
+    location: "Crra 14",
     salary: "$3.500.000 COP",
-    type: "Prácticas / Medio Tiempo",
-    tags: ["React", "Next.js", "TailwindCSS"]
+    type: "Medio tiempo",
+    tags: ["Puntualidad", "Atención al cliente"]
   },
   {
-    role: "UX/UI Designer",
-    company: "Stripe",
-    location: "Bogotá - Híbrido",
+    role: "Paseador de perros",
+    company: "Benefict",
+    location: "Laureles",
     salary: "$2.800.000 COP",
     type: "Medio Tiempo",
-    tags: ["Figma", "UI Design", "Prototyping"]
+    tags: ["Puntualidad", "Buen estado físico"]
   },
   {
-    role: "Data Analyst",
-    company: "Mercado Libre",
-    location: "Remoto",
+    role: "Moderador de contenido",
+    company: "RemoteService",
+    location: "La castellana",
     salary: "$3.200.000 COP",
     type: "Tiempo Completo",
-    tags: ["SQL", "Python", "Tableau"]
+    tags: ["Comunicación afectiva", "Responsable"]
   }
 ]
 

@@ -113,11 +113,11 @@ export const JobOfferForm: React.FC<JobOfferFormProps> = ({ initialData, isEditi
 
   const inputClass = isPremium
     ? "h-11 w-full rounded-xl border border-white/60 bg-white/50 px-4 text-slate-900 font-semibold placeholder:text-slate-400 focus:bg-white/90 focus:border-blue-400 focus:ring-4 focus:ring-blue-500/20 transition-all shadow-[inset_0_2px_4px_rgba(0,0,0,0.04),0_2px_10px_rgba(0,0,0,0.02)]"
-    : "h-11 rounded-lg border-gray-200 bg-gray-50 focus:bg-white font-normal text-gray-900 focus:ring-2 focus:ring-green-500/20 transition-all shadow-inner";
+    : "h-11 w-full rounded-lg border-gray-200 bg-gray-50 focus:bg-white font-normal text-gray-900 focus:ring-2 focus:ring-green-500/20 transition-all shadow-inner";
 
   const textareaClass = isPremium
     ? "min-h-[100px] w-full rounded-xl border border-white/60 bg-white/50 p-4 text-slate-900 font-medium leading-relaxed placeholder:text-slate-400 focus:bg-white/90 focus:border-blue-400 focus:ring-4 focus:ring-blue-500/20 transition-all resize-none shadow-[inset_0_2px_4px_rgba(0,0,0,0.04),0_2px_10px_rgba(0,0,0,0.02)]"
-    : "min-h-[100px] rounded-xl border-gray-200 bg-gray-50 focus:bg-white p-4 font-normal resize-none text-sm leading-relaxed text-gray-900 focus:ring-2 focus:ring-green-500/20 shadow-inner";
+    : "min-h-[100px] w-full rounded-xl border-gray-200 bg-gray-50 focus:bg-white p-4 font-normal resize-none text-sm leading-relaxed text-gray-900 focus:ring-2 focus:ring-green-500/20 shadow-inner";
 
   const iconContainerClass = isPremium
     ? "w-10 h-10 rounded-xl bg-white/80 flex items-center justify-center text-slate-600 border border-white shadow-[0_4px_12px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,1)] group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors"
@@ -131,11 +131,11 @@ export const JobOfferForm: React.FC<JobOfferFormProps> = ({ initialData, isEditi
         
         {/* Header */}
         <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-6 pb-6 md:mb-10 md:pb-8 border-b border-slate-200/50">
-          <div className="flex items-center gap-6">
-            <div className={`w-12 h-12 rounded-xl flex items-center justify-center transform -rotate-3 hover:rotate-0 transition-transform ${isPremium ? 'bg-gradient-to-br from-green-500 to-blue-600 shadow-[0_15px_30px_-5px_rgba(59,130,246,0.5),inset_0_1px_0_rgba(255,255,255,0.5)]' : 'bg-green-600 shadow-md'}`}>
+          <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6 w-full">
+            <div className={`w-12 h-12 rounded-xl flex items-center justify-center transform -rotate-3 hover:rotate-0 transition-transform shrink-0 ${isPremium ? 'bg-gradient-to-br from-green-500 to-blue-600 shadow-[0_15px_30px_-5px_rgba(59,130,246,0.5),inset_0_1px_0_rgba(255,255,255,0.5)]' : 'bg-green-600 shadow-md'}`}>
               <Briefcase className="h-6 w-6 text-white drop-shadow-md" />
             </div>
-            <div>
+            <div className="min-w-0 flex-1">
               <h2 className={`text-2xl sm:text-3xl font-bold tracking-tight drop-shadow-sm ${isPremium ? 'bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600' : 'text-gray-900'}`}>
                 {isEditing ? "Editar Oferta" : "Nueva Vacante"}
               </h2>
@@ -238,7 +238,7 @@ export const JobOfferForm: React.FC<JobOfferFormProps> = ({ initialData, isEditi
                     initial={{ opacity: 0, height: 0, scale: 0.95 }}
                     animate={{ opacity: 1, height: 'auto', scale: 1 }}
                     exit={{ opacity: 0, height: 0, scale: 0.95 }}
-                    className={`flex flex-wrap gap-2 justify-center sm:justify-between mt-4 p-4 rounded-2xl border ${isPremium ? 'bg-white/60 border-white/80 shadow-[inset_0_1px_0_rgba(255,255,255,1)]' : 'bg-orange-50/50 border-orange-100/50'}`}
+                    className={`flex flex-wrap gap-2 justify-center sm:justify-between mt-4 p-4 rounded-2xl border overflow-hidden ${isPremium ? 'bg-white/60 border-white/80 shadow-[inset_0_1px_0_rgba(255,255,255,1)]' : 'bg-orange-50/50 border-orange-100/50'}`}
                   >
                     {ALL_DAYS.map(day => (
                       <button 
@@ -277,13 +277,13 @@ export const JobOfferForm: React.FC<JobOfferFormProps> = ({ initialData, isEditi
                     key={s.id}
                     type="button" 
                     onClick={() => handleChange("workSchedule", s.id)} 
-                    className={`flex flex-col items-center justify-center h-11 sm:h-12 py-2 sm:py-0 rounded-[1.25rem] border transition-all ${
+                    className={`flex flex-col items-center justify-center min-h-11 h-auto py-2.5 rounded-[1.25rem] border transition-all ${
                       formData.workSchedule === s.id 
                       ? (isPremium ? "border-blue-400 bg-blue-50/80 text-blue-700 shadow-[0_8px_20px_-5px_rgba(59,130,246,0.3),inset_0_1px_0_rgba(255,255,255,1)] ring-2 ring-blue-400/50" : "border-blue-500 bg-blue-50 text-blue-700 shadow-inner")
                       : "border-white/60 bg-white/40 text-slate-500 hover:bg-white/80 hover:shadow-sm"
                     }`}
                   >
-                    <span className="text-xs sm:text-[13px] font-semibold">{s.label}</span>
+                    <span className="text-xs sm:text-[13px] font-semibold text-center leading-tight px-1">{s.label}</span>
                   </button>
                 ))}
               </div>
