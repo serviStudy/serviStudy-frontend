@@ -84,12 +84,12 @@ import { Applicant } from "./Applicant";
         <div className="mt-8 flex flex-col gap-6">
         
         {/* Header Info */}
-        <div className="flex items-center justify-between">
+        <div className="items-center justify-between hidden md:block">
             <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-linear-to-br from-green-50 to-blue-50 rounded-xl flex items-center justify-center text-blue-600 border border-blue-100">
                 <Users size={20} />
             </div>
-            <h2 className="text-xl font-bold bg-linear-to-r to-blue-700  from-green-700 text-transparent bg-clip-text ">Lista de Postulantes</h2>
+            <h2 className="text-xl font-bold bg-linear-to-r from-blue-600 via-lime-600 to-green-600 text-transparent bg-clip-text ">Lista de Postulantes</h2>
             </div>
             <div className="flex flex-col items-end gap-2">
                 {selectedIds.length > 0 && (
@@ -147,7 +147,7 @@ import { Applicant } from "./Applicant";
             <button
                 onClick={() => fetchApplicants(page + 1)}
                 disabled={data.last || loading}
-                className="px-5 py-2 rounded-lg font-bold text-sm bg-linear-to-r from-green-600 to-blue-600 text-white hover:from-green-700 hover:to-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="px-5 py-2 rounded-lg font-bold text-sm bg-linear-to-r from-blue-400 via-lime-500 to-green-600 text-white hover:from-green-700 hover:to-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
                 Siguiente
             </button>

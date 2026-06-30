@@ -114,7 +114,7 @@ export default function BuscarTalentoPage() {
               className={cn(
                 "flex-1 sm:flex-none px-4 py-1.5 rounded-full text-xs font-bold flex items-center justify-center gap-1.5 transition-all duration-300 relative z-10",
                 isAiMode 
-                  ? "bg-gradient-to-r from-green-500 to-blue-500 text-white shadow-[0_4px_12px_rgba(16,185,129,0.3)] scale-[1.02]" 
+                  ? "bg-linear-to-r from-blue-400 via-lime-500 to-green-600 text-white shadow-[0_4px_12px_rgba(16,185,129,0.3)] scale-[1.02]" 
                   : "text-slate-500 hover:text-slate-700 hover:bg-slate-200/50"
               )}
             >
