@@ -2,11 +2,11 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { 
-    LayoutDashboard, 
-    User, 
-    Briefcase, 
-    Users, 
+import {
+    LayoutDashboard,
+    User,
+    Briefcase,
+    Users,
     LogOut,
     HelpCircle,
     Menu,
@@ -36,7 +36,7 @@ export const StudentSidebar = ({ subscriptionStatus }: StudentSidebarProps) => {
     const pathname = usePathname();
 
     const toggleSidebar = () => setIsOpen(!isOpen);
-    
+
     const handleLogout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("user_email");
@@ -46,9 +46,8 @@ export const StudentSidebar = ({ subscriptionStatus }: StudentSidebarProps) => {
     };
 
     const sidebarItems = allSidebarItems.filter(item => {
-        if ((item.name === 'Dashboard' || item.name === 'Agente IA') && subscriptionStatus !== 'ACTIVE') {
-            return false;
-        }
+        // Dashboard solo para premium; Agente IA siempre visible (onboarding gratis)
+        if (item.name === 'Dashboard' && subscriptionStatus !== 'ACTIVE') return false;
         return true;
     });
 

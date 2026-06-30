@@ -108,7 +108,10 @@ export function useRegisterForm() {
                 tipoUsuario
             );
 
-            toast.success("Usuario registrado")
+            // Marcar como nuevo usuario para redirigir al agente tras el login
+            localStorage.setItem('is_new_user', 'true')
+            localStorage.setItem('new_user_role', tipoUsuario)
+            toast.success("¡Registro exitoso! Completa tu perfil con Turnito 🐾")
 
             router.push(`/verificar?email=${formData.email}&role=${tipoUsuario}`);
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -152,10 +155,12 @@ export function useRegisterForm() {
 
         // El backend envía "STUDENT" o "EMPLOYER" en el JWT
         const normalizedRole = (role as string).toUpperCase()
+        // Marcar tour como visto (el agente guía el onboarding)
+        localStorage.setItem('has_seen_tour', 'true')
         if (normalizedRole === "STUDENT" || role === "estudiante") {
-            window.location.href = "/estudiante/perfil"
+            window.location.href = "/estudiante/agente?isNew=true"
         } else {
-            window.location.href = "/empleador/perfil"
+            window.location.href = "/empleador/agente?isNew=true"
         }
     }
 

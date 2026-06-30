@@ -1,15 +1,40 @@
 import React from 'react';
+import { cookies } from 'next/headers';
+import { decodeJwt } from 'jose';
 import { AgentChat } from '@/features/ai-agent/components/AgentChat';
 
 export const metadata = {
-  title: 'Agente IA Premium - ServiStudy',
-  description: 'Comunícate con tu Agente IA exclusivo para empleadores premium.',
+  title: 'Turnito - Agente IA | ServiStudy',
+  description: 'Chatea con Turnito, tu asistente IA personal de ServiStudy.',
 };
 
-export default function EmpleadorAgentePage() {
+interface PageProps {
+  searchParams: Promise<{ isNew?: string }>;
+}
+
+export default async function EmpleadorAgentePage({ searchParams }: PageProps) {
+  const params = await searchParams;
+  const isNewUser = params?.isNew === 'true';
+
+  // Leer subscriptionStatus del JWT
+  const cookieStore = await cookies();
+  const token = cookieStore.get('token')?.value;
+  let subscriptionStatus: 'ACTIVE' | 'INACTIVE' = 'INACTIVE';
+
+  if (token) {
+    try {
+      const decoded = decodeJwt(token) as any;
+      if (decoded.subscriptionStatus === 'ACTIVE') subscriptionStatus = 'ACTIVE';
+    } catch {}
+  }
+
   return (
-    <div className="p-4 md:p-8 min-h-screen bg-gray-50/50">
-      <AgentChat userType="employer" />
+    <div className="h-[calc(100svh-5rem)] md:h-[calc(100svh-2rem)]">
+      <AgentChat
+        userType="employer"
+        subscriptionStatus={subscriptionStatus}
+        isNewUser={isNewUser}
+      />
     </div>
   );
 }

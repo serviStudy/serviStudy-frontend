@@ -1,5 +1,6 @@
+"use client";
 import React from 'react';
-import { Bot, User, Sparkles } from 'lucide-react';
+import { User } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export interface ChatMessageProps {
@@ -13,32 +14,31 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ type, content }) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10 }}
+      initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
-      className={`flex gap-4 w-full ${isAgent ? 'justify-start' : 'justify-end'} mb-6`}
+      transition={{ duration: 0.25 }}
+      className={`flex gap-3 w-full ${isAgent ? 'justify-start' : 'justify-end'} mb-4`}
     >
-      {/* Agent Avatar */}
+      {/* Indicador agente */}
       {isAgent && (
-        <div className="flex-shrink-0 w-10 h-10 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white shadow-lg shadow-blue-500/30">
-          <Sparkles size={20} />
-        </div>
+        <div className="flex-shrink-0 w-2 h-2 rounded-full bg-blue-500 mt-4 self-start" />
       )}
 
-      {/* Message Bubble */}
+      {/* Bubble */}
       <div
-        className={`relative max-w-[80%] md:max-w-[70%] px-5 py-4 rounded-3xl ${
+        className={`relative max-w-[80%] md:max-w-[72%] px-4 py-3 rounded-xl text-[14px] leading-relaxed whitespace-pre-wrap shadow-sm ${
           isAgent
-            ? 'bg-white/80 backdrop-blur-md border border-gray-100 text-gray-800 rounded-tl-sm shadow-[0_8px_30px_rgb(0,0,0,0.04)]'
-            : 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-tr-sm shadow-[0_8px_30px_rgb(79,70,229,0.2)]'
+            ? 'bg-white border border-gray-100 text-gray-800 rounded-tl-sm'
+            : 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-tr-sm shadow-blue-500/20'
         }`}
       >
-        <p className="text-[15px] leading-relaxed whitespace-pre-wrap">{content}</p>
+        {content}
       </div>
 
       {/* User Avatar */}
       {!isAgent && (
-        <div className="flex-shrink-0 w-10 h-10 rounded-2xl bg-gray-100 border border-gray-200 flex items-center justify-center text-gray-500">
-          <User size={20} />
+        <div className="flex-shrink-0 w-9 h-9 rounded-xl bg-gray-100 border border-gray-200 flex items-center justify-center text-gray-500 shrink-0">
+          <User size={18} />
         </div>
       )}
     </motion.div>

@@ -105,8 +105,18 @@ export const useLogin = () => {
 
     console.log("Sesión guardada (Token + Info Básica)")
 
-    // REDIRECCIÓN AL PERFIL SEGÚN TIPO DE USUARIO
-    if (role === "STUDENT") {
+    // REDIRECCIÓN: nuevo usuario → agente, existente → perfil
+    const isNewUser = localStorage.getItem('is_new_user') === 'true'
+    if (isNewUser) {
+      localStorage.removeItem('is_new_user')
+      localStorage.removeItem('new_user_role')
+      localStorage.setItem('has_seen_tour', 'true') // el agente hace el onboarding
+      if (role === "STUDENT") {
+        window.location.href = "/estudiante/agente?isNew=true"
+      } else {
+        window.location.href = "/empleador/agente?isNew=true"
+      }
+    } else if (role === "STUDENT") {
       window.location.href = "/estudiante/perfil"
     } else {
       window.location.href = "/empleador/perfil"
