@@ -35,16 +35,6 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
       }`}>
         {/* Background Banner */}
         <div className={`h-50 lg:h-60 w-full relative overflow-hidden bg-linear-to-r from-green-900 via-green-700 to-green-500`}>
-          
-          {/* Premium glows inside banner */}
-          {isPremium && (
-            <>
-              <div className="absolute top-0 right-0 w-48 h-48 bg-white/15 blur-3xl rounded-full -translate-y-1/2 translate-x-1/2" />
-              <div className="absolute bottom-0 left-0 w-40 h-40 bg-green-300/25 blur-2xl rounded-full translate-y-1/2 -translate-x-1/4" />
-              <div className="absolute top-1/2 right-1/4 w-24 h-24 bg-blue-300/20 blur-xl rounded-full" />
-            </>
-          )}
-          
           {/* Premium badge in banner */}
           {isPremium && (
             <div className="absolute top-5 left-5 sm:top-8 sm:left-10 flex items-center gap-2.5 px-4 py-2 rounded-xl bg-white/15 backdrop-blur-md border border-white/25 shadow-inner">
@@ -76,7 +66,7 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
             <div className="relative shrink-0">
               <div className={`h-32 w-32 sm:h-40 sm:w-40 lg:h-48 lg:w-48 rounded-lg p-5 sm:p-6 flex items-center justify-center ${
                 isPremium
-                  ? 'bg-white/90 backdrop-blur-xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-white/80'
+                  ? 'bg-white/85 backdrop-blur-3xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-white/95'
                   : 'bg-white shadow-sm border border-gray-100'
               }`}>
                 {(profile.imageUrl || profile.image_url) ? (
@@ -137,9 +127,9 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
                 }`}>
                   {/* Glow sutil en hover (solo premium) */}
                   {isPremium && (
-                    <div className={`absolute -top-6 -right-6 w-24 h-24 bg-gradient-to-br ${item.gradient} opacity-0 group-hover:opacity-15 blur-2xl rounded-full transition-opacity duration-500`} />
+                    <div className={`absolute -top-6 -right-6 w-24 h-24 bg-linear-to-br ${item.gradient} opacity-0 group-hover:opacity-15 blur-2xl rounded-xl transition-opacity duration-500`} />
                   )}
-                  <div className={`relative z-10 w-11 h-11 rounded-xl flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-110 ${
+                  <div className={`relative z-10 w-11 h-11 rounded-[13px] flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-110 ${
                     isPremium
                       ? `bg-gradient-to-br ${item.gradient} text-white shadow-lg shadow-blue-500/10`
                       : 'text-green-600 bg-green-50'
@@ -162,7 +152,7 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
           }`}>
             {/* Barra decorativa superior (solo premium) */}
             {isPremium && (
-              <div className="h-1 w-full bg-gradient-to-r from-green-500 via-blue-500 to-violet-500" />
+              <div className="h-1 w-full bg-linear-to-r from-blue-400 via-lime-500 to-green-600" />
             )}
             <div className="p-6 lg:p-8">
               <div className="flex items-center gap-4 mb-6">
@@ -188,24 +178,18 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
           </section>
 
           <section className="flex flex-col gap-6">
-            <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4 px-2">
-              <div className="flex items-center gap-4">
-                <div className={`w-12 h-12 rounded-lg flex items-center justify-center border ${
-                  isPremium
-                    ? 'bg-gradient-to-br from-green-50 to-blue-50 text-blue-600 border-blue-200/50'
-                    : 'bg-green-50 text-green-600 border-green-100'
-                }`}>
+            <div className="flex sm:flex-row justify-between sm:items-center md:gap-4">
+              <div className="flex items-center gap-2 md:gap-4">
+                <div className={`w-12 h-12 rounded-lg flex items-center justify-center border bg-lime-500 text-white`}>
                   <BriefcaseBusiness size={24} />
                 </div>
-                <h3 className="text-lg lg:text-xl font-semibold text-gray-900 tracking-tight">
+                <h3 className="text-lg lg:text-xl font-bold text-gray-700 tracking-tight">
                   Vacantes Activas</h3>
               </div>
-              <Link href="/empleador/ofertas" className={`px-6 py-3 rounded-xl font-bold text-xs transition-all flex items-center gap-2 shadow-sm justify-center sm:justify-start ${
-                isPremium
-                  ? 'bg-gradient-to-r from-green-50 to-blue-50 text-blue-600 hover:from-green-100 hover:to-blue-100 border border-blue-200/50'
-                  : 'bg-green-50 text-green-600 hover:bg-green-100'
-              }`}>
-                Ver Todas <ArrowRight size={18} />
+
+              <Link href="/empleador/ofertas" className={`px-6 py-3 hover:rounded-xl hover:bg-lime-50 hover:text-lime-600 font-bold text-xs transition-all flex items-center gap-2 hover:shadow-sm justify-center sm:justify-start text-lime-600 md:text-gray-600`}>
+                Ver Todas 
+                <ArrowRight size={18} className='hidden md:block'/>
               </Link>
             </div>
             
@@ -227,15 +211,15 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
               /* Premium Action Card — gradient glassmorphic */
               <div className="relative rounded-xl overflow-hidden shadow-[0_8px_30px_rgba(16,185,129,0.15)]">
                 {/* Gradient header */}
-                <div className="bg-linear-to-r from-yellow-300 via-lime-300 to-green-500 p-6 text-white relative overflow-hidden">
+                <div className="bg-linear-to-r from-blue-400 via-lime-500 to-green-600 p-6 text-white relative overflow-hidden">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-white/15 blur-2xl rounded-full -translate-y-1/2 translate-x-1/2" />
                   <div className="absolute bottom-0 left-0 w-20 h-20 bg-green-300/20 blur-xl rounded-full translate-y-1/2 -translate-x-1/4" />
                   <div className="relative z-10 flex items-center gap-3 mb-3">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-white/40 backdrop-blur-md border border-white/30 shadow-inner">
-                      <Crown size={20} className="text-amber-400" />
+                    <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-lime-200/40 backdrop-blur-md border border-white/30 shadow-inner">
+                      <Crown size={20} className="text-green-600" />
                     </div>
                     <div>
-                      <h3 className="text-lg font-bold text-white leading-tight">Plan {planName}</h3>
+                      <h3 className="text-lg font-bold text-green-50 leading-tight">Plan {planName}</h3>
                       <p className="text-[11px] text-white font-medium mt-0.5">{daysLeft} {daysLeft === 1 ? 'día restante' : 'días restantes'}</p>
                     </div>
                   </div>
@@ -262,9 +246,9 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
                 <div className="bg-white/70 backdrop-blur-xl border-x border-b border-white/80 rounded-b-xl px-5 pb-5">
                   <Link 
                     href="/empleador/buscar-talento"
-                    className="w-full relative overflow-hidden group flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-bold text-sm transition-all duration-300 bg-green-500 hover:bg-linear-to-r hover:from-yellow-300 hover:via-lime-300 hover:to-green-500 text-white shadow-lg shadow-green-500/20 hover:shadow-blue-500/30 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-95"
+                    className="w-full relative overflow-hidden group flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-bold text-sm transition-all duration-300 bg-green-500 hover:bg-linear-to-r hover:from-blue-400 hover:via-lime-500 hover:to-green-600 text-white shadow-lg shadow-green-500/20 hover:shadow-blue-500/30 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-95"
                   >
-                    <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12" />
+                    <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out bg-linear-to-r from-transparent via-white/20 to-transparent skew-x-12" />
                     <Sparkles size={16} className="relative z-10 group-hover:rotate-12 transition-transform duration-300" />
                     <span className="relative z-10">Buscar Talento con IA</span>
                   </Link>
@@ -293,8 +277,8 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
                 : 'bg-white border border-gray-100'
             }`}>
               <h3 className="text-lg font-semibold text-gray-900 mb-6">Estado del Perfil</h3>
-              <div className="flex flex-col gap-6">
-                  <div className="flex items-center gap-4">
+              <div className="flex flex-col gap-4">
+                  <div className="flex items-center gap-3">
                     <div className={`w-2.5 h-2.5 rounded-full animate-pulse ${
                       isPremium
                         ? 'bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]'
@@ -302,26 +286,18 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
                     }`}></div>
                     <span className="text-sm font-medium text-gray-600">Perfil Visible</span>
                   </div>
-                  <div className="flex items-center gap-4">
-                    <div className={`w-2.5 h-2.5 rounded-full ${
-                      isPremium
-                        ? 'bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.3)]'
-                        : 'bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.3)]'
-                    }`}></div>
-                    <span className="text-sm font-medium text-gray-600">Cuenta Verificada</span>
-                  </div>
                   {isPremium && (
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-3">
                       <div className="w-2.5 h-2.5 rounded-full bg-yellow-400 shadow-[0_0_8px_rgba(250,204,21,0.4)]"></div>
                       <span className="text-sm font-medium text-gray-600">Suscripción Premium Activa</span>
                     </div>
                   )}
-                  <div className="pt-6 border-t border-gray-50">
+                  <div className="pt-4 border-t border-gray-50">
                       <p className="text-xs font-medium text-gray-400 uppercase tracking-wider mb-3">Completitud del Perfil</p>
                       <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
                         <div className={`w-[85%] h-full rounded-full ${
                           isPremium
-                            ? 'bg-linear-to-r from-yellow-300 via-lime-300 to-green-500'
+                            ? 'bg-linear-to-r from-blue-400 via-lime-500 to-green-600 '
                             : 'bg-green-500'
                         }`}></div>
                       </div>

@@ -37,25 +37,24 @@ export const HeaderOfertas = ({
   };
 
   return (
-    <div className="bg-linear-to-br from-blue-900 via-blue-700 to-blue-600 rounded-xl py-10 px-8 mb-8 overflow-hidden relative shadow-sm">
+    <div className="bg-linear-to-r from-blue-800 via-indigo-500 to-blue-600 rounded-xl p-6 mb-8 overflow-hidden relative shadow-sm">
       {/* Decorative background elements */}
-      <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
       <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
       <div className="absolute bottom-0 left-0 w-48 h-48 bg-black/10 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2"></div>
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col items-center text-center">
-        <h1 className="text-2xl md:text-3xl font-bold text-white mb-3 tracking-tight">
+      <div className="relative z-10 flex flex-col">
+        <h1 className="text-2xl md:text-3xl font-bold text-white tracking-tight">
           Encuentra nuevas <span className="text-blue-300">Ofertas</span>
         </h1>
-        <p className="text-white/80 font-medium text-sm md:text-base max-w-xl mb-8 leading-relaxed">
+        <p className="text-white/80 font-medium text-sm md:text-base max-w-xl mb-6 leading-relaxed">
           Explora cientos de oportunidades para estudiantes y da el siguiente paso en tu carrera profesional.
         </p>
 
         {/* Action Bar Container */}
         <div className="flex flex-col gap-6 w-full max-w-5xl">
           {/* Row 1: Search and Mis Postulaciones */}
-          <div className="flex flex-col md:flex-row items-center gap-4 w-full justify-center">
+          <div className="flex flex-col md:flex-row gap-4 w-full">
             <div className="relative group w-full md:max-w-2xl">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5 group-focus-within:text-blue-600 transition-colors" />
               <input
@@ -77,10 +76,10 @@ export const HeaderOfertas = ({
 
             <Link
               href={"/estudiante/misPostulaciones"}
-              className="flex items-center gap-2 bg-white/40 text-white px-8 py-3.5 rounded-xl text-sm font-bold transition-all shadow-sm hover:bg-gray-50 hover:text-blue-900 active:scale-95 group whitespace-nowrap h-11"
+              className="flex items-center gap-2 bg-white/40 text-white px-4 py-3.5 rounded-xl text-sm font-bold transition-all shadow-sm hover:bg-gray-50 hover:text-blue-900 active:scale-95 group whitespace-nowrap h-11"
             >
-              <div className="bg-blue-600 p-1.5 rounded-lg text-white group-hover:bg-blue-700 transition-colors">
-                 <Briefcase size={18} strokeWidth={3} />
+              <div className="bg-blue-600 p-1.5 mr-2.5 rounded-lg text-white group-hover:bg-blue-700 transition-colors">
+                <Briefcase size={18} strokeWidth={3} />
               </div>
               Mis Postulaciones
             </Link>
@@ -88,22 +87,22 @@ export const HeaderOfertas = ({
 
           {/* Row 2: Filters - Horizontal Expansion */}
           <div className="flex flex-col items-center gap-4">
-            <div className="flex flex-wrap items-center justify-center gap-4 w-full">
+            <div className="flex flex-wrap gap-4 w-full">
               
               {/* Días Container */}
               <motion.div 
                 layout
-                className="flex items-center bg-white/10 backdrop-blur-md rounded-full border border-white/20 p-1"
+                className="flex items-center bg-white/10 backdrop-blur-md rounded-xl border border-white/20 p-1"
               >
                 <button
                   onClick={() => toggleFilter("days")}
-                  className={`flex items-center gap-2 px-5 py-2 rounded-full text-[12px] font-black tracking-widest transition-all ${
+                  className={`flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-bold tracking-wider transition-all ${
                     activeFilter === "days" || selectedDays.length > 0
                       ? "bg-white text-blue-700 shadow-sm"
                       : "text-white hover:bg-white/10"
                   }`}
                 >
-                  <Calendar size={14} />
+                  <Calendar size={16} />
                   <span>Días laborales</span>
                   <ChevronDown
                     size={12}
@@ -125,7 +124,7 @@ export const HeaderOfertas = ({
                         <button
                           key={day}
                           onClick={() => toggleDay(day)}
-                          className={`px-3 py-1.5 rounded-full text-[11px] font-bold capitalize tracking-wider transition-all border whitespace-nowrap ${
+                          className={`px-3 py-1.5 rounded-xl text-[11px] font-bold capitalize tracking-wider transition-all border whitespace-nowrap ${
                             selectedDays.includes(day)
                               ? "bg-blue-500 text-white border-blue-500 shadow-sm"
                               : "text-white/70 hover:text-white border-white/10 hover:bg-white/10"
@@ -142,17 +141,17 @@ export const HeaderOfertas = ({
               {/* Jornada Container */}
               <motion.div 
                 layout
-                className="flex items-center bg-white/10 backdrop-blur-md rounded-full border border-white/20 p-1"
+                className="flex items-center bg-white/10 backdrop-blur-md rounded-xl border border-white/20 p-1"
               >
                 <button
                   onClick={() => toggleFilter("jornada")}
-                  className={`flex items-center gap-2 px-5 py-2 rounded-full text-[12px] font-black tracking-widest transition-all ${
+                  className={`flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-bold tracking-wider transition-all ${
                     activeFilter === "jornada" || selectedJornada.length > 0
                       ? "bg-white text-blue-700 shadow-sm"
                       : "text-white hover:bg-white/10"
                   }`}
                 >
-                  <Clock size={14} />
+                  <Clock size={16} />
                   <span>Jornada</span>
                   <ChevronDown
                     size={12}

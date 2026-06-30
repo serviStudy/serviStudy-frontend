@@ -74,7 +74,6 @@ export function MobileHeaderOfertas({
     return (
         <div className="bg-linear-to-br from-blue-900 via-blue-700 to-blue-600 sticky top-0 z-30 rounded-xl px-4 py-4 mb-4 overflow-hidden md:hidden shadow-sm">
             {/* Decorative background elements */}
-            <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] pointer-events-none"></div>
             <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
 
             <div
@@ -87,10 +86,6 @@ export function MobileHeaderOfertas({
                 <h1 className="pt-2 text-2xl font-bold leading-tight tracking-tight text-white">
                     Encuentra nuevas <span className="text-blue-300 font-extrabold">oportunidades</span>
                 </h1>
-                <p className="mt-2 text-sm leading-relaxed text-white/80 font-medium">
-                    Explora cientos de oportunidades para estudiantes <br /> y da el siguiente paso en tu
-                    carrera profesional.
-                </p>
             </div>
 
             <div className="mt-3 flex flex-col gap-3">
