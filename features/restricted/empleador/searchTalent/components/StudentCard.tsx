@@ -7,6 +7,8 @@ import { StudentProfile } from "../types/searchTalent.types";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { giveLike, removeLike, checkIfLiked } from "@/features/restricted/interactions/services/interactionService";
+import { useState } from "react";
+import { StudentProfileResponse } from "@/features/restricted/estudiante/perfil/types/studentProfile.types";
 
 interface Props {
   student: StudentProfile;
@@ -31,12 +33,15 @@ export const StudentCard = ({ student }: Props) => {
   const handleViewProfile = () => {
     // Reutilizamos el mecanismo de sessionStorage que ya usa la app para ver perfiles de estudiantes
     // Nota: applicationDate se deja vacío ya que no es una postulación específica
+      console.log("ID del estudiante en Buscar Talento:", student.id); // 👈 Añade esto para verificar
+
     sessionStorage.setItem("employer_student_view", JSON.stringify({ student, applicationDate: "" }));
-    router.push("/empleador/applicants/student");
+    router.push(`/empleador/applicants/student`);
   };
 
+
   return (
-    <div className="bg-white rounded-xl border border-gray-200 p-6 flex flex-col md:flex-row gap-6 shadow-sm hover:shadow-md transition-all duration-300 relative overflow-hidden group w-full">
+    <div className="bg-white rounded-xl border border-gray-200 p-4 flex flex-col md:flex-row gap-6 shadow-sm hover:shadow-md transition-all duration-300 relative overflow-hidden group w-full">
 
       {/* Compatibility Badge - Top Right Premium Widget */}
       {student.compatibilityScore !== undefined && (() => {
@@ -48,7 +53,7 @@ export const StudentCard = ({ student }: Props) => {
         
         return (
           <div className="absolute top-0 right-0 z-10 select-none">
-            <div className="bg-linear-to-r from-green-500 to-blue-500 text-white rounded-bl-2xl px-4 py-2.5 flex items-center gap-3.5 shadow-md shadow-green-500/10 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-green-500/20 group-hover:scale-[1.02]">
+            <div className="bg-linear-to-r from-green-500 to-blue-500 text-white rounded-bl-2xl flex items-center shadow-md shadow-green-500/10 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-green-500/20 group-hover:scale-[1.02]">
               
               {/* Circular Gauge */}
               <div className="relative w-11 h-11 flex items-center justify-center shrink-0">
@@ -127,13 +132,12 @@ export const StudentCard = ({ student }: Props) => {
       )} />
 
       {/* Left: Avatar */}
-      <div></div>
       <div className="shrink-0 items-center flex gap-4 md:justify-start">
         {student.imgUrl ? (
           <img
             src={student.imgUrl}
             alt={student.name || "Estudiante"}
-            className="w-20 h-20 rounded-xl object-cover border-2 border-gray-100 shadow-sm transition-transform group-hover:scale-105"
+            className="w-16 h-16 md:w-20 md:h-20 lg:h-24 lg:w-24 rounded-xl object-cover border-2 border-gray-100 shadow-sm transition-transform group-hover:scale-105"
           />
         ) : (
           <div className="w-20 h-20 rounded-xl bg-green-50 flex items-center justify-center border-2 border-gray-100 shadow-sm text-green-600 transition-transform group-hover:scale-105">
@@ -141,23 +145,18 @@ export const StudentCard = ({ student }: Props) => {
           </div>
         )}
 
-        <div className="flex flex-col gap-2 md:hidden">
+        <div className="flex flex-col gap-1.5 md:hidden">
           <div className="flex items-center gap-1.5">
-            <h3 className="text-lg font-semibold text-gray-900 truncate capitalize group-hover:text-green-600 transition-colors">
+            <h3 className="text-lg font-semibold text-green-900 truncate capitalize group-hover:text-green-600 transition-colors">
               {student.name || "Sin nombre"}
             </h3>
-            {student.verificationStatus && (
-              <div className="bg-green-50 text-green-600 p-0.5 rounded-full" title="Perfil verificado">
-                <CheckCircle2 size={14} />
-              </div>
-            )}
           </div>
 
           <div className="flex items-center gap-2">
             <div className="w-7 h-7 rounded-lg bg-green-50 flex items-center justify-center shrink-0">
               <Phone size={14} className="text-green-600" />
             </div>
-            <span className="text-sm font-semibold text-gray-700">{student.contactNumber || "Sin teléfono"}</span>
+            <span className="text-sm font-semibold text-gray-600">{student.contactNumber || "Sin teléfono"}</span>
           </div>
         </div>
       </div>
@@ -170,11 +169,7 @@ export const StudentCard = ({ student }: Props) => {
             <h3 className="text-lg font-semibold text-gray-900 truncate capitalize group-hover:text-green-600 transition-colors">
               {student.name || "Sin nombre"}
             </h3>
-            {student.verificationStatus && (
-              <div className="bg-green-50 text-green-600 p-0.5 rounded-full" title="Perfil verificado">
-                <CheckCircle2 size={14} />
-              </div>
-            )}
+            
           </div>
 
           <div className="flex gap-6">
@@ -207,7 +202,7 @@ export const StudentCard = ({ student }: Props) => {
       <div className="shrink-0 flex flex-col justify-center items-end gap-3 mt-2 md:mt-10 border-t md:border-t-0 md:border-l border-gray-100 pt-4 md:pt-0 md:pl-6">
         <button
           onClick={handleViewProfile}
-          className="w-full md:w-auto px-6 py-2.5 bg-green-600 hover:bg-green-700 text-white text-sm font-bold rounded-xl shadow-sm transition-all hover:shadow-md active:scale-95 text-center uppercase tracking-wider cursor-pointer"
+          className="w-full md:w-auto px-6 py-2.5 bg-green-600 hover:bg-green-700 text-white text-sm font-bold rounded-xl shadow-sm transition-all hover:shadow-md active:scale-95 text-center tracking-wider cursor-pointer"
         >
           Ver perfil
         </button>

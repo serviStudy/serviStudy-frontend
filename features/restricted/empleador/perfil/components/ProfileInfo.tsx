@@ -1,13 +1,13 @@
 import React from 'react'
 import Link from 'next/link'
 import {
+
   BriefcaseBusiness, Building2, MapPin, Pencil, CheckCircle2,
   Mail, Phone, AlignLeft, Globe, Zap, ArrowRight, Crown, Sparkles, Star,
   ThumbsUpIcon
 } from 'lucide-react'
 import { type EmployerProfileResponse } from '../services/profileService'
 import { ProfileOffersList } from './ProfileOffersList'
-import { motion } from 'framer-motion'
 
 interface ProfileInfoProps {
   profile: EmployerProfileResponse
@@ -57,9 +57,9 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
           {/* Premium badge in banner */}
           {isPremium && (
             <div className="absolute top-5 left-5 sm:top-8 sm:left-10 flex items-center gap-2.5 px-4 py-2 rounded-xl bg-white/15 backdrop-blur-md border border-white/25 shadow-inner">
-              <Crown size={16} className="text-yellow-300" />
-              <span className="text-[10px] sm:text-xs font-black text-white uppercase tracking-wider">{planName}</span>
-              <span className="text-[10px] text-white/70 font-medium">· {daysLeft} {daysLeft === 1 ? 'día' : 'días'}</span>
+              <Crown size={16} className="text-yellow-100" />
+              <span className="text-[10px] sm:text-xs font-semibold text-white tracking-wider">{planName}</span>
+              <span className="text-[12px] text-white font-medium">· {daysLeft} {daysLeft === 1 ? 'día' : 'días'}</span>
             </div>
           )}
 
@@ -72,7 +72,7 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
                 : 'bg-white text-green-700 hover:bg-gray-50'
                 }`}
             >
-              <Pencil size={14} className="sm:w-4 sm:h-4" /> <p className='hidden md:block'>Editar Perfil</p>
+              <Pencil size={14} className="sm:w-4 sm:h-4"  strokeWidth={2}/> <p className='hidden md:block'>Editar Perfil</p>
             </Link>
           </div>
         </div>
@@ -196,7 +196,7 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
                   <AlignLeft size={22} />
                 </div>
                 <div>
-                  <h3 className="text-lg lg:text-xl font-bold text-gray-900 tracking-tight">Sobre nosotros</h3>
+                  <h3 className="text-lg lg:text-xl font-bold text-gray-700 tracking-tight">Sobre nosotros</h3>
                   {isPremium && (
                     <p className="text-[11px] font-medium text-gray-400 mt-0.5">Visión y valores de la empresa</p>
                   )}

@@ -46,7 +46,7 @@ export const SemanticSearchOptions = ({
             <Sparkles className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h2 className="text-lg font-bold tracking-tight text-white shadow-sm leading-tight">
+            <h2 className="text-lg font-bold tracking-tight text-white leading-tight">
               Búsqueda Semántica con IA
             </h2>
             <p className="text-xs text-green-50 font-medium mt-0.5">

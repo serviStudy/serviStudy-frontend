@@ -18,7 +18,7 @@ export const ApplicantCard = ({ applicant }: Props) => {
 
   const handleViewProfile = () => {
     sessionStorage.setItem("employer_student_view", JSON.stringify({ student, applicationDate }));
-    router.push("/empleador/applicants/student");
+    router.push(`/empleador/applicants/student`);
   };
 
   return (

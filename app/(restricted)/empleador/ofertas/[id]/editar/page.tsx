@@ -9,18 +9,20 @@ import { LoadingScreen } from "@/components/shared/LoadingScreen";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { SuccessModal } from "@/components/shared/SuccessModal";
 
 export default function EditJobOfferPage() {
   const router = useRouter();
   const { id } = useParams();
   const { offer, loading } = useJobOffer(id as string);
   const [saving, setSaving] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const handleUpdate = async (data: any) => {
     setSaving(true);
     try {
       await updateJobOffer(id as string, data);
-      router.push("/empleador/ofertas");
+      setShowSuccess(true);
     } catch (error) {
       console.error("Error al actualizar oferta:", error);
     } finally {
@@ -77,6 +79,16 @@ export default function EditJobOfferPage() {
           />
         </motion.div>
       </main>
+
+      <SuccessModal 
+        isOpen={showSuccess}
+        onClose={() => {
+          setShowSuccess(false);
+          router.push("/empleador/ofertas");
+        }}
+        title="Cambios guardados"
+        message="Cambios guardados exitosamente"
+      />
     </div>
   );
 }

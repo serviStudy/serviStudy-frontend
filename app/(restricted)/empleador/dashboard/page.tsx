@@ -3,13 +3,15 @@ import React from 'react';
 import {
   Briefcase,
   TrendingUp,
+import { 
+  Briefcase, 
+  TrendingUp, 
   ArrowUpRight,
   Plus,
   CheckCircle2,
   AlertCircle,
   Star,
   Sparkles,
-  Clock,
   Crown
 } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -93,7 +95,7 @@ export default function EmployerDashboard() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="relative w-full rounded-2xl bg-gradient-to-r from-green-500 to-blue-600 p-6 sm:p-8 text-white overflow-hidden shadow-[0_20px_60px_-15px_rgba(16,185,129,0.3)]"
+          className="relative w-full rounded-2xl bg-linear-to-r from-yellow-300 via-lime-300 to-green-500 shadow-green-500/10 p-6 sm:p-8 text-white overflow-hidden shadow-[0_20px_60px_-15px_rgba(16,185,129,0.3)]"
         >
           {/* Glows inside banner */}
           <div className="absolute top-0 right-0 w-40 h-40 bg-white/20 blur-3xl rounded-full -translate-y-1/2 translate-x-1/2" />
@@ -157,26 +159,26 @@ export default function EmployerDashboard() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.4 }}
-            className="relative p-6 rounded-2xl bg-gradient-to-br from-green-500 to-blue-600 text-white overflow-hidden group hover:-translate-y-1 transition-all duration-300 shadow-[0_8px_30px_rgba(16,185,129,0.15)] hover:shadow-[0_20px_50px_rgba(16,185,129,0.25)]"
+            className="relative p-6 rounded-2xl bg-white text-white overflow-hidden group hover:-translate-y-1 transition-all duration-300 shadow-[0_8px_30px_rgba(16,185,129,0.15)] hover:shadow-[0_20px_50px_rgba(16,185,129,0.25)]"
           >
             {/* Internal glows */}
             <div className="absolute top-0 right-0 w-24 h-24 bg-white/15 blur-2xl rounded-full -translate-y-1/2 translate-x-1/2" />
             <div className="absolute bottom-0 left-0 w-20 h-20 bg-green-300/20 blur-xl rounded-full translate-y-1/2 -translate-x-1/4" />
 
             <div className="flex items-center justify-between mb-4 relative z-10">
-              <div className="p-3 rounded-xl bg-white/20 backdrop-blur-md border border-white/30 shadow-inner transition-transform group-hover:scale-110">
-                <Sparkles size={20} className="text-white" />
+              <div className="p-3 rounded-xl bg-yellow-50 backdrop-blur-md shadow-inner transition-transform group-hover:scale-110">
+                <Sparkles size={20} className="text-yellow-300" />
               </div>
-              <span className="text-[10px] font-black px-2.5 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/30 uppercase tracking-wider">
+              <span className="text-[12px] text-yellow-400 bg-yellow-50 font-semibold px-2.5 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/30">
                 {planName}
               </span>
             </div>
             <div className="flex flex-col relative z-10">
               <div className="flex items-baseline gap-1">
-                <span className="text-3xl sm:text-4xl font-black tracking-tight">{daysLeft}</span>
+                <span className="text-3xl sm:text-4xl text-gray-900 font-bold tracking-tight">{daysLeft}</span>
                 <span className="text-sm font-medium opacity-80">{daysLeft === 1 ? 'día' : 'días'}</span>
               </div>
-              <span className="text-sm font-medium text-green-100 mt-1">Suscripción Restante</span>
+              <span className="text-sm font-medium text-gray-500 mt-1">Suscripción Restante</span>
             </div>
           </motion.div>
         </div>
@@ -194,8 +196,8 @@ export default function EmployerDashboard() {
                 Ver todo
               </Link>
             </div>
-
-            <div className="rounded-2xl overflow-hidden min-h-[200px] bg-white/70 backdrop-blur-xl border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+            
+            <div className="rounded-2xl overflow-hidden min-h-50 bg-white/70 backdrop-blur-xl border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
               {recentActivity.length > 0 ? (
                 recentActivity.map((offer, i) => (
                   <Link
@@ -205,11 +207,11 @@ export default function EmployerDashboard() {
                       } group`}
                   >
                     <div className="flex items-center gap-3 sm:gap-4">
-                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-green-50 to-blue-50 flex items-center justify-center font-bold text-green-600 text-sm border border-green-200/50 group-hover:from-green-100 group-hover:to-blue-100 transition-all uppercase shrink-0">
+                      <div className="w-10 h-10 rounded-xl bg-linear-to-br from-green-50 to-blue-50 flex items-center justify-center font-bold text-green-600 text-sm border border-green-200/50 group-hover:from-green-100 group-hover:to-blue-100 transition-all uppercase shrink-0">
                         {(offer.title || "O").charAt(0)}
                       </div>
                       <div className="min-w-0">
-                        <p className="font-semibold text-gray-800 text-sm truncate max-w-[180px] sm:max-w-none">
+                        <p className="font-semibold text-gray-800 text-sm truncate max-w-45 sm:max-w-none">
                           Nueva oferta: <span className="text-green-600">{offer.title}</span>
                         </p>
                         <p className="text-xs text-gray-400 font-medium mt-0.5 uppercase tracking-wider truncate">
@@ -235,11 +237,11 @@ export default function EmployerDashboard() {
 
           {/* ── Premium Tips — dark premium card ── */}
           <div className="flex flex-col gap-4">
-            <h2 className="text-xl font-semibold text-gray-900">Tu Plan Premium</h2>
+            <h2 className="text-xl font-semibold text-green-600">Tu Plan Premium</h2>
             <div className="relative rounded-2xl overflow-hidden bg-white/70 backdrop-blur-xl border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
               {/* Premium gradient header inside card */}
-              <div className="bg-gradient-to-r from-green-500 to-blue-600 p-5 text-white relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-24 h-24 bg-white/15 blur-2xl rounded-full -translate-y-1/2 translate-x-1/2" />
+              <div className="bg-linear-to-r from-yellow-300 via-lime-300 to-green-500 p-5 text-white relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-24 h-24 bg-white/20 blur-2xl rounded-full -translate-y-1/2 translate-x-1/2" />
                 <div className="absolute bottom-0 left-0 w-16 h-16 bg-green-300/20 blur-xl rounded-full translate-y-1/2 -translate-x-1/4" />
                 <div className="relative z-10 flex items-center gap-3">
                   <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-white/20 backdrop-blur-md border border-white/30 shadow-inner">
@@ -247,7 +249,7 @@ export default function EmployerDashboard() {
                   </div>
                   <div>
                     <h3 className="text-sm font-bold text-white leading-tight">Beneficios Activos</h3>
-                    <p className="text-[11px] text-green-100 font-medium mt-0.5">{planName} · {daysLeft} días restantes</p>
+                    <p className="text-[11px] text-white font-medium mt-0.5">{planName} · {daysLeft} días restantes</p>
                   </div>
                 </div>
               </div>
@@ -273,7 +275,7 @@ export default function EmployerDashboard() {
               <div className="px-5 pb-5">
                 <Link
                   href="/empleador/buscar-talento"
-                  className="w-full relative overflow-hidden group flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-sm transition-all duration-300 bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-400 hover:to-blue-500 text-white shadow-lg shadow-green-500/20 hover:shadow-blue-500/30 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-95"
+                  className="w-full relative overflow-hidden group flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-sm transition-all duration-300 bg-green-500 hover:bg-gradient-to-r hover:from-yellow-300 hover:via-lime-300 hover:to-green-500 text-white hover:shadow-lg hover:shadow-green-500/20 hover:shadow-blue-500/30 hover:-translate-y-0.5 hover:scale-[1.0] active:scale-90"
                 >
                   {/* Shine effect */}
                   <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12" />

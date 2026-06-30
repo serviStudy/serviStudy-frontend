@@ -1,27 +1,52 @@
 "use client";
 
 import { JobOfferDTO } from "../types/jobOffer.types";
-import { Pencil, Sparkles, Clock, Calendar, Users, Trash2, CircleDollarSign } from "lucide-react";
+import { Pencil, Sparkles, Clock, Calendar, Users, Trash2, CircleDollarSign, CheckCircle2, UsersRound } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { updateJobOfferStatus } from "../service/jobOffer.service";
 import { Button } from "@/components/ui/button";
+import { DeleteModal } from "./DeleteModal";
+import { PaginatedApplicants } from "../../applicantsEmployer/types/applicants.types";
+import { getApplicantsByOfferId } from "../../applicantsEmployer/services/applicants.service";
+import { Tag } from "@/features/restricted/estudiante/perfil/components/ui/Tag";
+import { Badge } from "@/components/ui/badge";
 
 interface Props {
   offer: JobOfferDTO;
   imageUrl?: string;
+  isPremium?: boolean;
   onRefresh?: () => void;
   showActions?: boolean;
   subscriptionStatus?: "ACTIVE" | "INACTIVE";
 }
 
-export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subscriptionStatus = "INACTIVE" }: Props) => {
+export const OfferCard = ({ offer, imageUrl ,isPremium, onRefresh, showActions = true, subscriptionStatus = "INACTIVE" }: Props) => {
   const offerId = offer.jobOfferId || offer.id || (offer as any).idJobOffer;
 
+  const [data, setData] = useState<PaginatedApplicants | null>(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [isChanging, setIsChanging] = useState(false);
+  const [loadingApplicants, setLoadingApplicants] = useState(false);
   const isActive = offer.status === "ACTIVE";
+
+  useEffect(() => {
+    if (offerId) {
+      setLoadingApplicants(true);
+      getApplicantsByOfferId(offerId, 0, 1)
+        .then((res) => {
+          setData(res);
+        })
+        .catch((err) => {
+          console.error("Error fetching applicants count:", err);
+        })
+        .finally(() => {
+          setLoadingApplicants(false);
+        });
+    }
+  }, [offerId]);
 
   const handleToggleStatus = async () => {
     if (!offerId || isChanging) return;
@@ -37,6 +62,8 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subs
       setIsChanging(false);
     }
   };
+
+  
 
   // página dependeiendo del estado de ls subscripcion
   const rutaSubscription = subscriptionStatus === "ACTIVE"
@@ -82,17 +109,9 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subs
             <div className="min-w-0 flex flex-col gap-2">
               <h3 className="text-sm font-bold text-green-900 truncate capitalize leading-tight mb-0.5">{offer.title}</h3>
               
-              <div className={`flex gap-1.5 items-center mb-4 w-fit  ${
-                subscriptionStatus === "ACTIVE"
-                  ? "bg-linear-to-r from-blue-50/50 to-green-50/50 border-blue-100/50"
-                  : "bg-green-50 border-green-100"
-              }`}>
+              <div className={`flex gap-1.5 items-center mb-4 w-fit`}>
                   <CircleDollarSign className={`${subscriptionStatus === "ACTIVE" ? "text-blue-600" : "text-green-600"} h-3.5 w-3.5`} />
-                  <p className={`text-xs font-bold tracking-wide ${
-                    subscriptionStatus === "ACTIVE"
-                      ? "text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-green-600"
-                      : "text-green-700"
-                  }`}>
+                  <p className={`text-xs font-bold tracking-wide`}>
                     ${Number(offer.salary).toLocaleString('es-CO')}
                   </p>
               </div>
@@ -156,9 +175,17 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subs
         )}
 
         <div className="pt-4 flex justify-between gap-1">
-          <button className="p-2.5 rounded-xl bg-red-50 text-red-500 border border-red-100 hover:bg-red-500 hover:text-white transition-all shrink-0">
-            <Trash2 size={18} />
+          <button 
+            onClick={() => setShowDeleteModal(true)}
+            className={`p-2 sm:p-2.5 lg:p-3 cursor-pointer rounded-xl transition-all ${
+              isPremium
+                ? 'bg-white/80 border border-gray-100 text-gray-400 hover:text-red-600 hover:border-red-200 hover:shadow-md'
+                : 'bg-gray-50 text-gray-400 hover:bg-red-50 hover:text-red-600 shadow-sm'
+            }`}
+          >
+            <Trash2 size={16} className="sm:w-4.5 sm:h-4.5" />
           </button>
+
           {showActions && (
             <div className="flex items-end gap-2 ml-2">
               <button
@@ -174,11 +201,12 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subs
                   }`}
                 />
               </button>
+
+              <DeleteModal offer={offer}></DeleteModal>
             </div>
           )}
         </div>
       </motion.div>
-
 
       {/* DESKTOP VERSION (hidden lg:flex) */}
       <motion.div 
@@ -188,7 +216,7 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subs
         transition={{ duration: 0.4 }}
         className={`hidden lg:flex group rounded-2xl p-6 gap-8 shadow-sm transition-all duration-300 relative overflow-hidden w-full ${
           subscriptionStatus === "ACTIVE"
-            ? "bg-white/70 backdrop-blur-xl border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(59,130,246,0.08)] hover:-translate-y-1.5 duration-500"
+            ? "bg-white/70 backdrop-blur-xl border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(59,130,246,0.08)] "
             : "bg-white border border-gray-100 border-l-4 border-l-green-500 hover:shadow-md"
         }`}
       >
@@ -199,7 +227,7 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subs
         )}
 
         <div className="relative shrink-0">
-          <div className={`w-36 h-36 rounded-2xl overflow-hidden flex items-center justify-center shadow-inner group-hover:rotate-2 transition-all duration-700 border ${
+          <div className={`w-32 h-32 rounded-2xl overflow-hidden flex items-center justify-center shadow-inner group-hover:rotate-2 transition-all duration-700 border ${
             subscriptionStatus === "ACTIVE"
               ? "bg-linear-to-br from-white to-gray-50/50 border-white/80 shadow-lg shadow-black/5"
               : "bg-gray-50 border-gray-100"
@@ -221,27 +249,20 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subs
         <div className="flex-1 flex flex-col min-w-0">
           <div className="flex justify-between items-start gap-6">
             <div className="flex-1 min-w-0">
-              <h3 className={`text-xl font-bold capitalize text-gray-900 tracking-tight mb-3 truncate transition-colors duration-300 ${
+              <h3 className={`text-xl font-bold capitalize text-gray-900 tracking-tight truncate transition-colors duration-300 ${
                 subscriptionStatus === "ACTIVE"
                   ? "group-hover:bg-linear-to-r group-hover:from-green-600 group-hover:to-blue-600 group-hover:bg-clip-text group-hover:text-transparent"
                   : "group-hover:text-green-600"
               }`}>
                 {offer.title}
               </h3>
-              <div className={`flex gap-1.5 items-center px-3 py-1.5 rounded-xl shadow-sm w-fit mt-1 border ${
-                subscriptionStatus === "ACTIVE"
-                  ? "bg-linear-to-r from-blue-50/50 to-green-50/50 border-blue-100/50"
-                  : "bg-green-50 border-green-100"
-              }`}>
-                  <CircleDollarSign className={`${subscriptionStatus === "ACTIVE" ? "text-blue-600" : "text-green-600"} h-4 w-4`} />
-                  <p className={`text-xs font-black uppercase tracking-wider ${
-                    subscriptionStatus === "ACTIVE"
-                      ? "text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-green-600"
-                      : "text-green-700"
-                  }`}>
-                    ${Number(offer.salary).toLocaleString('es-CO')}
-                  </p>
-              </div>
+
+              {/* <Badge className="flex gap-2 min-w- bg-linear-to-r from-green-50 to-blue-50 text-blue-700 px-3 py-1.5 rounded-lg font-bold text-xs border border-blue-100/50">
+                <UsersRound size={40} className="text-blue-300"/>
+                <span >
+                  {loadingApplicants ? "..." : (data?.totalElements ?? 0)} postulantes en total
+                </span>
+              </Badge> */}
             </div>
             
             {showActions && (
@@ -259,19 +280,15 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subs
                 >
                   <div
                     className={`w-5 h-5 rounded-full transition-all duration-500 shadow-md ${
-                      isActive 
-                        ? subscriptionStatus === "ACTIVE"
-                          ? "bg-linear-to-r from-green-500 to-blue-600 translate-x-15"
-                          : "bg-green-500 translate-x-15"
-                        : "bg-orange-500 translate-x-0"
+                      isActive ? 
+                          "bg-green-500 translate-x-15" :
+                          "bg-orange-500 translate-x-0"
                     }`}
                   />
                   <span className={`absolute w-full text-center text-xs font-black tracking-widest transition-all duration-500 ${
-                    isActive 
-                      ? subscriptionStatus === "ACTIVE"
-                        ? "text-transparent bg-clip-text bg-linear-to-r from-green-600 to-blue-600 -left-3"
-                        : "text-green-600 -left-3" 
-                      : "text-orange-600 left-3"
+                    isActive ? 
+                      "text-green-600 -left-3" :
+                      "text-orange-600 left-3"
                   }`}>
                     {isActive ? "Activa" : "Inactiva"}
                   </span>
@@ -287,21 +304,23 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subs
                 >
                   <Pencil size={18} />
                 </Link>
+
+                <DeleteModal offer={offer}></DeleteModal>
               </div>
             )}
           </div>
 
-          <div className="flex flex-wrap gap-2 my-6">
+          <div className="flex flex-wrap gap-2 my-2">
               {[
                 { 
                   label: (offer.work_schedule || offer.workSchedule) === "FULL_TIME" ? "Jornada Completa" : (offer.work_schedule || offer.workSchedule) === "PART_TIME" ? "Media Jornada" : "Flexible", 
-                  color: subscriptionStatus === "ACTIVE" ? "text-orange-700 bg-orange-50/50 border-orange-100/60" : "text-orange-700 bg-orange-50 border-orange-100", 
+                  color: subscriptionStatus === "ACTIVE" ? "text-orange-700 bg-orange-50/50 border-orange-100/60" : "", 
                   dot: "bg-orange-500" 
                 },
                 { 
                   label: (offer.work_days || offer.workDays)?.length > 2 ? "Entre semana" : "Fines de semana", 
-                  color: subscriptionStatus === "ACTIVE" ? "text-blue-700 bg-blue-50/50 border-blue-100/60" : "text-green-700 bg-green-50 border-green-100", 
-                  dot: subscriptionStatus === "ACTIVE" ? "bg-blue-500" : "bg-green-500" 
+                  color: subscriptionStatus === "ACTIVE" ? "text-green-700 bg-green-50/50 border-green-100/60" : "", 
+                  dot: subscriptionStatus === "ACTIVE" ? "bg-green-500" : "" 
                 }
               ].map((tag, i) => (
                 <div key={i} className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium border shadow-sm ${tag.color}`}>
@@ -309,9 +328,23 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subs
                     {tag.label}
                 </div>
               ))}
+
+              <div className={`flex text-gray-700 gap-1.5 bg-blue-50 rounded-xl items-center p-2 shadow`}>
+                  <CircleDollarSign className={`h-4 w-4 text-blue-700`} />
+                  <p className={`text-xs text-blue-700 font-semibold uppercase tracking-wider`}>
+                    ${Number(offer.salary).toLocaleString('es-CO')}
+                  </p>
+              </div>
           </div>
 
-          <div className="mt-auto pt-8 flex justify-between items-center border-t border-gray-50">
+          <Badge className="flex gap-2 mb-4 min-w- bg-blue-50 text-blue-700 px-3 py-1.5 rounded-lg font-bold text-xs border border-blue-100/50">
+            <UsersRound size={40} className="text-blue-500 text-bold"/>
+            <span >
+              {loadingApplicants ? "..." : (data?.totalElements ?? 0)} postulantes en total
+            </span>
+          </Badge>
+
+          <div className="mt-auto pt-4 flex justify-between items-center border-t border-gray-200">
 
             {showActions && (
               <>
@@ -320,30 +353,19 @@ export const OfferCard = ({ offer, imageUrl, onRefresh, showActions = true, subs
                   <Link 
                     href={rutaSubscription} 
                   >
-                    <Button className="flex-1 w-full bg-white border-2 border-green-600 text-green-600 h-10 rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-1 active:scale-95 transition-all">
+                    <Button className="flex-1 cursor-pointer w-full bg-gray-100 hover:shadow-md hover:-translate-y-0.5 text-gray-600 h-10 rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-1 active:scale-95 transition-all">
                       Postulantes 
                       <Users size={12} />
                     </Button>
                   </Link>
                   <Link 
                     href={`/empleador/ofertas/${offerId}`} 
-                    className={`text-white px-8 rounded-xl text-xs font-black transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5 text-center uppercase tracking-wider flex items-center justify-center gap-2 active:scale-95 group/btn ${
-                      subscriptionStatus === "ACTIVE"
-                        ? "bg-linear-to-r from-green-500 to-blue-600 hover:from-green-400 hover:to-blue-500 shadow-green-500/20"
-                        : "bg-green-600 hover:bg-green-700 shadow-green-600/20"
-                    }`}
+                    className={`text-green-600 bg-green-50 px-8 rounded-xl text-xs font-black transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5 text-center uppercase tracking-wider flex items-center justify-center gap-2 active:scale-95 group/btn`}
                   >
                     Ver Detalle Completo 
-                    <Sparkles size={16} className="group-hover:rotate-12 transition-transform animate-pulse" />
+                    <Sparkles size={16} className="group-hover:rotate-12 text-green-600 transition-transform animate-pulse" />
                   </Link>
-                </div>
-                <button className={`p-3 rounded-xl transition-all border flex items-center justify-center ${
-                  subscriptionStatus === "ACTIVE"
-                    ? "text-red-500 border-red-100 hover:border-red-600 bg-red-50/50 hover:bg-red-600 hover:text-white"
-                    : "text-red-500 border border-red-100 hover:border-red-600 bg-red-50 hover:bg-red-600 hover:text-white"
-                }`}>
-                  <Trash2 size={20} />
-                </button>
+                </div>   
               </>
             )}
           </div>

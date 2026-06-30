@@ -80,11 +80,11 @@ export default function BuscarTalentoPage() {
   };
 
   return (
-    <div className="flex flex-col gap-8 pb-10">
+    <div className="flex flex-col gap-8 pb-16 pt-4">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-black text-slate-900 tracking-tight">Buscar Talento</h1>
+          <h1 className="text-2xl font-black text-slate-700 tracking-tight">Buscar Talento</h1>
           <p className="text-slate-500 font-bold mt-1 text-sm">
             Encuentra a los mejores estudiantes para tu empresa.
           </p>

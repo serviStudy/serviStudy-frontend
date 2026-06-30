@@ -252,6 +252,7 @@ export const Postulacion = ({ data, onDelete }: Props) => {
                             Ver Detalle
                             <ArrowUpRight size={14} />
                         </Link>
+                        
                         <div className="w-full flex justify-end">
                             <ApplyButtonDelete
                                 jobOfferId={data.jobOffer.jobOfferId}
