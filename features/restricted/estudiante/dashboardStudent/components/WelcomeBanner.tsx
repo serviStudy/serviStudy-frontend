@@ -12,7 +12,7 @@ interface WelcomeBannerProps {
 
 export const WelcomeBanner = ({ userName, itemVariants }: WelcomeBannerProps) => {
   return (
-    <motion.div variants={itemVariants} className="bg-linear-to-r from-emerald-500 to-blue-600 rounded-xl p-8 shadow-md flex flex-col md:flex-row justify-between items-center gap-6 relative overflow-hidden">
+    <motion.div variants={itemVariants} className="bg-linear-to-r from-violet-700 via-blue-600 to-sky-400 rounded-xl p-8 shadow-md flex flex-col md:flex-row justify-between items-center gap-6 relative overflow-hidden">
       <div className="flex items-center gap-6 z-10 w-full md:w-auto">
         <div className="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm shrink-0">
           <Crown className="w-8 h-8 text-white" />

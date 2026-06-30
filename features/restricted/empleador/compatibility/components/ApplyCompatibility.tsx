@@ -57,8 +57,8 @@ export const ApplyCompatibility = ({ offerId, selectedIds, onAnalisysComplete }:
         disabled={loading || count === 0}
         className={`flex gap-2 py-2 px-6 rounded-xl font-bold transition-all shadow-lg active:scale-95 cursor-pointer
           ${count > 0 
-            ? "bg-linear-to-r from-green-500 to-blue-500 text-white hover:shadow-green-500/20" 
-            : "bg-linear-to-r from-green-400 to-blue-400 text-white"
+            ? "bg-linear-to-r from-blue-400 via-lime-500 to-green-600 text-white hover:shadow-green-500/20" 
+            : "bg-linear-to-r from-blue-400 via-lime-500 to-green-600"
           }`}
       >
         {loading ? (

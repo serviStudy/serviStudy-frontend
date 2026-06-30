@@ -93,7 +93,7 @@ export const StudentCard = ({ student }: Props) => {
               </div>
 
               {/* Text info and Sparkles */}
-              <div className="flex flex-col gap-0.5 pr-0.5 text-left">
+              <div className="flex flex-col my-2 gap-0.5 pr-0.5 text-left">
                 <div className="flex items-center gap-1.5">
                   <Sparkles size={11} className="text-yellow-300 fill-yellow-300 animate-pulse shrink-0" />
                   <span className="text-[9px] font-black tracking-widest text-white/80 uppercase leading-none">

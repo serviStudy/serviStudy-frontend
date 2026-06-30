@@ -17,14 +17,13 @@ export default function NavLink({ icon: Icon, name, link, exact = false, isPremi
     const { isActive } = useActivePath();
     const active = isActive(link, { exact });
 
-    const activeClasses = theme === "gradient"
-        ? "bg-gradient-to-r from-green-500 to-blue-600 text-white shadow-lg shadow-blue-600/20 hover:opacity-90"
+    const activeClasses = isPremium
+        ? theme === "green"
+            ? "bg-linear-to-r from-blue-400 via-lime-500 to-green-600 text-white shadow-lg shadow-green-500/25 hover:shadow-xl hover:-translate-y-0.5"
+            : "bg-linear-to-r from-violet-700 via-blue-600 to-sky-400 text-white shadow-lg shadow-blue-500/25 hover:shadow-xl hover:-translate-y-0.5"
         : theme === "green"
         ? "bg-green-600 text-white shadow-lg shadow-green-600/20 hover:bg-green-700"
         : "bg-blue-600 text-white shadow-lg shadow-blue-600/20 hover:bg-blue-700";
-
-    const premiumActiveClasses =
-        "bg-green-500 text-white shadow-[0_8px_30px_rgba(59,130,246,0.25)] hover:shadow-lg hover:-translate-y-0.5";
 
     const inactiveClasses = theme === "gradient"
         ? "bg-transparent text-gray-600 hover:bg-slate-50 hover:text-emerald-600 border-transparent"
@@ -39,9 +38,7 @@ export default function NavLink({ icon: Icon, name, link, exact = false, isPremi
                 flex items-center gap-4 relative z-10
                 overflow-hidden rounded-xl transition-all duration-300 px-6 h-12 w-full justify-start
                 ${active
-                    ? isPremium
-                        ? premiumActiveClasses
-                        : activeClasses
+                    ? activeClasses
                     : inactiveClasses
                 }
             `}

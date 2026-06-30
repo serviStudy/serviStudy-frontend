@@ -91,8 +91,8 @@ export default function Page({ params }: PageProps) {
 
             <div className="max-w-6xl mx-auto py-4 px-4 md:px-0 relative z-10">
                 {/* Sección superior: Previsualización de la oferta */}
-                <div className="my-8">
-                    <div className="pointer-events-none capitalize p-0.5 rounded-3xl shadow-xl shadow-blue-900/5">
+                <div className="sm:mt-14 lg:mt-2">
+                    <div className="pointer-events-none capitalize rounded-3xl shadow-xl shadow-blue-900/5">
                         <div className="bg-white/80 backdrop-blur-md rounded-[22px]">
                             <Offer offer={offer} showActions={false} imageUrl={imageUrl} />
                         </div>
@@ -100,7 +100,7 @@ export default function Page({ params }: PageProps) {
                 </div>
 
                 <div className="flex items-center justify-center my-5 md:my-10 relative">
-                    <hr className="absolute w-full h-px border-0 bg-linear-to-r from-transparent via-blue-300 to-transparent opacity-50"/>
+                    <hr className="absolute w-full h-px border-0 bg-linear-to-r from-blue-200 via-lime-400 to-green-400 opacity-50"/>
                     <div className="bg-white/80 backdrop-blur-sm px-4 relative z-10 rounded-full border border-blue-100 shadow-sm flex items-center gap-2 text-blue-800 text-xs font-bold py-1.5">
                         <Sparkles size={12} className="text-blue-500" />
                         Análisis de Compatibilidad

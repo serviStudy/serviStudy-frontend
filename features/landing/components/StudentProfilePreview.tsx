@@ -42,16 +42,15 @@ export default function StudentProfilePreview() {
 
           <div className="flex flex-col gap-4 mt-2">
             {[
-              { name: "React / Next.js", progress: 90, color: "bg-blue-600" },
-              { name: "TailwindCSS / Styling", progress: 95, color: "bg-cyan-500" },
-              { name: "TypeScript / JS", progress: 85, color: "bg-indigo-600" },
-              { name: "Figma / UI Design", progress: 75, color: "bg-purple-500" },
-              { name: "Node.js / Express", progress: 70, color: "bg-emerald-500" }
+              { name: "Puntualidad", progress: 100, color: "bg-blue-600" },
+              { name: "Inglés intermedio", progress: 100, color: "bg-cyan-500" },
+              { name: "Atención al cliente", progress: 100, color: "bg-indigo-600" },
+              { name: "Comunicación afectiva", progress: 100, color: "bg-purple-500" },
+              { name: "Responsabilidad y empatia", progress: 100, color: "bg-emerald-500" }
             ].map((skill, sIdx) => (
               <div key={sIdx} className="space-y-1.5">
                 <div className="flex justify-between text-xs font-bold text-slate-600">
                   <span>{skill.name}</span>
-                  <span>{skill.progress}%</span>
                 </div>
                 <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
                   <motion.div
@@ -83,8 +82,7 @@ export default function StudentProfilePreview() {
             </div>
             <div>
               <h3 className="font-black text-xl text-slate-900">Camila Restrepo</h3>
-              <p className="text-xs text-blue-600 font-extrabold mt-0.5">camilaRestrepo@uni.edu.co</p>
-              <p className="text-[11px] text-slate-400 font-semibold">Universidad del Valle</p>
+              <p className="text-xs text-blue-600 font-extrabold mt-0.5">camila.res@universidad.edu.co</p>
             </div>
           </div>
 
@@ -94,16 +92,12 @@ export default function StudentProfilePreview() {
 
           <div className="border-t border-slate-100 pt-4 flex flex-col gap-2 text-xs font-bold text-slate-600">
             <div className="flex justify-between">
-              <span className="text-slate-400">Email:</span>
-              <span>camila.res@mail.com</span>
-            </div>
-            <div className="flex justify-between">
               <span className="text-slate-400">Teléfono:</span>
               <span>+57 318 456 9012</span>
             </div>
             <div className="flex justify-between">
               <span className="text-slate-400">Disponibilidad:</span>
-              <span className="text-green-600 bg-green-50 px-2 py-0.5 rounded text-[10px]">Inmediata</span>
+              <span className="text-green-600 bg-green-50 px-2 py-0.5 rounded text-[10px]">Entre semana</span>
             </div>
           </div>
         </motion.div>
@@ -123,16 +117,16 @@ export default function StudentProfilePreview() {
 
           <div className="flex flex-col gap-3.5 mt-2">
             {[
-              { role: "Frontend Developer", company: "Vercel", status: "Entrevista", color: "text-blue-700 bg-blue-50 border-blue-200" },
-              { role: "UX/UI Designer", company: "Stripe", status: "En revisión", color: "text-amber-700 bg-amber-50 border-amber-200" },
-              { role: "Product Designer", company: "Linear", status: "Recibida", color: "text-slate-700 bg-slate-50 border-slate-200" }
+              { role: "Mesero", company: "Vercel", status: "Medio tiempo", color: "text-blue-700 bg-blue-50 border-blue-200" },
+              { role: "Profesor particular", company: "Stripe", status: "Tiempo completo", color: "text-amber-700 bg-amber-50 border-amber-200" },
+              { role: "Niñero", company: "Benefict", status: "Tiempo completo", color: "text-slate-700 bg-slate-50 border-slate-200" }
             ].map((app, aIdx) => (
               <div key={aIdx} className="p-3.5 rounded-xl border border-slate-100 bg-white shadow-xs flex items-center justify-between gap-3">
                 <div>
                   <h4 className="font-extrabold text-xs text-slate-900">{app.role}</h4>
                   <p className="text-[10px] text-slate-400 font-bold">{app.company}</p>
                 </div>
-                <span className={`text-[10px] px-2 py-0.5 rounded-full font-black border uppercase tracking-wider ${app.color}`}>
+                <span className={`text-[9px] px-2 py-0.5 rounded-full font-bold border tracking-wider ${app.color}`}>
                   {app.status}
                 </span>
               </div>

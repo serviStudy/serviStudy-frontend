@@ -31,7 +31,7 @@ export const RecentActivity = ({ itemVariants, loadingPosts, recentApplications 
     <motion.div variants={itemVariants} className="lg:col-span-2 flex flex-col gap-4">
       <div className="flex justify-between items-center px-1">
         <h2 className="text-xl font-bold text-slate-800">Actividad Reciente</h2>
-        <Link href="/estudiante/misPostulaciones" className="text-emerald-600 text-sm font-bold uppercase tracking-wide hover:text-emerald-700">
+        <Link href="/estudiante/misPostulaciones" className="text-blue-600 text-sm font-bold uppercase tracking-wide hover:text-emerald-700">
           VER TODO
         </Link>
       </div>
@@ -63,7 +63,7 @@ export const RecentActivity = ({ itemVariants, loadingPosts, recentApplications 
 
                   <div className="flex flex-col">
                     <span className="text-slate-800 font-semibold text-[15px]">
-                      Postulación enviada: <span className="text-emerald-600">{app.jobOffer?.title || "Oferta no disponible"}</span>
+                      Postulación enviada: <span className="text-blue-700">{app.jobOffer?.title || "Oferta no disponible"}</span>
                     </span>
                     <span className="text-slate-400 text-xs font-medium uppercase tracking-wider">
                       {getRelativeTime(app.applicationDate)}
