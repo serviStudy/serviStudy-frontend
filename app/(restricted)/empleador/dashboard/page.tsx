@@ -90,7 +90,7 @@ export default function EmployerDashboard() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="relative w-full rounded-2xl bg-linear-to-r from-yellow-300 via-lime-300 to-green-500 shadow-green-500/10 p-6 sm:p-8 text-white overflow-hidden shadow-[0_20px_60px_-15px_rgba(16,185,129,0.3)]"
+          className="relative w-full rounded-2xl bg-linear-to-r from-blue-400 via-lime-500 to-green-600 shadow-green-500/10 p-4 sm:p-8 text-white overflow-hidden shadow-[0_20px_60px_-15px_rgba(16,185,129,0.3)]"
         >
           {/* Glows inside banner */}
           <div className="absolute top-0 right-0 w-40 h-40 bg-white/20 blur-3xl rounded-full -translate-y-1/2 translate-x-1/2" />
@@ -162,10 +162,10 @@ export default function EmployerDashboard() {
             <div className="absolute bottom-0 left-0 w-20 h-20 bg-green-300/20 blur-xl rounded-full translate-y-1/2 -translate-x-1/4" />
 
             <div className="flex items-center justify-between mb-4 relative z-10">
-              <div className="p-3 rounded-xl bg-yellow-50 backdrop-blur-md shadow-inner transition-transform group-hover:scale-110">
-                <Sparkles size={20} className="text-yellow-300" />
+              <div className="p-3 rounded-xl bg-lime-50 backdrop-blur-md shadow-inner transition-transform group-hover:scale-110">
+                <Sparkles size={20} className="text-lime-300" />
               </div>
-              <span className="text-[12px] text-yellow-400 bg-yellow-50 font-semibold px-2.5 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/30">
+              <span className="text-[12px] text-lime-500 bg-lime-50 font-semibold px-2.5 py-1 rounded-full backdrop-blur-md border border-white/30">
                 {planName}
               </span>
             </div>
@@ -237,7 +237,7 @@ export default function EmployerDashboard() {
             <h2 className="text-xl font-semibold text-green-600">Tu Plan Premium</h2>
             <div className="relative rounded-2xl overflow-hidden bg-white/70 backdrop-blur-xl border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
               {/* Premium gradient header inside card */}
-              <div className="bg-linear-to-r from-yellow-300 via-lime-300 to-green-500 p-5 text-white relative overflow-hidden">
+              <div className="bg-linear-to-r from-blue-400 via-lime-500 to-green-600 p-5 text-white relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-24 h-24 bg-white/20 blur-2xl rounded-full -translate-y-1/2 translate-x-1/2" />
                 <div className="absolute bottom-0 left-0 w-16 h-16 bg-green-300/20 blur-xl rounded-full translate-y-1/2 -translate-x-1/4" />
                 <div className="relative z-10 flex items-center gap-3">
@@ -272,7 +272,7 @@ export default function EmployerDashboard() {
               <div className="px-5 pb-5">
                 <Link 
                   href="/empleador/buscar-talento"
-                  className="w-full relative overflow-hidden group flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-sm transition-all duration-300 bg-green-500 hover:bg-gradient-to-r hover:from-yellow-300 hover:via-lime-300 hover:to-green-500 text-white hover:shadow-lg hover:shadow-green-500/20 hover:shadow-blue-500/30 hover:-translate-y-0.5 hover:scale-[1.0] active:scale-90"
+                  className="w-full relative overflow-hidden group flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-sm transition-all duration-300 bg-green-500 hover:bg-gradient-to-r hover:from-blue-400 hover:via-lime-500 hover:to-green-600 text-white hover:shadow-lg hover:shadow-green-500/20 hover:shadow-blue-500/30 hover:-translate-y-0.5 hover:scale-[1.0] active:scale-90"
                 >
                   {/* Shine effect */}
                   <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12" />

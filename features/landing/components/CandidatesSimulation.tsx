@@ -7,18 +7,16 @@ import { Users, Mail, Phone } from "lucide-react"
 const MOCK_CANDIDATES = [
   {
     name: "Mateo Rodríguez",
-    role: "Frontend Developer",
-    email: "mateo.rod@university.edu",
+    email: "mateo.rod@university.edu.co",
     phone: "+57 315 289 4432",
     skills: ["React", "TypeScript", "Next.js"],
-    type: "Medio Tiempo (Prácticas)",
+    type: "Medio Tiempo",
     match: "98% Match IA",
     avatarBg: "bg-emerald-500"
   },
   {
     name: "Valeria Santos",
-    role: "UX/UI Designer",
-    email: "val.santos@university.edu",
+    email: "val.santos@university.edu.co",
     phone: "+57 301 756 1234",
     skills: ["Figma", "Design Systems", "UX Research"],
     type: "Medio Tiempo",
@@ -27,8 +25,7 @@ const MOCK_CANDIDATES = [
   },
   {
     name: "Lucas Silva",
-    role: "Data Analyst",
-    email: "lucas.silva@university.edu",
+    email: "lucas.silva@university.edu.co",
     phone: "+57 311 988 5431",
     skills: ["Python", "SQL", "Machine Learning"],
     type: "Tiempo Completo",
@@ -44,7 +41,7 @@ export default function CandidatesSimulation() {
       animate={{ opacity: 1, scale: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.9, y: -30 }}
       transition={{ duration: 0.5 }}
-      className="w-full max-w-md bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 shadow-2xl flex flex-col gap-4 text-left"
+      className="w-full max-w-md bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl p-4 shadow-2xl flex flex-col gap-4 text-left"
     >
       <div className="flex items-center justify-between pb-3 border-b border-white/10">
         <span className="font-extrabold text-sm uppercase tracking-wider text-green-100 flex items-center gap-2">
@@ -72,13 +69,10 @@ export default function CandidatesSimulation() {
                   <h4 className="font-extrabold text-sm text-slate-950 truncate">
                     {cand.name}
                   </h4>
-                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-linear-to-r from-blue-200 to-green-200 border border-green-200 text-green-700 font-extrabold whitespace-nowrap">
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-linear-to-r from-lime-100 to-green-200 border border-green-100 text-green-700 font-extrabold whitespace-nowrap">
                     {cand.match}
                   </span>
                 </div>
-                <p className="text-xs text-slate-500 font-semibold truncate">
-                  {cand.role}
-                </p>
               </div>
             </div>
 

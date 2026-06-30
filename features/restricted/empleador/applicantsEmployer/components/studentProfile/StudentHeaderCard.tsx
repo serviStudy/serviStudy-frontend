@@ -97,27 +97,7 @@ export const StudentHeaderCard = ({ student, applicationDate }: Props) => {
       {/* Contact Section */}
       <div className="w-full flex flex-col gap-4 text-left">
         <p className="text-sm font-bold text-gray-400">Información de contacto</p>
-        
-        {/* Email */}
-        <div className="flex flex-col gap-1 w-full group">
-          <div className="flex items-center justify-between text-xs text-gray-400 font-bold">
-            <button 
-              onClick={handleCopyEmail}
-              className="text-gray-400 hover:text-green-600 flex items-center gap-1 transition-colors py-0.5 cursor-pointer"
-            >
-              {copiedEmail ? <Check size={12} className="text-green-500" /> : <Copy size={12} />}
-              <span>{copiedEmail ? "Copiado" : "Copiar"}</span>
-            </button>
-          </div>
-          <a 
-            href={`mailto:${student.email}`}
-            className="flex items-center gap-2.5 p-3 rounded-xl bg-gray-50 border border-gray-100 text-gray-700 hover:text-blue-700 hover:bg-blue-50/30 hover:border-blue-100/60 transition-all duration-200 text-sm font-semibold break-all"
-          >
-            <Mail size={16} className="text-blue-500 shrink-0" />
-            <span className="truncate flex-1">{student.email || "—"}</span>
-            <ExternalLink size={12} className="text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity" />
-          </a>
-        </div>
+
 
         {/* Phone */}
         <div className="flex flex-col gap-1 w-full group">
