@@ -30,10 +30,10 @@ export const DashboardStats = ({
       {/* Card 1: Postulaciones Activas */}
       <motion.div variants={itemVariants} className="bg-white rounded-xl p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] relative overflow-hidden group">
         <div className="flex justify-between items-start mb-4">
-          <div className="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center">
-            <Briefcase className="w-5 h-5 text-emerald-500" />
+          <div className="w-10 h-10 bg-indigo-50 rounded-xl flex items-center justify-center">
+            <Briefcase className="w-5 h-5 text-indigo-500" />
           </div>
-          <span className="bg-emerald-50 text-emerald-600 text-[11px] font-bold px-3 py-1 rounded-xl tracking-wide uppercase">En proceso</span>
+          <span className="bg-indigo-50 text-indigo-600 text-[11px] font-bold px-3 py-1 rounded-xl tracking-wide uppercase">En proceso</span>
         </div>
         <div className="flex flex-col">
           <span className="text-3xl font-extrabold text-slate-800 tracking-tight">
@@ -49,7 +49,7 @@ export const DashboardStats = ({
           <div className="w-10 h-10 bg-purple-50 rounded-xl flex items-center justify-center">
             <CheckCircle2 className="w-5 h-5 text-purple-500" />
           </div>
-          <span className="bg-emerald-50 text-emerald-600 text-[11px] font-bold px-3 py-1 rounded-full tracking-wide uppercase">Excelente</span>
+          <span className="bg-violet-50 text-violet-600 text-[11px] font-bold px-3 py-1 rounded-full tracking-wide uppercase">Excelente</span>
         </div>
         <div className="flex flex-col">
           <span className="text-3xl font-extrabold text-slate-800 tracking-tight">{profileCompletion}%</span>
@@ -63,7 +63,7 @@ export const DashboardStats = ({
           <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center">
             <TrendingUp className="w-5 h-5 text-blue-500" />
           </div>
-          <span className="bg-slate-100 text-slate-600 text-[11px] font-bold px-3 py-1 rounded-full tracking-wide uppercase">Destacado</span>
+          <span className="bg-blue-50 text-blue-600 text-[11px] font-bold px-3 py-1 rounded-full tracking-wide uppercase">Destacado</span>
         </div>
         <div className="flex flex-col">
           <span className="text-3xl font-extrabold text-slate-800 tracking-tight">{skillsCount}</span>
@@ -72,7 +72,7 @@ export const DashboardStats = ({
       </motion.div>
 
       {/* Card 4: Suscripción Restante */}
-      <motion.div variants={itemVariants} className="relative p-6 rounded-2xl bg-linear-to-br from-green-500 to-blue-600 text-white overflow-hidden group hover:-translate-y-1 transition-all duration-300 shadow-[0_8px_30px_rgba(16,185,129,0.15)] hover:shadow-[0_20px_50px_rgba(16,185,129,0.25)]">
+      <motion.div variants={itemVariants} className="relative p-6 rounded-2xl bg-linear-to-r from-violet-700 via-blue-600 to-sky-400 text-white overflow-hidden group hover:-translate-y-1 transition-all duration-300 shadow-[0_8px_30px_rgba(16,185,129,0.15)] hover:shadow-[0_20px_50px_rgba(16,185,129,0.25)]">
         {/* Internal glows */}
         <div className="absolute top-0 right-0 w-24 h-24 bg-white/15 blur-2xl rounded-full -translate-y-1/2 translate-x-1/2" />
         <div className="absolute bottom-0 left-0 w-20 h-20 bg-green-300/20 blur-xl rounded-full translate-y-1/2 -translate-x-1/4" />

@@ -76,7 +76,7 @@ export const OfferCard = ({ offer, imageUrl ,isPremium, onRefresh, showActions =
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className={`lg:hidden group rounded-2xl p-6 relative overflow-hidden mb-4 transition-all duration-300 ${
+        className={`lg:hidden group rounded-2xl p-6 relative overflow-hidden mb-4 transition-all duration-200 ${
           subscriptionStatus === "ACTIVE"
             ? "bg-white/70 backdrop-blur-xl border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
             : "bg-white border border-gray-100 border-l-4 border-l-green-500 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
@@ -164,7 +164,7 @@ export const OfferCard = ({ offer, imageUrl ,isPremium, onRefresh, showActions =
                 href={`/empleador/ofertas/${offerId}`} 
                 className={`flex-1 h-10 rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-1 active:scale-95 transition-all ${
                   subscriptionStatus === "ACTIVE"
-                    ? "bg-linear-to-r from-green-500 to-blue-600 text-white shadow-lg shadow-blue-500/10"
+                    ? " bg-green-600  text-white shadow-lg shadow-blue-500/10"
                     : "bg-green-600 text-white shadow-lg shadow-green-600/20"
                 }`}
               >
@@ -174,18 +174,7 @@ export const OfferCard = ({ offer, imageUrl ,isPremium, onRefresh, showActions =
           </div>
         )}
 
-        <div className="pt-4 flex justify-between gap-1">
-          <button 
-            onClick={() => setShowDeleteModal(true)}
-            className={`p-2 sm:p-2.5 lg:p-3 cursor-pointer rounded-xl transition-all ${
-              isPremium
-                ? 'bg-white/80 border border-gray-100 text-gray-400 hover:text-red-600 hover:border-red-200 hover:shadow-md'
-                : 'bg-gray-50 text-gray-400 hover:bg-red-50 hover:text-red-600 shadow-sm'
-            }`}
-          >
-            <Trash2 size={16} className="sm:w-4.5 sm:h-4.5" />
-          </button>
-
+        <div className="pt-4 flex w-full">
           {showActions && (
             <div className="flex items-end gap-2 ml-2">
               <button
@@ -212,9 +201,9 @@ export const OfferCard = ({ offer, imageUrl ,isPremium, onRefresh, showActions =
       <motion.div 
         initial={{ opacity: 0, scale: 0.98 }}
         animate={{ opacity: 1, scale: 1 }}
-        whileHover={{ y: -8 }}
+        whileHover={{ y: -5 }}
         transition={{ duration: 0.4 }}
-        className={`hidden lg:flex group rounded-2xl p-6 gap-8 shadow-sm transition-all duration-300 relative overflow-hidden w-full ${
+        className={`hidden lg:flex group rounded-2xl p-6 gap-8 shadow-sm transition-all duration-400 relative overflow-hidden w-full ${
           subscriptionStatus === "ACTIVE"
             ? "bg-white/70 backdrop-blur-xl border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(59,130,246,0.08)] "
             : "bg-white border border-gray-100 border-l-4 border-l-green-500 hover:shadow-md"
@@ -233,7 +222,7 @@ export const OfferCard = ({ offer, imageUrl ,isPremium, onRefresh, showActions =
               : "bg-gray-50 border-gray-100"
           }`}>
             {imageUrl ? (
-              <img src={imageUrl} alt="Establecimiento" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
+              <img src={imageUrl} alt="Establecimiento" className="w-full h-full object-cover group-hover:scale-100 transition-transform duration-1000" />
             ) : (
               <div className={`w-full h-full flex items-center justify-center text-white text-8xl font-black shadow-lg ${
                 subscriptionStatus === "ACTIVE"
@@ -249,11 +238,7 @@ export const OfferCard = ({ offer, imageUrl ,isPremium, onRefresh, showActions =
         <div className="flex-1 flex flex-col min-w-0">
           <div className="flex justify-between items-start gap-6">
             <div className="flex-1 min-w-0">
-              <h3 className={`text-xl font-bold capitalize text-gray-900 tracking-tight truncate transition-colors duration-300 ${
-                subscriptionStatus === "ACTIVE"
-                  ? "group-hover:bg-linear-to-r group-hover:from-green-600 group-hover:to-blue-600 group-hover:bg-clip-text group-hover:text-transparent"
-                  : "group-hover:text-green-600"
-              }`}>
+              <h3 className={`text-xl font-bold capitalize text-gray-700 tracking-tight truncate transition-colors duration-300`}>
                 {offer.title}
               </h3>
 
@@ -337,8 +322,8 @@ export const OfferCard = ({ offer, imageUrl ,isPremium, onRefresh, showActions =
               </div>
           </div>
 
-          <Badge className="flex gap-2 mb-4 min-w- bg-blue-50 text-blue-700 px-3 py-1.5 rounded-lg font-bold text-xs border border-blue-100/50">
-            <UsersRound size={40} className="text-blue-500 text-bold"/>
+          <Badge className="flex gap-1 mb-4 min-w- bg-transparent text-gray-500 px-3 py-1.5 rounded-lg font-bold text-xs">
+            <UsersRound size={40} className="text-gray-500 text-bold"/>
             <span >
               {loadingApplicants ? "..." : (data?.totalElements ?? 0)} postulantes en total
             </span>
@@ -360,7 +345,7 @@ export const OfferCard = ({ offer, imageUrl ,isPremium, onRefresh, showActions =
                   </Link>
                   <Link 
                     href={`/empleador/ofertas/${offerId}`} 
-                    className={`text-green-600 bg-green-50 px-8 rounded-xl text-xs font-black transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5 text-center uppercase tracking-wider flex items-center justify-center gap-2 active:scale-95 group/btn`}
+                    className={`text-green-600 hover:bg-green-50 px-8 rounded-xl text-xs font-black transition-all hover:-translate-y-0.5 text-center uppercase tracking-wider flex items-center justify-center gap-2 active:scale-95 group/btn`}
                   >
                     Ver Detalle Completo 
                     <Sparkles size={16} className="group-hover:rotate-12 text-green-600 transition-transform animate-pulse" />

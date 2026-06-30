@@ -43,15 +43,15 @@ export default function Hero() {
   return (
     <section className="relative w-full py-10 lg:py-16 md:py-12 px-4 md:px-8 max-w-7xl mx-auto flex flex-col items-center justify-center min-h-[85vh]">
       {/* Animated Glow Elements */}
-      <div className={`absolute top-1/4 left-1/4 w-[400px] h-[400px] rounded-full blur-[150px] pointer-events-none opacity-40 animate-float-slow-1 transition-colors duration-1000 ${
+      <div className={`absolute top-1/4 left-1/4 w-[400px] h-[400px] rounded-xl blur-[150px] pointer-events-none opacity-40 animate-float-slow-1 transition-colors duration-1000 ${
         isEstudiante ? "bg-blue-300" : "bg-green-300"
       }`} />
-      <div className={`absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full blur-[180px] pointer-events-none opacity-30 animate-float-slow-2 transition-colors duration-1000 ${
+      <div className={`absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-xl blur-[180px] pointer-events-none opacity-30 animate-float-slow-2 transition-colors duration-1000 ${
         isEstudiante ? "bg-indigo-300" : "bg-emerald-300"
       }`} />
 
       {/* Hero Card Container */}
-      <div className={`relative w-full rounded-[2.5rem] p-8 md:p-14 lg:p-16 flex flex-col lg:flex-row gap-12 items-center shadow-2xl transition-all duration-1000 overflow-hidden border border-white/50 backdrop-blur-md ${
+      <div className={`relative w-full rounded-2xl p-8 md:p-14 lg:p-16 flex flex-col lg:flex-row gap-12 items-center shadow-2xl transition-all duration-1000 overflow-hidden border border-white/50 backdrop-blur-md ${
         isEstudiante
           ? "bg-gradient-to-br from-blue-600/90 via-indigo-600/95 to-blue-700/90 text-white shadow-blue-500/10"
           : "bg-gradient-to-br from-green-700/90 via-emerald-700/95 to-green-800/90 text-white shadow-green-500/10"
@@ -77,20 +77,20 @@ export default function Hero() {
                 {isEstudiante ? "Talento Universitario" : "Búsqueda de Talento"}
               </div>
 
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tight drop-shadow-sm">
+              <h1 className="text-2xl md:text-5xl lg:text-6xl font-black leading-7 md:leading-tight tracking-tight drop-shadow-sm">
                 {heroContent.title}
               </h1>
 
-              <p className="text-white/80 text-base md:text-lg max-w-xl font-medium mt-6 leading-relaxed">
+              <p className="text-white/80 text-sm md:text-lg max-w-xl font-medium mt-2.5 md:mt-6 leading-relaxed">
                 {heroContent.description}
               </p>
             </motion.div>
           </AnimatePresence>
 
-          <div className="flex flex-col sm:flex-row gap-4 mt-8">
+          <div className="flex flex-col sm:flex-row gap-4 mt-4">
             <Link href={isEstudiante ? "/registro" : "/login"} className="w-full sm:w-auto">
               <Button
-                className={`w-full sm:w-auto bg-white hover:bg-white/95 py-6 px-10 rounded-2xl font-black text-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.03] active:scale-95 border-none flex items-center justify-center gap-2 ${
+                className={`w-full sm:w-auto bg-white hover:bg-white/95 py-4 md:py-6 px-10 rounded-xl font-black text-sm md:text-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.03] active:scale-95 border-none flex items-center justify-center gap-2 ${
                   isEstudiante ? "text-blue-800" : "text-green-800"
                 }`}
               >

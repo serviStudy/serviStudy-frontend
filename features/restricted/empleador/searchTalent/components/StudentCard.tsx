@@ -7,7 +7,6 @@ import { StudentProfile } from "../types/searchTalent.types";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { giveLike, removeLike, checkIfLiked } from "@/features/restricted/interactions/services/interactionService";
-import { useState } from "react";
 import { StudentProfileResponse } from "@/features/restricted/estudiante/perfil/types/studentProfile.types";
 
 interface Props {
@@ -108,7 +107,7 @@ export const StudentCard = ({ student }: Props) => {
               </div>
 
               {/* Text info and Sparkles */}
-              <div className="flex flex-col gap-0.5 pr-0.5 text-left">
+              <div className="flex flex-col my-2 gap-0.5 pr-0.5 text-left">
                 <div className="flex items-center gap-1.5">
                   <Sparkles size={11} className="text-yellow-300 fill-yellow-300 animate-pulse shrink-0" />
                   <span className="text-[9px] font-black tracking-widest text-white/80 uppercase leading-none">

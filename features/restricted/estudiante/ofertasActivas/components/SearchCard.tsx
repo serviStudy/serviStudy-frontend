@@ -68,7 +68,7 @@ const SearchCard = ({
                     {/* Desktop Mis Postulaciones Button */}
                     <Link 
                         href={routes.estudiante.postulaciones}
-                        className="hidden lg:flex items-center gap-2 h-14 px-6 bg-white/80 text-blue-600 rounded-xl font-bold hover:bg-white transition-all border border-gray-200 shadow-sm"
+                        className="hidden lg:flex items-center gap-2 h-14 px-6 bg-white/80 text-blue-50 rounded-xl font-bold hover:bg-white transition-all border border-gray-200 shadow-sm"
                     >
                         <BriefcaseBusiness size={20} />
                         <span className="whitespace-nowrap text-sm font-bold">Mis postulaciones</span>
