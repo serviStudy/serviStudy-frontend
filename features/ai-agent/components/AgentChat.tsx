@@ -225,9 +225,9 @@ export const AgentChat: React.FC<AgentChatProps> = ({
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="flex items-center gap-3 mb-2"
+              className="flex gap-3 mb-4"
             >
-              <TurnitoAvatar state="thinking" size={36} />
+              <div className="flex-shrink-0 w-2 h-2 rounded-full bg-blue-500 mt-4 self-start" />
               <div className="flex gap-1.5 p-3 bg-white border border-gray-100 rounded-xl rounded-tl-sm shadow-sm w-fit">
                 {[0, 150, 300].map(d => (
                   <span key={d} className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: `${d}ms` }} />
