@@ -1,6 +1,24 @@
 import { NextResponse } from 'next/server';
 
-const EXTERNAL_API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.servistudy.site/api/v1';
+const EXTERNAL_API_URL = (process.env.NEXT_PUBLIC_API_URL || 'https://api.servistudy.site/api/v1').replace(/\/+$/, '');
+
+/**
+ * Decodifica un JWT token y extrae el payload
+ */
+function decodeJwtToken(token: string): any | null {
+  try {
+    const base64Url = token.split('.')[1];
+    if (!base64Url) return null;
+    
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = Buffer.from(base64, 'base64').toString('utf-8');
+    
+    return JSON.parse(jsonPayload);
+  } catch (error) {
+    console.error('[Proxy] Error decoding JWT:', error);
+    return null;
+  }
+}
 
 /**
  * Proxy universal para evitar errores de CORS y problemas de Service Worker en despliegue.
@@ -25,6 +43,30 @@ async function handleRequest(
     const authHeader = request.headers.get('Authorization');
 
     const xUserId = request.headers.get('X-User-Id');
+    
+    // Decodificar JWT para extraer userId y role si no se proporcionan explícitamente
+    let userIdFromToken: string | null = null;
+    let roleFromToken: string | null = null;
+    
+    if (authHeader && !xUserId) {
+      const token = authHeader.replace('Bearer ', '');
+      const decoded = decodeJwtToken(token);
+      
+      if (decoded) {
+        userIdFromToken = decoded.userId || decoded.setId || decoded.user_id || decoded.id || decoded.sub || null;
+        roleFromToken = decoded.role || decoded.roles || null;
+        
+        // Normalizar role a formato esperado por backend
+        if (roleFromToken) {
+          const normalizedRole = roleFromToken.toUpperCase();
+          if (normalizedRole === 'ESTUDIANTE' || normalizedRole === 'STUDENT') {
+            roleFromToken = 'STUDENT';
+          } else if (normalizedRole === 'EMPRESA' || normalizedRole === 'EMPLOYER') {
+            roleFromToken = 'EMPLOYER';
+          }
+        }
+      }
+    }
 
     // Configuración de la petición al backend
     const fetchOptions: RequestInit & { duplex?: 'half' } = {
@@ -33,6 +75,8 @@ async function handleRequest(
       headers: {
         'Authorization': authHeader || '',
         ...(xUserId ? { 'X-User-Id': xUserId } : {}),
+        ...(userIdFromToken ? { 'X-User-Id': userIdFromToken } : {}),
+        ...(roleFromToken ? { 'X-User-Role': roleFromToken } : {}),
       },
 
       cache: 'no-store',
