@@ -41,7 +41,7 @@ export const getStudents = async (
         const studentsList = responseData.data || responseData.content || (Array.isArray(responseData) ? responseData : []);
 
         const normalizeStudent = (s: any): StudentProfile => ({
-          id: s.id || s.studentId || s.studentId || "",
+          id: s.studentProfileId || s.id || s.studentId || "",
           userId: s.userId || s.user_id || s.id || "",
           name: s.name || s.fullName || s.studentName || "Sin nombre",
           email: s.email || "",

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-const BACKEND_URL = `${process.env.NEXT_PUBLIC_API_URL}/payments/create-session`;
+const BACKEND_URL = `${(process.env.NEXT_PUBLIC_API_URL || "").replace(/\/+$/, "")}/payments/create-session`;
 
 export async function POST(request: Request) {
   try {

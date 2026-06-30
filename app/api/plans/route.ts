@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-const BACKEND_PLANS_URL = `${process.env.NEXT_PUBLIC_API_URL}/plans`;
+const BACKEND_PLANS_URL = `${(process.env.NEXT_PUBLIC_API_URL || "").replace(/\/+$/, "")}/plans`;
 
 /**
  * GET /api/plans?role=STUDENT|EMPLOYER

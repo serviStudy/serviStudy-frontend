@@ -13,9 +13,11 @@ import { AboutMeCard } from '@/features/restricted/estudiante/perfil/components/
 import { SkillsCard } from '@/features/restricted/estudiante/perfil/components/SkillsCard'
 import { RecentApplicationsCard } from '@/features/restricted/estudiante/perfil/components/RecentApplicationsCard'
 import { MobileProfileView } from '@/features/restricted/estudiante/perfil/components/MobileProfileView'
+import { ProfileInteractions } from '@/features/restricted/interactions/components/ProfileInteractions'
 
 // External Services & Hooks
 import { getApplications } from '@/features/restricted/estudiante/misPostulaciones/services/applicationService'
+import { getReceivedLikes } from '@/features/restricted/interactions/services/interactionService'
 import { useSubscriptionStatus } from '@/features/suscripcion/hooks/useSubscriptionStatus'
 
 const containerVariants: Variants = {
@@ -43,6 +45,7 @@ export const ProfileClient = ({ subscriptionStatus }: ProfileClientProps) => {
     const [isDaysModalOpen, setIsDaysModalOpen] = useState(false);
     const [postulaciones, setPostulaciones] = useState<any>([]);
     const [loadingPosts, setLoadingPosts] = useState(true);
+    const [receivedLikesCount, setReceivedLikesCount] = useState<number>(0);
 
     const plan = subStatus?.currentSubscription?.plan;
     const hasActiveSubscription = !!subStatus?.currentSubscription;
@@ -54,6 +57,15 @@ export const ProfileClient = ({ subscriptionStatus }: ProfileClientProps) => {
     const isPremium = hasActiveSubscription || subscriptionStatus === "ACTIVE";
 
     useEffect(() => {
+        // Fetch received likes count for student
+        getReceivedLikes(0, 1, "STUDENT")
+            .then(data => {
+                if (data) {
+                    setReceivedLikesCount(data.totalElements || 0);
+                }
+            })
+            .catch(err => console.error("Error fetching received likes count:", err));
+
         getApplications()
             .then(data => {
                 if (data && data.content) {
@@ -70,7 +82,7 @@ export const ProfileClient = ({ subscriptionStatus }: ProfileClientProps) => {
                     setPostulaciones(mappedApplications);
                 }
             })
-            .catch(() => {})
+            .catch(() => { })
             .finally(() => setLoadingPosts(false));
     }, []);
 
@@ -89,8 +101,8 @@ export const ProfileClient = ({ subscriptionStatus }: ProfileClientProps) => {
         FLEXIBLE: 'Flexible'
     };
 
-    const scheduleLabel = profile.workSchedule 
-        ? scheduleMap[profile.workSchedule] || profile.workSchedule 
+    const scheduleLabel = profile.workSchedule
+        ? scheduleMap[profile.workSchedule] || profile.workSchedule
         : null;
 
     // Calculate profile completion percentage
@@ -117,27 +129,27 @@ export const ProfileClient = ({ subscriptionStatus }: ProfileClientProps) => {
     };
 
     const infoCards = [
-        { 
-            label: "Correo Electrónico", 
-            value: email || "No disponible", 
-            icon: Mail, 
+        {
+            label: "Correo Electrónico",
+            value: email || "No disponible",
+            icon: Mail,
             gradient: "from-green-500 to-emerald-600",
             bgClass: isPremium ? "bg-white/70 backdrop-blur-xl border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)]" : "bg-white border border-gray-100 shadow-sm",
             isClickable: false,
             onClick: undefined
         },
-        { 
-            label: "Días Laborales", 
-            value: getDaysDisplay(), 
-            icon: Calendar, 
+        {
+            label: "Días Laborales",
+            value: getDaysDisplay(),
+            icon: Calendar,
             gradient: "from-blue-500 to-cyan-600",
             bgClass: `${isPremium ? "bg-white/70 backdrop-blur-xl border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)]" : "bg-white border border-gray-100 shadow-sm"} ${isEspecificos ? "cursor-pointer hover:shadow-md transition-all duration-300" : ""}`,
             isClickable: isEspecificos,
         },
-        { 
-            label: "Jornada", 
-            value: scheduleLabel || "No especificado", 
-            icon: Clock, 
+        {
+            label: "Jornada",
+            value: scheduleLabel || "No especificado",
+            icon: Clock,
             gradient: "from-orange-500 to-amber-600",
             bgClass: isPremium ? "bg-white/70 backdrop-blur-xl border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)]" : "bg-white border border-gray-100 shadow-sm",
             isClickable: false,
@@ -156,9 +168,9 @@ export const ProfileClient = ({ subscriptionStatus }: ProfileClientProps) => {
                     <div className="absolute top-[30%] left-[20%] w-100 h-100 bg-cyan-300/20 rounded-full mix-blend-multiply filter blur-[100px] opacity-50"></div>
                 </div>
             )}
-            
+
             {/* DESKTOP VIEW - REDESIGNED */}
-            <motion.div 
+            <motion.div
                 variants={containerVariants}
                 initial="hidden"
                 animate="show"
@@ -166,12 +178,13 @@ export const ProfileClient = ({ subscriptionStatus }: ProfileClientProps) => {
             >
                 <div className="w-full flex flex-col gap-8">
                     {/* Unified Header Card */}
-                    <AvatarCard 
-                        variants={itemVariants} 
-                        profile={profile} 
-                        email={email || ''} 
-                        inicial={inicial || ''} 
+                    <AvatarCard
+                        variants={itemVariants}
+                        profile={profile}
+                        email={email || ''}
+                        inicial={inicial || ''}
                         isPremium={isPremium}
+                        receivedLikesCount={receivedLikesCount}
                     />
 
                     <div className="flex flex-col xl:flex-row gap-8">
@@ -180,8 +193,8 @@ export const ProfileClient = ({ subscriptionStatus }: ProfileClientProps) => {
                             {/* Contact & Availability Details Cards Grid */}
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                                 {infoCards.map((item) => (
-                                    <div 
-                                        key={item.label} 
+                                    <div
+                                        key={item.label}
                                         onClick={item.onClick}
                                         className={`group relative p-5 sm:p-6 rounded-2xl overflow-hidden transition-all duration-300 ${item.bgClass}`}
                                     >
@@ -189,11 +202,10 @@ export const ProfileClient = ({ subscriptionStatus }: ProfileClientProps) => {
                                         {isPremium && (
                                             <div className={`absolute -top-6 -right-6 w-24 h-24 bg-gradient-to-br ${item.gradient} opacity-0 group-hover:opacity-15 blur-2xl rounded-full transition-opacity duration-500`} />
                                         )}
-                                        <div className={`relative z-10 w-11 h-11 rounded-xl flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-110 ${
-                                            isPremium
-                                                ? `bg-gradient-to-br ${item.gradient} text-white shadow-lg shadow-blue-500/10`
-                                                : 'text-violet-600 bg-violet-50'
-                                        }`}>
+                                        <div className={`relative z-10 w-11 h-11 rounded-xl flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-110 ${isPremium
+                                            ? `bg-gradient-to-br ${item.gradient} text-white shadow-lg shadow-blue-500/10`
+                                            : 'text-violet-600 bg-violet-50'
+                                            }`}>
                                             <item.icon size={20} />
                                         </div>
                                         <p className="text-[10px] sm:text-xs font-semibold uppercase tracking-widest mb-1.5 text-gray-400">{item.label}</p>
@@ -205,10 +217,10 @@ export const ProfileClient = ({ subscriptionStatus }: ProfileClientProps) => {
                             <AboutMeCard variants={itemVariants} description={profile.description || null} isPremium={isPremium} />
                             <SkillsCard variants={itemVariants} skills={profile.studentSkills || []} isPremium={isPremium} />
                             <div className='pt-4 flex flex-wrap'>
-                                <RecentApplicationsCard 
+                                <RecentApplicationsCard
                                     variants={itemVariants}
-                                    loading={loadingPosts} 
-                                    applications={postulaciones}                            
+                                    loading={loadingPosts}
+                                    applications={postulaciones}
                                 />
                             </div>
                         </div>
@@ -255,7 +267,7 @@ export const ProfileClient = ({ subscriptionStatus }: ProfileClientProps) => {
                                         ))}
                                     </div>
                                     <div className="px-5 pb-5">
-                                        <Link 
+                                        <Link
                                             href="/estudiante/suscripcion"
                                             className="w-full relative overflow-hidden group flex items-center justify-center gap-1.5 px-5 py-3.5 rounded-xl font-bold text-sm transition-all duration-300 bg-blue-500 hover:bg-linear-to-r hover:from-violet-700 hover:via-blue-600 hover:to-sky-400 text-white shadow-md active:scale-95"
                                         >
@@ -286,18 +298,17 @@ export const ProfileClient = ({ subscriptionStatus }: ProfileClientProps) => {
                             )}
 
                             {/* Profile Completion & Status Card */}
-                            <div className={`rounded-xl p-6 shadow-sm border ${
-                                isPremium
-                                    ? 'bg-white/70 backdrop-blur-xl border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)]'
-                                    : 'bg-white border-gray-100'
-                            }`}>
+                            <div className={`rounded-xl p-6 shadow-sm border ${isPremium
+                                ? 'bg-white/70 backdrop-blur-xl border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)]'
+                                : 'bg-white border-gray-100'
+                                }`}>
                                 <h3 className="text-lg font-semibold text-gray-800 mb-6">Estado del Perfil</h3>
                                 <div className="flex flex-col gap-4">
                                     <div className="flex items-center gap-3">
                                         <div className={`w-2 h-2 rounded-full animate-pulse bg-violet-500 shadow-[0_0_8px_rgba(59,130,246,0.5)]`}></div>
                                         <span className="text-sm font-semibold text-gray-600">Perfil Visible</span>
                                     </div>
-                                    
+
 
                                     {isPremium && (
                                         <div className="flex items-center gap-3">
@@ -312,13 +323,12 @@ export const ProfileClient = ({ subscriptionStatus }: ProfileClientProps) => {
                                             <span className="text-xs font-bold text-slate-700">{profileCompletion}%</span>
                                         </div>
                                         <div className="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                                            <div 
+                                            <div
                                                 style={{ width: `${profileCompletion}%` }}
-                                                className={`h-full rounded-full transition-all duration-500 ${
-                                                    isPremium
-                                                        ? 'bg-linear-to-r from-violet-700 via-blue-600 to-sky-400'
-                                                        : 'bg-violet-700'
-                                                }`}
+                                                className={`h-full rounded-full transition-all duration-500 ${isPremium
+                                                    ? 'bg-linear-to-r from-violet-700 via-blue-600 to-sky-400'
+                                                    : 'bg-violet-700'
+                                                    }`}
                                             ></div>
                                         </div>
                                     </div>
@@ -326,17 +336,22 @@ export const ProfileClient = ({ subscriptionStatus }: ProfileClientProps) => {
                             </div>
                         </div>
                     </div>
+
+                    {/* Interactions Section - Desktop */}
+                    <motion.div variants={itemVariants} className="w-full">
+                        <ProfileInteractions isPremium={isPremium} />
+                    </motion.div>
                 </div>
             </motion.div>
 
             {/* MOBILE VIEW - REDESIGNED */}
-            <motion.div 
+            <motion.div
                 variants={containerVariants}
                 initial="hidden"
                 animate="show"
                 className="block md:hidden mt-4"
             >
-                <MobileProfileView 
+                <MobileProfileView
                     profile={profile}
                     email={email || ''}
                     inicial={inicial || ''}
@@ -355,7 +370,12 @@ export const ProfileClient = ({ subscriptionStatus }: ProfileClientProps) => {
                     daysLeft={daysLeft}
                     hasActiveSubscription={hasActiveSubscription}
                     profileCompletion={profileCompletion}
+                    receivedLikesCount={receivedLikesCount}
                 />
+                {/* Interactions Section - Mobile */}
+                <motion.div variants={itemVariants} className="w-[92vw]">
+                    <ProfileInteractions isPremium={isPremium} />
+                </motion.div>
             </motion.div>
         </div>
     )
