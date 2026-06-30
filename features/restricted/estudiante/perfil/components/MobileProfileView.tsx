@@ -21,6 +21,7 @@ interface Props {
     onOpenDaysModal: () => void;
     variants: any;
     isPremium?: boolean;
+    receivedLikesCount?: number;
     subLoading?: boolean;
     planName?: string;
     daysLeft?: number;
@@ -42,6 +43,7 @@ export const MobileProfileView = ({
     onOpenDaysModal,
     variants,
     isPremium,
+    receivedLikesCount,
     subLoading,
     planName,
     daysLeft = 0,

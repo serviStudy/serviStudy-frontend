@@ -77,7 +77,7 @@ export function useEpaycoCheckout() {
       country: "co",
       lang: "es",
       external: "false", // Forzar a false siempre para OnPage
-      confirmation: `${process.env.NEXT_PUBLIC_API_URL}/payments/confirm`, // URL directa al backend
+      confirmation: `${(process.env.NEXT_PUBLIC_API_URL || "").replace(/\/+$/, "")}/payments/confirm`, // URL directa al backend
       response: `${window.location.origin}/pago/respuesta`, // URL de respuesta usuario frontend
     };
 

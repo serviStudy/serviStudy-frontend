@@ -12,6 +12,7 @@ import { WelcomeBanner } from './WelcomeBanner';
 import { DashboardStats } from './DashboardStats';
 import { RecentActivity } from './RecentActivity';
 import { PremiumPlanCard } from './PremiumPlanCard';
+import { ProfileInteractions } from '@/features/restricted/interactions/components/ProfileInteractions';
 
 interface DashboardClientProps {
   userName: string;
@@ -117,6 +118,11 @@ export const DashboardClient = ({ userName }: DashboardClientProps) => {
             planName={plan?.name}
             daysLeft={daysLeft}
           />
+        </div>
+
+        {/* ── Interactions Section ── */}
+        <div className="w-full mt-4">
+          <ProfileInteractions />
         </div>
       </motion.div>
     </div>
