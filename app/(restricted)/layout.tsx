@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import { decodeJwt, JWTPayload } from "jose";
 import { EmployerDashboardSidebar } from "@/components/shared/EmployerDashboardSidebar";
 import { StudentSidebar } from "@/components/shared/StudentSidebar";
+import { TourWrapper } from "@/components/shared/TourWrapper";
 
 interface TokenPayload extends JWTPayload {
   role: "EMPLOYER" | "STUDENT";
@@ -19,14 +20,11 @@ export default async function RestrictedLayout({
 
   let user: TokenPayload | null = null;
 
-
   if (token) {
     try {
       user = decodeJwt(token) as TokenPayload;
-    } catch (e) {
-    }
+    } catch (e) {}
   }
-
 
   const safeUser: TokenPayload = user || {
     role: "STUDENT",
@@ -35,6 +33,7 @@ export default async function RestrictedLayout({
 
   const isEmployer = safeUser.role === "EMPLOYER";
   const isStudent = safeUser.role === "STUDENT";
+  const isPremium = safeUser.subscriptionStatus === "ACTIVE";
 
   return (
     <div className="min-h-screen flex relative bg-blue-50 selection:bg-blue-100 selection:text-blue-900 overflow-x-clip">
@@ -43,6 +42,9 @@ export default async function RestrictedLayout({
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-white to-transparent" />
         <div className="absolute top-[-10%] left-[-10%] w-[70%] h-[70%] rounded-full bg-blue-100/10 blur-[120px]" />
       </div>
+
+      {/* Tour de Bienvenida de Turnito */}
+      <TourWrapper role={safeUser.role} isPremium={isPremium} />
 
       {/* Navegación Lateral (Sidebar) por Rol */}
       <div className="relative z-50">
