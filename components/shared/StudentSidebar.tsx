@@ -2,16 +2,17 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { 
-    LayoutDashboard, 
-    User, 
-    Briefcase, 
-    Users, 
+import {
+    LayoutDashboard,
+    User,
+    Briefcase,
+    Users,
     LogOut,
     HelpCircle,
     Menu,
     X,
-    CreditCard
+    CreditCard,
+    Sparkles
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -23,6 +24,7 @@ const allSidebarItems = [
     { name: 'Mis Postulaciones', icon: LayoutDashboard, href: '/estudiante/misPostulaciones' },
     { name: 'Suscripción', icon: CreditCard, href: '/estudiante/suscripcion' },
     { name: 'Perfil estudiante', icon: User, href: '/estudiante/perfil' },
+    { name: 'Agente IA', icon: Sparkles, href: '/estudiante/agente' },
 ];
 
 interface StudentSidebarProps {
@@ -34,7 +36,7 @@ export const StudentSidebar = ({ subscriptionStatus }: StudentSidebarProps) => {
     const pathname = usePathname();
 
     const toggleSidebar = () => setIsOpen(!isOpen);
-    
+
     const handleLogout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("user_email");
@@ -44,9 +46,8 @@ export const StudentSidebar = ({ subscriptionStatus }: StudentSidebarProps) => {
     };
 
     const sidebarItems = allSidebarItems.filter(item => {
-        if (item.name === 'Dashboard' && subscriptionStatus !== 'ACTIVE') {
-            return false;
-        }
+        // Dashboard solo para premium; Agente IA siempre visible (onboarding gratis)
+        if (item.name === 'Dashboard' && subscriptionStatus !== 'ACTIVE') return false;
         return true;
     });
 
