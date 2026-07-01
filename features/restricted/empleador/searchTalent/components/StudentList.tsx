@@ -63,7 +63,7 @@ export const StudentList = ({ searchQuery = "", manualResults }: Props) => {
           <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center text-green-600 border border-green-100">
             <Users size={20} />
           </div>
-          <h2 className="text-xl font-semibold text-gray-900">Estudiantes Disponibles</h2>
+          <h2 className="text-[16px] font-bold text-green-900 tracking-tight w-[20vw]">Estudiantes Disponibles</h2>
         </div>
         <span className="bg-green-50 text-green-600 px-3 py-1.5 rounded-lg font-bold text-xs border border-green-100">
           {data.totalElements} estudiantes

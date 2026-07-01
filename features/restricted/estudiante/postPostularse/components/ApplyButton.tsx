@@ -5,6 +5,7 @@ import { createApplication } from '../service/postulacionService';
 import { getApplications, deleteApplication } from '@/features/restricted/estudiante/misPostulaciones/services/applicationService';
 import { toast } from 'sonner';
 import { Send, CheckCircle2, Loader2, X } from 'lucide-react';
+import { DeleteConfirmModal } from './DeleteConfirmModal';
 
 interface Props {
     offerId: string;
@@ -46,19 +47,6 @@ export const ApplyButton = ({ offerId }: Props) => {
         }
     };
 
-    const handleWithdraw = async () => {
-        setSubmitting(true);
-        try {
-            await deleteApplication(offerId);
-            setHasApplied(false);
-            toast.success("Postulación retirada correctamente.");
-        } catch (error: any) {
-            toast.error(error?.message || "Error al retirar la postulación.");
-        } finally {
-            setSubmitting(false);
-        }
-    };
-
     // Estado de carga inicial
     if (loading) {
         return (
@@ -77,18 +65,7 @@ export const ApplyButton = ({ offerId }: Props) => {
                     <CheckCircle2 size={20} />
                     Ya estás postulado a esta oferta
                 </div>
-                <button
-                    onClick={handleWithdraw}
-                    disabled={submitting}
-                    className="w-full flex items-center justify-center gap-2 text-sm text-red-500 hover:text-red-700 bg-red-50 hover:bg-red-100 border border-red-200 font-semibold py-2.5 px-6 rounded-xl transition-all cursor-pointer disabled:opacity-60"
-                >
-                    {submitting ? (
-                        <Loader2 size={16} className="animate-spin" />
-                    ) : (
-                        <X size={16} />
-                    )}
-                    Retirar postulación
-                </button>
+                <DeleteConfirmModal offerId={offerId} onWithDrawSuccess={() => setHasApplied(false)}/>
             </div>
         );
     }

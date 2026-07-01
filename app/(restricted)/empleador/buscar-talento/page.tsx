@@ -80,11 +80,11 @@ export default function BuscarTalentoPage() {
   };
 
   return (
-    <div className="flex flex-col gap-8 pb-10">
+    <div className="flex flex-col gap-8 pb-16 pt-4">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-black text-slate-900 tracking-tight">Buscar Talento</h1>
+          <h1 className="text-2xl font-black text-slate-700 tracking-tight">Buscar Talento</h1>
           <p className="text-slate-500 font-bold mt-1 text-sm">
             Encuentra a los mejores estudiantes para tu empresa.
           </p>
@@ -114,7 +114,7 @@ export default function BuscarTalentoPage() {
               className={cn(
                 "flex-1 sm:flex-none px-4 py-1.5 rounded-full text-xs font-bold flex items-center justify-center gap-1.5 transition-all duration-300 relative z-10",
                 isAiMode 
-                  ? "bg-gradient-to-r from-green-500 to-blue-500 text-white shadow-[0_4px_12px_rgba(16,185,129,0.3)] scale-[1.02]" 
+                  ? "bg-linear-to-r from-blue-400 via-lime-500 to-green-600 text-white shadow-[0_4px_12px_rgba(16,185,129,0.3)] scale-[1.02]" 
                   : "text-slate-500 hover:text-slate-700 hover:bg-slate-200/50"
               )}
             >

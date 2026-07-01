@@ -3,210 +3,163 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, Variants } from "framer-motion";
-import {
-    Mail, Phone, CheckCircle2, User, Zap, Calendar, ArrowLeft, ThumbsUp, Loader2
-} from "lucide-react";
-import { ApplicantStudent } from "@/features/restricted/empleador/applicantsEmployer/types/applicants.types";
-import { giveLike, removeLike, checkIfLiked } from "@/features/restricted/interactions/services/interactionService";
+import { Loader2, ArrowLeft } from "lucide-react";
 
-const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    show: { opacity: 1, transition: { staggerChildren: 0.08 } },
-};
-const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
-};
+import { ApplicantStudent } from "@/features/restricted/empleador/applicantsEmployer/types/applicants.types";
+import { checkIfLiked } from "@/features/restricted/interactions/services/interactionService";
+
+import { ProfileBanner } from "@/features/restricted/empleador/applicantsEmployer/components/studentProfile/ProfileBanner";
+import { StudentHeaderCard } from "@/features/restricted/empleador/applicantsEmployer/components/studentProfile/StudentHeaderCard";
+import { AboutMeCard } from "@/features/restricted/empleador/applicantsEmployer/components/studentProfile/AboutMeCard";
+import { SkillsCard } from "@/features/restricted/empleador/applicantsEmployer/components/studentProfile/SkillsCard";
+import { AvailabilityCard } from "@/features/restricted/empleador/applicantsEmployer/components/studentProfile/AvailabilityCard";
 
 interface StoredData {
-    student: ApplicantStudent;
-    applicationDate: string;
+  student: ApplicantStudent;
+  applicationDate: string;
 }
 
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 15 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.4,
+      ease: "easeOut",
+    },
+  },
+};
+
 export default function StudentProfilePage() {
-    const router = useRouter();
-    const [data, setData] = useState<StoredData | null>(null);
-    const [liked, setLiked] = useState(false);
-    const [likeLoading, setLikeLoading] = useState(false);
+  const router = useRouter();
 
-    useEffect(() => {
-        const raw = sessionStorage.getItem("employer_student_view");
-        if (!raw) { router.replace("/empleador/ofertas"); return; }
-        try { setData(JSON.parse(raw)); } catch { router.replace("/empleador/ofertas"); }
-    }, [router]);
+  const [data, setData] = useState<StoredData | null>(null);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        if (!data) return;
-        const checkStatus = async () => {
-            const profileId = (data.student as any).id || (data.student as any).userId || (data.student as any).studentProfileId;
-            if (profileId) {
-                const isLiked = await checkIfLiked(profileId, "EMPLOYER");
-                setLiked(isLiked);
-            }
-        };
-        checkStatus();
-    }, [data]);
+  // Estados para los likes (por si luego los usas en StudentHeaderCard)
+  const [liked, setLiked] = useState(false);
 
-    if (!data) return null;
+  useEffect(() => {
+    const stored = sessionStorage.getItem("employer_student_view");
 
-    const { student, applicationDate } = data;
-    const inicial = student.name?.charAt(0)?.toUpperCase() || "?";
-    
+    if (stored) {
+      try {
+        setData(JSON.parse(stored));
+      } catch (e) {
+        console.error("Error parsing employer_student_view:", e);
+        router.replace("/empleador/ofertas");
+      }
+    } else {
+      router.replace("/empleador/ofertas");
+    }
 
+    setLoading(false);
+  }, [router]);
+
+  useEffect(() => {
+    if (!data) return;
+
+    const checkStatus = async () => {
+      try {
+        const profileId =
+          (data.student as any).id ||
+          (data.student as any).userId ||
+          (data.student as any).studentProfileId;
+
+        if (profileId) {
+          const isLiked = await checkIfLiked(profileId, "EMPLOYER");
+          setLiked(isLiked);
+        }
+      } catch (error) {
+        console.error("Error checking like status:", error);
+      }
+    };
+
+    checkStatus();
+  }, [data]);
+
+  if (loading) {
     return (
-        <div className="flex flex-col min-h-screen w-full pb-16">
-
-            {/* Back button */}
-            <div className="pt-6 px-4 max-w-6xl mx-auto w-full">
-                <button
-                    onClick={() => router.back()}
-                    className="flex items-center gap-2 text-[#1a4b9e] font-bold hover:bg-blue-50 px-4 py-2 rounded-xl transition-all"
-                >
-                    <ArrowLeft size={20} />
-                    Volver a postulantes
-                </button>
-            </div>
-
-            <motion.div
-                variants={containerVariants}
-                initial="hidden"
-                animate="show"
-                className="w-full flex flex-col items-center mt-4"
-            >
-                {/* Cover Banner */}
-                <motion.div
-                    variants={itemVariants}
-                    className="w-full max-w-6xl mx-auto h-40 md:h-52 rounded-3xl bg-linear-to-br from-[#1e3a8a] via-[#1d4ed8] to-[#3b82f6] relative overflow-hidden shadow-lg"
-                >
-                    <div className="absolute inset-0 opacity-20 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMSIvPgo8L3N2Zz4=')]" />
-                </motion.div>
-
-                {/* Two-Column Layout */}
-                <div className="w-full max-w-6xl mx-auto px-4 md:px-8 flex flex-col md:flex-row gap-8 -mt-20 relative z-10">
-
-                    {/* Left Column */}
-                    <div className="w-full md:w-85 flex flex-col gap-6 shrink-0">
-
-                        {/* Avatar & Basic Info */}
-                        <motion.div variants={itemVariants} className="bg-white rounded-3xl p-6 shadow-xl border border-gray-100 flex flex-col items-center text-center">
-                            <div className="h-32 w-32 -mt-16 overflow-hidden rounded-full bg-[#2552d0] border-4 border-white flex items-center justify-center text-white text-[56px] font-bold shadow-lg ring-4 ring-blue-50">
-                                {student.imgUrl ? (
-                                    <img src={student.imgUrl} alt="Perfil" className="h-full w-full object-cover" />
-                                ) : (
-                                    inicial
-                                )}
-                            </div>
-
-                            <h1 className="text-2xl font-extrabold text-gray-900 mt-5">
-                                {student.name || <span className="text-gray-400 italic font-medium text-lg">Sin nombre</span>}
-                            </h1>
-                            <h2 className="text-blue-600 font-semibold mt-1">Estudiante</h2>
-
-                            {/* Like Button */}
-                            <motion.button
-                                whileTap={{ scale: 0.9 }}
-                                onClick={async () => {
-                                    if (likeLoading) return;
-                                    setLikeLoading(true);
-                                    try {
-                                        const profileId = (student as any).id || (student as any).userId || (student as any).studentProfileId;
-                                        if (liked) {
-                                            await removeLike(profileId);
-                                            setLiked(false);
-                                        } else {
-                                            await giveLike(profileId);
-                                            setLiked(true);
-                                        }
-                                    } catch (err) {
-                                        console.error("Error toggling like:", err);
-                                    } finally {
-                                        setLikeLoading(false);
-                                    }
-                                }}
-                                disabled={likeLoading}
-                                className={`mt-4 w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-bold transition-all duration-200 cursor-pointer shadow-sm ${
-                                    liked
-                                        ? "bg-green-600 text-white hover:bg-green-700"
-                                        : "bg-green-50 text-green-600 hover:bg-green-100 border border-green-200"
-                                } disabled:opacity-50`}
-                                title={liked ? "Quitar Like" : "Dar Like"}
-                            >
-                                {likeLoading ? (
-                                    <Loader2 size={16} className="animate-spin" />
-                                ) : (
-                                    <ThumbsUp size={16} className={liked ? "fill-white" : ""} />
-                                )}
-                                {liked ? "Like dado" : "Dar Like"}
-                            </motion.button>
-
-                            <hr className="w-full border-gray-100 my-6" />
-
-                            {/* Contacto */}
-                            <div className="flex flex-col gap-4 w-full text-left text-sm text-gray-600 font-medium">
-                                <div className="flex items-center gap-3">
-                                    <div className="bg-blue-50 p-2 rounded-lg text-blue-600"><Mail className="h-4 w-4" /></div>
-                                    <span className="truncate">{student.email || "—"}</span>
-                                </div>
-                                {student.contactNumber && (
-                                    <div className="flex items-center gap-3">
-                                        <div className="bg-blue-50 p-2 rounded-lg text-blue-600"><Phone className="h-4 w-4" /></div>
-                                        <span>{student.contactNumber}</span>
-                                    </div>
-                                )}
-                            </div>
-
-                        </motion.div>
-                    </div>
-
-                    {/* Right Column */}
-                    <div className="w-full flex-1 flex flex-col gap-6 pt-4 md:pt-0">
-
-                        {/* Sobre mí */}
-                        <motion.div variants={itemVariants} className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
-                            <div className="flex items-center gap-3 mb-6">
-                                <div className="bg-blue-600 p-2.5 rounded-xl shadow-md shadow-blue-600/20 text-white">
-                                    <User className="h-5 w-5" strokeWidth={2.5} />
-                                </div>
-                                <h3 className="text-2xl font-bold text-gray-900">Sobre mí</h3>
-                            </div>
-                            {student.description ? (
-                                <p className="text-[15px] leading-relaxed text-gray-600 font-medium">
-                                    {student.description}
-                                </p>
-                            ) : (
-                                <div className="bg-gray-50 rounded-2xl p-6 border border-dashed border-gray-200 text-center">
-                                    <p className="text-sm text-gray-400 italic">El estudiante no ha añadido una descripción.</p>
-                                </div>
-                            )}
-                        </motion.div>
-
-                        {/* Habilidades */}
-                        <motion.div variants={itemVariants} className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
-                            <div className="flex items-center gap-3 mb-6">
-                                <div className="bg-blue-600 p-2.5 rounded-xl shadow-md shadow-blue-600/20 text-white">
-                                    <Zap className="h-5 w-5" strokeWidth={2.5} />
-                                </div>
-                                <h3 className="text-2xl font-bold text-gray-900">Cualidades destacadas</h3>
-                            </div>
-                            {student.studentSkills && student.studentSkills.length > 0 ? (
-                                <div className="flex flex-wrap gap-3">
-                                    {student.studentSkills.map((s) => (
-                                        <div key={s.id} className="bg-blue-50 text-blue-700 px-4 py-2 rounded-xl text-sm font-bold border border-blue-100 shadow-sm flex items-center gap-2">
-                                            <div className="h-1.5 w-1.5 rounded-full bg-blue-500" />
-                                            {s.skillName}
-                                        </div>
-                                    ))}
-                                </div>
-                            ) : (
-                                <div className="bg-gray-50 rounded-2xl p-6 border border-dashed border-gray-200 text-center">
-                                    <p className="text-sm text-gray-400 italic">El estudiante no ha añadido habilidades.</p>
-                                </div>
-                            )}
-                        </motion.div>
-
-                    </div>
-                </div>
-            </motion.div>
-        </div>
+      <div className="flex flex-col items-center justify-center min-h-screen w-full bg-gray-50/50">
+        <Loader2 className="animate-spin h-10 w-10 text-green-600 mb-2" />
+        <span className="text-sm font-semibold text-gray-500">
+          Cargando perfil...
+        </span>
+      </div>
     );
+  }
+
+  if (!data) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen w-full bg-gray-50/50 gap-4">
+        <p className="text-gray-500 font-bold text-lg">
+          No se encontró información del perfil.
+        </p>
+
+        <button
+          onClick={() => router.back()}
+          className="flex items-center gap-2 text-white bg-green-600 hover:bg-green-700 font-bold px-6 py-3 rounded-2xl shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer active:scale-95"
+        >
+          <ArrowLeft size={18} />
+          Volver
+        </button>
+      </div>
+    );
+  }
+
+  const { student, applicationDate } = data;
+
+  return (
+    <div className="flex flex-col min-h-screen w-full bg-gray-50/20 pb-20">
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="show"
+        className="w-full flex flex-col items-center"
+      >
+        {/* Banner */}
+        <ProfileBanner />
+
+        {/* Layout principal */}
+        <div className="w-full max-w-6xl mx-auto px-4 flex flex-col md:flex-row gap-6 md:gap-8 -mt-12 md:-mt-16 relative z-10">
+          {/* Columna izquierda */}
+          <div className="w-full md:w-80 shrink-0">
+            <StudentHeaderCard
+              student={student}
+              applicationDate={applicationDate}
+            />
+          </div>
+
+          {/* Columna derecha */}
+          <div className="w-full flex-1 flex flex-col gap-6 md:gap-8">
+            <motion.div variants={itemVariants}>
+              <AboutMeCard description={student.description} />
+            </motion.div>
+
+            <motion.div variants={itemVariants}>
+              <SkillsCard skills={student.studentSkills} />
+            </motion.div>
+
+            <motion.div variants={itemVariants}>
+              <AvailabilityCard
+                workSchedule={student.workSchedule}
+                workDays={student.workDays}
+              />
+            </motion.div>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
 }

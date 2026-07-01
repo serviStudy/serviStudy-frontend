@@ -26,7 +26,7 @@ export function AIFeatures() {
         transition={{ duration: 0.7 }}
         className="container mx-auto max-w-6xl"
       >
-        <div className={`relative overflow-hidden rounded-[40px] p-6 lg:p-8 md:p-12 shadow-2xl transition-all duration-1000 bg-linear-to-br ${
+        <div className={`relative overflow-hidden rounded-xl p-6 lg:p-8 md:p-12 shadow-2xl transition-all duration-1000 bg-linear-to-br ${
           isEstudiante 
             ? "from-blue-600 to-indigo-800" 
             : "from-green-600 to-emerald-800"
@@ -35,12 +35,10 @@ export function AIFeatures() {
           <div className="absolute top-0 right-0 -mt-20 -mr-20 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-center">
-            {/* Columna Izquierda: Texto e Info */}
+            {/* Columna Izquierda: Texto e Info */} 
             <div className="lg:space-y-8 space-y-5 z-10">
               <div className="flex items-center gap-3">
-                <div className={`flex h-10 w-10 items-center justify-center rounded-lg text-blue-900 shadow-lg transition-colors duration-1000 ${
-                  isEstudiante ? "bg-yellow-400" : "bg-emerald-300"
-                }`}>
+                <div className={`flex h-10 w-10 items-center justify-center rounded-xl text-blue-900 shadow-lg transition-colors duration-100 p-2 bg-emerald-300`}>
                   <Sparkles className="h-6 w-6" />
                 </div>
                 <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight text-white italic">
@@ -75,7 +73,7 @@ export function AIFeatures() {
 
             {/* Columna Derecha: Tarjeta de IA (Glassmorphism) */}
             <div className="relative z-10 flex justify-center lg:justify-end">
-              <div className="w-full max-w-md rounded-3xl border border-white/20 bg-white/10 p-4 md:p-6 backdrop-blur-md shadow-2xl">
+              <div className="w-full max-w-md rounded-xl border border-white/20 bg-white/10 p-4 md:p-6 backdrop-blur-md shadow-2xl">
                 <div className="flex items-center gap-4 mb-6">
                   <div className={`flex h-14 w-14 items-center justify-center rounded-full font-black text-xl shadow-inner transition-colors duration-1000 ${
                     isEstudiante ? "bg-yellow-400 text-yellow-900" : "bg-emerald-300 text-emerald-950"

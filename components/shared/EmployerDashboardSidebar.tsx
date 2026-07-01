@@ -131,14 +131,7 @@ export const EmployerDashboardSidebar = () => {
 
         {/* Bottom Actions */}
         <div className="p-4 border-t border-gray-50 flex flex-col gap-2">
-          <Link
-            href="/soporte"
-            onClick={closeMobile}
-            className="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-500 hover:text-gray-900 hover:bg-gray-50 transition-all"
-          >
-            <HelpCircle size={20} />
-            <span className="font-bold text-[14px]">Ayuda</span>
-          </Link>
+          
           <button
             className="flex items-center gap-3 px-4 py-3 rounded-xl text-red-500 hover:text-red-600 hover:bg-red-50 transition-all"
             onClick={handleLogout}

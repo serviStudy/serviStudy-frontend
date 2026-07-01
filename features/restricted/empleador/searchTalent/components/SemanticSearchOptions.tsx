@@ -28,15 +28,15 @@ export const SemanticSearchOptions = ({
   loading
 }: Props) => {
   return (
-    <div className="relative w-full rounded-2xl bg-white/70 backdrop-blur-xl border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.06)] overflow-hidden">
+    <div className="relative w-full rounded-2xl bg-white/70 backdrop-blur-xl shadow-[0_8px_30px_rgb(0,0,0,0.06)] overflow-hidden">
       {/* Soft Blurred Background Elements */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden -z-10">
-        <div className="absolute -top-[30%] -right-[10%] w-[60%] h-[60%] bg-blue-300/30 blur-[80px] rounded-full" />
-        <div className="absolute -bottom-[30%] -left-[10%] w-[60%] h-[60%] bg-green-300/30 blur-[80px] rounded-full" />
+        <div className="absolute -top-[30%] -right-[10%] w-[60%] h-[60%] bg-green-300/55 blur-[80px] rounded-full" />
+        <div className="absolute -bottom-[30%] -left-[10%] w-[60%] h-[60%] bg-lime-300/35 blur-[80px] rounded-full" />
       </div>
 
       {/* Colorful Header */}
-      <div className="bg-linear-to-r from-green-500 to-blue-600 p-5 text-white relative overflow-hidden">
+      <div className="bg-linear-to-r from-blue-400 via-lime-500 to-green-600 p-5 text-white relative overflow-hidden">
         {/* Glows inside header */}
         <div className="absolute top-0 right-0 w-32 h-32 bg-white/20 blur-2xl rounded-full -translate-y-1/2 translate-x-1/2" />
         <div className="absolute bottom-0 left-0 w-24 h-24 bg-green-300/30 blur-xl rounded-full translate-y-1/2 -translate-x-1/4" />
@@ -46,10 +46,10 @@ export const SemanticSearchOptions = ({
             <Sparkles className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h2 className="text-lg font-bold tracking-tight text-white shadow-sm leading-tight">
+            <h2 className="text-lg font-bold tracking-tight text-white leading-tight">
               Búsqueda Semántica con IA
             </h2>
-            <p className="text-xs text-green-50 font-medium mt-0.5">
+            <p className="text-xs text-white font-medium mt-0.5">
               Encuentra tu talento ideal de forma inteligente
             </p>
           </div>
@@ -66,7 +66,7 @@ export const SemanticSearchOptions = ({
               className={cn(
                 "w-full flex items-center gap-3 p-2.5 sm:p-3 transition-all duration-300 text-left relative overflow-hidden",
                 searchMode === "text"
-                  ? "rounded-xl bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-[0_8px_20px_-6px_rgba(16,185,129,0.5)] border-none transform scale-[1.02]"
+                  ? "rounded-xl bg-linear-to-r from-green-500 to-emerald-500 text-white shadow-[0_8px_20px_-6px_rgba(16,185,129,0.5)] border-none transform scale-[1.02]"
                   : "rounded-xl border border-slate-200 bg-white hover:bg-slate-50 hover:border-green-300 group"
               )}
             >
@@ -94,14 +94,14 @@ export const SemanticSearchOptions = ({
               className={cn(
                 "w-full flex items-center gap-3 p-2.5 sm:p-3 transition-all duration-300 text-left relative overflow-hidden",
                 searchMode === "offer"
-                  ? "rounded-xl bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-[0_8px_20px_-6px_rgba(59,130,246,0.5)] border-none transform scale-[1.02]"
-                  : "rounded-xl border border-slate-200 bg-white hover:bg-slate-50 hover:border-blue-300 group"
+                  ? "rounded-xl bg-lime-500 text-white border-none transform scale-[1.02]"
+                  : "rounded-xl border border-slate-200 bg-white hover:bg-slate-50 hover:border-lime-300 group"
               )}
             >
               {searchMode === "offer" && <div className="absolute inset-0 bg-white/20 blur-xl rounded-full -translate-y-1/2 translate-x-1/2" />}
               <div className={cn(
                 "w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-colors relative z-10",
-                searchMode === "offer" ? "bg-white/20 text-white shadow-inner" : "bg-slate-100 text-slate-500 group-hover:bg-blue-100 group-hover:text-blue-600"
+                searchMode === "offer" ? "bg-white/20 text-white shadow-inner" : "bg-slate-100 text-slate-500 group-hover:bg-lime-100 group-hover:text-lime-600"
               )}>
                 <Briefcase size={16} />
               </div>
@@ -139,29 +139,29 @@ export const SemanticSearchOptions = ({
                       className={cn(
                         "w-full flex items-center gap-3 p-2.5 transition-all duration-300 text-left relative overflow-hidden",
                         selectedOfferId === offer.jobOfferId
-                          ? "rounded-xl bg-gradient-to-r from-blue-400 to-blue-600 text-white shadow-md border-none transform scale-[1.01]"
-                          : "rounded-xl border border-slate-200 bg-white hover:border-blue-300 hover:bg-slate-50 group"
+                          ? "rounded-xl bg-[#f9fbf4] border  border-lime-300 shadow-md transform scale-[1.0]"
+                          : "rounded-xl border border-gray-200 bg-white hover:border-gray-300 hover:bg-slate-50 group"
                       )}
                     >
                       {selectedOfferId === offer.jobOfferId && <div className="absolute inset-0 bg-white/10 blur-xl rounded-full" />}
                       <div className={cn(
                         "w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-colors relative z-10",
                         selectedOfferId === offer.jobOfferId 
-                          ? "bg-white/20 text-white shadow-inner" 
-                          : "bg-slate-100 text-slate-500 group-hover:bg-blue-100 group-hover:text-blue-600"
+                          ? "bg-lime-50 text-lime-500 shadow-inner" 
+                          : "bg-slate-100 text-slate-500 group-hover:bg-lime-100 group-hover:text-lime-600"
                       )}>
                         <Briefcase size={14} />
                       </div>
                       <div className="min-w-0 flex-1 relative z-10">
                         <span className={cn(
                           "block text-[13px] font-bold truncate",
-                          selectedOfferId === offer.jobOfferId ? "text-white" : "text-slate-700 group-hover:text-slate-900"
+                          selectedOfferId === offer.jobOfferId ? "text-lime-700 capitalize" : "text-slate-700 group-hover:text-slate-900"
                         )}>
                           {offer.title}
                         </span>
                       </div>
                       {selectedOfferId === offer.jobOfferId && (
-                        <CheckCircle2 size={16} className="text-white shrink-0 relative z-10" />
+                        <CheckCircle2 size={16} className="text-lime-500 shrink-0 relative z-10" />
                       )}
                     </button>
                   </div>
@@ -182,12 +182,12 @@ export const SemanticSearchOptions = ({
             disabled={loading || (searchMode === "offer" && !selectedOfferId) || (searchMode === "text" && !searchText.trim())}
             className={cn(
               "relative overflow-hidden group px-6 py-3 rounded-xl font-bold text-[13px] tracking-wide transition-all duration-300 border-0 h-auto",
-              "bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-400 hover:to-blue-500 text-white shadow-lg shadow-green-500/20 hover:shadow-blue-500/30 hover:-translate-y-1 hover:scale-[1.02]",
+              "bg-green-600 bg-linear-to-r hover:from-blue-400 hover:via-lime-500 hover:to-green-600 text-white shadow-lg shadow-green-500/20 hover:shadow-blue-500/30 hover:-translate-y-1 hover:scale-[1.02]",
               "disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none disabled:hover:translate-y-0 disabled:hover:scale-100"
             )}
           >
             {/* Shine effect */}
-            <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12" />
+            <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out bg-linear-to-r from-transparent via-white/20 to-transparent skew-x-12" />
             
             <div className="relative z-10 flex items-center justify-center">
               {loading ? (

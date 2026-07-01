@@ -118,14 +118,7 @@ export const StudentSidebar = ({ subscriptionStatus }: StudentSidebarProps) => {
 
                 {/* Bottom Actions */}
                 <div className="p-6 border-t border-gray-50 flex flex-col gap-2">
-                    <Link
-                        href="/soporte"
-                        onClick={() => setIsOpen(false)}
-                        className="flex items-center gap-3 px-4 py-3.5 rounded-2xl text-gray-400 hover:text-gray-900 hover:bg-gray-50 transition-all"
-                    >
-                        <HelpCircle size={22} />
-                        <span className="font-bold text-[15px]">Ayuda</span>
-                    </Link>
+                    
                     <button
                         className="flex items-center gap-3 px-4 py-3.5 rounded-2xl text-red-400 hover:text-red-600 hover:bg-red-50 transition-all"
                         onClick={handleLogout}
